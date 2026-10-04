@@ -1,0 +1,30 @@
+{
+  "registry_version": 1,
+  "provider": "verified_csv",
+  "status": "connected_read_only_artifacts",
+  "artifacts": [
+    {
+      "id": "delivery_scored_orders",
+      "path": "data/delivery/final/DataCo_Final_Scored_Orders.csv",
+      "grain": "one supplied scored row; exact duplicate source rows are retained",
+      "required_columns": ["Order Id", "Order_Date", "Actual_Late_Delivery", "Late_Delivery_Probability", "Predicted_Late_Delivery", "Correct_Prediction", "Delivery_Risk_Level"],
+      "validation": ["probability in [0,1]", "binary target and prediction", "prediction matches threshold 0.56", "correctness matches supplied labels"],
+      "inference": false
+    },
+    {
+      "id": "delivery_threshold_analysis",
+      "path": "data/delivery/final/DataCo_Threshold_Analysis.csv",
+      "grain": "one row per analysis threshold",
+      "required_columns": ["Threshold", "Accuracy", "Balanced_Accuracy", "Precision", "Recall", "F1", "MCC"]
+    },
+    {
+      "id": "demand_product_day_forecasts",
+      "path": "data/demand/final/AccessLogs_Final_Advanced_Forecast.csv",
+      "grain": "one row per forecast date and product",
+      "required_columns": ["DateOnly", "Product", "Next_Day_Visits", "Predicted_Next_Day_Visits", "Error", "Absolute_Error", "Prediction_Lower_90", "Prediction_Upper_90"],
+      "validation": ["unique date/product", "error equals actual minus forecast", "bounds are ordered"],
+      "inference": false
+    }
+  ],
+  "notes": ["Delivery and demand grains are never joined.", "Supplied forecast bounds are labeled 90%; observed coverage is reported and calibration is not assumed.", "Use data/delivery/legacy only for genuinely different historical versions."]
+}

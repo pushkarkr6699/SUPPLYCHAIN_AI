@@ -8,7 +8,7 @@ The component library includes active/hover/focus styling, risk labels in additi
 
 ## Data contract
 
-`MockAnalyticsService` implements `AnalyticsService`. Its deterministic source contains fictional operational observations with order, date, geography, product, shipping, risk and demand dimensions. The UI does not scan the project for datasets or model files.
+`MockAnalyticsService` implements `AnalyticsService`. Its deterministic source contains fictional operational observations with order, date, geography, product, shipping, risk and demand dimensions. The opt-in `VerifiedArtifactsService` reads only explicitly configured CSV files through strict read-only adapters; it does not scan for data or models.
 
 All illustrative observations, feature weights, comparison fixtures, scenario coefficients and analytical response copy are centralized in `services/mock_data.py`. Calculations are pure functions over supplied records. Health checks describe actual UI connectivity, not fabricated production metrics. Analytical pages include a Demo UI Mode notice and provenance.
 
@@ -18,8 +18,8 @@ The mock records are additive synthetic planning observations, **not a productio
 
 | Capability | Current UI behavior |
 | --- | --- |
-| Delivery | Full demo UI; XGBoost and threshold 0.56 are supplied metadata; no artifact loaded |
-| Demand | Full demo UI; synthetic actuals/forecasts and illustrative ranges |
+| Delivery | Demo remains selectable; verified mode reads pre-scored delivery rows and supplied analysis CSVs |
+| Demand | Demo remains selectable; verified mode reads precomputed product/day forecasts |
 | Profitability | Disabled placeholders; no scores, probabilities, performance or report generation |
 | Cross-risk | Disabled matrix; no combined metrics |
 | Explainability | Explicitly illustrative contribution charts; actual SHAP unavailable |
@@ -29,7 +29,7 @@ The mock records are additive synthetic planning observations, **not a productio
 
 ## Current UI limits
 
-- No production datasets, trained-model loading, inference, training, SHAP execution, stock availability, data refresh jobs or external AI calls.
+- No trained-model loading, live inference, training, SHAP execution, stock availability, data refresh jobs or external AI calls. Verified mode reads precomputed CSV outputs only.
 - Synthetic forecast ranges are illustrative, not calibrated confidence intervals. Stock attention is an explicit UI rule, not a stock-out forecast.
 - The country view uses a ranked chart and a disabled choropleth preview until a verified geography source exists.
 - Reports share an intentionally compact template; they export selected summary, chart, insight and record sections. No profitability/cross-risk PDF can be generated.
@@ -39,25 +39,21 @@ The mock records are additive synthetic planning observations, **not a productio
 - Date comparisons override the global date filter and explicitly keep other dimensions. Unequal custom periods compare raw volumes, not exposure-normalized rates.
 - Future backend packages (joblib, scikit-learn, XGBoost, SHAP) are deliberately not installed or invoked for this UI task.
 
-## Integration sequence
+## Integration status
 
-1. Create an approved artifact manifest. Check schemas, row keys, temporal coverage, preprocessing requirements and model/metric provenance read-only.
-2. Add a separate delivery adapter for scored orders and a demand adapter for product-day forecasts. Preserve availability metadata and distinguish observed outcomes from predictions.
-3. Add validated model metadata and feature/explanation adapters; replace illustrative fixture access with verified provider responses.
-4. Add parameterized DuckDB access and schema/coverage tests. Keep real-data access out of page modules.
-5. Register the real provider, replace demo provenance, and add explicit load/failure/staleness handling. Only then disable DEMO_MODE.
-6. Replace session demo access with a real auth provider before any deployment using confidential data.
-7. Keep profitability and combined risk gated until independently verified artifacts and join coverage exist.
+Read-only delivery and demand CSV adapters, provider switching, separate dataset filters, source labels, registries, and verified-page states are implemented. Supplied CSVs are under `data/delivery/final/` and `data/demand/final/`; data and model files remain ignored by Git. The UI and demo provider are preserved.
 
-No project data or trained-model artifact was loaded, modified or retrained during this implementation.
+The verified provider deliberately does not load pickle models. It uses pre-scored delivery rows and precomputed demand forecasts. Enable live inference only after validating the model artifact, feature order/types, preprocessing, package versions, decision threshold, and parity against known outputs. No profitability dataset or validated cross-grain join key is connected.
+
+The order-level training dataset and a separate `DataCo_Late_Delivery_Predictions.csv` were not present in the supplied artifacts. The available scored-order CSV is wired directly; no missing file is fabricated. Delivery final-summary accuracy (69.49%) differs from scored-row agreement (68.74%) and remains explicitly unreconciled.
 
 ## Validation record
 
-- **57 pytest / Streamlit AppTest checks passed** after the alert workflow, modular Copilot, executive report, and recoverable page-error changes. Route and interaction checks cover public and workspace rendering, navigation, filters/reset, saved views, Copilot evidence/actions, themes, preferences, report generation, exports, alert status persistence within a session, and unavailable-model gates.
+- **59 pytest / Streamlit AppTest checks passed** after the verified adapters and dataset-scoped filters were added. Route and interaction checks include public and workspace rendering, navigation, filters/reset, saved views, Copilot evidence/actions, themes, reports, exports, verified CSV schema checks, and unavailable-model gates.
 - Service checks cover deterministic fixtures, filtered totals, threshold calculations, formula-safe labeled exports, unsupported Copilot prompts, in-memory DuckDB boundaries, and fail-closed behavior without a live provider.
 - Python compile checks passed for `app.py`, `components/`, `services/`, `views/`, and `tests/`.
 - The in-app browser was unavailable in this execution environment, so no connected-browser visual inspection or responsive/dark-mode sign-off is claimed. The optional local screenshot script still requires a browser-enabled environment.
 - The app’s local HTTP health endpoint returned HTTP 200 / `ok`. PDF generation and download behavior are covered by automated tests; those tests do not constitute visual report review.
 
-These checks validate the UI and demo contracts; they do not validate trained models, real operational data or production authentication.
+Demo tests validate the existing UI contracts. Read-only smoke checks also load the verified CSVs and render delivery, demand and model pages. These checks do not validate live model inference or production authentication.
 

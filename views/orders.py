@@ -25,7 +25,7 @@ def render(df):
         if candidates.empty:
             empty_state("No order found", "Search another ID or broaden the active filters.")
             return
-        options = candidates.Order.tolist()
+        options = candidates.Order.drop_duplicates().tolist()
         selected = st.session_state.get("selected_order")
         if selected and selected not in options:
             st.info("The selected order is outside this view. Choose an available record.")
@@ -36,13 +36,14 @@ def render(df):
     with main:
         st.session_state.selected_order = order
         record = df[df.Order.eq(order)].iloc[0]
-        is_predicted_late = record["Risk Probability"] >= PRODUCTION_THRESHOLD
+        verified = bool(df.attrs.get("verified_artifacts", False))
+        is_predicted_late = bool(record["Predicted Late"]) if "Predicted Late" in record else record["Risk Probability"] >= PRODUCTION_THRESHOLD
         actual = "Late" if record["Actual Late"] else "On time"
-        section(f"Case file · {order}", "Synthetic operational record · safe demo fields only", "ORDER INVESTIGATION")
+        section(f"Case file · {order}", "Supplied scored line item · duplicate source rows retained" if verified else "Synthetic operational record · safe demo fields only", "ORDER INVESTIGATION")
         st.html(f'<div class="case-status-row">{badge("Predicted " + ("Late" if is_predicted_late else "On time"), "warning" if is_predicted_late else "success")} {badge("Actual " + actual, "neutral")} {badge("Risk: " + str(record.Risk), "danger" if record.Risk == "Critical" else "warning" if record.Risk == "High" else "info")}</div>')
         cards = st.columns(3)
         with cards[0]:
-            _signal_card("ORDER PROFILE", "DEMO RECORD", f'{record.Market} · {record.Region} · {record["Shipping Mode"]}')
+            _signal_card("ORDER PROFILE", "SCORED ROW" if verified else "DEMO RECORD", f'{record.Market} · {record.Region} · {record["Shipping Mode"]}')
         with cards[1]:
             _signal_card("DELIVERY SIGNAL", f'{record["Risk Probability"]:.1%} probability', f'{DELIVERY_MODEL} · threshold {PRODUCTION_THRESHOLD:.2f}', "warning" if is_predicted_late else "success")
         with cards[2]:
@@ -53,15 +54,18 @@ def render(df):
         section("Delivery probability", "Prediction versus the configured production threshold")
         st.progress(float(record["Risk Probability"]), text=f'{record["Risk Probability"]:.1%} demo probability · production threshold {PRODUCTION_THRESHOLD:.0%}')
         kpis([
-            {"label": "Predicted class", "value": "Late" if is_predicted_late else "On time", "caption": f"{DELIVERY_MODEL} · demo signal", "status": "Above threshold" if is_predicted_late else "Below threshold", "tone": "amber" if is_predicted_late else "green"},
-            {"label": "Actual outcome", "value": actual, "caption": "Synthetic outcome label"},
-            {"label": "Prediction status", "value": "Consistent" if is_predicted_late == bool(record["Actual Late"]) else "Different", "caption": "Observed demo outcome"},
+            {"label": "Predicted class", "value": "Late" if is_predicted_late else "On time", "caption": f"{DELIVERY_MODEL} · precomputed score", "status": "Above threshold" if is_predicted_late else "Below threshold", "tone": "amber" if is_predicted_late else "green"},
+            {"label": "Actual outcome", "value": actual, "caption": "Supplied outcome label" if verified else "Synthetic outcome label"},
+            {"label": "Prediction status", "value": "Consistent" if is_predicted_late == bool(record["Actual Late"]) else "Different", "caption": "Supplied row agreement" if verified else "Observed demo outcome"},
         ])
         left_chart, details = st.columns([1.7, 1])
         with left_chart, st.container(border=True):
-            section("Illustrative feature layout", "Not calculated for this record")
-            show(px.bar(FEATURES, x="Contribution", y="Feature", orientation="h", color="Contribution", color_continuous_scale="RdBu"), "order_features")
-            st.caption("Record-specific SHAP values are unavailable. Feature contribution does not establish causality.")
+            section("Prediction explanation", "Not available from the scored output")
+            if not verified:
+                show(px.bar(FEATURES, x="Contribution", y="Feature", orientation="h", color="Contribution", color_continuous_scale="RdBu"), "order_features")
+                st.caption("Illustrative layout only. Record-specific SHAP values are unavailable and feature contribution does not establish causality.")
+            else:
+                st.info("The CSV contains precomputed probabilities and predicted classes, but no feature-level explanation artifact.")
         with details, st.container(border=True):
             section("Model details", "Configured metadata · no artifact loaded")
             st.write(f"**Model:** {DELIVERY_MODEL}")

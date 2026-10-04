@@ -9,18 +9,29 @@ from services.mock_data import DEMO_AS_OF
 def summary(df: pd.DataFrame) -> dict:
     n = len(df)
     if not n:
-        return dict(orders=0, high=0, risk=0, forecast=0, actual=0, stock=0, alerts=0, predicted=0, late=0, accuracy=0, error=0, wape=0, smape=0, products=0)
-    error = (df["Forecast Demand"] - df["Actual Demand"]).abs()
+        return dict(orders=0, high=0, risk=None, forecast=None, actual=None, stock=0, alerts=0, predicted=0, late=0, accuracy=None, error=None, wape=None, smape=None, products=0)
+    is_delivery = {"Risk Probability", "Risk", "Actual Late"}.issubset(df.columns)
+    is_demand = {"Forecast Demand", "Actual Demand"}.issubset(df.columns)
+    error = (df["Forecast Demand"] - df["Actual Demand"]).abs() if is_demand else None
+    risk = float(df["Risk Probability"].mean()) if is_delivery else None
+    late = int(df["Actual Late"].sum()) if is_delivery else None
+    accuracy = (float(df["Correct Prediction"].mean()) if "Correct Prediction" in df else
+                float(((df["Risk Probability"] >= PRODUCTION_THRESHOLD) == df["Actual Late"]).mean()) if is_delivery else None)
+    actual_total = float(df["Actual Demand"].sum()) if is_demand else None
+    forecast_total = float(df["Forecast Demand"].sum()) if is_demand else None
+    wape = float(error.sum() / actual_total) if is_demand and actual_total else None
+    smape = float((2 * error / (df["Forecast Demand"] + df["Actual Demand"]).replace(0, np.nan)).mean()) if is_demand else None
+    stock = int(df["Stock Attention"].sum()) if "Stock Attention" in df else None
+    high = int(df.Risk.isin(["High", "Critical"]).sum()) if "Risk" in df else None
     return {
-        "orders": n, "high": int(df.Risk.isin(["High", "Critical"]).sum()),
-        "risk": df["Risk Probability"].mean(), "forecast": int(df["Forecast Demand"].sum()),
-        "actual": int(df["Actual Demand"].sum()), "stock": int(df["Stock Attention"].sum()),
-        "alerts": len(alerts(df)), "predicted": int((df["Risk Probability"] >= PRODUCTION_THRESHOLD).sum()),
-        "late": int(df["Actual Late"].sum()),
-        "accuracy": ((df["Risk Probability"] >= PRODUCTION_THRESHOLD) == df["Actual Late"]).mean(),
-        "error": float(error.mean()), "wape": float(error.sum() / df["Actual Demand"].sum()),
-        "smape": float((2 * error / (df["Forecast Demand"] + df["Actual Demand"])).mean()),
-        "products": df.loc[df["Stock Attention"], "Product"].nunique(),
+        "orders": n, "high": high, "risk": risk,
+        "forecast": forecast_total if is_demand else None,
+        "actual": actual_total if is_demand else None, "stock": stock,
+        "alerts": len(alerts(df)) if {"Risk", "Stock Attention", "Forecast Demand", "Actual Demand"}.issubset(df.columns) else 0,
+        "predicted": int(df["Predicted Late"].sum()) if "Predicted Late" in df else int((df["Risk Probability"] >= PRODUCTION_THRESHOLD).sum()) if is_delivery else 0,
+        "late": late, "accuracy": accuracy,
+        "error": float(error.mean()) if is_demand else None, "wape": wape, "smape": smape,
+        "products": df.loc[df["Stock Attention"], "Product"].nunique() if "Product" in df and "Stock Attention" in df else 0,
     }
 
 

@@ -1,8 +1,11 @@
 from html import escape
+import math
 import streamlit as st
 
 
 def number(value, kind="number"):
+    if value is None or isinstance(value, float) and not math.isfinite(value):
+        return "N/A"
     if kind == "percent":
         return f"{value:.1%}" if not isinstance(value, str) else value
     if isinstance(value, str):

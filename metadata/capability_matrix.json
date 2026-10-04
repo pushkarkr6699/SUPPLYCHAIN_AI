@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "capabilities": {
+    "demo_ui": {"status": "available", "provider": "demo"},
+    "delivery_pre_scored_analysis": {"status": "connected", "provider": "verified CSV"},
+    "demand_precomputed_forecasts": {"status": "connected", "provider": "verified CSV"},
+    "delivery_live_inference": {"status": "disabled", "reason": "Serialized model not loaded or validated"},
+    "demand_live_inference": {"status": "disabled", "reason": "No verified inference contract"},
+    "profitability": {"status": "unavailable", "reason": "No verified data or model"},
+    "cross_risk_join": {"status": "disabled", "reason": "No validated shared key"}
+  }
+}

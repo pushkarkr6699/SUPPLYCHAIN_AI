@@ -36,6 +36,9 @@ def response_card(response, provenance, key):
     with cols[0]: nav_button("View in dashboard", response["route"], key=f"copilot_view_{key}")
     if cols[1].button("Apply high-risk filter", key=f"copilot_apply_{key}", disabled=response["intent"] != "risk", width="stretch"):
         st.session_state.filters["Risk"] = ["High", "Critical"]
+        dataset = "delivery"
+        st.session_state.setdefault("filters_by_dataset", {})[dataset] = dict(st.session_state.filters)
+        st.session_state.active_filter_dataset = dataset
         st.session_state.pop("filter_Risk", None)
         go("delivery")
         st.rerun()

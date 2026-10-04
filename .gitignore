@@ -8,4 +8,11 @@ __pycache__/
 output/
 tmp/
 *.log
+data/**
+!data/**/
+!data/**/.gitkeep
+!data/README.md
+models/**
+!models/**/
+!models/**/.gitkeep
 

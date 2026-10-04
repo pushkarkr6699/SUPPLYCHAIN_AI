@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "canonical_delivery_columns": {
+    "Order": "source Order Id",
+    "Date": "source Order_Date",
+    "Risk Probability": "source Late_Delivery_Probability",
+    "Risk": "source Delivery_Risk_Level without Risk suffix",
+    "Actual Late": "source Actual_Late_Delivery",
+    "Predicted Late": "source Predicted_Late_Delivery",
+    "Correct Prediction": "source Correct_Prediction"
+  },
+  "canonical_demand_columns": {
+    "Date": "source DateOnly",
+    "Product": "source Product",
+    "Actual Demand": "source Next_Day_Visits",
+    "Forecast Demand": "source Predicted_Next_Day_Visits",
+    "Lower": "source Prediction_Lower_90",
+    "Upper": "source Prediction_Upper_90",
+    "Forecast Error": "source Error",
+    "Absolute Error": "source Absolute_Error"
+  },
+  "join_policy": "Do not join delivery orders to product-day demand without an explicitly supplied and validated key."
+}

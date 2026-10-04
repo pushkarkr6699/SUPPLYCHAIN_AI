@@ -107,6 +107,47 @@ def test_copilot_segment_and_demand_questions_return_matching_aggregations():
     assert growth["intent"] == "demand_growth" and "Direction" in growth["table"]
 
 
+def test_verified_csv_adapters_keep_delivery_and_demand_grains_separate(tmp_path, monkeypatch):
+    from services.verified_data import delivery_records, demand_records
+    import services.provider as provider
+    delivery_path = tmp_path / "scored.csv"
+    pd.DataFrame([
+        {"Order Id": 101, "Market": "Europe", "Order Region": "West", "Order Country": "France",
+         "Category Name": "Apparel", "Department Name": "Outdoors", "Customer Segment": "Retail",
+         "Shipping Mode": "Standard", "Order_Date": "2018-01-01", "Actual_Late_Delivery": 1,
+         "Late_Delivery_Probability": .7, "Predicted_Late_Delivery": 1, "Correct_Prediction": 1,
+         "Delivery_Risk_Level": "High Risk"},
+    ]).to_csv(delivery_path, index=False)
+    demand_path = tmp_path / "forecast.csv"
+    pd.DataFrame([
+        {"DateOnly": "2018-01-01", "Product": "A", "Category": "C", "Department": "D", "Visits": 2,
+         "Next_Day_Visits": 2.0, "Predicted_Next_Day_Visits": 3.0, "Error": -1.0, "Absolute_Error": 1.0,
+         "Prediction_Lower_90": 0.0, "Prediction_Upper_90": 4.0, "Demand_Level": "Low Demand", "Stock_Attention_Flag": "Normal"},
+    ]).to_csv(demand_path, index=False)
+    delivery = delivery_records(delivery_path)
+    demand = demand_records(demand_path)
+    assert delivery.Order.iloc[0] == "101" and delivery.Risk.iloc[0] == "High"
+    assert delivery.attrs["verified_artifacts"] if "verified_artifacts" in delivery.attrs else delivery.attrs["data_source"].startswith("Verified")
+    assert "Actual Demand" not in delivery and "Risk Probability" not in demand
+    assert demand["Forecast Error"].iloc[0] == -1.0
+
+    monkeypatch.setattr(provider, "SUPPLYCHAIN_PROVIDER", "verified")
+    monkeypatch.setattr(provider, "DELIVERY_DATA_URI", str(delivery_path))
+    monkeypatch.setattr(provider, "DEMAND_DATA_URI", str(demand_path))
+    service = provider.get_service()
+    assert service.records(dataset="delivery").attrs["verified_artifacts"]
+    assert service.records(dataset="demand").attrs["verified_artifacts"]
+    assert service.is_demo("demo") is True
+
+
+def test_verified_csv_adapter_rejects_threshold_or_schema_mismatch(tmp_path):
+    from services.verified_data import delivery_records
+    path = tmp_path / "invalid.csv"
+    pd.DataFrame({"Order Id": [1], "Late_Delivery_Probability": [.7]}).to_csv(path, index=False)
+    with pytest.raises(ValueError, match="missing required columns"):
+        delivery_records(path)
+
+
 def test_live_mode_fails_closed(monkeypatch):
     import services.provider as provider
     monkeypatch.setattr(provider, "DEMO_MODE", False)

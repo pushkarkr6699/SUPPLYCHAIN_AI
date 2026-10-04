@@ -13,6 +13,8 @@ def change_table(current, previous):
     metrics = [("Delivery risk", "risk", True), ("High-risk orders", "high", False), ("Demand units", "actual", False), ("Forecast error (MAE)", "error", False), ("Stock attention", "stock", False), ("Order volume", "orders", False)]
     rows = []
     for name, key, rate in metrics:
+        if a[key] is None or b[key] is None:
+            continue
         difference = a[key] - b[key]
         rows.append({"Metric": name, "Current": a[key], "Comparison": b[key], "Absolute change": difference,
             "Percentage change": difference / b[key] if b[key] else None,

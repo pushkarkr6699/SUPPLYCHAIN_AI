@@ -1,0 +1,26 @@
+{
+  "registry_version": 1,
+  "models": [
+    {
+      "id": "delivery_xgboost",
+      "display_name": "XGBoost",
+      "artifact_path": "models/delivery/DataCo_Late_Delivery_Model.pkl",
+      "status": "not_loaded",
+      "inference_enabled": false,
+      "production_threshold": 0.56,
+      "reason": "Pre-scored delivery CSV is connected; pickle deserialization and live inference remain disabled pending model, feature schema, dependency, and parity validation."
+    },
+    {
+      "id": "demand_forecast",
+      "status": "precomputed_outputs_only",
+      "inference_enabled": false,
+      "reason": "Product/day forecast rows are connected; no verified feature pipeline and model contract are registered."
+    },
+    {
+      "id": "profitability",
+      "status": "unavailable",
+      "inference_enabled": false,
+      "reason": "No verified profitability dataset or model supplied."
+    }
+  ]
+}

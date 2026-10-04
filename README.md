@@ -94,13 +94,15 @@ Optional visual checks, with Chrome installed and the app running:
 
 Visual outputs go to ignored `tmp/` directories. The browser script uses a fresh headless profile, without reading an existing user's profile or sessions.
 
-## Connect verified datasets next
+## Data integration
 
-**First create a read-only artifact manifest and a schema/grain mapping.** Record the approved delivery-scored-order and product-day-forecast paths, schemas, date ranges, model versions, target definitions, validation split, metric provenance and row keys. Verify these before enabling any live provider.
+The current UI and demo provider remain selectable. Choose `SUPPLYCHAIN_PROVIDER=demo` for the demo or `SUPPLYCHAIN_PROVIDER=verified` to read the pre-scored CSVs. The local ignored `.env` selects verified data for this workspace; `.env.example` defaults to demo. Restart Streamlit after changing provider settings.
 
-Implement real `delivery_service.py`, `demand_service.py` and `model_service.py` behind the contracts/provider factory. Keep order-grain and product-day-grain datasets separate; the mock's additive planning observations are only UI fixtures. Preserve evidence and filter semantics, expose unsupported filters explicitly, and use parameterized DuckDB queries. Use verified scored outputs first; add inference only after artifact validation. Set `DEMO_MODE = False` only once the real provider and integration tests exist. It currently fails closed when disabled.
+Place delivery artifacts in `data/delivery/final/` and product/day demand artifacts in `data/demand/final/`. `data/README.md` lists accepted inputs and the dataset context to include. The adapters validate schemas, values, threshold agreement, row grain, error calculations and interval ordering. Delivery and demand are never joined. The copied source CSVs are ignored by Git and remain local.
 
-Profitability must remain unavailable until its own verified artifact, schema and independent scored signal exist. Cross-risk additionally needs a validated join key and coverage checks; never infer causality from signal overlap.
+This workspace currently uses scored delivery rows and precomputed demand forecasts. It does **not** deserialize pickle model files or run live inference. Before enabling inference, provide the fitted model, exact feature list/order and dtypes, preprocessing pipeline, dependency versions, training/validation split details, threshold definition, and a known-input/expected-output sample. Profitability remains unavailable until its own verified data and model are supplied.
+
+Final-summary accuracy (69.49%) differs from agreement recomputed on the supplied scored rows (68.74%). The UI surfaces the discrepancy with an evaluation-provenance caveat; these figures are not reconciled or presented as independent validation.
 
 Implementation references: [Streamlit chart API](https://docs.streamlit.io/develop/api-reference/charts/st.plotly_chart), [Streamlit testing API](https://docs.streamlit.io/develop/api-reference/app-testing).
 

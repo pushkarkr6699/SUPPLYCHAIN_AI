@@ -5,7 +5,7 @@ from services.analytics import aggregate, trend, classification
 
 BLUE, PURPLE, GREEN, AMBER, RED = "#4169dc", "#8970dc", "#219880", "#d39c47", "#d65b68"
 PALETTE = [BLUE, PURPLE, GREEN, AMBER, RED, "#7896b6"]
-RISK_COLORS = {"Low": GREEN, "Attention": AMBER, "High": "#e18445", "Critical": RED}
+RISK_COLORS = {"Low": GREEN, "Medium": AMBER, "Attention": AMBER, "High": "#e18445", "Critical": RED}
 
 
 def style(fig, height=290):

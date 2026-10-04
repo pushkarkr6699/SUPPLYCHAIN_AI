@@ -11,21 +11,22 @@ from services.analytics import summary, trend
 from services.provider import filter_description
 
 
-def safe_frame(df):
+def safe_frame(df, source=None):
     frame = df.copy()
     for col in frame.select_dtypes(include=["object", "string"]):
         frame[col] = frame[col].map(lambda value: "'" + value if isinstance(value, str) and value.startswith(("=", "+", "-", "@")) else value)
-    frame["Source"] = "DEMO UI DATA"
+    frame["Source"] = source or frame.attrs.get("data_source", "DEMO UI DATA")
     return frame
 
 
-def csv_bytes(df):
-    return safe_frame(df).to_csv(index=False).encode("utf-8-sig")
+def csv_bytes(df, source=None):
+    return safe_frame(df, source).to_csv(index=False).encode("utf-8-sig")
 
 
-def excel_bytes(df):
+def excel_bytes(df, source=None):
     buffer = BytesIO()
-    safe_frame(df).to_excel(buffer, index=False, sheet_name="DEMO UI DATA")
+    frame = safe_frame(df, source)
+    frame.to_excel(buffer, index=False, sheet_name="SupplyChain Data")
     return buffer.getvalue()
 
 

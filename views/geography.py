@@ -12,6 +12,9 @@ def render(df):
     if metric == "Profitability":
         empty_state("Profitability geography is unavailable", "No verified profitability dataset or scored model output is connected. Choose Orders, Delivery Risk, or Demand to continue.", "Model Not Connected")
         return
+    if metric == "Demand" and "Forecast Demand" not in df:
+        empty_state("Demand geography is unavailable", "The connected delivery artifact has no country/region demand key. Product/day forecast records are kept separate and are not joined to orders.", "Data Grain Not Connected")
+        return
     actual_metric = {"Delivery Risk": "Risk Probability", "Demand": "Forecast Demand"}.get(metric, metric)
     left, right = st.columns([1.6, 1])
     with left, st.container(border=True):
@@ -24,9 +27,9 @@ def render(df):
         country = st.selectbox("Country detail", sorted(df.Country.unique()))
         detail = df[df.Country.eq(country)]
         m = summary(detail)
-        st.metric("Orders", f'{m["orders"]:,}')
-        st.metric("Mean delivery risk", f'{m["risk"]:.1%}')
-        st.metric("Demand", f'{m["forecast"]:,}')
+        st.metric("Scored rows", f'{m["orders"]:,}')
+        st.metric("Mean delivery risk", f'{m["risk"]:.1%}' if m["risk"] is not None else "N/A")
+        st.metric("Forecast demand", f'{m["forecast"]:,.0f}' if m["forecast"] is not None else "Not connected")
     for col, dim in zip(st.columns(2), ["Region", "Market"]):
         with col, st.container(border=True):
             section(f"Ranked {dim.lower()}s", metric)

@@ -6,7 +6,7 @@ from config import ROOT, DEFAULTS
 from components.sidebar import sidebar
 from components.header import header
 from components.filters import filters
-from components.status import demo_notice
+from components.status import demo_notice, artifact_notice
 from components.section_header import page_title
 from components.evidence import evidence
 from components.empty_states import empty_state
@@ -14,6 +14,8 @@ from components.error_states import service_error, page_error
 from components.copilot_ui import context_drawer
 from components.navigation import nav_button
 from views.registry import PAGES
+from components.filters import ROUTE_DATASET
+from services.provider import get_service
 
 
 def initialize():
@@ -46,7 +48,6 @@ def render():
     started = perf_counter()
     sidebar()
     header()
-    demo_notice()
     route = st.session_state.route
     if route not in PAGES:
         route = "overview"
@@ -61,10 +62,16 @@ def render():
     query_start = perf_counter()
     try:
         df = filters()
-    except (RuntimeError, ConnectionError, ValueError) as error:
+    except (RuntimeError, ConnectionError, ValueError, OSError) as error:
         service_error(error)
         return
     st.session_state.last_query_ms = round((perf_counter() - query_start) * 1000, 2)
+    service = get_service()
+    dataset = ROUTE_DATASET.get(route, "demo")
+    if service.is_demo(dataset):
+        demo_notice(service.data_source_label(dataset))
+    else:
+        artifact_notice(service.data_source_label(dataset))
     no_data_ok = {"profitability", "cross_risk", "settings", "diagnostics", "lineage", "drift", "health", "changes", "reports"}
     if df.empty and route not in no_data_ok:
         empty_state()

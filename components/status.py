@@ -6,5 +6,9 @@ def badge(text, tone="info"):
     return f'<span class="badge badge-{escape(tone)}">{escape(str(text))}</span>'
 
 
-def demo_notice():
-    st.html('<div class="demo-notice"><span class="status-dot"></span><b>Demo UI Mode</b><span>Deterministic synthetic snapshot · no live model inference</span></div>')
+def demo_notice(label="DEMO UI DATA · synthetic planning records"):
+    st.html(f'<div class="demo-notice"><span class="status-dot"></span><b>Demo UI Mode</b><span>{escape(label)} · no live model inference</span></div>')
+
+
+def artifact_notice(label):
+    st.html(f'<div class="demo-notice"><span class="status-dot"></span><b>Verified scored output</b><span>{escape(label)} · precomputed predictions; no model inference</span></div>')
