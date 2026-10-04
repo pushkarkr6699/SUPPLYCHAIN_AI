@@ -1,0 +1,29 @@
+:root{--bg:#f5f7fb;--surface:#fff;--surface-alt:#f0f4fa;--text:#18253d;--muted:#68768d;--border:#e3e9f2;--blue:#315de6;--purple:#7862d9;--green:#16866f;--amber:#bb7b16;--red:#cf4b59;--shadow:0 3px 16px #1d376306;--radius:10px}
+html,body,[class*="css"],button,input,select,textarea{font-family:Inter,"Segoe UI",Arial,sans-serif}
+.stApp{background:var(--bg);color:var(--text)}
+.stApp p,.stApp label,.stApp h1,.stApp h2,.stApp h3,.stApp h4{color:var(--text)}
+.stApp a{color:var(--blue)}
+.stApp h1{font-size:2rem;letter-spacing:-.065rem;font-weight:700;line-height:1.2}
+.stApp h2{font-size:1.42rem;letter-spacing:-.035rem}.stApp h3{font-size:1rem;font-weight:650;line-height:1.4}
+.stApp p{line-height:1.6}.stApp small{color:var(--muted)}
+button{transition:background .15s,border-color .15s}button:focus-visible,a:focus-visible{outline:3px solid #779cff!important;outline-offset:3px}
+[data-testid="stBaseButton-secondary"],[data-testid="stBaseButton-secondaryFormSubmit"],[data-testid="stPopoverButton"]{background:var(--surface);border-color:var(--border);color:var(--text);border-radius:7px}
+[data-testid="stBaseButton-secondary"]:hover,[data-testid="stPopoverButton"]:hover{border-color:var(--blue);background:var(--surface-alt);color:var(--blue)}
+[data-testid="stBaseButton-primary"],[data-testid="stBaseButton-primaryFormSubmit"]{background:var(--blue);border-color:var(--blue);border-radius:7px;color:white}
+[data-testid="stBaseButton-primary"] p,[data-testid="stBaseButton-primaryFormSubmit"] p{color:white}
+[data-testid="stWidgetLabel"] p{font-size:.75rem;font-weight:600;color:var(--muted)}
+[data-testid="stCaptionContainer"] p{font-size:.76rem;color:var(--muted)}
+[data-testid="stExpander"]{border-color:var(--border);background:var(--surface);border-radius:8px}
+[data-baseweb="input"],[data-baseweb="select"]>div,[data-baseweb="textarea"]{background:var(--surface)!important;color:var(--text)!important;border-color:var(--border)!important}
+input,textarea{color:var(--text)!important}
+input::placeholder,textarea::placeholder{color:var(--muted)!important;opacity:1}
+[data-testid="stCaptionContainer"],[data-testid="stCaption"],.stCaption,.stCaption p{color:var(--muted)!important}
+[data-testid="stDateInputField"],[data-testid="stMultiSelect"] .react-aria-ComboBox>[role="group"]{background:var(--surface-alt)!important;color:var(--text)!important;border:1px solid var(--border)!important;border-radius:7px}
+[data-testid="stDateInputField"] span,[data-testid="stMultiSelect"] button{color:var(--text)!important}
+[data-testid="stMultiSelect"] input{background:transparent!important;color:var(--text)!important}
+[data-testid="stPopoverBody"]{background:var(--surface);color:var(--text)}
+[role="tablist"]{border-bottom:1px solid var(--border);gap:22px}[role="tab"]{font-size:.85rem}
+[data-testid="stDataFrame"]{border-radius:8px;overflow:hidden;border:1px solid var(--border)}
+[data-testid="stMetric"]{border:1px solid var(--border);background:var(--surface);padding:18px;border-radius:8px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
+

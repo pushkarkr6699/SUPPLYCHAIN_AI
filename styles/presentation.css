@@ -1,0 +1,3 @@
+.presentation-banner{display:flex;align-items:center;gap:18px;font-size:.66rem;font-weight:650;letter-spacing:.12em;color:var(--blue);padding:12px 0}.presentation-banner span{font-weight:400;color:var(--muted);letter-spacing:0}
+@media print{[data-testid="stSidebar"],[data-testid="stHeader"],.st-key-global_filters,.st-key-top_header{display:none!important}[data-testid="stMainBlockContainer"]{padding:0}.demo-notice{display:flex!important}}
+

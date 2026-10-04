@@ -1,0 +1,47 @@
+"""Local browser smoke test. Uses a fresh, isolated Chrome profile only."""
+from pathlib import Path
+import re
+from playwright.sync_api import sync_playwright
+
+output = Path("tmp/screenshots")
+output.mkdir(parents=True, exist_ok=True)
+with sync_playwright() as p:
+    browser = p.chromium.launch(executable_path=r"C:\Program Files\Google\Chrome\Application\chrome.exe", headless=True)
+    page = browser.new_page(viewport={"width": 1512, "height": 1100}, device_scale_factor=1, reduced_motion="reduce")
+    page.goto("http://127.0.0.1:8501", wait_until="networkidle")
+    page.get_by_role("button", name="Explore Demo ↗", exact=True).wait_for()
+    page.locator('.js-plotly-plot').first.wait_for(state="attached")
+    page.screenshot(path=str(output / "landing.png"), full_page=True)
+    page.get_by_role("button", name="Explore Demo ↗", exact=True).click()
+    page.get_by_role("heading", name="Executive Command Center", exact=True).wait_for()
+    page.get_by_text("Model & system health", exact=True).wait_for()
+    page.locator('[data-testid="stDateInput"] input').first.wait_for(state="attached")
+    page.locator('.js-plotly-plot').first.wait_for(state="attached")
+    page.screenshot(path=str(output / "overview.png"), full_page=True)
+    page.get_by_test_id("stSidebar").get_by_role("button", name=re.compile("Demand Intelligence")).click()
+    page.get_by_role("heading", name="Demand Intelligence", exact=True).wait_for()
+    page.get_by_role("tab", name="Product explorer", exact=True).wait_for()
+    page.locator('.js-plotly-plot').first.wait_for(state="attached")
+    page.screenshot(path=str(output / "demand.png"), full_page=True)
+    page.get_by_test_id("stSidebar").get_by_role("button", name=re.compile("SupplyChain Copilot")).click()
+    page.get_by_role("button", name="Show high-risk orders", exact=True).click()
+    page.get_by_text("Delivery signal review", exact=True).wait_for()
+    page.screenshot(path=str(output / "copilot.png"), full_page=True)
+    page.get_by_test_id("stSidebar").get_by_role("button", name=re.compile("Settings")).click()
+    page.get_by_text("Dark", exact=True).last.click()
+    page.get_by_test_id("stSidebar").get_by_role("button", name=re.compile("Executive Overview")).click()
+    page.get_by_text("Model & system health", exact=True).wait_for()
+    page.locator('.js-plotly-plot').first.wait_for(state="attached")
+    page.screenshot(path=str(output / "dark.png"), full_page=True)
+    collapse = page.locator('[data-testid="stSidebarCollapseButton"] button')
+    if collapse.is_visible():
+        collapse.click()
+    page.get_by_test_id("stExpandSidebarButton").click()
+    page.get_by_test_id("stSidebar").hover()
+    collapse.click()
+    page.set_viewport_size({"width": 390, "height": 844})
+    page.get_by_role("heading", name="Executive Command Center", exact=True).scroll_into_view_if_needed()
+    page.screenshot(path=str(output / "mobile.png"), full_page=True)
+    print("Screenshots saved: landing, overview, demand, copilot, dark, mobile")
+    browser.close()
+
