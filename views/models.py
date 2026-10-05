@@ -46,18 +46,20 @@ def _render_verified(df):
     delivery, demand, profitability = st.tabs(["Delivery", "Demand", "Profitability"])
     metadata = service.metadata()
     final, final_name = service.final_summary()
+    scored = df.dropna(subset=["Risk Probability", "Actual Late"])
+    active_threshold = float(df.attrs.get("production_threshold", PRODUCTION_THRESHOLD))
     with delivery:
-        st.info("Pre-scored delivery output is connected. This application does not load the serialized model or run inference.")
+        st.info("The analytical dataset and supplied Tuned XGBoost scores are connected. Comparisons describe the January 2018 test set at threshold 0.50; the saved scores use 0.35, selected on the same test predictions.")
         kpis([
-            ("Winning model", metadata.get("Winning model", DELIVERY_MODEL), "number", "Supplied project metadata"),
-            ("Model file", metadata.get("Serialized model", "Not configured"), "number", "Inference is not executed"),
-            ("Threshold", metadata.get("Best threshold", f"{PRODUCTION_THRESHOLD:.2f}"), "number", "Supplied production threshold"),
-            ("Scored rows", len(df), "number", df.attrs.get("artifact", "Verified scored CSV")),
+            ("Scoring model", df.attrs.get("model_name", metadata.get("Winning model", DELIVERY_MODEL)), "number", "Recorded in supplied score rows"),
+            ("Model file", metadata.get("Serialized model", "Not configured"), "number", "Artifact status"),
+            ("Threshold", f"{active_threshold:.2f}", "number", "Recorded decision threshold"),
+            ("Scored orders", len(scored), "number", f"{len(df):,} analytical orders in current filters"),
         ])
         comparison = service.model_comparison()
         left, right = st.columns(2)
         with left, st.container(border=True):
-            section("Supplied model comparison", "Metrics as recorded in the comparison CSV")
+            section("Supplied model comparison", "Test-year metrics at threshold 0.50; different from the saved 0.35 operating point")
             if comparison is None:
                 st.info("No model comparison CSV is configured.")
             else:
@@ -66,7 +68,7 @@ def _render_verified(df):
                 if metric:
                     show(px.bar(comparison, x="Model", y=metric), "verified_models_comparison")
         with right, st.container(border=True):
-            section("Feature importance", "Supplied feature ranking; not per-order explanations")
+            section("Feature importance", "Random Forest baseline reference · not the active Tuned XGBoost explanation")
             features = service.feature_importance()
             if features is None:
                 st.info("No verified feature-importance CSV is configured.")
@@ -74,16 +76,18 @@ def _render_verified(df):
                 show(px.bar(features.head(15), x="Importance", y="Feature", orientation="h"), "verified_model_features")
         if final:
             st.caption(f"Summary values are reproduced from {final_name}; they are not recalculated from the scored rows.")
-            scored_accuracy = float(df["Correct Prediction"].mean()) if len(df) else None
-            reported_accuracy = pd.to_numeric(pd.Series([final.get("Accuracy")]), errors="coerce").iloc[0]
-            if pd.notna(reported_accuracy) and scored_accuracy is not None and abs(float(reported_accuracy) - scored_accuracy) > .005:
-                st.warning(f"Source metadata mismatch: summary accuracy is {float(reported_accuracy):.1%}, while supplied scored-row agreement is {scored_accuracy:.1%}. Evaluation split provenance is unavailable, so these values remain unreconciled.")
             st.dataframe(pd.DataFrame({"Metric": list(final.keys()), "Supplied value": list(final.values())}), hide_index=True, width="stretch")
+        if not scored.empty:
+            st.caption(f'Current scored-subset accuracy at recorded threshold {active_threshold:.2f}: {scored["Correct Prediction"].mean():.2%}. Unscored orders are excluded from every prediction metric.')
+            section("Threshold performance", "Current supplied test predictions · exploratory threshold analysis")
+            show(px.line(threshold_curve(scored), x="Threshold", y=["Precision", "Recall", "F1"]), "verified_models_threshold")
         nav_button("Open Threshold Lab →", "threshold", key="models_to_threshold_verified")
     with demand:
         demand_df = service.records(dataset="demand")
         comparison = service.demand_model_comparison()
-        st.info("Demand charts use precomputed product/day forecasts. No serialized model is loaded; the supplied XGBoost classification metrics are excluded from regression comparison.")
+        from services.demand_inference import status
+        st.info("Demand charts use supplied product/day forecasts. Trained next-day inference is available in Demand Intelligence after parity validation. The defective XGBoost classification row is excluded from regression comparison.")
+        st.caption(status()["reason"])
         if comparison is None or comparison.empty:
             empty_state("Regression comparison unavailable", "The source comparison artifact contains no verified regression metrics.")
         else:
@@ -95,7 +99,7 @@ def _render_verified(df):
                 chart_df = comparison.dropna(subset=[metric])
                 if not chart_df.empty:
                     show(px.bar(chart_df, x="Model", y=metric), "verified_demand_comparison")
-        st.caption(f"Connected forecast rows: {len(demand_df):,}. Forecast error measured on supplied rows; split provenance and interval calibration are unavailable.")
+        st.caption(f"Connected forecast rows: {len(demand_df):,} web-visit observations. Training precedes January 2018; these outputs are January 2018 test predictions. Source 90% bounds cover approximately 67.63% of supplied rows.")
     with profitability:
         empty_state("Profitability model unavailable", "No verified profitability model, metrics or scored data artifact is connected.", "Model Not Connected")
 

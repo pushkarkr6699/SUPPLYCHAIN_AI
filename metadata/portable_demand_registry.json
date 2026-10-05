@@ -1,0 +1,26 @@
+{
+  "source_model_path": "models/demand/AccessLogs_Final_XGBoost_Demand_Model.pkl",
+  "source_model_sha256": "187e9c65c17f19dcff4a2d96098a3f3a9fcc649db21b9e72fb23ace3740e59fa",
+  "conversion": "Original fitted preprocessor and XGBRegressor JSON; no retraining",
+  "packages": {
+    "scikit-learn": "1.6.1",
+    "xgboost": "3.4.1",
+    "joblib": "1.5.3",
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "threadpoolctl": "3.7.0"
+  },
+  "source_parity_rows": 1216,
+  "source_max_difference": 1.523437498462954e-05,
+  "artifacts": [
+    {
+      "path": "models/demand/AccessLogs_Final_XGBoost_Demand_Model.json",
+      "sha256": "5c20adf15e8b42a904ff07f06f2c5b5a093bb8d85e3dcde15d52df6bd1dc6909"
+    },
+    {
+      "path": "models/demand/AccessLogs_Final_XGBoost_Demand_Preprocessor.joblib",
+      "sha256": "7a487b9a3406ebe6875def2d18cb08cf5cb92093db53e5b12a52f63c6641889d"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+# Optional runtime for the registered, parity-validated trained model.
+# Model version markers: sklearn 1.6.1 and XGBoost 3.4.1.
+scikit-learn==1.6.1
+xgboost==3.4.1
+joblib==1.5.3

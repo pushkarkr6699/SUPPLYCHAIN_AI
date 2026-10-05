@@ -11,7 +11,7 @@ def query_data(df, columns, limit=100):
 
 def find_high_risk_orders(df, limit=8):
     columns = [name for name in ("Order", "Market", "Region", "Risk Probability", "Risk") if name in df]
-    return df.nlargest(max(0, min(int(limit), 100)), "Risk Probability")[columns].copy()
+    return df.dropna(subset=["Risk Probability"]).nlargest(max(0, min(int(limit), 100)), "Risk Probability")[columns].copy()
 
 
 def calculate_metric(df, metric):
@@ -54,16 +54,27 @@ def segment_risk(df, dimension):
         raise ValueError("Unsupported risk segment")
     return (df.assign(_high=df.Risk.isin(["High", "Critical"]).astype(int))
             .groupby(dimension, observed=True)
-            .agg(Orders=("Order", "size"), MeanRisk=("Risk Probability", "mean"), HighRiskOrders=("_high", "sum"))
+            .agg(Orders=("Order", "size"), ScoredOrders=("Risk Probability", "count"), MeanRisk=("Risk Probability", "mean"), HighRiskOrders=("_high", "sum"))
             .sort_values("MeanRisk", ascending=False).reset_index())
 
 
 def get_model_metrics():
-    return {"available": False, "reason": "Verified model metrics are not connected."}
+    from services.provider import get_service
+    service = get_service()
+    if service.demo:
+        return {"available": False, "reason": "Verified model metrics are not connected in demo mode."}
+    return {"available": True, "data": service.model_comparison().to_dict("records"),
+            "reason": "Supplied model comparison; retrospective metrics, not independent validation."}
 
 
 def get_feature_importance():
-    return {"available": False, "reason": "Verified feature-importance artifact is not connected."}
+    from services.provider import get_service
+    service = get_service()
+    if service.demo:
+        return {"available": False, "reason": "Verified feature importance is not connected in demo mode."}
+    frame = service.feature_importance()
+    return {"available": True, "data": frame.to_dict("records"),
+            "reason": "Supplied Random Forest baseline importance; not tuned XGBoost explanations."}
 
 
 def get_threshold_analysis(df):

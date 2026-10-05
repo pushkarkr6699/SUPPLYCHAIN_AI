@@ -1,26 +1,90 @@
 {
-  "registry_version": 1,
+  "registry_version": 2,
   "models": [
     {
-      "id": "delivery_xgboost",
-      "display_name": "XGBoost",
+      "id": "delivery_d1_tuned_xgboost",
+      "display_name": "Tuned XGBoost",
+      "artifact_path": "models/delivery/DataCo_Tuned_XGBoost.pkl",
+      "status": "validated",
+      "inference_enabled": true,
+      "decision_threshold": 0.35,
+      "risk_boundaries": [
+        0.4,
+        0.7
+      ],
+      "features": [
+        "Type",
+        "Customer Segment",
+        "Customer Country",
+        "Customer State",
+        "Market",
+        "Order Country",
+        "Order Region",
+        "Shipping Mode",
+        "Order Item Quantity",
+        "Sales",
+        "Order Item Discount",
+        "Order Item Discount Rate",
+        "Order Profit Per Order",
+        "Order Item Profit Ratio",
+        "Number_of_Items",
+        "Number_of_Products",
+        "Number_of_Categories",
+        "Order_Month",
+        "Order_DayOfWeek",
+        "Order_Hour",
+        "Order_Weekend",
+        "Average_Sales_Per_Item",
+        "Average_Quantity_Per_Item",
+        "Discount_to_Sales_Ratio",
+        "Profit_Margin",
+        "Order_Complexity"
+      ],
+      "validation_report": "metadata/inference_validation.json",
+      "portable_registry": "metadata/portable_model_registry.json",
+      "evaluation": "January 2018 test predictions; threshold selected on same test rows"
+    },
+    {
+      "id": "delivery_d1_random_forest_baseline",
       "artifact_path": "models/delivery/DataCo_Late_Delivery_Model.pkl",
-      "status": "not_loaded",
       "inference_enabled": false,
-      "production_threshold": 0.56,
-      "reason": "Pre-scored delivery CSV is connected; pickle deserialization and live inference remain disabled pending model, feature schema, dependency, and parity validation."
+      "status": "reference_only",
+      "explainability": "DataCo_Feature_Importance.csv belongs to this baseline"
     },
     {
-      "id": "demand_forecast",
-      "status": "precomputed_outputs_only",
-      "inference_enabled": false,
-      "reason": "Product/day forecast rows are connected; no verified feature pipeline and model contract are registered."
+      "id": "demand_d2_xgboost",
+      "artifact_path": "models/demand/AccessLogs_Final_XGBoost_Demand_Model.pkl",
+      "inference_enabled": true,
+      "status": "validated",
+      "features": [
+        "Product",
+        "Category",
+        "Department",
+        "Visits",
+        "Visits_Lag_1",
+        "Visits_Lag_2",
+        "Visits_Lag_7",
+        "Rolling_Mean_3",
+        "Rolling_Mean_7",
+        "Rolling_Mean_14",
+        "Rolling_Std_7",
+        "Month",
+        "DayOfWeek",
+        "Weekend",
+        "DayOfMonth"
+      ],
+      "target": "next-day web visits",
+      "minimum_daily_history": 15,
+      "validation_report": "metadata/demand_inference_validation.json",
+      "portable_registry": "metadata/portable_demand_registry.json"
     },
     {
-      "id": "profitability",
-      "status": "unavailable",
+      "id": "delivery_d3_line_item_xgboost",
+      "artifact_path": "models/delivery/d3/Final_Late_Delivery_Model.pkl",
+      "status": "separate_reference",
       "inference_enabled": false,
-      "reason": "No verified profitability dataset or model supplied."
+      "decision_threshold": 0.56,
+      "grain": "line item; incompatible with d1 model inputs"
     }
   ]
 }

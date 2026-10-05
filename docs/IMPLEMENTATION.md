@@ -2,6 +2,8 @@
 
 ## Scope delivered
 
+**Historical UI-stage record:** the final dataset/model implementation supersedes the integration status and validation counts below. See [FINAL_HANDOFF.md](FINAL_HANDOFF.md) and current metadata validation reports for the completed connections and trained inference.
+
 A new Python/Streamlit application in the previously empty workspace. Twenty-five authenticated pages, a public landing page and a separate login page, with grouped navigation and a shared analytical shell. All requested component modules and all seven stylesheet modules are present.
 
 The component library includes active/hover/focus styling, risk labels in addition to colors, evidence panels, unavailable states, loading skeletons, a recoverable service-error panel, disabled actions, toast/confirmation equivalents, chart toolbars and native sidebar collapse.

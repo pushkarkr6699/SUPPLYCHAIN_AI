@@ -132,12 +132,13 @@ def test_verified_csv_adapters_keep_delivery_and_demand_grains_separate(tmp_path
     assert demand["Forecast Error"].iloc[0] == -1.0
 
     monkeypatch.setattr(provider, "SUPPLYCHAIN_PROVIDER", "verified")
+    monkeypatch.setattr(provider, "DELIVERY_PRIMARY_URI", "")
     monkeypatch.setattr(provider, "DELIVERY_DATA_URI", str(delivery_path))
     monkeypatch.setattr(provider, "DEMAND_DATA_URI", str(demand_path))
     service = provider.get_service()
     assert service.records(dataset="delivery").attrs["verified_artifacts"]
     assert service.records(dataset="demand").attrs["verified_artifacts"]
-    assert service.is_demo("demo") is True
+    assert service.is_demo("demo") is False  # Verified mode never silently falls back to fixtures.
 
 
 def test_verified_csv_adapter_rejects_threshold_or_schema_mismatch(tmp_path):

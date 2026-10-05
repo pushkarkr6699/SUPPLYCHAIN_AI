@@ -13,7 +13,10 @@ from services.analytics import aggregate
 
 def render(df):
     st.caption("Period controls override the global date range on this page. All other workspace filters remain active.")
-    source = get_service().records({k: v for k, v in st.session_state.filters.items() if k != "Date"})
+    service = get_service()
+    dataset = "demo" if service.demo else "delivery"
+    active = st.session_state.get("filters", {}) if service.demo or st.session_state.get("active_filter_dataset") == dataset else st.session_state.get("filters_by_dataset", {}).get(dataset, {})
+    source = service.records({k: v for k, v in active.items() if k != "Date"}, dataset=dataset)
     if source.empty:
         st.info("Broaden the workspace filters to compare periods.")
         return
@@ -35,27 +38,31 @@ def render(df):
         return
     current_df, previous_df = compare_periods(source, current, previous)
     if current_df.empty or previous_df.empty:
-        st.warning("One period has no records. Choose dates within the available demo history.")
+        st.warning("One period has no records. Choose dates within the available dataset history.")
         return
     st.html(f'<div class="compare-banner"><div><span>CURRENT PERIOD</span><b>{current[0]:%d %b %Y} – {current[1]:%d %b %Y}</b></div><i>compared with</i><div><span>{mode.upper()}</span><b>{previous[0]:%d %b %Y} – {previous[1]:%d %b %Y}</b></div></div>')
     changes = change_table(current_df, previous_df)
     kpis([{"label": r.Metric, "value": r["Absolute change"], "kind": "decimal", "caption": "Observed period difference", "delta": r.Direction, "tone": "purple"} for _, r in changes.head(5).iterrows()])
     st.dataframe(changes, hide_index=True, width="stretch", column_config={"Percentage change": st.column_config.NumberColumn(format="percent")})
     st.caption("Percentage-point change applies only to rates. Relative changes are undefined when the comparison value is zero. Overlapping/custom periods may have unequal exposure.")
-    section("Drivers of Observed Change", "Largest contributing segments in the selected demo periods · associations only")
-    for col, dimension in zip(st.columns(3), ["Market", "Region", "Category"]):
+    section("Drivers of Observed Change", "Largest contributing segments in the selected periods · associations only")
+    dimensions = [name for name in ["Market", "Region", "Category", "Shipping Mode"] if name in source][:3]
+    for col, dimension in zip(st.columns(max(1, len(dimensions))), dimensions):
         with col, st.container(border=True):
             section(f"Change by {dimension.lower()}", "Mean delivery-risk difference · percentage points")
             current_agg = aggregate(current_df, dimension).set_index(dimension)
             previous_agg = aggregate(previous_df, dimension).set_index(dimension)
             delta = (current_agg - previous_agg).dropna().reset_index()
+            if delta.empty:
+                st.info("No comparable supplied scores for this segment in both periods.")
+                continue
             delta["Change (pp)"] = delta["Risk Probability"] * 100
             show(px.bar(delta, x=dimension, y="Change (pp)"), f"changes_{dimension}")
     section("Largest observed changes", "Associations and model signals, never causal claims")
     for _, row in changes.iterrows():
-        st.write(f'**{row["Metric"]}** · {row["Direction"].lower()} of {abs(row["Absolute change"]):,.3f} in the selected demo periods.')
+        st.write(f'**{row["Metric"]}** · {row["Direction"].lower()} of {abs(row["Absolute change"]):,.3f} in the selected periods.')
     evidence(source[source.Date.isin(pd.concat([current_df.Date, previous_df.Date]))],
-        {**{k: v for k, v in st.session_state.filters.items() if k != "Date"},
+        {**{k: v for k, v in active.items() if k != "Date"},
          "Current period": [str(v) for v in current], "Comparison period": [str(v) for v in previous]},
         "Absolute change = current minus comparison; relative change = difference / comparison; rate differences are also expressed in percentage points.")
 

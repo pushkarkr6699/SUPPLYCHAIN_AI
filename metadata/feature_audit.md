@@ -1,5 +1,7 @@
 # Feature audit and completion status
 
+**Historical UI-stage audit:** see [FINAL_HANDOFF.md](../docs/FINAL_HANDOFF.md), capability_matrix.json and integration_qa.json for current completed dataset connections and validated delivery/demand inference.
+
 **Audit date:** 2026-10-04  
 **Scope:** Current `D:\SUPPLYCHAIN_AI` checkout. All analytical records are synthetic UI fixtures unless a row below explicitly says otherwise.
 

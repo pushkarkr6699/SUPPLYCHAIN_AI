@@ -1,4 +1,5 @@
 import streamlit as st
+from html import escape
 from components.kpi_cards import kpis
 from components.status import badge
 from components.navigation import nav_button
@@ -8,8 +9,14 @@ from services.mock_data import DEMO_AS_OF
 
 def render(df):
     items = alerts(df)
+    verified = bool(df.attrs.get("verified_artifacts"))
+    label = "supplied" if verified else "demo"
     st.session_state.setdefault("alert_statuses", {})
-    statuses = st.session_state.alert_statuses
+    if verified:
+        scope = "delivery" if "Risk Probability" in df else "demand"
+        statuses = st.session_state.setdefault("artifact_alert_statuses", {}).setdefault(scope, {})
+    else:
+        statuses = st.session_state.alert_statuses
     for index in range(len(items)):
         statuses.setdefault(str(index), "New")
     critical = sum(item["Severity"] == "Critical" for item in items)
@@ -17,9 +24,9 @@ def render(df):
     information = sum(item["Severity"] == "Information" for item in items)
     acknowledged = sum(value == "Acknowledged" for value in statuses.values())
     kpis([
-        ("Critical", critical, "number", "Active demo alerts", "red"),
-        ("Attention", attention, "number", "Active demo alerts", "amber"),
-        ("Information", information, "number", "Active demo alerts"),
+        ("Critical", critical, "number", f"Active {label} alerts", "red"),
+        ("Attention", attention, "number", f"Active {label} alerts", "amber"),
+        ("Information", information, "number", f"Active {label} alerts"),
         ("Acknowledged", acknowledged, "number", "This session only", "green"),
     ])
     severity = st.multiselect("Severity", ["Critical", "Attention", "Information"], key="alert_severity_filter")
@@ -36,7 +43,7 @@ def render(df):
             with st.container(border=True):
                 tone = {"Critical": "danger", "Attention": "warning"}.get(item["Severity"], "info")
                 status = statuses[str(index)]
-                st.html(f'<div class="alert-list-row">{badge(item["Severity"], tone)} {badge(status, "success" if status == "Resolved" else "warning" if status == "Acknowledged" else "neutral")} <b>{item["Title"]}</b><small>{item["Records"]:,} demo records · {DEMO_AS_OF}</small></div>')
+                st.html(f'<div class="alert-list-row">{badge(item["Severity"], tone)} {badge(status, "success" if status == "Resolved" else "warning" if status == "Acknowledged" else "neutral")} <b>{escape(item["Title"])}</b><small>{item["Records"]:,} {label} records · {escape(str(item["Timestamp"]))}</small></div>')
                 st.caption(item["Description"])
                 st.caption(f'Source: {item["Source"]} · Timestamp: {item["Timestamp"]} · Evidence: {item["Evidence"]}')
                 left, right = st.columns([1, 1])
@@ -61,11 +68,12 @@ def render(df):
         st.write("**Source / timestamp**", f'{item["Source"]} · {item["Timestamp"]}')
         st.write("**Evidence**", item["Evidence"])
         if item["Category"] == "Risk":
-            st.write("**Metric / threshold**", "Delivery risk band · production threshold 0.56 (configured metadata)")
+            threshold = float(df.attrs.get("production_threshold", .56))
+            st.write("**Metric / threshold**", f"Supplied delivery risk band · classification threshold {threshold:.2f}" if verified else "Delivery risk band · production threshold 0.56 (configured metadata)")
         elif item["Category"] == "Demand":
-            st.write("**Metric / threshold**", "Illustrative stock-attention rule · not an inventory service alert")
+            st.write("**Metric / threshold**", "Supplied stock-attention flag · inventory availability is not supplied" if verified else "Illustrative stock-attention rule · not an inventory service alert")
         else:
             st.write("**Metric / threshold**", "Informational observation · no production rule configured")
-        st.metric("Affected demo records", f"{item['Records']:,}")
-        st.caption(f"Context snapshot: {DEMO_AS_OF} · synthetic records · no live alert engine connected")
+        st.metric(f"Affected {label} records", f"{item['Records']:,}")
+        st.caption(f"Context snapshot: {item['Timestamp']} · {label} records · session-only alert workflow")
         nav_button("Investigate", item["Route"], key=f"alert_investigate_{selected}")

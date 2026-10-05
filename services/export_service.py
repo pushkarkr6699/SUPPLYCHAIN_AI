@@ -1,4 +1,4 @@
-"""In-memory downloads, always labeled as synthetic demonstration output."""
+"""In-memory downloads carrying the source provenance of the supplied frame."""
 from io import BytesIO
 from xml.sax.saxutils import escape
 import pandas as pd
@@ -31,73 +31,116 @@ def excel_bytes(df, source=None):
 
 
 def report_pdf(df, report_name, filters, sections):
+    """Build a report for the supplied grain without inventing unavailable signals."""
     if report_name not in {"Executive", "Delivery", "Demand"}:
         raise ValueError("Report unavailable until verified model signals are connected.")
+    delivery = "Risk Probability" in df
+    demand = {"Actual Demand", "Forecast Demand"}.issubset(df)
+    if report_name == "Delivery" and not delivery or report_name == "Demand" and not demand:
+        raise ValueError(f"{report_name} report requires its matching dataset.")
+    verified = bool(df.attrs.get("verified_artifacts"))
+    source = df.attrs.get("data_source", "DEMO UI DATA")
     buffer = BytesIO()
-    doc = SimpleDocTemplate(buffer, pagesize=(595, 842), rightMargin=42, leftMargin=42, topMargin=48, bottomMargin=45, title=f"DEMO UI DATA - {report_name} Report")
+    doc = SimpleDocTemplate(buffer, pagesize=(595, 842), rightMargin=42, leftMargin=42,
+        topMargin=48, bottomMargin=45, title=f"{source} - {report_name} Report")
     styles = getSampleStyleSheet()
     styles.add(ParagraphStyle(name="Meta", fontSize=8, leading=12, textColor=colors.HexColor("#68768d")))
     styles["Title"].textColor = colors.HexColor("#182b4a")
     styles["Title"].fontSize = 24
     styles["BodyText"].leading = 15
     styles["Heading2"].keepWithNext = True
-    flow = [Paragraph("SUPPLYCHAIN AI", styles["Meta"]), Spacer(1, 18), Paragraph(f"{escape(report_name)} Report", styles["Title"]),
-        Paragraph("DEMO UI DATA | Synthetic records | No live model inference", styles["Meta"]), Spacer(1, 18),
-        Paragraph("This report demonstrates the reporting interface. It does not contain verified operational results or production model performance.", styles["BodyText"]), Spacer(1, 12),
-        Paragraph("Filter context: " + escape(filter_description(filters)), styles["Meta"]), Spacer(1, 22)]
+    note = ("Analysis of supplied data and precomputed outputs. Model inference is not performed by this report. "
+            "Delivery and demand datasets have separate grains and are not joined." if verified else
+            "This report demonstrates the reporting interface. It does not contain verified operational results or production model performance.")
+    flow = [Paragraph("SUPPLYCHAIN AI", styles["Meta"]), Spacer(1, 18),
+        Paragraph(f"{escape(report_name)} Report", styles["Title"]),
+        Paragraph(escape(source), styles["Meta"]), Spacer(1, 18),
+        Paragraph(note, styles["BodyText"]), Spacer(1, 12),
+        Paragraph("Filter context: " + escape(filter_description(filters, "All records in supplied dataset" if verified else "All demo records")), styles["Meta"]), Spacer(1, 22)]
     m = summary(df)
+
+    def add_table(rows, widths, heading):
+        wrapped = [[Paragraph(escape(str(cell)), styles["Meta"]) for cell in row] for row in rows]
+        table = Table(wrapped, colWidths=widths, hAlign="LEFT", repeatRows=1)
+        table.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#e6edf7")),
+            ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.HexColor("#f2f5fa"), colors.white]),
+            ("VALIGN", (0, 0), (-1, -1), "TOP"), ("TOPPADDING", (0, 0), (-1, -1), 8),
+            ("BOTTOMPADDING", (0, 0), (-1, -1), 8)]))
+        flow.extend([Paragraph(heading, styles["Heading2"]), table, Spacer(1, 18)])
+
     if report_name == "Executive":
-        status_rows = [
-            ["SECTION", "STATUS / SCOPE"],
-            ["1. Overall Status", "Demo UI operational; no live operational services are connected."],
-            ["2. Delivery Intelligence", "Synthetic delivery signals only; verified model artifacts are not connected."],
-            ["3. Demand Intelligence", "Synthetic forecast fixture only; no verified demand model is connected."],
-            ["4. Profitability Intelligence", "Unavailable · no verified profitability dataset or model."],
-            ["5. Cross-Risk Analysis", "Unavailable · no validated joint signal or join contract."],
-            ["6. Significant Changes", "Demo observations only; no causal explanation is inferred."],
-            ["7. Model Health", "Production model availability and performance are unverified."],
-            ["8. Data Quality", "Current checks describe synthetic UI data only."],
-            ["9. Supporting Charts", "Included below." if "Charts" in sections else "Not selected."],
-            ["10. Supporting Tables", "Included below." if "Records" in sections else "Not selected."],
-        ]
-        status_table = Table(status_rows, colWidths=[170, 340], hAlign="LEFT", repeatRows=1)
-        status_table.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#182b4a")), ("TEXTCOLOR", (0, 0), (-1, 0), colors.white), ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.HexColor("#f2f5fa"), colors.white]), ("FONTSIZE", (0, 0), (-1, -1), 8), ("VALIGN", (0, 0), (-1, -1), "TOP"), ("TOPPADDING", (0, 0), (-1, -1), 7), ("BOTTOMPADDING", (0, 0), (-1, -1), 7)]))
-        flow.extend([Paragraph("Executive Summary", styles["Heading2"]), status_table, Spacer(1, 18)])
+        add_table([["SECTION", "STATUS / SCOPE"],
+            ["Overall status", "Supplied artifact analysis" if verified else "Demonstration data"],
+            ["Delivery intelligence", "Included for current delivery rows" if delivery else "Outside this report's dataset scope"],
+            ["Demand intelligence", "Included for current demand observations" if demand else "Outside this report's dataset scope"],
+            ["Profitability / cross-risk", "Unavailable; no validated joint signal supplied"],
+            ["Model inference", "Precomputed outputs only; no model executed"],
+            ["Data quality", "Missing scores remain missing; results describe the selected rows"]],
+            [170, 340], "Executive Summary")
     if "KPIs" in sections:
-        metrics = [["MEASURE", "DEMO VALUE"], ["Orders", f'{m["orders"]:,}'], ["Mean delivery risk", f'{m["risk"]:.1%}'], ["High-risk orders", f'{m["high"]:,}'], ["Forecast demand (units)", f'{m["forecast"]:,}'], ["Forecast WAPE", f'{m["wape"]:.1%}']]
-        table = Table(metrics, colWidths=[335, 175], hAlign="LEFT")
-        table.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#182b4a")), ("TEXTCOLOR", (0, 0), (-1, 0), colors.white), ("ROWBACKGROUNDS", (0, 1), (-1, -1), [colors.HexColor("#f2f5fa"), colors.white]), ("FONTNAME", (0, 0), (-1, 0), "Helvetica-Bold"), ("FONTSIZE", (0, 0), (-1, -1), 10), ("TOPPADDING", (0, 0), (-1, -1), 11), ("BOTTOMPADDING", (0, 0), (-1, -1), 11)]))
-        flow.extend([Paragraph("Workspace summary", styles["Heading2"]), table, Spacer(1, 20)])
+        metrics = [["MEASURE", "VALUE"], ["Rows", f"{len(df):,}"]]
+        if delivery:
+            scored = df["Risk Probability"].notna()
+            metrics.extend([["Orders with supplied scores", f"{int(scored.sum()):,}"],
+                ["Score coverage", f"{scored.mean():.1%}" if len(df) else "N/A"],
+                ["Mean supplied delivery risk", f"{df.loc[scored, 'Risk Probability'].mean():.1%}" if scored.any() else "N/A"],
+                ["High-risk scored rows", f"{int(df['Risk'].isin(['High', 'Critical']).sum()):,}" if "Risk" in df else "N/A"]])
+        if demand:
+            metrics.extend([["Forecast next-day visits", f"{m['forecast']:,.2f}" if m["forecast"] is not None else "N/A"],
+                ["Forecast WAPE", f"{m['wape']:.1%}" if m["wape"] is not None else "N/A"]])
+        add_table(metrics, [335, 175], "Workspace summary")
     if "Charts" in sections and len(df):
-        data = trend(df)
-        drawing = Drawing(510, 170)
-        drawing.add(Line(40, 25, 500, 25, strokeColor=colors.HexColor("#cbd4e4")))
-        upper = max(data["Actual Demand"].max(), data["Forecast Demand"].max(), 1)
-        for fraction in [0, .5, 1]:
-            y = 30 + fraction * 105
-            drawing.add(String(0, y - 3, f"{upper * fraction:,.0f}", fontSize=7, fillColor=colors.HexColor("#68768d")))
-        for column, color in [("Actual Demand", "#4169dc"), ("Forecast Demand", "#8970dc")]:
-            points = [(40 + i * 455 / max(len(data) - 1, 1), 30 + float(value) / upper * 105) for i, value in enumerate(data[column])]
-            if len(points) > 1:
-                drawing.add(PolyLine(points, strokeColor=colors.HexColor(color), strokeWidth=1.7, strokeDashArray=[4, 3] if column == "Forecast Demand" else None))
-        drawing.add(String(40, 152, "Actual (blue) / Forecast (purple) - demo demand units", fontSize=9))
-        drawing.add(String(40, 8, data.Date.min().strftime("%d %b %Y"), fontSize=8))
-        drawing.add(String(425, 8, data.Date.max().strftime("%d %b %Y"), fontSize=8))
-        flow.append(KeepTogether([Paragraph("Demand through the selected period", styles["Heading2"]), drawing]))
+        if demand:
+            data = df.groupby("Date", as_index=False)[["Actual Demand", "Forecast Demand"]].sum()
+            series = [("Actual Demand", "#4169dc"), ("Forecast Demand", "#8970dc")]
+            chart_title, legend = "Demand through the selected period", "Actual (blue) / Forecast (purple) - next-day visits"
+        elif delivery:
+            data = df.dropna(subset=["Risk Probability"]).groupby("Date", as_index=False)["Risk Probability"].mean()
+            series = [("Risk Probability", "#4169dc")]
+            chart_title, legend = "Delivery risk through the selected period", "Mean supplied probability per day - scored rows only"
+        else:
+            data = pd.DataFrame()
+        if not data.empty:
+            drawing = Drawing(510, 170)
+            drawing.add(Line(40, 25, 500, 25, strokeColor=colors.HexColor("#cbd4e4")))
+            upper = max(max(float(data[column].max()) for column, _ in series), .01)
+            for fraction in [0, .5, 1]:
+                drawing.add(String(0, 27 + fraction * 105, f"{upper * fraction:,.2f}", fontSize=7, fillColor=colors.HexColor("#68768d")))
+            for column, color in series:
+                points = [(40 + i * 455 / max(len(data) - 1, 1), 30 + float(value) / upper * 105) for i, value in enumerate(data[column])]
+                if len(points) > 1:
+                    drawing.add(PolyLine(points, strokeColor=colors.HexColor(color), strokeWidth=1.7))
+            drawing.add(String(40, 152, legend, fontSize=8))
+            drawing.add(String(40, 8, data.Date.min().strftime("%d %b %Y"), fontSize=8))
+            drawing.add(String(425, 8, data.Date.max().strftime("%d %b %Y"), fontSize=8))
+            flow.append(KeepTogether([Paragraph(chart_title, styles["Heading2"]), drawing]))
     if "Insights" in sections:
-        flow.extend([Paragraph("Decision context", styles["Heading2"]), Paragraph(f'{m["high"]:,} synthetic records are in the high or critical delivery bands. {m["stock"]:,} records exceed the illustrative inventory-attention rule. These observations do not establish causal effects.', styles["BodyText"])])
+        observations = []
+        if delivery:
+            observations.append(f"{df['Risk Probability'].notna().sum():,} of {len(df):,} rows contain supplied probabilities. Unscored rows are excluded from probability averages.")
+        if demand:
+            observations.append("Forecast errors compare supplied next-day actual visits with supplied predictions.")
+            if {"Lower", "Upper"}.issubset(df) and len(df):
+                coverage = df["Actual Demand"].between(df["Lower"], df["Upper"]).mean()
+                observations.append(f"Observed coverage of supplied interval bounds is {coverage:.1%}; nominal labels do not establish calibration.")
+        observations.append("These observations do not establish causal effects.")
+        flow.extend([Paragraph("Decision context", styles["Heading2"]), Paragraph(escape(" ".join(observations)), styles["BodyText"]), Spacer(1, 12)])
     if "Records" in sections:
-        rows = [["ORDER", "MARKET", "RISK"]] + [[str(r.Order), str(r.Market), f'{r["Risk Probability"]:.1%}'] for _, r in df.nlargest(10, "Risk Probability").iterrows()]
-        table = Table(rows, colWidths=[170, 220, 120], hAlign="LEFT", repeatRows=1)
-        table.setStyle(TableStyle([("BACKGROUND", (0, 0), (-1, 0), colors.HexColor("#edf1f8")), ("FONTSIZE", (0, 0), (-1, -1), 9), ("TOPPADDING", (0, 0), (-1, -1), 8), ("BOTTOMPADDING", (0, 0), (-1, -1), 8)]))
-        flow.append(KeepTogether([Paragraph("Critical records - up to ten", styles["Heading2"]), table]))
+        if report_name == "Demand" or not delivery:
+            columns = [column for column in ["Date", "Product", "Actual Demand", "Forecast Demand"] if column in df]
+            records = df.head(10)
+        else:
+            columns = [column for column in ["Order", "Market", "Risk Probability", "Risk"] if column in df]
+            records = df.sort_values("Risk Probability", ascending=False, na_position="last").head(10)
+        if columns:
+            rows = [columns] + [["N/A" if pd.isna(row[column]) else str(row[column]) for column in columns] for _, row in records.iterrows()]
+            add_table(rows, [510 / len(columns)] * len(columns), "Supporting records - up to ten")
     def footer(canvas, doc):
         canvas.saveState()
         canvas.setFont("Helvetica", 8)
         canvas.setFillColor(colors.HexColor("#68768d"))
-        canvas.drawString(42, 24, "SUPPLYCHAIN AI | DEMO UI DATA | Portfolio interface")
+        canvas.drawString(42, 24, "SUPPLYCHAIN AI | " + ("Supplied artifact analysis" if verified else "DEMO UI DATA"))
         canvas.drawRightString(552, 24, str(doc.page))
         canvas.restoreState()
     doc.build(flow, onFirstPage=footer, onLaterPages=footer)
     return buffer.getvalue()
-

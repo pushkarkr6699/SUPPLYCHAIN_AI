@@ -1,0 +1,8 @@
+{
+  "archive": "backups/trained_artifacts_20261005_024050.zip",
+  "files": 59,
+  "bytes": 12564814,
+  "sha256": "2dafb66c31baf1fdeb9d8ba3eb77a03e2383f0b894b15dd763de3f43e4ab9c0e",
+  "integrity": "passed",
+  "secrets_included": false
+}

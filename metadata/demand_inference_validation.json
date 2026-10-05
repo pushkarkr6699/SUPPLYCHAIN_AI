@@ -1,0 +1,40 @@
+{
+  "status": "validated",
+  "features": [
+    "Product",
+    "Category",
+    "Department",
+    "Visits",
+    "Visits_Lag_1",
+    "Visits_Lag_2",
+    "Visits_Lag_7",
+    "Rolling_Mean_3",
+    "Rolling_Mean_7",
+    "Rolling_Mean_14",
+    "Rolling_Std_7",
+    "Month",
+    "DayOfWeek",
+    "Weekend",
+    "DayOfMonth"
+  ],
+  "model_path": "models/demand/AccessLogs_Final_XGBoost_Demand_Model.pkl",
+  "model_sha256": "187e9c65c17f19dcff4a2d96098a3f3a9fcc649db21b9e72fb23ace3740e59fa",
+  "portable_sha256": {
+    "models/demand/AccessLogs_Final_XGBoost_Demand_Model.json": "5c20adf15e8b42a904ff07f06f2c5b5a093bb8d85e3dcde15d52df6bd1dc6909",
+    "models/demand/AccessLogs_Final_XGBoost_Demand_Preprocessor.joblib": "7a487b9a3406ebe6875def2d18cb08cf5cb92093db53e5b12a52f63c6641889d"
+  },
+  "source_sha256": "593b58deeb3d7ec1fac4858b513f230c9bd5268ce1d763867075db2c9110800a",
+  "packages": {
+    "scikit-learn": "1.6.1",
+    "xgboost": "3.4.1",
+    "joblib": "1.5.3",
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "threadpoolctl": "3.7.0"
+  },
+  "parity_rows": 1216,
+  "max_absolute_difference": 1.523437498462954e-05,
+  "tolerance": 0.0001,
+  "reason": "1,216 complete-history supplied forecasts reproduced; first 14 days excluded."
+}

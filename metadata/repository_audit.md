@@ -1,5 +1,7 @@
 # Repository audit
 
+**Historical UI-stage audit:** current dataset/model implementation is documented in [FINAL_HANDOFF.md](../docs/FINAL_HANDOFF.md), the v2 registries and runtime QA reports. Its trained inference and source counts supersede the UI-only status below.
+
 **Audit date:** 2026-10-04  
 **Scope:** `D:\SUPPLYCHAIN_AI`, excluding virtual-environment, cache, and temporary-output directories.
 

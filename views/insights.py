@@ -6,10 +6,11 @@ from services.analytics import alerts
 
 def render(df):
     items = alerts(df)
+    caption = "Observed artifact insights" if df.attrs.get("verified_artifacts") else "Observed demo insights"
     kpis([
-        ("Critical", sum(i["Severity"] == "Critical" for i in items), "number", "Observed demo insights", "red"),
-        ("Attention", sum(i["Severity"] == "Attention" for i in items), "number", "Observed demo insights", "amber"),
-        ("Information", sum(i["Severity"] == "Information" for i in items), "number", "Observed demo insights"),
+        ("Critical", sum(i["Severity"] == "Critical" for i in items), "number", caption, "red"),
+        ("Attention", sum(i["Severity"] == "Attention" for i in items), "number", caption, "amber"),
+        ("Information", sum(i["Severity"] == "Information" for i in items), "number", caption),
     ])
     controls = st.columns([1.2, 1.2, 2])
     category = controls[0].multiselect("Category", ["Risk", "Demand", "Trend", "Anomaly", "Concentration", "Model", "Data"], key="insight_category")

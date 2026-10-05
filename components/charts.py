@@ -18,23 +18,24 @@ def style(fig, height=290):
         hoverlabel=dict(font_size=12), transition=dict(duration=250 if st.session_state.get("animation") else 0))
     fig.update_xaxes(showgrid=False, zeroline=False, title=None)
     fig.update_yaxes(showgrid=st.session_state.get("gridlines", True), gridcolor=grid, zeroline=False, title=None)
-    fig.add_annotation(text="DEMO UI DATA", x=1, y=-.17, xref="paper", yref="paper", xanchor="right", showarrow=False, font=dict(size=8, color=text))
+    fig.add_annotation(text="SUPPLIED DATA" if st.session_state.get("verified_context") else "DEMO UI DATA", x=1, y=-.17, xref="paper", yref="paper", xanchor="right", showarrow=False, font=dict(size=8, color=text))
     return fig
 
 
 def show(fig, key=None, height=290):
     st.plotly_chart(style(fig, height), width="stretch", theme=None, key=key,
         config={"displaylogo": False, "modeBarButtonsToRemove": ["lasso2d", "select2d"],
-                "toImageButtonOptions": {"format": "png", "filename": "supplychain-demo-ui-chart", "scale": 2}})
+                "toImageButtonOptions": {"format": "png", "filename": "supplychain-chart", "scale": 2}})
 
 
 def forecast_chart(df, key=None, height=300):
     data = trend(df)
+    verified = df.attrs.get("verified_artifacts", False)
     fig = go.Figure()
     fig.add_trace(go.Scatter(x=data.Date, y=data.Upper, line=dict(width=0), showlegend=False, hoverinfo="skip"))
-    fig.add_trace(go.Scatter(x=data.Date, y=data.Lower, fill="tonexty", fillcolor="rgba(137,112,220,.12)", line=dict(width=0), name="Illustrative range", hoverinfo="skip"))
-    fig.add_trace(go.Scatter(x=data.Date, y=data["Actual Demand"], name="Actual · demo", line=dict(color=BLUE, width=2.5)))
-    fig.add_trace(go.Scatter(x=data.Date, y=data["Forecast Demand"], name="Forecast · demo", line=dict(color=PURPLE, width=2.5, dash="dot")))
+    fig.add_trace(go.Scatter(x=data.Date, y=data.Lower, fill="tonexty", fillcolor="rgba(137,112,220,.12)", line=dict(width=0), name="Sum of supplied bounds" if verified else "Illustrative range", hoverinfo="skip"))
+    fig.add_trace(go.Scatter(x=data.Date, y=data["Actual Demand"], name="Actual" if verified else "Actual · demo", line=dict(color=BLUE, width=2.5)))
+    fig.add_trace(go.Scatter(x=data.Date, y=data["Forecast Demand"], name="Forecast" if verified else "Forecast · demo", line=dict(color=PURPLE, width=2.5, dash="dot")))
     show(fig, key, height)
 
 
@@ -53,8 +54,12 @@ def risk_donut(df, key=None):
     data = df.groupby("Risk", as_index=False).size()
     fig = px.pie(data, names="Risk", values="size", hole=.73, color="Risk", color_discrete_map=RISK_COLORS)
     fig.update_traces(textinfo="percent", textfont_size=11, marker=dict(line=dict(color="white", width=2)))
-    fig.add_annotation(text=f"<b>{len(df):,}</b><br>demo orders", showarrow=False, font_size=17)
+    count = int(df.Risk.notna().sum())
+    noun = "scored orders" if df.attrs.get("verified_artifacts") else "demo orders"
+    fig.add_annotation(text=f"<b>{count:,}</b><br>{noun}", showarrow=False, font_size=17)
     show(fig, key)
+    if count < len(df):
+        st.caption(f"{len(df) - count:,} unscored orders excluded from the risk distribution.")
 
 
 def matrix(df, threshold, key=None):

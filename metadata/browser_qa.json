@@ -1,0 +1,14 @@
+{
+  "surface": "isolated headless Chrome",
+  "screenshots": [
+    "tmp\\screenshots\\verified\\copilot.png",
+    "tmp\\screenshots\\verified\\dark.png",
+    "tmp\\screenshots\\verified\\demand.png",
+    "tmp\\screenshots\\verified\\landing.png",
+    "tmp\\screenshots\\verified\\mobile.png",
+    "tmp\\screenshots\\verified\\overview.png",
+    "tmp\\screenshots\\verified\\scenarios.png"
+  ],
+  "prediction_control": "passed",
+  "exception_panels": 0
+}

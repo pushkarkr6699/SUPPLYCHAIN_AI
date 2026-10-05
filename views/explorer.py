@@ -6,6 +6,7 @@ from components.kpi_cards import kpis
 from components.charts import show
 from components.tables import records_table
 from services.analytics import summary, alerts
+from services.provider import get_service
 
 DIMENSIONS = ["Date", "Market", "Region", "Country", "Category", "Department", "Product", "Shipping Mode", "Customer Segment", "Risk"]
 METRICS = ["Orders", "Mean Delivery Risk", "High-Risk Orders", "Forecast Demand", "Actual Demand", "Mean Forecast Error", "Stock Attention"]
@@ -32,6 +33,9 @@ def grouped_values(df, dimension, metric):
 
 
 def render(df):
+    if df.attrs.get("verified_artifacts"):
+        _render_verified(df)
+        return
     query = st.text_input("Search the workspace", value=st.session_state.get("search_query", ""), key="explorer_query", placeholder="Pages, metrics, orders, products, countries, markets, reports, insights…")
     st.session_state.search_query = query
     normalized = query.strip().casefold()
@@ -118,3 +122,22 @@ def render(df):
                     else:
                         route = "demand" if field == "Product" else "geography"
                         nav_button("Open analysis", route, key=f"entity_open_{field}_{entity}", selected_product=entity if field == "Product" else None)
+
+
+def _render_verified(df):
+    dataset = st.selectbox("Dataset", ["delivery", "demand"], format_func=lambda name: "Delivery orders" if name == "delivery" else "Demand forecasts", key="explorer_dataset")
+    df = get_service().records(st.session_state.get("filters_by_dataset", {}).get(dataset, {}), dataset=dataset)
+    if df.empty:
+        st.info("No records match this dataset's filters.")
+        return
+    dimensions = [name for name in DIMENSIONS if name in df]
+    metrics = ["Orders", "Mean Delivery Risk", "High-Risk Orders"] if dataset == "delivery" else ["Forecast Demand", "Actual Demand", "Mean Forecast Error", "Stock Attention"]
+    left, right = st.columns(2)
+    dimension = left.selectbox("Dimension", dimensions, key=f"verified_dimension_{dataset}")
+    metric = right.selectbox("Metric", metrics, key=f"verified_metric_{dataset}")
+    section(f"{metric} by {dimension}", "Current supplied dataset; missing predictions excluded from risk metrics")
+    grouped = grouped_values(df, dimension, metric)
+    if not grouped.empty:
+        show(px.bar(grouped.nlargest(20, "Value"), x=dimension, y="Value"), "verified_explorer")
+        selected = st.selectbox("Inspect group records", grouped[dimension].tolist(), key=f"verified_group_{dataset}_{dimension}")
+        records_table(df[df[dimension].eq(selected)], f"explorer_{dataset}", investigate=dataset == "delivery")

@@ -14,7 +14,7 @@ from components.error_states import service_error, page_error
 from components.copilot_ui import context_drawer
 from components.navigation import nav_button
 from views.registry import PAGES
-from components.filters import ROUTE_DATASET
+from components.filters import dataset_for_route
 from services.provider import get_service
 
 
@@ -58,7 +58,7 @@ def render():
         hour = datetime.now().astimezone().hour
         greeting = "Good morning" if hour < 12 else "Good afternoon" if hour < 17 else "Good evening"
         st.markdown(f"### {greeting}. Here’s what changed.")
-        st.caption("Review delivery and demand signals in the selected demo snapshot. Global filters below set the context for every analysis.")
+        st.caption("Review delivery and demand signals in the selected datasets. Filters below set the context for this analysis.")
     query_start = perf_counter()
     try:
         df = filters()
@@ -67,7 +67,8 @@ def render():
         return
     st.session_state.last_query_ms = round((perf_counter() - query_start) * 1000, 2)
     service = get_service()
-    dataset = ROUTE_DATASET.get(route, "demo")
+    dataset = dataset_for_route(route)
+    st.session_state.verified_context = bool(df.attrs.get("verified_artifacts"))
     if service.is_demo(dataset):
         demo_notice(service.data_source_label(dataset))
     else:

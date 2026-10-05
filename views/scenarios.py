@@ -13,6 +13,9 @@ def reset_scenario():
 
 
 def render(df):
+    if df.attrs.get("verified_artifacts"):
+        _render_verified(df)
+        return
     st.html('<div class="simulation-banner"><span class="simulation-dot"></span><div><b>MODEL-BASED SIMULATION</b><small>Illustrative demo rules · no production model is executed · simulated outputs are not causal effects</small></div></div>')
     delivery, demand, profitability = st.tabs(["Delivery Scenario", "Demand Scenario", "Profitability"])
     scenario_summaries = []
@@ -64,3 +67,53 @@ def render(df):
     if st.session_state.get("saved_scenarios"):
         with st.expander("Saved scenarios · session only"):
             st.dataframe(st.session_state.saved_scenarios, hide_index=True, width="stretch")
+
+
+def _render_verified(df):
+    from services.inference_service import status, input_rows, predict_delivery
+    availability = status()
+    section("Delivery Prediction Lab", "Run the registered trained model on an order and compare a shipping input")
+    st.caption("Input changes produce model estimates, not measured causal effects. Source records and the decision threshold remain unchanged.")
+    if not availability.get("available"):
+        st.warning(availability.get("reason", "The trained model is not ready for inference."))
+    if df.empty:
+        st.info("Select a filter range containing delivery orders.")
+        return
+    with st.form("verified_prediction_form"):
+        order = st.selectbox("Baseline order", df.Order.drop_duplicates().tolist())
+        shipping = st.selectbox("Compare shipping mode", sorted(df["Shipping Mode"].dropna().unique().tolist()))
+        submitted = st.form_submit_button("Run trained model", disabled=not availability.get("available"))
+    if submitted:
+        try:
+            baseline = input_rows([order])
+            alternative = baseline.copy()
+            alternative["Shipping Mode"] = shipping
+            original = predict_delivery(baseline).iloc[0]
+            changed = predict_delivery(alternative).iloc[0]
+            result = {"Order": order, "Shipping Mode": shipping, "Baseline Risk": float(original["Risk Probability"]), "Scenario Risk": float(changed["Risk Probability"])}
+            st.session_state.verified_prediction_result = result
+        except (ValueError, RuntimeError, OSError) as error:
+            st.error(str(error))
+    result = st.session_state.get("verified_prediction_result")
+    if result:
+        st.caption(f'Order {result["Order"]} · compared shipping: {result["Shipping Mode"]}')
+        kpis([
+            ("Baseline Risk", result["Baseline Risk"], "percent", "Trained model inference"),
+            ("Compared Risk", result["Scenario Risk"], "percent", "Changed shipping input", "purple"),
+            ("Difference", 100 * (result["Scenario Risk"] - result["Baseline Risk"]), "decimal", "Percentage points"),
+        ])
+    with st.expander("Score order-level feature rows from CSV"):
+        from services.inference_service import FEATURES
+        st.caption("Provide the trained order-level features with their original column names. These estimates are separate from supplied historical scores.")
+        st.code(", ".join(FEATURES), language="text")
+        uploaded = st.file_uploader("Order features CSV", type=["csv"], key="delivery_features_upload")
+        if uploaded is not None and st.button("Score uploaded orders", disabled=not availability.get("available")):
+            try:
+                import pandas as pd
+                from services.export_service import csv_bytes
+                scored = predict_delivery(pd.read_csv(uploaded))
+                st.dataframe(scored, hide_index=True, width="stretch")
+                st.download_button("Download trained order predictions", csv_bytes(scored), "trained_order_predictions.csv", "text/csv")
+            except Exception as exc:
+                st.error(f"Order inputs could not be validated: {exc}")
+    st.caption("Open Demand Intelligence to run next-day web-visit predictions from daily history.")

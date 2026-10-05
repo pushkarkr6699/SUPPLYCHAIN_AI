@@ -1,0 +1,12 @@
+{
+  "regression_tests": {"passed": 77, "failed": 0},
+  "source_artifacts_hash_verified": 26,
+  "routes_passed": 27,
+  "trained_delivery_parity_rows": 2123,
+  "trained_demand_complete_history_parity_rows": 1216,
+  "actual_data_interactions": ["delivery_prediction", "demand_prediction", "dataset_switches", "copilot_delivery", "copilot_demand", "delivery_pdf", "demand_pdf"],
+  "browser": {"surface": "isolated headless Chrome", "desktop_dark_mobile_captures_reviewed": true, "prediction_control": "passed"},
+  "syntax_compile": "passed",
+  "preview_health": "HTTP 200 ok",
+  "scope": "Local supplied-data and trained-model platform; production identity, hosting and persistence are not connected"
+}

@@ -7,6 +7,7 @@ contains precomputed product/day forecasts.
 from functools import lru_cache
 from pathlib import Path
 import pandas as pd
+import numpy as np
 
 
 DELIVERY_COLUMNS = {
@@ -100,6 +101,60 @@ def demand_records(path):
     frame.attrs.update(data_source="Verified product/day demand forecast CSV", artifact=source.name,
                        artifact_rows=len(frame), interval_label="source labels bounds as 90%",
                        observed_interval_coverage=float(covered.mean()), model_loaded=False)
+    return frame
+
+
+def order_delivery_records(primary_path, scored_path):
+    """Attach d1 scores to the unique-order analytical source; retain missing scores."""
+    required = {"Order Id", "Order_Date", "Late_delivery_risk", "Market", "Order Region", "Order Country", "Shipping Mode", "Customer Segment"}
+    primary, source = _read(primary_path, required, "Primary delivery dataset")
+    score_required = {"Order Id", "Late_Delivery_Probability", "Predicted_Late_Delivery", "Risk_Level", "Prediction_Model", "Decision_Threshold"}
+    scored, score_source = _read(scored_path, score_required, "Final delivery scored orders")
+    for frame in (primary, scored):
+        if frame["Order Id"].isna().any() or frame["Order Id"].duplicated().any():
+            raise ValueError("Delivery sources must have unique, non-null Order Id values.")
+    primary["Order_Date"] = pd.to_datetime(primary["Order_Date"], errors="raise")
+    if primary.Order_Date.isna().any() or not primary.Late_delivery_risk.isin([0, 1]).all():
+        raise ValueError("Delivery dates and binary target labels must be complete.")
+    probability = pd.to_numeric(scored.Late_Delivery_Probability, errors="raise")
+    if not np.isfinite(probability).all() or not probability.between(0, 1).all():
+        raise ValueError("Delivery probabilities must be finite values in [0, 1].")
+    thresholds = pd.to_numeric(scored.Decision_Threshold, errors="raise").unique()
+    if len(thresholds) != 1 or not 0 <= thresholds[0] <= 1:
+        raise ValueError("Scored orders must specify one valid decision threshold.")
+    threshold = float(thresholds[0])
+    if not scored.Predicted_Late_Delivery.isin([0, 1]).all() or not scored.Predicted_Late_Delivery.eq(probability.ge(threshold).astype(int)).all():
+        raise ValueError("Scored predictions do not match the supplied decision threshold.")
+    if not scored.Risk_Level.isin(["Low Risk", "Medium Risk", "High Risk"]).all():
+        raise ValueError("Scored orders contain unsupported risk labels.")
+    if not scored["Order Id"].isin(primary["Order Id"]).all():
+        raise ValueError("Scored orders contain IDs absent from the primary dataset.")
+    indexed = primary.set_index("Order Id").loc[scored["Order Id"]].reset_index()
+    for column in (set(primary.columns) & set(scored.columns)) - {"Order Id"}:
+        a, b = indexed[column].reset_index(drop=True), scored[column].reset_index(drop=True)
+        if column == "Order_Date":
+            matched = a.eq(pd.to_datetime(b, errors="raise")).all()
+        elif pd.api.types.is_numeric_dtype(a) and pd.api.types.is_numeric_dtype(b):
+            matched = np.isclose(a, b, rtol=1e-9, atol=1e-8, equal_nan=True).all()
+        else:
+            matched = a.astype("string").eq(b.astype("string")).fillna(False).all()
+        if not matched:
+            raise ValueError(f"Scored output disagrees with primary data for {column}.")
+    scores = scored[["Order Id", "Late_Delivery_Probability", "Predicted_Late_Delivery", "Risk_Level"]].copy()
+    frame = primary.merge(scores, on="Order Id", how="left", validate="one_to_one", sort=False)
+    frame = frame.rename(columns={"Order Id": "Order", "Order_Date": "Date", "Order Country": "Country", "Order Region": "Region",
+        "Late_delivery_risk": "Actual Late", "Order Profit Per Order": "Profit", "Late_Delivery_Probability": "Risk Probability",
+        "Predicted_Late_Delivery": "Predicted Late", "Risk_Level": "Risk"})
+    frame["Order"] = frame.Order.astype(str)
+    frame["Actual Late"] = frame["Actual Late"].astype(bool)
+    frame["Predicted Late"] = frame["Predicted Late"].astype("boolean")
+    frame["Correct Prediction"] = frame["Predicted Late"].eq(frame["Actual Late"])
+    frame["Risk"] = frame.Risk.astype("string").str.replace(" Risk", "", regex=False)
+    frame.attrs.update(data_source="DataCo primary orders + supplied Tuned XGBoost scores", artifact=source.name,
+        score_artifact=score_source.name, verified_artifacts=True, dataset="delivery", artifact_rows=len(frame), primary_rows=len(frame),
+        scored_rows=len(scored), duplicate_rows=0, production_threshold=threshold, model_name="Tuned XGBoost",
+        feature_importance_model="Random Forest baseline", model_loaded=False,
+        evaluation_note="January 2018 retrospective test predictions; threshold 0.35 was selected using this same test set.")
     return frame
 
 

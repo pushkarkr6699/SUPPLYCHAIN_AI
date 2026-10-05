@@ -1,0 +1,27 @@
+{
+  "source_model_path": "models/delivery/DataCo_Tuned_XGBoost.pkl",
+  "source_model_sha256": "7ae1cb8cbe5d16aebb49bbaae18604bc5f7d0d6ea7633a6094470e4a2ddadaaa",
+  "conversion": "XGBClassifier.save_model JSON and original fitted preprocessing, no retraining",
+  "source_platform": "linux",
+  "packages": {
+    "scikit-learn": "1.6.1",
+    "xgboost": "3.4.1",
+    "joblib": "1.5.3",
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "threadpoolctl": "3.7.0"
+  },
+  "source_parity_rows": 2123,
+  "source_max_probability_difference": 2.9671478274373442e-08,
+  "artifacts": [
+    {
+      "path": "models/delivery/DataCo_Tuned_XGBoost.json",
+      "sha256": "33a44cdc33a09c69c0d2b6244d980caca5a78e3e861a0770e95e6d413b8864c2"
+    },
+    {
+      "path": "models/delivery/DataCo_Tuned_XGBoost_Preprocessor.joblib",
+      "sha256": "93af3276107cdaecb906ab46fb2a023e247b39e420eeacf8fc57a96f5f520402"
+    }
+  ]
+}

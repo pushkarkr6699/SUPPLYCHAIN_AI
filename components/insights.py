@@ -3,18 +3,24 @@ import streamlit as st
 from components.status import badge
 from components.navigation import nav_button, go
 from components.evidence import evidence
+from services.provider import get_service
 
 
 def apply_insight_filter(item):
     if item.get("Category") == "Risk":
         st.session_state.filters["Risk"] = ["High", "Critical"]
+        dataset = "demo" if get_service().demo else "delivery"
+        st.session_state.setdefault("filters_by_dataset", {})[dataset] = dict(st.session_state.filters)
+        st.session_state.active_filter_dataset = dataset
         st.session_state.pop("filter_Risk", None)
+        st.session_state.pop("filter_Risk_delivery", None)
     go(item["Route"])
 
 
 def insight_card(item, df, key, show_evidence=False, show_actions=False):
     tone = {"Critical": "danger", "Attention": "warning"}.get(item["Severity"], "info")
-    st.html(f'<div class="insight-card">{badge(item["Severity"], tone)} {badge(item["Category"], "neutral")}<h3>{escape(item["Title"])}</h3><p>{escape(item["Description"])}</p><span class="eyebrow">{item["Records"]:,} DEMO RECORDS</span></div>')
+    label = "SUPPLIED RECORDS" if df.attrs.get("verified_artifacts") else "DEMO RECORDS"
+    st.html(f'<div class="insight-card">{badge(item["Severity"], tone)} {badge(item["Category"], "neutral")}<h3>{escape(item["Title"])}</h3><p>{escape(item["Description"])}</p><span class="eyebrow">{item["Records"]:,} {label}</span></div>')
     if show_evidence:
         evidence(df)
     if show_actions:

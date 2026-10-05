@@ -15,7 +15,8 @@ def summary(df: pd.DataFrame) -> dict:
     error = (df["Forecast Demand"] - df["Actual Demand"]).abs() if is_demand else None
     risk = float(df["Risk Probability"].mean()) if is_delivery else None
     late = int(df["Actual Late"].sum()) if is_delivery else None
-    accuracy = (float(df["Correct Prediction"].mean()) if "Correct Prediction" in df else
+    accuracy = (float(df["Correct Prediction"].mean()) if "Correct Prediction" in df and df["Correct Prediction"].notna().any() else
+                None if "Correct Prediction" in df else
                 float(((df["Risk Probability"] >= PRODUCTION_THRESHOLD) == df["Actual Late"]).mean()) if is_delivery else None)
     actual_total = float(df["Actual Demand"].sum()) if is_demand else None
     forecast_total = float(df["Forecast Demand"].sum()) if is_demand else None
@@ -27,7 +28,7 @@ def summary(df: pd.DataFrame) -> dict:
         "orders": n, "high": high, "risk": risk,
         "forecast": forecast_total if is_demand else None,
         "actual": actual_total if is_demand else None, "stock": stock,
-        "alerts": len(alerts(df)) if {"Risk", "Stock Attention", "Forecast Demand", "Actual Demand"}.issubset(df.columns) else 0,
+        "alerts": len(alerts(df)) if df.attrs.get("verified_artifacts") or {"Risk", "Stock Attention", "Forecast Demand", "Actual Demand"}.issubset(df.columns) else 0,
         "predicted": int(df["Predicted Late"].sum()) if "Predicted Late" in df else int((df["Risk Probability"] >= PRODUCTION_THRESHOLD).sum()) if is_delivery else 0,
         "late": late, "accuracy": accuracy,
         "error": float(error.mean()) if is_demand else None, "wape": wape, "smape": smape,
@@ -55,17 +56,20 @@ def product_errors(df):
 
 
 def classification(df, threshold):
-    p, y = df["Risk Probability"] >= threshold, df["Actual Late"]
+    scored = df.dropna(subset=["Risk Probability", "Actual Late"])
+    p, y = scored["Risk Probability"] >= threshold, scored["Actual Late"].astype(bool)
     tp, tn, fp, fn = int((p & y).sum()), int((~p & ~y).sum()), int((p & ~y).sum()), int((~p & y).sum())
     precision, recall = tp / max(tp + fp, 1), tp / max(tp + fn, 1)
     denominator = math.sqrt((tp + fp) * (tp + fn) * (tn + fp) * (tn + fn))
     return {"Precision": precision, "Recall": recall, "F1": 2 * precision * recall / max(precision + recall, 1e-9),
             "MCC": (tp * tn - fp * fn) / denominator if denominator else 0,
-            "FPR": fp / max(fp + tn, 1), "TP": tp, "TN": tn, "FP": fp, "FN": fn}
+            "FPR": fp / max(fp + tn, 1), "TP": tp, "TN": tn, "FP": fp, "FN": fn,
+            "Accuracy": (tp + tn) / max(len(scored), 1), "Balanced_Accuracy": (recall + tn / max(tn + fp, 1)) / 2, "Scored Rows": len(scored)}
 
 
 def threshold_curve(df):
-    return pd.DataFrame([{"Threshold": t, **classification(df, t)} for t in np.linspace(0, 1, 51)])
+    thresholds = sorted(set(np.linspace(0, 1, 51)) | {float(df.attrs.get("production_threshold", PRODUCTION_THRESHOLD))})
+    return pd.DataFrame([{"Threshold": t, **classification(df, t)} for t in thresholds])
 
 
 def quality(df):
@@ -74,6 +78,18 @@ def quality(df):
 
 
 def alerts(df):
+    if df.attrs.get("verified_artifacts"):
+        items = []
+        if "Risk Probability" in df:
+            items.append({"Severity": "Critical", "Category": "Risk", "Title": "High delivery risk", "Description": "Review orders with supplied high-risk scores.", "Records": int(df.Risk.isin(["High", "Critical"]).sum()), "Route": "delivery"})
+            items.append({"Severity": "Information", "Category": "Data", "Title": "Prediction coverage", "Description": "Orders without supplied scores remain unscored; risk metrics exclude missing probabilities.", "Records": int(df["Risk Probability"].notna().sum()), "Route": "quality"})
+        if "Stock Attention" in df:
+            items.append({"Severity": "Attention", "Category": "Demand", "Title": "Stock review", "Description": "Product/day rows flagged by the supplied forecast output; inventory availability is not provided.", "Records": int(df["Stock Attention"].sum()), "Route": "demand"})
+        items.append({"Severity": "Information", "Category": "Trend", "Title": "Period comparison available", "Description": "Compare observed records within the supplied historical dataset.", "Records": len(df), "Route": "changes"})
+        items.append({"Severity": "Information", "Category": "Model", "Title": "Profitability model unavailable", "Description": "Sales and realized profit are historical fields; no profitability prediction model is registered.", "Records": 0, "Route": "profitability"})
+        for item in items:
+            item.update(Timestamp=f"{df.Date.max():%Y-%m-%d}" if len(df) else "No records", Source=df.attrs.get("data_source", "Supplied artifacts"), Evidence=f'{item["Records"]:,} records in the active dataset context')
+        return items
     items = [
         {"Severity": "Critical", "Category": "Risk", "Title": "High delivery risk", "Description": "Review synthetic orders in the high and critical risk bands.", "Records": int(df.Risk.isin(["High", "Critical"]).sum()), "Route": "delivery"},
         {"Severity": "Attention", "Category": "Demand", "Title": "Inventory attention", "Description": "Illustrative forecast exceeds actual demand by more than 15%; inventory is not connected.", "Records": int(df["Stock Attention"].sum()), "Route": "demand"},

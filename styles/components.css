@@ -7,6 +7,7 @@
 [data-testid="stVerticalBlockBorderWrapper"]>[data-testid="stVerticalBlock"]{background:var(--surface);border-color:var(--border)!important}
 [data-testid="stLayoutWrapper"]:has(>[data-testid="stVerticalBlockBorderWrapper"]){border-color:var(--border)}
 [data-testid="stVerticalBlock"][data-test-wrap]{background:var(--surface);border-color:var(--border)}
+[data-testid="stSidebar"] [data-testid="stVerticalBlock"]{background:transparent!important}
 .st-key-dashboard,.st-key-top_header{background:transparent!important}
 .empty-state{text-align:center;padding:45px 25px;background:var(--surface);border:1px solid var(--border);border-radius:10px;margin:12px 0 22px}.empty-state h2{font-size:1.25rem;margin:16px 0 10px}.empty-state p{max-width:600px;margin:auto;color:var(--muted);font-size:.85rem}.empty-icon{font-size:2.1rem;color:#8494b0;margin-bottom:14px}
 .disabled-panel{padding:25px 20px;background:var(--surface);border:1px dashed var(--border);border-radius:9px;margin:8px 0 15px}.disabled-panel h3{color:var(--muted)}.disabled-panel p{font-size:.68rem;color:var(--muted)}

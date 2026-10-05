@@ -1,23 +1,30 @@
 {
-  "version": 1,
-  "canonical_delivery_columns": {
-    "Order": "source Order Id",
-    "Date": "source Order_Date",
-    "Risk Probability": "source Late_Delivery_Probability",
-    "Risk": "source Delivery_Risk_Level without Risk suffix",
-    "Actual Late": "source Actual_Late_Delivery",
-    "Predicted Late": "source Predicted_Late_Delivery",
-    "Correct Prediction": "source Correct_Prediction"
+  "version": 2,
+  "delivery": {
+    "primary": "data/delivery/final/DataCo_Final_Order_Level_Dataset.csv",
+    "grain": "unique Order Id",
+    "join": "left one-to-one final scored outputs by Order Id, shared fields checked",
+    "canonical_columns": {
+      "Order": "Order Id",
+      "Date": "Order_Date",
+      "Actual Late": "Late_delivery_risk",
+      "Risk Probability": "Late_Delivery_Probability (nullable)",
+      "Predicted Late": "Predicted_Late_Delivery (nullable)",
+      "Risk": "Risk_Level without Risk suffix (nullable)",
+      "Profit": "Order Profit Per Order"
+    }
   },
-  "canonical_demand_columns": {
-    "Date": "source DateOnly",
-    "Product": "source Product",
-    "Actual Demand": "source Next_Day_Visits",
-    "Forecast Demand": "source Predicted_Next_Day_Visits",
-    "Lower": "source Prediction_Lower_90",
-    "Upper": "source Prediction_Upper_90",
-    "Forecast Error": "source Error",
-    "Absolute Error": "source Absolute_Error"
+  "demand": {
+    "grain": "Product + DateOnly",
+    "date_semantics": "base date; predicts following day",
+    "units": "web visits",
+    "canonical_columns": {
+      "Date": "DateOnly",
+      "Actual Demand": "Next_Day_Visits",
+      "Forecast Demand": "Predicted_Next_Day_Visits",
+      "Lower": "Prediction_Lower_90",
+      "Upper": "Prediction_Upper_90"
+    }
   },
-  "join_policy": "Do not join delivery orders to product-day demand without an explicitly supplied and validated key."
+  "join_policy": "No delivery-to-demand join without validated shared grain/key."
 }

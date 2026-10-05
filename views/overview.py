@@ -8,9 +8,13 @@ from components.model_cards import model_cards
 from components.navigation import nav_button
 from components.presentation import toggle_presentation
 from services.analytics import summary, alerts
+from services.provider import get_service
 
 
 def render(df):
+    if df.attrs.get("verified_artifacts"):
+        _render_verified(df)
+        return
     m = summary(df)
     actions = st.columns([5, 1.3, 1.3, 1.3])
     with actions[1]:
@@ -53,4 +57,48 @@ def render(df):
         with col:
             insight_card(item, df, f"overview_{item['Category']}")
     section("System & Model Health", "Transparent status across connected capabilities")
+    model_cards()
+
+
+def _render_verified(df):
+    service = get_service()
+    demand_filters = st.session_state.get("filters_by_dataset", {}).get("demand", {})
+    demand = service.records(demand_filters, dataset="demand")
+    m, forecast = summary(df), summary(demand)
+    scored = int(df["Risk Probability"].notna().sum())
+    actions = st.columns([5, 1.3, 1.3, 1.3])
+    with actions[1]: nav_button("Generate Brief", "reports", key="overview_brief", icon="description")
+    with actions[2]: st.button("Presentation Mode", key="overview_presentation", on_click=toggle_presentation, width="stretch")
+    with actions[3]: nav_button("Ask Copilot", "copilot", key="overview_ask", icon="auto_awesome")
+    kpis([
+        ("Total Orders", len(df), "number", "Primary analytical dataset in view"),
+        ("Scored Orders", scored, "number", "Supplied January 2018 predictions"),
+        ("High-Risk Deliveries", m["high"], "number", "Among supplied scored orders", "red"),
+        ("Average Risk", m["risk"], "percent", "Unscored orders excluded", "amber"),
+        ("Forecast Demand", forecast["forecast"], "number", "Separate product/day dataset", "purple"),
+        ("Stock Attention", forecast["stock"], "number", "Supplied forecast review flags"),
+    ])
+    st.caption("Delivery and demand use separate datasets and filter contexts. Demand figures use the current Demand page filters; the datasets are not joined.")
+    left, right = st.columns([1.65, 1])
+    with left, st.container(border=True):
+        section("Demand Outlook", f'{len(demand):,} product/day rows · supplied forecasts and bounds')
+        if len(demand): forecast_chart(demand, "overview_forecast")
+        else: st.info("No demand records match the Demand page filters.")
+    with right, st.container(border=True):
+        section("Delivery Risk Overview", "Supplied risk bands; missing scores remain unscored")
+        risk_donut(df, "overview_risk")
+    left, right = st.columns(2)
+    with left, st.container(border=True):
+        section("Risk by market", "Mean probability among scored orders")
+        bar(df, "Market", key="overview_market", horizontal=True)
+    with right, st.container(border=True):
+        section("Demand by category", "Forecast units in the separate demand context")
+        if len(demand): bar(demand, "Category", "Forecast Demand", key="overview_category")
+    section("High-Risk Orders", "Supplied Tuned XGBoost predictions")
+    records_table(df[df.Risk.eq("High").fillna(False)], "overview")
+    section("Executive Insights", "Measured from the connected datasets")
+    items = alerts(df)[:2] + alerts(demand)[:1]
+    for col, item in zip(st.columns(3), items):
+        with col: insight_card(item, df if item["Category"] != "Demand" else demand, f"overview_{item['Category']}")
+    section("System & Model Health", "Registered artifacts and current inference availability")
     model_cards()

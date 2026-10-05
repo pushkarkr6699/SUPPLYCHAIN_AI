@@ -1,4 +1,8 @@
 import streamlit as st
+import json
+from pathlib import Path
+from config import ROOT
+from services.provider import get_service
 from components.landing_components import flow
 from components.empty_states import empty_state
 from components.section_header import section
@@ -24,6 +28,37 @@ DESCRIPTIONS = {
 
 
 def render(df):
+    if not get_service().demo:
+        registry_path = ROOT / "metadata" / "data_registry.json"
+        try:
+            registry = json.loads(registry_path.read_text(encoding="utf-8"))
+        except (OSError, ValueError) as exc:
+            st.error(f"Artifact registry unavailable: {exc}")
+            return
+        st.info("Artifact lineage records supplied files and their provenance. Training notebooks are archived; pipeline execution is not implied.")
+        artifacts = registry.get("artifacts", [])
+        for tab, family in zip(st.tabs(["Delivery", "Demand", "Profitability"]), ["delivery", "demand", "profitability"]):
+            with tab:
+                rows = [item for item in artifacts if item.get("family", "").lower() == family or f"/{family}/" in str(item.get("path", "")).replace("\\", "/")]
+                if not rows:
+                    empty_state(f"{family.title()} lineage is not connected", "No supplied artifact is recorded for this dataset.", "Not Connected")
+                    continue
+                flow(["Supplied artifacts", "Schema validation", "Read-only provider", "Dashboard"])
+                selector, details = st.columns([1, 1.8], gap="large")
+                with selector:
+                    selected = st.radio("Registered artifacts", range(len(rows)), format_func=lambda index: Path(rows[index].get("path", rows[index].get("id", "Artifact"))).name, key=f"lineage_artifact_{family}", label_visibility="collapsed")
+                artifact = rows[selected]
+                with details, st.container(border=True):
+                    section(Path(artifact.get("path", "Artifact")).name, artifact.get("role", "Supplied artifact"), "SELECTED ARTIFACT")
+                    for label, key in [("Project path", "path"), ("Original source", "source_path"), ("Status", "status"), ("Rows", "rows"), ("SHA-256", "sha256")]:
+                        if artifact.get(key) is not None:
+                            st.write(f"**{label}:**", str(artifact[key]))
+                    columns = artifact.get("columns", artifact.get("required_columns", []))
+                    if columns:
+                        with st.expander("Recorded schema"):
+                            st.write(columns)
+                    st.caption("CSV analysis uses supplied values. Model files and notebooks are provenance artifacts unless a validated inference service is explicitly active.")
+        return
     st.info("Target architecture only · these pipelines are not executed or verified in this UI phase.")
     for tab, name in zip(st.tabs(["Delivery", "Demand", "Profitability"]), ["Delivery", "Demand", "Profitability"]):
         with tab:

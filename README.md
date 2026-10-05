@@ -2,7 +2,7 @@
 
 Decision Intelligence Platform — a complete **UI-first Streamlit application**.
 
-All analytical records and illustrative results are **DEMO UI DATA**. No project CSVs, PKLs, ML models, credentials or external AI providers are opened or connected. No training occurs. Profitability and combined Delivery × Profitability analysis are disabled.
+The existing demo UI is preserved. This workspace also connects the supplied delivery and demand datasets and runs their original trained XGBoost models after hash and prediction-parity validation. No retraining occurs. Profitability models and cross-risk joins remain unavailable because their required artifacts and shared keys were not supplied.
 
 ## Run locally (PowerShell)
 
@@ -10,10 +10,11 @@ All analytical records and illustrative results are **DEMO UI DATA**. No project
 cd D:\SUPPLYCHAIN_AI
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe -m pip install -r requirements-inference.txt
 .\.venv\Scripts\python.exe -m streamlit run app.py
 ```
 
-Open **http://127.0.0.1:8501** and choose **Explore Demo**. Once dependencies are installed, `./run.ps1` is a shortcut. The server binds to loopback only.
+Open **http://127.0.0.1:8501** and choose **Open platform**. Once dependencies are installed, `./run.ps1` is a shortcut. The server binds to loopback only.
 
 Sign In is explicitly a temporary demo session, not authentication. Continue in Demo Mode requires no credentials. Do not enter a real password. The transient password field is cleared on submit; no password is validated or persisted. Logout clears workspace state. A real authentication service must replace this flow before deployment.
 
@@ -72,7 +73,7 @@ Developer navigation is enabled in Settings → Privacy / Security. It is a UI p
 - Search, order case files, geography and product profiles provide drill-downs. Tables have search, pagination and labeled downloads.
 - The Copilot retains evidence from the question-time filter context; suggested prompts use deterministic responses. Its dashboard/filter/record/export actions are wired.
 - Analysis threshold changes recompute synthetic confusion metrics and never change the supplied **0.56** production threshold.
-- Scenarios use isolated illustrative rules. Neither model inference nor causal simulation is performed.
+- Demo scenarios use illustrative rules. Verified Scenario Lab runs trained delivery inference; Demand Intelligence runs next-day web-visit inference. Neither is a causal simulation.
 - Alerts have session-only New / Acknowledged / Resolved / Reopen actions. They are workflow UI states, not a live alert service or persisted audit history.
 - Reports have section selection, previews, generation and downloads. Changed report context invalidates the previous generated download.
 - CSV and Excel exports include a demo provenance column. PDFs include demo provenance on every page. Chart PNG export uses the Plotly toolbar camera icon.
@@ -100,9 +101,15 @@ The current UI and demo provider remain selectable. Choose `SUPPLYCHAIN_PROVIDER
 
 Place delivery artifacts in `data/delivery/final/` and product/day demand artifacts in `data/demand/final/`. `data/README.md` lists accepted inputs and the dataset context to include. The adapters validate schemas, values, threshold agreement, row grain, error calculations and interval ordering. Delivery and demand are never joined. The copied source CSVs are ignored by Git and remain local.
 
-This workspace currently uses scored delivery rows and precomputed demand forecasts. It does **not** deserialize pickle model files or run live inference. Before enabling inference, provide the fitted model, exact feature list/order and dtypes, preprocessing pipeline, dependency versions, training/validation split details, threshold definition, and a known-input/expected-output sample. Profitability remains unavailable until its own verified data and model are supplied.
+Active delivery data contains **65,752 unique orders**, with **2,123 supplied scored orders**. Unscored orders retain missing probabilities. The active Tuned XGBoost threshold is **0.35**, selected on the same January 2018 test predictions. The d3 line-item experiment uses 0.56 and remains a separate reference. Its 69.49% test accuracy agrees with its summary; the 68.74% threshold-analysis figure belongs to validation.
 
-Final-summary accuracy (69.49%) differs from agreement recomputed on the supplied scored rows (68.74%). The UI surfaces the discrepancy with an evaluation-provenance caveat; these figures are not reconciled or presented as independent validation.
+Active demand data contains **2,280 product/base-day rows across 76 products**. Forecasts represent next-day **web visits**, not purchased units. Source bounds labeled 90% cover approximately 67.63% of supplied rows. Inventory is not connected.
+
+Original Colab pickles are preserved. Native XGBoost JSON and original fitted preprocessors were exported in isolated Linux without retraining, then validated on Windows. Delivery reproduced all supplied scored orders (maximum probability difference 2.97e-8); demand reproduced all 1,216 complete-history rows (maximum difference 1.53e-5 visits). Validation reports are under `metadata/`.
+
+**Run trained predictions:** use Scenario Lab for a selected order or uploaded order-level feature rows. In Demand Intelligence, open Run trained next-day web-visit forecast to use supplied history or upload daily visits with `DateOnly, Product, Category, Department, Visits`, including zero-visit days and at least 15 consecutive days per product. New forecasts are point estimates.
+
+Run `.\.venv\Scripts\python.exe scripts\verify_integration.py` to verify all 26 artifact hashes, all 27 routes and both prediction controls. See [docs/FINAL_HANDOFF.md](docs/FINAL_HANDOFF.md) for setup, validation and remaining production deployment requirements.
 
 Implementation references: [Streamlit chart API](https://docs.streamlit.io/develop/api-reference/charts/st.plotly_chart), [Streamlit testing API](https://docs.streamlit.io/develop/api-reference/app-testing).
 

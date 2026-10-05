@@ -12,14 +12,16 @@ from config import DELIVERY_MODEL
 
 def render(df):
     demo = not df.attrs.get("verified_artifacts", False)
-    st.html(f'<div class="model-meta-row">{badge("Next-Day Forecast", "info")} {badge(DELIVERY_MODEL if demo else "Precomputed forecast CSV", "neutral")} {badge("Demo Data" if demo else "Forecast Output Connected", "success")}<span>{"Synthetic fixtures · no live model execution" if demo else df.attrs.get("artifact", "supplied forecast output") + " · model not loaded"}</span></div>')
+    if not demo:
+        st.caption("Demand represents web visits. Dates below are base dates; each prediction targets the following day. Inventory and purchased units are not supplied.")
+    st.html(f'<div class="model-meta-row">{badge("Next-Day Forecast", "info")} {badge(DELIVERY_MODEL if demo else "Supplied forecast CSV", "neutral")} {badge("Demo Data" if demo else "Forecast Output Connected", "success")}<span>{"Synthetic fixtures · no live model execution" if demo else df.attrs.get("artifact", "supplied forecast output") + " · trained model controls below"}</span></div>')
     m = summary(df)
     bias = float((df["Forecast Demand"] - df["Actual Demand"]).mean()) if len(df) else 0
     uncertainty = float((df["Upper"] - df["Lower"]).mean()) if len(df) else 0
     interval_coverage = float(df["Actual Demand"].between(df["Lower"], df["Upper"]).mean()) if len(df) else 0
     kpis([
-        ("Actual Demand", m["actual"], "number", "Synthetic demand units" if demo else "Supplied next-day actual units"),
-        ("Forecast Demand", m["forecast"], "number", "Demo forecast units" if demo else "Supplied precomputed forecast units", "purple"),
+        ("Actual Demand", m["actual"], "number", "Synthetic demand units" if demo else "Supplied next-day actual web visits"),
+        ("Forecast Demand", m["forecast"], "number", "Demo forecast units" if demo else "Supplied next-day forecast web visits", "purple"),
         ("WAPE", m["wape"], "percent", "Synthetic error metric" if demo else "Descriptive error on supplied scored rows", "amber"),
         ("SMAPE", m["smape"], "percent", "Synthetic error metric" if demo else "Descriptive error on supplied scored rows"),
         {"label": "Forecast Bias", "value": bias, "kind": "decimal", "caption": "Forecast minus actual · units", "tone": "purple"},
@@ -100,3 +102,32 @@ def render(df):
         with st.container(border=True):
             section("Product Forecast", "Actual demand, forecast and illustrative range" if demo else "Precomputed forecast with source-provided interval bounds")
             forecast_chart(subset, "product_forecast")
+    if not demo:
+        _prediction_lab()
+
+
+def _prediction_lab():
+    from services.demand_inference import status, registered, SOURCE, predict_next_day
+    availability = status()
+    with st.expander("Run trained next-day web-visit forecast"):
+        st.caption("Uses at least 15 consecutive days of observed visits per product. The supplied history ends 30 January 2018; predictions from it are historical estimates.")
+        if not availability["available"]:
+            st.warning(availability["reason"])
+            return
+        history = pd.read_csv(registered(SOURCE)[0])
+        uploaded = st.file_uploader("Optional daily visits history CSV", type=["csv"], key="demand_history_upload", help="Columns: DateOnly, Product, Category, Department, Visits. Include zero-visit days and at least 15 consecutive days per product.")
+        if uploaded is not None:
+            try:
+                history = pd.read_csv(uploaded)
+            except Exception as exc:
+                st.error(f"Cannot read visits history: {exc}")
+                return
+        if st.button("Run trained demand model", key="run_demand_model"):
+            try:
+                result = predict_next_day(history)
+                st.dataframe(result, hide_index=True, width="stretch")
+                from services.export_service import csv_bytes
+                st.download_button("Download trained forecasts", csv_bytes(result), "trained_web_visit_forecasts.csv", "text/csv")
+                st.caption(f"{len(result):,} products · original trained XGBoost model · point forecasts in web visits. Prediction intervals are not generated for new history.")
+            except Exception as exc:
+                st.error(f"Forecast inputs could not be validated: {exc}")

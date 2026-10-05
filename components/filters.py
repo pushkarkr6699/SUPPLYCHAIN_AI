@@ -34,6 +34,16 @@ ROUTE_DATASET = {
 }
 
 
+def dataset_for_route(route):
+    if get_service().demo:
+        return "demo"
+    if route in {"data", "quality", "downloads", "explorer"}:
+        return st.session_state.get(f"{route}_dataset", "delivery")
+    if route == "copilot":
+        return st.session_state.get("copilot_dataset", "delivery")
+    return ROUTE_DATASET.get(route, "delivery")
+
+
 def reset_filters():
     st.session_state.filters = {}
     dataset = st.session_state.get("active_filter_dataset", "demo")
@@ -55,7 +65,7 @@ def restore_view():
         if meta.get("metric"):
             st.session_state.selected_metric = meta["metric"]
         if meta.get("page"):
-            target_dataset = ROUTE_DATASET.get(meta["page"], "demo")
+            target_dataset = meta.get("dataset", dataset_for_route(meta["page"]))
             st.session_state.active_filter_dataset = target_dataset
             st.session_state.setdefault("filters_by_dataset", {})[target_dataset] = deepcopy({key: value for key, value in saved.items() if key != "__meta__"})
             go(meta["page"])
@@ -82,7 +92,7 @@ def delete_view():
 
 def filters():
     service = get_service()
-    dataset = ROUTE_DATASET.get(st.session_state.route, "demo")
+    dataset = dataset_for_route(st.session_state.route)
     st.session_state.setdefault("filters_by_dataset", {})
     previous_dataset = st.session_state.get("active_filter_dataset")
     if previous_dataset is None:
@@ -116,7 +126,7 @@ def filters():
         cols = st.columns(widths, vertical_alignment="bottom")
         date_key = f"filter_Date{widget_scope}"
         stale_widget_date = st.session_state.get(date_key)
-        if stale_widget_date and (stale_widget_date[1] < date_min or stale_widget_date[0] > date_max):
+        if stale_widget_date and len(stale_widget_date) == 2 and (stale_widget_date[1] < date_min or stale_widget_date[0] > date_max):
             st.session_state.pop(date_key, None)
         with cols[0]:
             dates = st.date_input("Date", value=tuple(date_value), min_value=frame.Date.min().date(), max_value=frame.Date.max().date(), key=date_key, format="DD/MM/YYYY")

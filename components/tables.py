@@ -31,8 +31,12 @@ def records_table(df, key="records", search=True, investigate=True):
 
     preferred = [column for column in ORDER_COLUMNS if column in view] if investigate else list(view.columns)
     with toolbar[2].popover("Columns", icon=":material/view_column:"):
+        column_key = f"table_columns_{key}"
+        if column_key in st.session_state:
+            st.session_state[column_key] = [c for c in st.session_state[column_key] if c in view]
         columns = st.multiselect("Visible columns", list(view.columns), default=preferred, key=f"table_columns_{key}")
-    toolbar[3].download_button("Download", csv_bytes(view), f"demo-{key}.csv", "text/csv", key=f"download_{key}", width="stretch")
+    prefix = "verified" if df.attrs.get("verified_artifacts") else "demo"
+    toolbar[3].download_button("Download", csv_bytes(view), f"{prefix}-{key}.csv", "text/csv", key=f"download_{key}", width="stretch")
     if not view.empty and not columns:
         st.info("Choose at least one column to display.")
         return
@@ -52,10 +56,10 @@ def records_table(df, key="records", search=True, investigate=True):
     display = view.iloc[(page - 1) * limit: page * limit]
     config = {
         "Risk Probability": st.column_config.ProgressColumn("Delivery risk", min_value=0, max_value=1, format="percent"),
-        "Risk": st.column_config.TextColumn("Risk band", help="Relative demo risk band"),
+        "Risk": st.column_config.TextColumn("Risk band", help="Supplied risk band; blank means unscored" if df.attrs.get("verified_artifacts") else "Relative demo risk band"),
     }
     st.dataframe(display[columns], hide_index=True, width="stretch", column_config=config)
-    st.caption(f"Showing {(page - 1) * limit + 1:,}–{min(page * limit, len(view)):,} of {len(view):,} matching demo records")
+    st.caption(f"Showing {(page - 1) * limit + 1:,}–{min(page * limit, len(view)):,} of {len(view):,} matching {prefix} records")
     if investigate and "Order" in view:
         left, right = st.columns([3, 1])
         selected = left.selectbox("Investigate an order", view.Order.tolist(), key=f"investigate_{key}", label_visibility="collapsed")

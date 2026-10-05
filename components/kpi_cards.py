@@ -34,7 +34,11 @@ def kpis(items):
             tooltip = item.get("tooltip", "")
         else:
             label, value, kind, caption, *tones = item
-            tone, delta, status, target, tooltip = (tones + ["blue", None, None, None, ""])[:5]
+            tone = tones[0] if tones else "blue"
+            delta = tones[1] if len(tones) > 1 else None
+            status = tones[2] if len(tones) > 2 else None
+            target = tones[3] if len(tones) > 3 else None
+            tooltip = tones[4] if len(tones) > 4 else ""
         extras = []
         if delta is not None:
             extras.append(f'<span class="kpi-delta">{escape(str(delta))}</span>')

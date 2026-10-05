@@ -3,9 +3,9 @@ import streamlit as st
 
 def remove_filter(column):
     st.session_state.filters.pop(column, None)
-    key = f"filter_{column}"
-    if key in st.session_state:
-        del st.session_state[key]
+    for key in list(st.session_state):
+        if key == f"filter_{column}" or key.startswith(f"filter_{column}_"):
+            del st.session_state[key]
 
 
 def filter_chips():
