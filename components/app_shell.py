@@ -52,6 +52,8 @@ def load_styles():
     if st.session_state.presentation:
         content += '[data-testid="stSidebar"],[data-testid="stExpandSidebarButton"]{display:none!important}[data-testid="stMainBlockContainer"]{max-width:1550px}.kpi-value{font-size:2.3rem}.kpi-card{height:145px}.kpi-label{font-size:.85rem}'
     st.html(f"<style>{content}</style>")
+    script = ROOT / "components" / "chart_resize.js"
+    st.html("<script>" + stylesheet(script, script.stat().st_mtime_ns) + "</script>", unsafe_allow_javascript=True)
 
 
 def render():

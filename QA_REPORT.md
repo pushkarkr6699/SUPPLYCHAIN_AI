@@ -6,6 +6,15 @@ Evidence assembled at 2026-10-05T08:07:37.826406+00:00. Scope: single-operator l
 
 ## Release result
 
+### Shared chart controls follow-up ? 2026-10-05
+
+The shared main application chart renderer now keeps toolbars visible, with contrasting 20px icons and 44px controls in Light and Dark themes. Controls wrap on narrow screens, have reserved space above the plot, and retain their native labels and handlers. Multi-series legends are separated from the toolbar and date labels. This applies to both demo and verified-data charts.
+
+Browser QA covers 14 layouts across Overview, Delivery risk/segments/performance/threshold/calibration/explainability, and Demand overview/seasonality, including desktop, tablet, 390px and 320px widths, Dark theme and fullscreen. Actual zoom in/out, pan/zoom mode, autoscale, reset, fullscreen exit and PNG download passed. SVG dimensions are checked after resizing to catch stale fullscreen rendering. Full Python regression: **120 passed**, two expected malformed-date fixture warnings. Evidence: `metadata/chart_controls_qa.json`; rerun with `.venv\Scripts\python.exe scripts/chart_controls_qa.py` while the local preview is running.
+
+The resize repair uses only repository-owned JavaScript and the already loaded Plotly API; no user data is inserted into executable code and no external script is loaded. Native controls are chart-type dependent: donut charts offer export/fullscreen, while axis charts additionally offer zoom/pan/autoscale/reset.
+
+
 ### Final product polish — 2026-10-05
 
 Final formal acceptance: **65/65 passed, zero failed or blocked**, using the completed 32-step browser showcase. The final guided workflow also passed after the visible brand mark correction. Latest observed guide route transitions were approximately 3.7s Delivery, 1.8s Order, 0.9s Prediction and 0.6s Report on this local run.

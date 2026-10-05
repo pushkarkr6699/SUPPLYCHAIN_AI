@@ -11,16 +11,18 @@ RISK_COLORS = {"Low": GREEN, "Medium": AMBER, "Attention": AMBER, "High": "#e184
 def style(fig, height=290, *, legend_below=False, category_footer=False):
     dark = st.session_state.get("theme") == "Dark"
     text, grid = ("#d3dcec", "#293951") if dark else ("#52627a", "#edf0f6")
-    fig.update_layout(template="plotly_dark" if dark else "plotly_white", height=height + (100 if st.session_state.get("presentation") else 0),
-        margin=dict(l=12, r=12, t=16, b=170 if category_footer else 92 if legend_below else 40), paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
+    move_legend = not legend_below and fig.layout.showlegend is not False and len(fig.data) > 1 and any(trace.showlegend is not False for trace in fig.data)
+    legend_below = legend_below or move_legend
+    fig.update_layout(autosize=True, template="plotly_dark" if dark else "plotly_white", height=height + 96 + (100 if move_legend else 0) + (100 if st.session_state.get("presentation") else 0),
+        margin=dict(l=12, r=12, t=112, b=170 if category_footer else 140 if move_legend else 92 if legend_below else 40), paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
         font=dict(family="Inter, Segoe UI, Arial, sans-serif", size=14, color=text), colorway=PALETTE,
-        legend=dict(orientation="h", y=-.03 if legend_below else 1.14, x=.5 if legend_below else 0,
+        legend=dict(orientation="h", y=-.22 if move_legend else -.03 if legend_below else 1.14, x=.5 if legend_below else 0,
                     xanchor="center" if legend_below else "left", yanchor="top" if legend_below else "bottom", font=dict(size=12)),
-        hoverlabel=dict(font_size=14), transition=dict(duration=250 if st.session_state.get("animation") else 0))
+        hoverlabel=dict(font_size=14), transition=dict(duration=0))
     fig.update_xaxes(showgrid=False, zeroline=False, title=None)
     fig.update_yaxes(showgrid=st.session_state.get("gridlines", True), gridcolor=grid, zeroline=False, title=None)
     fig.add_annotation(text="Supplied data" if st.session_state.get("verified_context") else "Demo UI data", x=1,
-        y=0 if category_footer else -.37 if legend_below else -.17,
+        y=0 if category_footer else -.53 if move_legend else -.37 if legend_below else -.17,
         yshift=-150 if category_footer else 0, yanchor="top" if category_footer else "auto",
         xref="paper", yref="paper", xanchor="right", showarrow=False, font=dict(size=12, color=text))
     return fig
@@ -28,7 +30,8 @@ def style(fig, height=290, *, legend_below=False, category_footer=False):
 
 def show(fig, key=None, height=290, *, legend_below=False, category_footer=False):
     st.plotly_chart(style(fig, height, legend_below=legend_below, category_footer=category_footer), width="stretch", theme=None, key=key,
-        config={"displaylogo": False, "modeBarButtonsToRemove": ["lasso2d", "select2d"],
+        config={"displayModeBar": True, "displaylogo": False, "responsive": False,
+                "doubleClick": "reset+autosize", "modeBarButtonsToRemove": ["lasso2d", "select2d"],
                 "toImageButtonOptions": {"format": "png", "filename": "supplychain-chart", "scale": 2}})
 
 

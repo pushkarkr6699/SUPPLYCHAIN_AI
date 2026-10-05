@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-05T17:21:44.222578+00:00",
+  "checked_at": "2026-10-05T18:06:24.746223+00:00",
   "url": "http://127.0.0.1:8501",
   "scope": "Verified Executive Command Center, sidebar, Plotly text and open native popovers; button Material glyphs excluded, native markdown symbol font retained",
   "issue_numbers": [
@@ -379,7 +379,8 @@
       "button_styles": [
         "rgba(0, 0, 0, 0)|rgb(211, 220, 236)|1px|rgba(0, 0, 0, 0)|6px|14px",
         "rgb(49, 93, 230)|rgb(255, 255, 255)|1px|rgb(158, 183, 255)|6px|14px",
-        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|rgb(227, 233, 242)|6px|14px"
+        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|rgb(227, 233, 242)|6px|14px",
+        "rgb(49, 93, 230)|rgb(255, 255, 255)|1px|rgb(49, 93, 230)|6px|14px"
       ],
       "small": [],
       "contrast_failures": [],
@@ -421,7 +422,8 @@
         "10px"
       ],
       "button_styles": [
-        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|rgb(227, 233, 242)|6px|14px"
+        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|rgb(227, 233, 242)|6px|14px",
+        "rgb(49, 93, 230)|rgb(255, 255, 255)|1px|rgb(49, 93, 230)|6px|14px"
       ],
       "small": [],
       "contrast_failures": [],
