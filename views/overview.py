@@ -68,7 +68,7 @@ def _render_verified(df):
     scored = int(df["Risk Probability"].notna().sum())
     actions = st.columns([5, 1.3, 1.3, 1.3])
     with actions[1]: nav_button("Generate Brief", "reports", key="overview_brief", icon="description")
-    with actions[2]: st.button("Presentation Mode", key="overview_presentation", on_click=toggle_presentation, width="stretch")
+    with actions[2]: st.button("Presentation Mode", key="overview_presentation", icon=":material/fullscreen:", on_click=toggle_presentation, width="stretch")
     with actions[3]: nav_button("Ask Copilot", "copilot", key="overview_ask", icon="auto_awesome")
     kpis([
         ("Total Orders", len(df), "number", "Primary analytical dataset in view"),
@@ -92,7 +92,7 @@ def _render_verified(df):
         section("Risk by market", "Mean probability among scored orders")
         bar(df, "Market", key="overview_market", horizontal=True)
     with right, st.container(border=True):
-        section("Demand by category", "Forecast units in the separate demand context")
+        section("Demand by category", "Forecast next-day web visits in the separate demand context")
         if len(demand): bar(demand, "Category", "Forecast Demand", key="overview_category")
     section("High-Risk Orders", "Supplied Tuned XGBoost predictions")
     records_table(df[df.Risk.eq("High").fillna(False)], "overview")

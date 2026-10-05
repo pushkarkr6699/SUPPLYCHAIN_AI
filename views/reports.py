@@ -9,6 +9,7 @@ from components.tables import records_table
 from services.analytics import summary
 from services.export_service import report_pdf
 from services.provider import get_service, filter_description
+from components.feedback import download_feedback
 
 
 def render(df):
@@ -38,13 +39,20 @@ def render(df):
             st.session_state.report_preview = True
         signature = (report, dataset, tuple(sections), str(active), source, int(pd.util.hash_pandas_object(df, index=True).sum()))
         generate_label = "Generate Executive Report" if report == "Executive" else "Generate PDF"
-        if st.button(generate_label, type="primary", width="stretch", disabled=not available):
-            with st.spinner("Preparing your report…"):
-                st.session_state.generated_report = (signature, report_pdf(df, report, active, sections))
-            st.success("PDF generated. Ready to download.")
+        generated = st.session_state.get("generated_report")
+        current = bool(generated and generated[0] == signature)
+        if st.button(generate_label, type="primary", width="stretch", disabled=not available or current, key="generate_report_pdf"):
+            try:
+                with st.spinner("Preparing your report…", show_time=True):
+                    st.session_state.generated_report = (signature, report_pdf(df, report, active, sections))
+                st.success("PDF generated. Ready to download.")
+                st.rerun()
+            except (ValueError, RuntimeError, OSError):
+                st.error("The report could not be generated. Your configuration is preserved; retry Generate PDF.")
         generated = st.session_state.get("generated_report")
         if generated and generated[0] == signature:
-            st.download_button("Download PDF", generated[1], f"{prefix}-{report.lower()}-report.pdf", "application/pdf", width="stretch")
+            st.success("Your current report is ready. Change its configuration to generate a new version.")
+            st.download_button("Download PDF", generated[1], f"{prefix}-{report.lower()}-report.pdf", "application/pdf", width="stretch", on_click=download_feedback, args=("PDF download",))
         elif generated:
             st.caption("Report settings changed. Generate again to download an up-to-date PDF.")
     with right:
@@ -67,11 +75,16 @@ def render(df):
                 if demand:
                     forecast_chart(df, "report_preview_forecast")
                 else:
-                    chart = df.dropna(subset=["Risk Probability"]).groupby("Date", as_index=False)["Risk Probability"].mean()
+                    chart = df.dropna(subset=["Risk Probability"]).copy()
+                    chart["Date"] = pd.to_datetime(chart["Date"]).dt.normalize()
+                    chart = chart.groupby("Date", as_index=False)["Risk Probability"].mean()
                     if chart.empty:
                         st.info("No supplied scores in this report context.")
                     else:
-                        show(px.line(chart, x="Date", y="Risk Probability"), "report_preview_risk")
+                        figure = px.line(chart, x="Date", y="Risk Probability", markers=True)
+                        figure.update_yaxes(tickformat=".0%")
+                        figure.update_traces(hovertemplate="%{x|%d %b %Y}<br>Daily mean risk: %{y:.1%}<extra></extra>")
+                        show(figure, "report_preview_risk")
             if "Insights" in sections:
                 if demand:
                     st.write("Forecast errors compare supplied next-day actual visits and predictions. Interval calibration is not assumed.")

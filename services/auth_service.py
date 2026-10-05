@@ -13,6 +13,7 @@ class DemoAuthService:
 
 
 def enter_demo():
+    st.session_state["login_password"] = ""
     st.session_state.update(DemoAuthService().sign_in())
 
 
@@ -30,6 +31,9 @@ def sign_in_form():
 def logout():
     for key in list(st.session_state):
         del st.session_state[key]
+    # Explicit values reset a reused browser widget as well as the server session.
+    st.session_state["login_username"] = ""
+    st.session_state["login_password"] = ""
     st.query_params.clear()
     st.session_state["route"] = "login"
 

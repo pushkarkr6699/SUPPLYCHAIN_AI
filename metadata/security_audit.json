@@ -1,8 +1,8 @@
 {
   "status": "passed",
-  "executed_at_utc": "2026-10-05T08:07:37.609761+00:00",
+  "executed_at_utc": "2026-10-05T17:30:28.467753+00:00",
   "scope": "Practical static/dynamic checks for loopback-only classroom showcase; not an independent penetration test",
-  "runtime_python_files_checked": 79,
+  "runtime_python_files_checked": 84,
   "tracked_files_secret_scanned": 162,
   "findings": [],
   "trusted_internal_deserializers": [

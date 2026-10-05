@@ -1,0 +1,439 @@
+{
+  "checked_at": "2026-10-05T17:31:18.683752+00:00",
+  "measurements": {
+    "landing-1512": {
+      "sizes": [
+        "12px",
+        "14px",
+        "16px",
+        "20px",
+        "24px",
+        "32px",
+        "64px"
+      ],
+      "colors": [
+        "rgb(102, 81, 184)",
+        "rgb(134, 93, 23)",
+        "rgb(167, 53, 70)",
+        "rgb(198, 184, 255)",
+        "rgb(20, 113, 94)",
+        "rgb(211, 220, 236)",
+        "rgb(24, 37, 61)",
+        "rgb(255, 255, 255)",
+        "rgb(49, 93, 230)",
+        "rgb(82, 98, 122)"
+      ],
+      "radii": [
+        "0px",
+        "10px",
+        "16px",
+        "6px",
+        "8px",
+        "999px"
+      ],
+      "button_styles": [
+        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|solid|rgb(227, 233, 242)|6px|14px",
+        "rgb(49, 93, 230)|rgb(255, 255, 255)|1px|solid|rgb(49, 93, 230)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_targets": [],
+      "broken_images": [],
+      "overflow": {
+        "width": 1512,
+        "doc": 1512,
+        "body": 1512
+      }
+    },
+    "landing-1366": {
+      "sizes": [
+        "12px",
+        "14px",
+        "16px",
+        "20px",
+        "24px",
+        "32px",
+        "64px"
+      ],
+      "colors": [
+        "rgb(102, 81, 184)",
+        "rgb(134, 93, 23)",
+        "rgb(167, 53, 70)",
+        "rgb(198, 184, 255)",
+        "rgb(20, 113, 94)",
+        "rgb(211, 220, 236)",
+        "rgb(24, 37, 61)",
+        "rgb(255, 255, 255)",
+        "rgb(49, 93, 230)",
+        "rgb(82, 98, 122)"
+      ],
+      "radii": [
+        "0px",
+        "10px",
+        "16px",
+        "6px",
+        "8px",
+        "999px"
+      ],
+      "button_styles": [
+        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|solid|rgb(227, 233, 242)|6px|14px",
+        "rgb(49, 93, 230)|rgb(255, 255, 255)|1px|solid|rgb(49, 93, 230)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_targets": [],
+      "broken_images": [],
+      "overflow": {
+        "width": 1366,
+        "doc": 1366,
+        "body": 1366
+      }
+    },
+    "landing-820": {
+      "sizes": [
+        "12px",
+        "14px",
+        "16px",
+        "20px",
+        "24px",
+        "32px",
+        "48px"
+      ],
+      "colors": [
+        "rgb(102, 81, 184)",
+        "rgb(134, 93, 23)",
+        "rgb(167, 53, 70)",
+        "rgb(198, 184, 255)",
+        "rgb(20, 113, 94)",
+        "rgb(211, 220, 236)",
+        "rgb(24, 37, 61)",
+        "rgb(255, 255, 255)",
+        "rgb(49, 93, 230)",
+        "rgb(82, 98, 122)"
+      ],
+      "radii": [
+        "0px",
+        "10px",
+        "16px",
+        "6px",
+        "8px",
+        "999px"
+      ],
+      "button_styles": [
+        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|solid|rgb(227, 233, 242)|6px|14px",
+        "rgb(49, 93, 230)|rgb(255, 255, 255)|1px|solid|rgb(49, 93, 230)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_targets": [],
+      "broken_images": [],
+      "overflow": {
+        "width": 820,
+        "doc": 820,
+        "body": 820
+      }
+    },
+    "landing-390": {
+      "sizes": [
+        "12px",
+        "14px",
+        "16px",
+        "20px",
+        "24px",
+        "40px"
+      ],
+      "colors": [
+        "rgb(102, 81, 184)",
+        "rgb(134, 93, 23)",
+        "rgb(167, 53, 70)",
+        "rgb(198, 184, 255)",
+        "rgb(20, 113, 94)",
+        "rgb(211, 220, 236)",
+        "rgb(24, 37, 61)",
+        "rgb(255, 255, 255)",
+        "rgb(49, 93, 230)",
+        "rgb(82, 98, 122)"
+      ],
+      "radii": [
+        "0px",
+        "10px",
+        "16px",
+        "6px",
+        "8px",
+        "999px"
+      ],
+      "button_styles": [
+        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|solid|rgb(227, 233, 242)|6px|14px",
+        "rgb(49, 93, 230)|rgb(255, 255, 255)|1px|solid|rgb(49, 93, 230)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_targets": [],
+      "broken_images": [],
+      "overflow": {
+        "width": 390,
+        "doc": 390,
+        "body": 390
+      }
+    },
+    "landing-320": {
+      "sizes": [
+        "12px",
+        "14px",
+        "16px",
+        "20px",
+        "24px",
+        "40px"
+      ],
+      "colors": [
+        "rgb(102, 81, 184)",
+        "rgb(134, 93, 23)",
+        "rgb(167, 53, 70)",
+        "rgb(198, 184, 255)",
+        "rgb(20, 113, 94)",
+        "rgb(211, 220, 236)",
+        "rgb(24, 37, 61)",
+        "rgb(255, 255, 255)",
+        "rgb(49, 93, 230)",
+        "rgb(82, 98, 122)"
+      ],
+      "radii": [
+        "0px",
+        "10px",
+        "16px",
+        "6px",
+        "8px",
+        "999px"
+      ],
+      "button_styles": [
+        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|solid|rgb(227, 233, 242)|6px|14px",
+        "rgb(49, 93, 230)|rgb(255, 255, 255)|1px|solid|rgb(49, 93, 230)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_targets": [],
+      "broken_images": [],
+      "overflow": {
+        "width": 320,
+        "doc": 320,
+        "body": 320
+      }
+    },
+    "login-1512": {
+      "sizes": [
+        "12px",
+        "14px",
+        "16px",
+        "24px",
+        "48px"
+      ],
+      "colors": [
+        "rgb(102, 81, 184)",
+        "rgb(198, 184, 255)",
+        "rgb(211, 220, 236)",
+        "rgb(24, 37, 61)",
+        "rgb(255, 255, 255)",
+        "rgb(49, 93, 230)",
+        "rgb(82, 98, 122)"
+      ],
+      "radii": [
+        "0px",
+        "10px",
+        "16px",
+        "4px",
+        "6px",
+        "999px"
+      ],
+      "button_styles": [
+        "rgba(0, 0, 0, 0)|rgb(24, 37, 61)|0px|none|rgb(24, 37, 61)|6px|14px",
+        "rgb(49, 93, 230)|rgb(255, 255, 255)|1px|solid|rgb(49, 93, 230)|6px|14px",
+        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|solid|color(srgb 0.694745 0.76 0.935843)|6px|14px",
+        "rgba(0, 0, 0, 0)|rgb(82, 98, 122)|0px|none|rgb(82, 98, 122)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_targets": [],
+      "broken_images": [],
+      "overflow": {
+        "width": 1512,
+        "doc": 1512,
+        "body": 1512
+      }
+    },
+    "login-1366": {
+      "sizes": [
+        "12px",
+        "14px",
+        "16px",
+        "24px",
+        "48px"
+      ],
+      "colors": [
+        "rgb(102, 81, 184)",
+        "rgb(198, 184, 255)",
+        "rgb(211, 220, 236)",
+        "rgb(24, 37, 61)",
+        "rgb(255, 255, 255)",
+        "rgb(49, 93, 230)",
+        "rgb(82, 98, 122)"
+      ],
+      "radii": [
+        "0px",
+        "10px",
+        "16px",
+        "4px",
+        "6px",
+        "999px"
+      ],
+      "button_styles": [
+        "rgba(0, 0, 0, 0)|rgb(24, 37, 61)|0px|none|rgb(24, 37, 61)|6px|14px",
+        "rgb(49, 93, 230)|rgb(255, 255, 255)|1px|solid|rgb(49, 93, 230)|6px|14px",
+        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|solid|color(srgb 0.694745 0.76 0.935843)|6px|14px",
+        "rgba(0, 0, 0, 0)|rgb(82, 98, 122)|0px|none|rgb(82, 98, 122)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_targets": [],
+      "broken_images": [],
+      "overflow": {
+        "width": 1366,
+        "doc": 1366,
+        "body": 1366
+      }
+    },
+    "login-820": {
+      "sizes": [
+        "12px",
+        "14px",
+        "16px",
+        "24px",
+        "40px"
+      ],
+      "colors": [
+        "rgb(102, 81, 184)",
+        "rgb(198, 184, 255)",
+        "rgb(211, 220, 236)",
+        "rgb(24, 37, 61)",
+        "rgb(255, 255, 255)",
+        "rgb(49, 93, 230)",
+        "rgb(82, 98, 122)"
+      ],
+      "radii": [
+        "0px",
+        "10px",
+        "16px",
+        "4px",
+        "6px",
+        "999px"
+      ],
+      "button_styles": [
+        "rgba(0, 0, 0, 0)|rgb(24, 37, 61)|0px|none|rgb(24, 37, 61)|6px|14px",
+        "rgb(49, 93, 230)|rgb(255, 255, 255)|1px|solid|rgb(49, 93, 230)|6px|14px",
+        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|solid|color(srgb 0.694745 0.76 0.935843)|6px|14px",
+        "rgba(0, 0, 0, 0)|rgb(82, 98, 122)|0px|none|rgb(82, 98, 122)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_targets": [],
+      "broken_images": [],
+      "overflow": {
+        "width": 820,
+        "doc": 820,
+        "body": 820
+      }
+    },
+    "login-390": {
+      "sizes": [
+        "12px",
+        "14px",
+        "16px",
+        "24px",
+        "32px"
+      ],
+      "colors": [
+        "rgb(102, 81, 184)",
+        "rgb(198, 184, 255)",
+        "rgb(211, 220, 236)",
+        "rgb(24, 37, 61)",
+        "rgb(255, 255, 255)",
+        "rgb(49, 93, 230)",
+        "rgb(82, 98, 122)"
+      ],
+      "radii": [
+        "0px",
+        "10px",
+        "16px",
+        "4px",
+        "6px",
+        "999px"
+      ],
+      "button_styles": [
+        "rgba(0, 0, 0, 0)|rgb(24, 37, 61)|0px|none|rgb(24, 37, 61)|6px|14px",
+        "rgb(49, 93, 230)|rgb(255, 255, 255)|1px|solid|rgb(49, 93, 230)|6px|14px",
+        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|solid|color(srgb 0.694745 0.76 0.935843)|6px|14px",
+        "rgba(0, 0, 0, 0)|rgb(82, 98, 122)|0px|none|rgb(82, 98, 122)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_targets": [],
+      "broken_images": [],
+      "overflow": {
+        "width": 390,
+        "doc": 390,
+        "body": 390
+      }
+    },
+    "login-320": {
+      "sizes": [
+        "12px",
+        "14px",
+        "16px",
+        "24px"
+      ],
+      "colors": [
+        "rgb(102, 81, 184)",
+        "rgb(198, 184, 255)",
+        "rgb(211, 220, 236)",
+        "rgb(24, 37, 61)",
+        "rgb(255, 255, 255)",
+        "rgb(49, 93, 230)",
+        "rgb(82, 98, 122)"
+      ],
+      "radii": [
+        "0px",
+        "10px",
+        "16px",
+        "4px",
+        "6px",
+        "999px"
+      ],
+      "button_styles": [
+        "rgba(0, 0, 0, 0)|rgb(24, 37, 61)|0px|none|rgb(24, 37, 61)|6px|14px",
+        "rgb(49, 93, 230)|rgb(255, 255, 255)|1px|solid|rgb(49, 93, 230)|6px|14px",
+        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|solid|color(srgb 0.694745 0.76 0.935843)|6px|14px",
+        "rgba(0, 0, 0, 0)|rgb(82, 98, 122)|0px|none|rgb(82, 98, 122)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_targets": [],
+      "broken_images": [],
+      "overflow": {
+        "width": 320,
+        "doc": 320,
+        "body": 320
+      }
+    }
+  },
+  "functional": [
+    "landing: native utility header hidden only on public page",
+    "login: native utility header hidden only on public page",
+    "login: all four audited text selectors meet their readable sizes; native submit arrow follows the label",
+    "login: one keyboard-operable native reveal control with visible focus; no duplicate Show or header exit",
+    "login: left-aligned secondary links, validation, recovery notice and single return action work",
+    "landing: 12 distinct module icons in 3 groups, 2 visible charts, read-only examples without false controls, one primary CTA",
+    "landing: real section navigation works with keyboard, visible focus and sticky header",
+    "workspace regression: both entry paths, sample sign-in, logout/password clearing and sidebar collapse/reopen work; workspace native header retained"
+  ],
+  "errors": [],
+  "status": "passed"
+}

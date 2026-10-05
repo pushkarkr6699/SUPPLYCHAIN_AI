@@ -6,6 +6,14 @@ The existing demo UI is preserved. This workspace also connects the supplied del
 
 ## Run locally (PowerShell)
 
+Final product polish (2026-10-05): all eight core upgrades and eight additional refinements are implemented. See [the complete implementation notes](docs/FINAL_POLISH.md). The latest full regression passed **120 tests**. The guided demo exercises Overview → Delivery → Order → Prediction → Report, with explicit trained-model execution and PDF download. Grouped navigation, compact filters, coverage summaries, pinned identifiers, order actions and report provenance are included. Demo units remain distinct from verified web-visit forecasts.
+
+Choose **Guided demo → Start guided demo** after opening the platform. Updated report preview: `output/pdf/supplychain-delivery-polished-preview.pdf`. Browser, integration, security and measured performance evidence are saved under `metadata/`.
+
+Latest UI audit (2026-10-05): the previous 18 workspace issues and all 16 Delivery issues are implemented. Numbered root causes and fixes: [workspace](docs/WORKSPACE_USABILITY_FIXES.md) and [Delivery](docs/DELIVERY_USABILITY_FIXES.md). Verification passed: 115 pytest tests, 27 integration routes, 26 source-artifact hashes, trained prediction controls, PDF exports, local security checks and 34 browser layout/theme measurements (14 workspace, 10 Delivery, 10 public pages). Demo mode and existing datasets/models are preserved.
+
+Preview at **http://127.0.0.1:8501**. Choose **Open platform**, then **Delivery Intelligence**. Browser checks can be repeated with `.venv\Scripts\python.exe scripts/workspace_usability_qa.py`, `scripts/delivery_usability_qa.py` and `scripts/public_usability_qa.py` while the local server is running; their JSON reports are under `metadata/`.
+
 ```powershell
 cd D:\SUPPLYCHAIN_AI
 python -m venv .venv
@@ -114,6 +122,8 @@ Run `.\.venv\Scripts\python.exe scripts\verify_integration.py` to verify all 26 
 Implementation references: [Streamlit chart API](https://docs.streamlit.io/develop/api-reference/charts/st.plotly_chart), [Streamlit testing API](https://docs.streamlit.io/develop/api-reference/app-testing).
 
 ## Final release QA
+
+The public landing and login pages also have a numbered [usability audit and implemented fixes](docs/PUBLIC_USABILITY_FIXES.md). With the local preview running, execute `.\.venv\Scripts\python.exe scripts/public_usability_qa.py` for the responsive public-page checks and real login/workspace flows. Its measurements are saved in `metadata/public_usability_qa.json`; complete page screenshots are saved under ignored `tmp/screenshots/public-experience/`.
 
 See [QA_REPORT.md](QA_REPORT.md) for the executed 65-case acceptance matrix, source reconciliation, 32-step teacher workflow, measured timings, fixes and final checklist. [SECURITY.md](SECURITY.md) defines the local trust boundary and public-deployment requirements. The older implementation audit documents describe earlier phases.
 

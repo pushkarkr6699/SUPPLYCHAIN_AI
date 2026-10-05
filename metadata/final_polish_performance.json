@@ -1,0 +1,9 @@
+{
+  "checked_at": "2026-10-05T17:30:26.098597+00:00",
+  "rows": 65752,
+  "date_filter_equal": true,
+  "legacy_filter_median_ms": 62.38,
+  "vectorized_filter_median_ms": 8.38,
+  "pdf_pages": 3,
+  "scope": "Seven in-process runs on the local source frame; timings are observations, not performance guarantees."
+}

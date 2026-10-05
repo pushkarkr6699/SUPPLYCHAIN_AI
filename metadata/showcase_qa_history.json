@@ -762,5 +762,343 @@
       ]
     },
     "browser": "isolated headless Chrome"
+  },
+  {
+    "status": "failed",
+    "executed_at_utc": "2026-10-05T17:31:43.476257+00:00",
+    "steps_passed": 3,
+    "steps": [
+      {
+        "step": 1,
+        "description": "Start application",
+        "status": "PASS",
+        "actual": "Health returned HTTP 200 / ok"
+      },
+      {
+        "step": 2,
+        "description": "Open dashboard",
+        "status": "PASS",
+        "actual": "Executive Command Center rendered"
+      },
+      {
+        "step": 3,
+        "description": "Confirm real-data indicator",
+        "status": "PASS",
+        "actual": "Verified repository snapshot explicitly distinguished from refreshed/live feed"
+      }
+    ],
+    "failure": "TimeoutError: Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for get_by_test_id(\"stSidebar\").get_by_role(\"button\", name=re.compile(r\"Settings\")).locator(\"xpath=ancestor::details\").locator(\"summary\")\n",
+    "timings": {
+      "initial_workspace_seconds": 11.047
+    },
+    "browser": "isolated headless Chrome"
+  },
+  {
+    "status": "failed",
+    "executed_at_utc": "2026-10-05T17:33:45.307100+00:00",
+    "steps_passed": 10,
+    "steps": [
+      {
+        "step": 1,
+        "description": "Start application",
+        "status": "PASS",
+        "actual": "Health returned HTTP 200 / ok"
+      },
+      {
+        "step": 2,
+        "description": "Open dashboard",
+        "status": "PASS",
+        "actual": "Executive Command Center rendered"
+      },
+      {
+        "step": 3,
+        "description": "Confirm real-data indicator",
+        "status": "PASS",
+        "actual": "Verified repository snapshot explicitly distinguished from refreshed/live feed"
+      },
+      {
+        "step": 4,
+        "description": "Show real delivery KPI",
+        "status": "PASS",
+        "actual": "65752 orders matches source in widened date range 2015-01-01 to 2018-01-31"
+      },
+      {
+        "step": 5,
+        "description": "Apply market filter",
+        "status": "PASS",
+        "actual": "Pacific Asia"
+      },
+      {
+        "step": 6,
+        "description": "Verify KPI changes",
+        "status": "PASS",
+        "actual": "65752 to 17577 matches source predicate"
+      },
+      {
+        "step": 7,
+        "description": "Open Delivery Intelligence",
+        "status": "PASS",
+        "actual": "Real-data delivery page loaded"
+      },
+      {
+        "step": 8,
+        "description": "Open risk analysis",
+        "status": "PASS",
+        "actual": "Plotly risk chart rendered from supplied scores"
+      },
+      {
+        "step": 9,
+        "description": "Open Order Explorer",
+        "status": "PASS",
+        "actual": "Order search and case file rendered"
+      },
+      {
+        "step": 10,
+        "description": "Search real Order ID",
+        "status": "PASS",
+        "actual": "75082"
+      }
+    ],
+    "failure": "AssertionError: Order",
+    "timings": {
+      "initial_workspace_seconds": 4.597,
+      "page_switch_seconds": [
+        7.19,
+        3.422,
+        6.223,
+        4.258
+      ],
+      "filter_change_seconds": 2.178
+    },
+    "browser": "isolated headless Chrome"
+  },
+  {
+    "status": "passed",
+    "executed_at_utc": "2026-10-05T17:36:58.410744+00:00",
+    "steps_passed": 32,
+    "steps": [
+      {
+        "step": 1,
+        "description": "Start application",
+        "status": "PASS",
+        "actual": "Health returned HTTP 200 / ok"
+      },
+      {
+        "step": 2,
+        "description": "Open dashboard",
+        "status": "PASS",
+        "actual": "Executive Command Center rendered"
+      },
+      {
+        "step": 3,
+        "description": "Confirm real-data indicator",
+        "status": "PASS",
+        "actual": "Verified repository snapshot explicitly distinguished from refreshed/live feed"
+      },
+      {
+        "step": 4,
+        "description": "Show real delivery KPI",
+        "status": "PASS",
+        "actual": "65752 orders matches source in widened date range 2015-01-01 to 2018-01-31"
+      },
+      {
+        "step": 5,
+        "description": "Apply market filter",
+        "status": "PASS",
+        "actual": "Pacific Asia"
+      },
+      {
+        "step": 6,
+        "description": "Verify KPI changes",
+        "status": "PASS",
+        "actual": "65752 to 17577 matches source predicate"
+      },
+      {
+        "step": 7,
+        "description": "Open Delivery Intelligence",
+        "status": "PASS",
+        "actual": "Real-data delivery page loaded"
+      },
+      {
+        "step": 8,
+        "description": "Open risk analysis",
+        "status": "PASS",
+        "actual": "Plotly risk chart rendered from supplied scores"
+      },
+      {
+        "step": 9,
+        "description": "Open Order Explorer",
+        "status": "PASS",
+        "actual": "Order search and case file rendered"
+      },
+      {
+        "step": 10,
+        "description": "Search real Order ID",
+        "status": "PASS",
+        "actual": "75082"
+      },
+      {
+        "step": 11,
+        "description": "Verify order against source",
+        "status": "PASS",
+        "actual": "ID/date/market/region/country/shipping/sales exactly matched CSV"
+      },
+      {
+        "step": 12,
+        "description": "Show verified prediction and risk",
+        "status": "PASS",
+        "actual": "Saved probability 0.75967735; threshold 0.35"
+      },
+      {
+        "step": 13,
+        "description": "Open Model Intelligence",
+        "status": "PASS",
+        "actual": "Governance page loaded"
+      },
+      {
+        "step": 14,
+        "description": "Show verified model",
+        "status": "PASS",
+        "actual": "Tuned XGBoost with validated model status and 0.35 threshold"
+      },
+      {
+        "step": 15,
+        "description": "Show model metrics",
+        "status": "PASS",
+        "actual": "Source comparison at 0.50 distinguished from test-selected 0.35 scores"
+      },
+      {
+        "step": 16,
+        "description": "Show feature importance",
+        "status": "PASS",
+        "actual": "Actual earlier Random Forest artifact labeled separately"
+      },
+      {
+        "step": 17,
+        "description": "Open Data Quality",
+        "status": "PASS",
+        "actual": "Real source page rendered without error"
+      },
+      {
+        "step": 18,
+        "description": "Open Data Lineage",
+        "status": "PASS",
+        "actual": "Real source page rendered without error"
+      },
+      {
+        "step": 19,
+        "description": "Open Insight Center",
+        "status": "PASS",
+        "actual": "Real source page rendered without error"
+      },
+      {
+        "step": 20,
+        "description": "Open Alert Center",
+        "status": "PASS",
+        "actual": "Real source page rendered without error"
+      },
+      {
+        "step": 21,
+        "description": "Ask Copilot real-data question",
+        "status": "PASS",
+        "actual": "Market-risk response displayed with current source/filter evidence"
+      },
+      {
+        "step": 22,
+        "description": "Generate report",
+        "status": "PASS",
+        "actual": "Executive report generated for verified filtered delivery scope"
+      },
+      {
+        "step": 23,
+        "description": "Download CSV",
+        "status": "PASS",
+        "actual": "Actual browser download row IDs and market match source filter"
+      },
+      {
+        "step": 24,
+        "description": "Download Excel",
+        "status": "PASS",
+        "actual": "Actual browser workbook rows match source filter"
+      },
+      {
+        "step": 25,
+        "description": "Verify PDF report",
+        "status": "PASS",
+        "actual": "Actual downloaded PDF parsed and provenance/filter text verified; first page rendered"
+      },
+      {
+        "step": 26,
+        "description": "Open Demand Intelligence",
+        "status": "PASS",
+        "actual": "Separate product/base-day dataset loaded"
+      },
+      {
+        "step": 27,
+        "description": "Show connected demand forecasts",
+        "status": "PASS",
+        "actual": "UI forecast sum matches source; web visits and next-day target labeled"
+      },
+      {
+        "step": 28,
+        "description": "Test demand filters",
+        "status": "PASS",
+        "actual": "Single-product KPI matches saved source forecasts"
+      },
+      {
+        "step": 29,
+        "description": "Test empty state",
+        "status": "PASS",
+        "actual": "Nonexistent product produces clear empty result without traceback"
+      },
+      {
+        "step": 30,
+        "description": "Switch theme",
+        "status": "PASS",
+        "actual": "Dark theme selected and applied"
+      },
+      {
+        "step": 31,
+        "description": "Return to Executive Dashboard",
+        "status": "PASS",
+        "actual": "Dashboard context retained"
+      },
+      {
+        "step": 32,
+        "description": "Confirm no runtime errors",
+        "status": "PASS",
+        "actual": "32-step browser workflow completed without exception panels"
+      }
+    ],
+    "failure": null,
+    "timings": {
+      "initial_workspace_seconds": 3.627,
+      "page_switch_seconds": [
+        5.928,
+        2.55,
+        3.436,
+        2.429,
+        3.571,
+        1.369,
+        0.834,
+        0.904,
+        0.734,
+        0.867,
+        1.002,
+        14.939,
+        0.589,
+        16.756,
+        0.886,
+        4.128
+      ],
+      "filter_change_seconds": 1.909,
+      "report_generation_seconds": 1.71,
+      "downloads_seconds": [
+        0.687,
+        0.421,
+        0.226
+      ]
+    },
+    "browser": "isolated headless Chrome"
   }
 ]

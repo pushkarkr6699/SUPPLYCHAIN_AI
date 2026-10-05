@@ -33,7 +33,8 @@ class MockAnalyticsService:
         df = mock_data.fixture_records().copy()
         for key, values in (filters or {}).items():
             if key == "Date" and len(values) == 2:
-                df = df[df.Date.dt.date.between(values[0], values[1])]
+                start, end = pd.Timestamp(values[0]), pd.Timestamp(values[1]) + pd.Timedelta(days=1)
+                df = df[df.Date.ge(start) & df.Date.lt(end)]
             elif key in FILTER_COLUMNS and key in df and values:
                 df = df[df[key].isin(values)]
         return df.reset_index(drop=True)
@@ -83,7 +84,8 @@ class VerifiedArtifactsService(MockAnalyticsService):
         df = self._dataset(dataset)
         for key, values in (filters or {}).items():
             if key == "Date" and len(values) == 2 and "Date" in df:
-                df = df[df.Date.dt.date.between(values[0], values[1])]
+                start, end = pd.Timestamp(values[0]), pd.Timestamp(values[1]) + pd.Timedelta(days=1)
+                df = df[df.Date.ge(start) & df.Date.lt(end)]
             elif key in df and values:
                 df = df[df[key].isin(values)]
         attrs = dict(df.attrs)

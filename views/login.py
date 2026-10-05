@@ -1,15 +1,10 @@
 import streamlit as st
-from components.navigation import go
 from components.auth_components import login_card
 
 
 def render():
     with st.container(key="auth_header"):
-        brand, back = st.columns([4, 1], vertical_alignment="center")
-        with brand:
-            st.html('<div class="public-brand"><span class="brand-symbol">S</span><span>SUPPLYCHAIN <b>AI</b><small>Decision Intelligence Platform</small></span></div>')
-        with back:
-            st.button("Back to site", key="login_header_back", on_click=go, args=("landing",), type="tertiary", width="stretch")
+        st.html('<div class="public-brand"><span class="brand-symbol" aria-hidden="true">S</span><span>SUPPLYCHAIN <b>AI</b><small>Decision Intelligence Platform</small></span></div>')
 
     left, right = st.columns([.96, 1.04], gap="large", vertical_alignment="center")
     with left, st.container(key="auth_brand_panel"):

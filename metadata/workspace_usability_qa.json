@@ -1,0 +1,673 @@
+{
+  "checked_at": "2026-10-05T17:21:44.222578+00:00",
+  "url": "http://127.0.0.1:8501",
+  "scope": "Verified Executive Command Center, sidebar, Plotly text and open native popovers; button Material glyphs excluded, native markdown symbol font retained",
+  "issue_numbers": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18
+  ],
+  "measurements": {
+    "light-1512": {
+      "families": [
+        "Inter, \"Segoe UI\", Arial, sans-serif",
+        "\"Material Symbols Rounded\"",
+        "ui-monospace, \"Cascadia Code\", Consolas, monospace"
+      ],
+      "sizes": [
+        "16px",
+        "12px",
+        "14px",
+        "32px",
+        "24px",
+        "20px"
+      ],
+      "colors": [
+        "rgb(255, 255, 255)",
+        "rgb(158, 183, 255)",
+        "rgb(211, 220, 236)",
+        "rgb(82, 98, 122)",
+        "rgb(24, 37, 61)",
+        "rgb(102, 81, 184)",
+        "rgb(167, 53, 70)",
+        "rgb(49, 93, 230)",
+        "rgb(134, 93, 23)"
+      ],
+      "radii": [
+        "0px",
+        "6px",
+        "999px",
+        "10px",
+        "16px"
+      ],
+      "button_styles": [
+        "rgba(0, 0, 0, 0)|rgb(211, 220, 236)|1px|rgba(0, 0, 0, 0)|6px|14px",
+        "rgb(49, 93, 230)|rgb(255, 255, 255)|1px|rgb(49, 93, 230)|6px|14px",
+        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|rgb(227, 233, 242)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_buttons": [],
+      "overflow": {
+        "width": 1512,
+        "doc": 1512,
+        "body": 1512
+      }
+    },
+    "light-1366": {
+      "families": [
+        "Inter, \"Segoe UI\", Arial, sans-serif",
+        "\"Material Symbols Rounded\"",
+        "ui-monospace, \"Cascadia Code\", Consolas, monospace"
+      ],
+      "sizes": [
+        "16px",
+        "12px",
+        "14px",
+        "32px",
+        "24px",
+        "20px"
+      ],
+      "colors": [
+        "rgb(255, 255, 255)",
+        "rgb(158, 183, 255)",
+        "rgb(211, 220, 236)",
+        "rgb(82, 98, 122)",
+        "rgb(24, 37, 61)",
+        "rgb(102, 81, 184)",
+        "rgb(167, 53, 70)",
+        "rgb(49, 93, 230)",
+        "rgb(134, 93, 23)"
+      ],
+      "radii": [
+        "0px",
+        "6px",
+        "999px",
+        "10px",
+        "16px"
+      ],
+      "button_styles": [
+        "rgba(0, 0, 0, 0)|rgb(211, 220, 236)|1px|rgba(0, 0, 0, 0)|6px|14px",
+        "rgb(49, 93, 230)|rgb(255, 255, 255)|1px|rgb(49, 93, 230)|6px|14px",
+        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|rgb(227, 233, 242)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_buttons": [],
+      "overflow": {
+        "width": 1366,
+        "doc": 1366,
+        "body": 1366
+      }
+    },
+    "light-820": {
+      "families": [
+        "Inter, \"Segoe UI\", Arial, sans-serif",
+        "\"Material Symbols Rounded\"",
+        "ui-monospace, \"Cascadia Code\", Consolas, monospace"
+      ],
+      "sizes": [
+        "16px",
+        "12px",
+        "14px",
+        "32px",
+        "24px",
+        "20px"
+      ],
+      "colors": [
+        "rgb(255, 255, 255)",
+        "rgb(158, 183, 255)",
+        "rgb(211, 220, 236)",
+        "rgb(82, 98, 122)",
+        "rgb(24, 37, 61)",
+        "rgb(102, 81, 184)",
+        "rgb(167, 53, 70)",
+        "rgb(49, 93, 230)",
+        "rgb(134, 93, 23)"
+      ],
+      "radii": [
+        "0px",
+        "6px",
+        "999px",
+        "10px",
+        "16px"
+      ],
+      "button_styles": [
+        "rgba(0, 0, 0, 0)|rgb(211, 220, 236)|1px|rgba(0, 0, 0, 0)|6px|14px",
+        "rgb(49, 93, 230)|rgb(255, 255, 255)|1px|rgb(49, 93, 230)|6px|14px",
+        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|rgb(227, 233, 242)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_buttons": [],
+      "overflow": {
+        "width": 820,
+        "doc": 820,
+        "body": 820
+      }
+    },
+    "light-390": {
+      "families": [
+        "Inter, \"Segoe UI\", Arial, sans-serif",
+        "\"Material Symbols Rounded\"",
+        "ui-monospace, \"Cascadia Code\", Consolas, monospace"
+      ],
+      "sizes": [
+        "16px",
+        "12px",
+        "14px",
+        "24px",
+        "20px"
+      ],
+      "colors": [
+        "rgb(255, 255, 255)",
+        "rgb(158, 183, 255)",
+        "rgb(211, 220, 236)",
+        "rgb(24, 37, 61)",
+        "rgb(82, 98, 122)",
+        "rgb(102, 81, 184)",
+        "rgb(167, 53, 70)",
+        "rgb(49, 93, 230)",
+        "rgb(134, 93, 23)"
+      ],
+      "radii": [
+        "0px",
+        "6px",
+        "999px",
+        "10px",
+        "16px"
+      ],
+      "button_styles": [
+        "rgba(0, 0, 0, 0)|rgb(211, 220, 236)|1px|rgba(0, 0, 0, 0)|6px|14px",
+        "rgb(49, 93, 230)|rgb(255, 255, 255)|1px|rgb(49, 93, 230)|6px|14px",
+        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|rgb(227, 233, 242)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_buttons": [],
+      "overflow": {
+        "width": 390,
+        "doc": 390,
+        "body": 390
+      }
+    },
+    "light-320": {
+      "families": [
+        "Inter, \"Segoe UI\", Arial, sans-serif",
+        "\"Material Symbols Rounded\"",
+        "ui-monospace, \"Cascadia Code\", Consolas, monospace"
+      ],
+      "sizes": [
+        "16px",
+        "12px",
+        "14px",
+        "24px",
+        "20px"
+      ],
+      "colors": [
+        "rgb(255, 255, 255)",
+        "rgb(158, 183, 255)",
+        "rgb(211, 220, 236)",
+        "rgb(24, 37, 61)",
+        "rgb(82, 98, 122)",
+        "rgb(102, 81, 184)",
+        "rgb(167, 53, 70)",
+        "rgb(49, 93, 230)",
+        "rgb(134, 93, 23)"
+      ],
+      "radii": [
+        "0px",
+        "6px",
+        "999px",
+        "10px",
+        "16px"
+      ],
+      "button_styles": [
+        "rgba(0, 0, 0, 0)|rgb(211, 220, 236)|1px|rgba(0, 0, 0, 0)|6px|14px",
+        "rgb(49, 93, 230)|rgb(255, 255, 255)|1px|rgb(49, 93, 230)|6px|14px",
+        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|rgb(227, 233, 242)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_buttons": [],
+      "overflow": {
+        "width": 320,
+        "doc": 320,
+        "body": 320
+      }
+    },
+    "advanced-filters-open": {
+      "families": [
+        "Inter, \"Segoe UI\", Arial, sans-serif",
+        "\"Material Symbols Rounded\"",
+        "ui-monospace, \"Cascadia Code\", Consolas, monospace"
+      ],
+      "sizes": [
+        "16px",
+        "12px",
+        "14px",
+        "32px",
+        "24px",
+        "20px"
+      ],
+      "colors": [
+        "rgb(255, 255, 255)",
+        "rgb(158, 183, 255)",
+        "rgb(211, 220, 236)",
+        "rgb(82, 98, 122)",
+        "rgb(24, 37, 61)",
+        "rgb(102, 81, 184)",
+        "rgb(167, 53, 70)",
+        "rgb(49, 93, 230)",
+        "rgb(134, 93, 23)"
+      ],
+      "radii": [
+        "0px",
+        "6px",
+        "999px",
+        "10px",
+        "16px"
+      ],
+      "button_styles": [
+        "rgba(0, 0, 0, 0)|rgb(211, 220, 236)|1px|rgba(0, 0, 0, 0)|6px|14px",
+        "rgb(49, 93, 230)|rgb(255, 255, 255)|1px|rgb(49, 93, 230)|6px|14px",
+        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|rgb(227, 233, 242)|6px|14px",
+        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|rgb(49, 93, 230)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_buttons": [],
+      "overflow": {
+        "width": 1512,
+        "doc": 1512,
+        "body": 1512
+      }
+    },
+    "jump-open": {
+      "families": [
+        "Inter, \"Segoe UI\", Arial, sans-serif",
+        "\"Material Symbols Rounded\"",
+        "ui-monospace, \"Cascadia Code\", Consolas, monospace"
+      ],
+      "sizes": [
+        "16px",
+        "12px",
+        "14px",
+        "32px",
+        "24px",
+        "20px"
+      ],
+      "colors": [
+        "rgb(255, 255, 255)",
+        "rgb(158, 183, 255)",
+        "rgb(211, 220, 236)",
+        "rgb(82, 98, 122)",
+        "rgb(24, 37, 61)",
+        "rgb(102, 81, 184)",
+        "rgb(167, 53, 70)",
+        "rgb(49, 93, 230)",
+        "rgb(134, 93, 23)"
+      ],
+      "radii": [
+        "0px",
+        "6px",
+        "999px",
+        "10px",
+        "16px"
+      ],
+      "button_styles": [
+        "rgba(0, 0, 0, 0)|rgb(211, 220, 236)|1px|rgba(0, 0, 0, 0)|6px|14px",
+        "rgb(49, 93, 230)|rgb(255, 255, 255)|1px|rgb(49, 93, 230)|6px|14px",
+        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|rgb(227, 233, 242)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_buttons": [],
+      "overflow": {
+        "width": 1512,
+        "doc": 1512,
+        "body": 1512
+      }
+    },
+    "search-open": {
+      "families": [
+        "Inter, \"Segoe UI\", Arial, sans-serif",
+        "\"Material Symbols Rounded\"",
+        "ui-monospace, \"Cascadia Code\", Consolas, monospace"
+      ],
+      "sizes": [
+        "16px",
+        "12px",
+        "14px",
+        "32px",
+        "24px",
+        "20px"
+      ],
+      "colors": [
+        "rgb(255, 255, 255)",
+        "rgb(158, 183, 255)",
+        "rgb(211, 220, 236)",
+        "rgb(82, 98, 122)",
+        "rgb(24, 37, 61)",
+        "rgb(102, 81, 184)",
+        "rgb(167, 53, 70)",
+        "rgb(49, 93, 230)",
+        "rgb(134, 93, 23)"
+      ],
+      "radii": [
+        "0px",
+        "6px",
+        "999px",
+        "10px",
+        "16px"
+      ],
+      "button_styles": [
+        "rgba(0, 0, 0, 0)|rgb(211, 220, 236)|1px|rgba(0, 0, 0, 0)|6px|14px",
+        "rgb(49, 93, 230)|rgb(255, 255, 255)|1px|rgb(158, 183, 255)|6px|14px",
+        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|rgb(227, 233, 242)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_buttons": [],
+      "overflow": {
+        "width": 1512,
+        "doc": 1512,
+        "body": 1512
+      }
+    },
+    "presentation": {
+      "families": [
+        "Inter, \"Segoe UI\", Arial, sans-serif",
+        "\"Material Symbols Rounded\"",
+        "ui-monospace, \"Cascadia Code\", Consolas, monospace"
+      ],
+      "sizes": [
+        "12px",
+        "14px",
+        "32px",
+        "24px",
+        "16px",
+        "36px",
+        "20px"
+      ],
+      "colors": [
+        "rgb(82, 98, 122)",
+        "rgb(24, 37, 61)",
+        "rgb(102, 81, 184)",
+        "rgb(167, 53, 70)",
+        "rgb(49, 93, 230)",
+        "rgb(134, 93, 23)"
+      ],
+      "radii": [
+        "0px",
+        "6px",
+        "16px",
+        "999px",
+        "10px"
+      ],
+      "button_styles": [
+        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|rgb(227, 233, 242)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_buttons": [],
+      "overflow": {
+        "width": 1512,
+        "doc": 1512,
+        "body": 1512
+      }
+    },
+    "dark-1512": {
+      "families": [
+        "Inter, \"Segoe UI\", Arial, sans-serif",
+        "\"Material Symbols Rounded\"",
+        "ui-monospace, \"Cascadia Code\", Consolas, monospace"
+      ],
+      "sizes": [
+        "16px",
+        "12px",
+        "14px",
+        "32px",
+        "24px",
+        "20px"
+      ],
+      "colors": [
+        "rgb(255, 255, 255)",
+        "rgb(158, 183, 255)",
+        "rgb(211, 220, 236)",
+        "rgb(22, 36, 58)",
+        "rgb(224, 233, 249)",
+        "rgb(194, 177, 255)",
+        "rgb(255, 171, 181)",
+        "rgb(240, 204, 132)"
+      ],
+      "radii": [
+        "0px",
+        "6px",
+        "999px",
+        "10px",
+        "16px"
+      ],
+      "button_styles": [
+        "rgba(0, 0, 0, 0)|rgb(211, 220, 236)|1px|rgba(0, 0, 0, 0)|6px|14px",
+        "rgb(158, 183, 255)|rgb(22, 36, 58)|1px|rgb(158, 183, 255)|6px|14px",
+        "rgb(22, 36, 58)|rgb(224, 233, 249)|1px|rgb(42, 58, 84)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_buttons": [],
+      "overflow": {
+        "width": 1512,
+        "doc": 1512,
+        "body": 1512
+      }
+    },
+    "dark-390": {
+      "families": [
+        "Inter, \"Segoe UI\", Arial, sans-serif",
+        "\"Material Symbols Rounded\"",
+        "ui-monospace, \"Cascadia Code\", Consolas, monospace"
+      ],
+      "sizes": [
+        "16px",
+        "12px",
+        "14px",
+        "24px",
+        "20px"
+      ],
+      "colors": [
+        "rgb(255, 255, 255)",
+        "rgb(158, 183, 255)",
+        "rgb(211, 220, 236)",
+        "rgb(22, 36, 58)",
+        "rgb(224, 233, 249)",
+        "rgb(194, 177, 255)",
+        "rgb(255, 171, 181)",
+        "rgb(240, 204, 132)"
+      ],
+      "radii": [
+        "0px",
+        "6px",
+        "999px",
+        "10px",
+        "16px"
+      ],
+      "button_styles": [
+        "rgba(0, 0, 0, 0)|rgb(211, 220, 236)|1px|rgba(0, 0, 0, 0)|6px|14px",
+        "rgb(158, 183, 255)|rgb(22, 36, 58)|1px|rgb(158, 183, 255)|6px|14px",
+        "rgb(22, 36, 58)|rgb(224, 233, 249)|1px|rgb(42, 58, 84)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_buttons": [],
+      "overflow": {
+        "width": 390,
+        "doc": 390,
+        "body": 390
+      }
+    },
+    "system-1512": {
+      "families": [
+        "Inter, \"Segoe UI\", Arial, sans-serif",
+        "\"Material Symbols Rounded\"",
+        "ui-monospace, \"Cascadia Code\", Consolas, monospace"
+      ],
+      "sizes": [
+        "16px",
+        "12px",
+        "14px",
+        "32px",
+        "24px",
+        "20px"
+      ],
+      "colors": [
+        "rgb(255, 255, 255)",
+        "rgb(158, 183, 255)",
+        "rgb(211, 220, 236)",
+        "rgb(22, 36, 58)",
+        "rgb(224, 233, 249)",
+        "rgb(194, 177, 255)",
+        "rgb(255, 171, 181)",
+        "rgb(240, 204, 132)"
+      ],
+      "radii": [
+        "0px",
+        "6px",
+        "999px",
+        "10px",
+        "16px"
+      ],
+      "button_styles": [
+        "rgba(0, 0, 0, 0)|rgb(211, 220, 236)|1px|rgba(0, 0, 0, 0)|6px|14px",
+        "rgb(158, 183, 255)|rgb(22, 36, 58)|1px|rgb(158, 183, 255)|6px|14px",
+        "rgb(22, 36, 58)|rgb(224, 233, 249)|1px|rgb(42, 58, 84)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_buttons": [],
+      "overflow": {
+        "width": 1512,
+        "doc": 1512,
+        "body": 1512
+      }
+    },
+    "system-390": {
+      "families": [
+        "Inter, \"Segoe UI\", Arial, sans-serif",
+        "\"Material Symbols Rounded\"",
+        "ui-monospace, \"Cascadia Code\", Consolas, monospace"
+      ],
+      "sizes": [
+        "16px",
+        "12px",
+        "14px",
+        "24px",
+        "20px"
+      ],
+      "colors": [
+        "rgb(255, 255, 255)",
+        "rgb(158, 183, 255)",
+        "rgb(211, 220, 236)",
+        "rgb(22, 36, 58)",
+        "rgb(224, 233, 249)",
+        "rgb(194, 177, 255)",
+        "rgb(255, 171, 181)",
+        "rgb(240, 204, 132)"
+      ],
+      "radii": [
+        "0px",
+        "6px",
+        "999px",
+        "10px",
+        "16px"
+      ],
+      "button_styles": [
+        "rgba(0, 0, 0, 0)|rgb(211, 220, 236)|1px|rgba(0, 0, 0, 0)|6px|14px",
+        "rgb(158, 183, 255)|rgb(22, 36, 58)|1px|rgb(158, 183, 255)|6px|14px",
+        "rgb(22, 36, 58)|rgb(224, 233, 249)|1px|rgb(42, 58, 84)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_buttons": [],
+      "overflow": {
+        "width": 390,
+        "doc": 390,
+        "body": 390
+      }
+    },
+    "advanced-filters-mobile": {
+      "families": [
+        "Inter, \"Segoe UI\", Arial, sans-serif",
+        "\"Material Symbols Rounded\"",
+        "ui-monospace, \"Cascadia Code\", Consolas, monospace"
+      ],
+      "sizes": [
+        "16px",
+        "12px",
+        "14px",
+        "24px",
+        "20px"
+      ],
+      "colors": [
+        "rgb(255, 255, 255)",
+        "rgb(158, 183, 255)",
+        "rgb(211, 220, 236)",
+        "rgb(24, 37, 61)",
+        "rgb(82, 98, 122)",
+        "rgb(102, 81, 184)",
+        "rgb(167, 53, 70)",
+        "rgb(49, 93, 230)",
+        "rgb(134, 93, 23)"
+      ],
+      "radii": [
+        "0px",
+        "6px",
+        "999px",
+        "10px",
+        "16px"
+      ],
+      "button_styles": [
+        "rgba(0, 0, 0, 0)|rgb(211, 220, 236)|1px|rgba(0, 0, 0, 0)|6px|14px",
+        "rgb(49, 93, 230)|rgb(255, 255, 255)|1px|rgb(49, 93, 230)|6px|14px",
+        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|rgb(227, 233, 242)|6px|14px",
+        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|rgb(49, 93, 230)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_buttons": [],
+      "overflow": {
+        "width": 320,
+        "doc": 320,
+        "body": 320
+      }
+    }
+  },
+  "functional": [
+    "Semantic H1\u2192H2 greeting without anchor; disclosures/subtitles/insight copy 14px; record labels 12px and sentence case",
+    "Compact filter row aligned; donut legend immediately below chart; original three-band counts total 1,918 scored orders",
+    "Advanced Country filter accepts Afganist\u00e1n; active chip updates; Reset restores results and compact row",
+    "Previous/Next and bounded Jump work at both boundaries; narrowing results clamps page; empty search recovers",
+    "Table download contains all 636 matching High-risk rows in descending supplied risk order",
+    "Titled order investigation opens Order Explorer and returns to overview",
+    "Compact Search button has visible keyboard focus, opens real search input and submits to Universal Explorer",
+    "Presentation Mode uses fullscreen icon, hides sidebar, and exits without changing selected data",
+    "Light, Dark and System dark remain readable and responsive; mobile advanced filters fit 320px"
+  ],
+  "errors": [],
+  "passed": true
+}

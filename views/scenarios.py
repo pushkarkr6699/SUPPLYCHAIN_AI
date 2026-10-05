@@ -80,18 +80,22 @@ def _render_verified(df):
         st.info("Select a filter range containing delivery orders.")
         return
     with st.form("verified_prediction_form"):
-        order = st.selectbox("Baseline order", df.Order.drop_duplicates().tolist())
+        orders = df.Order.drop_duplicates().tolist()
+        selected = st.session_state.get("selected_order")
+        order = st.selectbox("Baseline order", orders, index=orders.index(selected) if selected in orders else 0)
         shipping = st.selectbox("Compare shipping mode", sorted(df["Shipping Mode"].dropna().unique().tolist()))
         submitted = st.form_submit_button("Run trained model", disabled=not availability.get("available"))
     if submitted:
         try:
-            baseline = input_rows([order])
-            alternative = baseline.copy()
-            alternative["Shipping Mode"] = shipping
-            original = predict_delivery(baseline).iloc[0]
-            changed = predict_delivery(alternative).iloc[0]
+            with st.spinner("Running the registered trained model…", show_time=True):
+                baseline = input_rows([order])
+                alternative = baseline.copy()
+                alternative["Shipping Mode"] = shipping
+                original = predict_delivery(baseline).iloc[0]
+                changed = predict_delivery(alternative).iloc[0]
             result = {"Order": order, "Shipping Mode": shipping, "Baseline Risk": float(original["Risk Probability"]), "Scenario Risk": float(changed["Risk Probability"])}
             st.session_state.verified_prediction_result = result
+            st.success("Trained prediction complete. Source records remain unchanged.")
         except (ValueError, RuntimeError, OSError) as error:
             st.error(str(error))
     result = st.session_state.get("verified_prediction_result")

@@ -49,11 +49,9 @@ with sync_playwright() as playwright:
 
     password = page.get_by_role("textbox", name="Password")
     assert password.get_attribute("type") == "password"
-    page.get_by_role("button", name="Show", exact=True).click()
-    page.get_by_role("button", name="Hide", exact=True).wait_for()
+    page.get_by_role("button", name="Show password", exact=True).click()
     expect(page.get_by_role("textbox", name="Password")).to_have_attribute("type", "text")
-    page.get_by_role("button", name="Hide", exact=True).click()
-    page.get_by_role("button", name="Show", exact=True).wait_for()
+    page.get_by_role("button", name="Hide password", exact=True).click()
     expect(page.get_by_role("textbox", name="Password")).to_have_attribute("type", "password")
     page.locator(".st-key-login_submit").get_by_role("button").click()
     page.get_by_text("Enter a demo username and password, or continue in Demo Mode.").wait_for()

@@ -1,0 +1,299 @@
+/* Workspace usability audit: finite, accessible tokens. Public pages are untouched. */
+.stApp:has(.st-key-top_header),
+body:has(.stApp .st-key-top_header) {
+  --wa-font: Inter, "Segoe UI", Arial, sans-serif;
+  --wa-code-font: ui-monospace, "Cascadia Code", Consolas, monospace;
+  --wa-label: 12px;
+  --wa-body: 14px;
+  --wa-title: 16px;
+  --wa-section: 20px;
+  --wa-value: 24px;
+  --wa-heading: 32px;
+  --wa-presentation-value: 36px;
+  --wa-ink: var(--text);
+  --wa-muted: #52627a;
+  --wa-blue: #315de6;
+  --wa-purple: #6651b8;
+  --wa-green: #14715e;
+  --wa-amber: #865d17;
+  --wa-red: #a73546;
+  --wa-on-accent: #fff;
+  --wa-inverse: #fff;
+  --wa-inverse-muted: #d3dcec;
+  --wa-inverse-accent: #9eb7ff;
+  --wa-radius-control: 6px;
+  --wa-radius-card: 10px;
+  --wa-radius-panel: 16px;
+  --wa-radius-round: 999px;
+}
+
+.stApp:has(.st-key-top_header) {
+  font-family: var(--wa-font);
+  font-size: var(--wa-body);
+  color: var(--wa-ink);
+}
+
+/* Native icon spans also include stExpanderIcon; translate=no marks their ligatures. */
+.stApp:has(.st-key-top_header) :where(*:not(svg):not(svg *):not([data-testid="stIconMaterial"]):not([data-testid="stIconMaterial"] *):not(span[translate="no"]):not(span[translate="no"] *)) {
+  font-family: var(--wa-font) !important;
+  font-size: inherit !important;
+  color: inherit !important;
+  border-radius: 0 !important;
+}
+
+.stApp:has(.st-key-top_header) :is(pre, code, kbd, samp, pre *, code *) {
+  font-family: var(--wa-code-font) !important;
+  background-color: var(--surface-alt) !important;
+}
+
+.stApp:has(.st-key-top_header) :is(p, li, label, input, textarea, select, button, summary) {
+  font-size: var(--wa-body) !important;
+  line-height: 1.5;
+}
+
+.stApp:has(.st-key-top_header) h1 { font-size: var(--wa-heading) !important; }
+.stApp:has(.st-key-top_header) h2 { font-size: var(--wa-value) !important; }
+.stApp:has(.st-key-top_header) h3 { font-size: var(--wa-section) !important; }
+.stApp:has(.st-key-top_header) :is(h4, h5, h6) { font-size: var(--wa-title) !important; }
+.stApp:has(.st-key-top_header) :is(h1, h2, h3, h4, h5, h6) { line-height: 1.35; }
+
+.stApp:has(.st-key-top_header) :is(small, .eyebrow, .breadcrumbs, .nav-group, .badge, .kpi-label, .kpi-caption, .kpi-delta, .kpi-status, .kpi-target, .record-profile dt, .capability-badge, .model-meta-row > span:last-child) {
+  font-size: var(--wa-label) !important;
+  line-height: 1.5;
+}
+
+.stApp:has(.st-key-top_header) :is(.page-heading p, .section-heading p, .insight-card p, .model-card p, .demo-notice, .demo-notice span, .demo-notice b, .status-item, .status-item strong, .disabled-panel p, .copilot-context p, .callout, .empty-state p, .readiness-item small, .case-signal p, .health-details) {
+  font-size: var(--wa-body) !important;
+  line-height: 1.5;
+}
+
+.stApp:has(.st-key-top_header) :is([data-testid="stWidgetLabel"], [data-testid="stCaptionContainer"], [data-testid="stCaption"], .stCaption, .stCaption p) {
+  font-size: var(--wa-label) !important;
+  color: var(--wa-muted) !important;
+}
+
+.stApp:has(.st-key-top_header) [data-testid="stWidgetLabel"] p,
+.stApp:has(.st-key-top_header) [data-testid="stCaptionContainer"] p {
+  font-size: inherit !important;
+}
+
+/* Native caption opacity would wash out the already-muted accessible color. */
+body:has(.stApp .st-key-top_header) :is([data-testid="stCaptionContainer"], [data-testid="stCaption"], .stCaption),
+body:has(.stApp .st-key-top_header) :is([data-testid="stCaptionContainer"], [data-testid="stCaption"], .stCaption) *:not(button):not(button *) {
+  opacity: 1 !important;
+}
+
+.stApp:has(.st-key-top_header) :is(.page-heading p, .section-heading p, .eyebrow, .breadcrumbs, .kpi-label, .kpi-caption, .kpi-status, .kpi-target, .insight-card p, .model-card p, .demo-notice, .record-profile dt, .badge-neutral, .callout, .status-item, .empty-state p, .disabled-panel p, .copilot-context p, .health-details) {
+  color: var(--wa-muted) !important;
+}
+
+.stApp:has(.st-key-top_header) :is(.breadcrumbs b, .status-item strong, .record-profile dd, .kpi-value) { color: var(--wa-ink) !important; }
+.stApp:has(.st-key-top_header) :is(a, .badge-info) { color: var(--wa-blue) !important; }
+.stApp:has(.st-key-top_header) :is(.demo-notice b, .simulation-banner b) { color: var(--wa-purple) !important; }
+.stApp:has(.st-key-top_header) :is(.kpi-delta, .badge-success) { color: var(--wa-green) !important; }
+.stApp:has(.st-key-top_header) :is(.badge-warning, .capability-badge, .status-item:nth-child(4) strong) { color: var(--wa-amber) !important; }
+.stApp:has(.st-key-top_header) .badge-danger { color: var(--wa-red) !important; }
+
+.stApp:has(.st-key-top_header) .kpi-value {
+  font-size: var(--wa-value) !important;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+.stApp:has(.st-key-top_header):has(.presentation-banner) .kpi-value { font-size: var(--wa-presentation-value) !important; }
+.stApp:has(.st-key-top_header) .kpi-card { min-height: 142px; height: 100% !important; }
+.stApp:has(.st-key-top_header) .insight-card h3 { font-size: var(--wa-title) !important; }
+.stApp:has(.st-key-top_header) .model-card h3 { font-size: var(--wa-title) !important; }
+.stApp:has(.st-key-top_header) .insight-card { min-height: 178px; }
+.stApp:has(.st-key-top_header) .eyebrow { letter-spacing: .04em; }
+.stApp:has(.st-key-top_header) .insight-card .eyebrow { text-transform: none !important; }
+.stApp:has(.st-key-top_header) .workspace-greeting h2 { margin: 0 0 6px; }
+.stApp:has(.st-key-top_header) .workspace-greeting p { margin: 0; color: var(--wa-muted) !important; }
+.stApp:has(.st-key-top_header) .demo-notice { flex-wrap: wrap; gap: 8px 12px; }
+.stApp:has(.st-key-top_header) .demo-notice span:last-child { flex: 1 1 400px; min-width: 0; }
+
+/* One control radius, one card radius and one larger panel radius. */
+.stApp:has(.st-key-top_header) :is(button, [data-baseweb="input"], [data-baseweb="select"] > div, [data-baseweb="textarea"], [data-testid="stDateInputField"], [data-testid="stMultiSelect"] .react-aria-ComboBox > [role="group"], .badge, .workspace-tag, .sidebar-demo, .brand-mark) {
+  border-radius: var(--wa-radius-control) !important;
+}
+.stApp:has(.st-key-top_header) :is(.kpi-card, .model-card, .insight-card, .surface, .empty-state, .disabled-panel, .status-strip, .copilot-context, .record-profile, .risk-matrix > div, .case-signal, .readiness-item, .health-banner, .compare-banner, .production-threshold, .simulation-banner, .capability-status, .capability-flow, .flow-stage, [data-testid="stExpander"], [data-testid="stDataFrame"], [data-testid="stPlotlyChart"], [data-testid="stMetric"], [data-testid="stVerticalBlockBorderWrapper"], [data-testid="stLayoutWrapper"]:has(> [data-testid="stVerticalBlockBorderWrapper"])) {
+  border-radius: var(--wa-radius-card) !important;
+}
+.stApp:has(.st-key-top_header) .st-key-global_filters { border-radius: var(--wa-radius-panel) !important; }
+.stApp:has(.st-key-top_header) :is(.status-dot, .workspace-dot, .avatar, .readiness-indicator, .simulation-dot) { border-radius: var(--wa-radius-round) !important; }
+
+/* Secondary, primary and quiet buttons; sidebar quiet buttons use the inverse palette. */
+.stApp:has(.st-key-top_header) button {
+  min-height: 44px !important;
+  min-width: 44px;
+  padding: 8px 12px;
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--wa-ink) !important;
+  font-weight: 500;
+  box-shadow: none !important;
+}
+.stApp:has(.st-key-top_header) button:is([data-testid="stBaseButton-primary"], [data-testid="stBaseButton-primaryFormSubmit"]) {
+  background: var(--wa-blue) !important;
+  border-color: var(--wa-blue) !important;
+  color: var(--wa-on-accent) !important;
+}
+.stApp:has(.st-key-top_header) button[data-testid="stBaseButton-tertiary"] {
+  background: transparent !important;
+  border-color: transparent !important;
+}
+.stApp:has(.st-key-top_header) button:hover { filter: none; border-color: var(--wa-blue) !important; }
+.stApp:has(.st-key-top_header) button p { font-weight: inherit !important; }
+.stApp:has(.st-key-top_header) button:disabled { opacity: .65; cursor: not-allowed; }
+.stApp:has(.st-key-top_header) :is(button, a, input, textarea, select, summary):focus-visible {
+  outline: 3px solid var(--wa-blue) !important;
+  outline-offset: 3px;
+}
+.stApp:has(.st-key-top_header) input::placeholder,
+.stApp:has(.st-key-top_header) textarea::placeholder { color: var(--wa-muted) !important; opacity: 1; }
+
+.stApp:has(.st-key-top_header) [data-testid="stSidebar"] { color: var(--wa-inverse-muted) !important; }
+.stApp:has(.st-key-top_header) [data-testid="stSidebar"] :is(.brand, .brand-mark, .user-block, .sidebar-status b) { color: var(--wa-inverse) !important; }
+.stApp:has(.st-key-top_header) [data-testid="stSidebar"] .brand b { color: var(--wa-inverse-accent) !important; }
+.stApp:has(.st-key-top_header) [data-testid="stSidebar"] .brand .brand-mark { background: var(--wa-blue); color: var(--wa-on-accent) !important; }
+.stApp:has(.st-key-top_header) [data-testid="stSidebar"] :is(.brand small, .workspace-tag, .nav-group, .sidebar-health, .sidebar-health p, .sidebar-health span, .sidebar-demo, .user-block small, .avatar) { color: var(--wa-inverse-muted) !important; }
+.stApp:has(.st-key-top_header) [data-testid="stSidebar"] :is(.brand small, .sidebar-health, .sidebar-health .sidebar-status, .sidebar-health .sidebar-status > span:last-child, .sidebar-demo, .sidebar-health p span, .sidebar-health b, .user-block small, .avatar) { font-size: var(--wa-label) !important; }
+.stApp:has(.st-key-top_header) [data-testid="stSidebar"] .brand { font-size: var(--wa-title) !important; }
+.stApp:has(.st-key-top_header) [data-testid="stSidebar"] .brand-mark { font-size: var(--wa-section) !important; }
+.stApp:has(.st-key-top_header) [data-testid="stSidebar"] :is(.workspace-tag, .user-block) { font-size: var(--wa-body) !important; }
+.stApp:has(.st-key-top_header) [data-testid="stSidebar"] .sidebar-demo { letter-spacing: .04em; }
+.stApp:has(.st-key-top_header) [data-testid="stSidebar"] button {
+  background: transparent !important;
+  border-color: transparent !important;
+  color: var(--wa-inverse-muted) !important;
+}
+.stApp:has(.st-key-top_header) [data-testid="stSidebar"] button[data-testid="stBaseButton-primary"] {
+  background: var(--wa-blue) !important;
+  border-color: var(--wa-blue) !important;
+  color: var(--wa-on-accent) !important;
+}
+.stApp:has(.st-key-top_header) [data-testid="stSidebar"] button:hover { border-color: var(--wa-inverse-accent) !important; }
+.stApp:has(.st-key-top_header) [data-testid="stSidebar"] [data-testid="stIconMaterial"] { color: inherit !important; }
+.stApp:has(.st-key-top_header) .sidebar-health p { gap: 10px; flex-wrap: wrap; }
+.stApp:has(.st-key-top_header) .brand small { max-width: 190px; line-height: 1.5; }
+.stApp:has(.st-key-top_header) .user-block { align-items: flex-start; }
+
+/* Plotly axes/legend/source text follows the active theme, including System dark. */
+.stApp:has(.st-key-top_header) .js-plotly-plot :is(.xtick text, .ytick text, .legendtext, .annotation-text, .textpoint text, .slicetext) { fill: var(--wa-muted) !important; }
+
+/* A single secondary filter row, with active chips between the action and summary. */
+.stApp:has(.st-key-top_header) .st-key-filter_secondary_row {
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+  margin-top: 4px;
+}
+.stApp:has(.st-key-top_header) .st-key-filter_secondary_row > [data-testid="stVerticalBlock"] { gap: 8px; }
+.stApp:has(.st-key-top_header) .st-key-filter_active_summary [data-testid="stHorizontalBlock"] { flex-wrap: wrap !important; gap: 8px !important; }
+.stApp:has(.st-key-top_header) .st-key-filter_active_summary [data-testid="stColumn"] { flex: 0 1 auto !important; min-width: 0 !important; width: auto !important; }
+.stApp:has(.st-key-top_header) .st-key-filter_active_summary button { white-space: normal; text-align: left; }
+.stApp:has(.st-key-top_header) .st-key-filter_record_summary p { margin: 0; }
+.stApp:has(.st-key-top_header) .st-key-filter_record_summary [data-testid="stCaptionContainer"] { margin-bottom: 0 !important; }
+.stApp:has(.st-key-top_header) :is(.st-key-workspace_search_trigger, [data-testid="stLayoutWrapper"]:has(> .st-key-workspace_search_trigger)) {
+  background: transparent !important;
+  width: fit-content !important;
+  max-width: 100%;
+}
+.stApp:has(.st-key-top_header) .st-key-workspace_search_trigger button { width: auto !important; }
+
+/* Table footer and investigation belong to the table rather than the following section. */
+.stApp:has(.st-key-top_header) [class*="st-key-table_footer_"] { padding: 8px 0 0; }
+.stApp:has(.st-key-top_header) [class*="st-key-table_pagination_"] { width: 100%; max-width: 620px; margin-left: auto; }
+.stApp:has(.st-key-top_header) .table-page-status { margin: 0; text-align: center; font-size: var(--wa-label) !important; color: var(--wa-muted) !important; }
+.stApp:has(.st-key-top_header) [class*="st-key-table_investigation_"] {
+  padding: 16px;
+  margin: 8px 0 16px;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--wa-radius-card) !important;
+}
+.stApp:has(.st-key-top_header) .table-investigation-title { margin: 0 0 4px; font-size: var(--wa-title) !important; }
+.stApp:has(.st-key-top_header) .table-investigation-copy { margin: 0 0 8px; color: var(--wa-muted) !important; }
+
+body:has(.stApp .st-key-top_header) [data-testid="stPopoverBody"] {
+  font-family: var(--wa-font);
+  font-size: var(--wa-body);
+  color: var(--wa-ink);
+  border-radius: var(--wa-radius-card) !important;
+}
+body:has(.stApp .st-key-top_header) [data-testid="stPopoverBody"]:has(.st-key-advanced_filter_controls) {
+  width: min(560px, calc(100vw - 32px)) !important;
+  max-width: calc(100vw - 32px) !important;
+}
+body:has(.stApp .st-key-top_header) [data-testid="stPopoverBody"] [data-testid="stWidgetLabel"] p { color: var(--wa-muted) !important; }
+
+/* Streamlit portals live beside .stApp. Apply the same finite control tokens there. */
+body:has(.stApp .st-key-top_header) :is([data-testid="stPopoverBody"], [role="listbox"]) {
+  font-family: var(--wa-font);
+  font-size: var(--wa-body);
+  color: var(--wa-ink);
+  border-radius: var(--wa-radius-card) !important;
+}
+body:has(.stApp .st-key-top_header) :is([data-testid="stPopoverBody"], [role="listbox"]) :where(*:not(svg):not(svg *):not([data-testid="stIconMaterial"]):not([data-testid="stIconMaterial"] *):not(span[translate="no"]):not(span[translate="no"] *)) {
+  font-family: var(--wa-font) !important;
+  font-size: inherit !important;
+  color: inherit !important;
+  border-radius: 0 !important;
+}
+body:has(.stApp .st-key-top_header) :is([data-testid="stPopoverBody"], [role="listbox"]) :is(p, label, input, textarea, select, button, [role="option"]) {
+  font-size: var(--wa-body) !important;
+  line-height: 1.5;
+}
+body:has(.stApp .st-key-top_header) [data-testid="stPopoverBody"] :is([data-testid="stWidgetLabel"], [data-testid="stCaptionContainer"], small) {
+  font-size: var(--wa-label) !important;
+  color: var(--wa-muted) !important;
+}
+body:has(.stApp .st-key-top_header) [data-testid="stPopoverBody"] :is([data-testid="stWidgetLabel"], [data-testid="stCaptionContainer"]) p { font-size: inherit !important; }
+body:has(.stApp .st-key-top_header) [data-testid="stPopoverBody"] :is(button, [data-baseweb="input"], [data-baseweb="select"] > div, [data-baseweb="textarea"], [data-testid="stDateInputField"], [data-testid="stMultiSelect"] .react-aria-ComboBox > [role="group"]) { border-radius: var(--wa-radius-control) !important; }
+body:has(.stApp .st-key-top_header) [data-testid="stPopoverBody"] button {
+  min-height: 44px !important;
+  min-width: 44px;
+  padding: 8px 12px;
+  background: var(--surface) !important;
+  border: 1px solid var(--border) !important;
+  color: var(--wa-ink) !important;
+  font-weight: 500;
+  box-shadow: none !important;
+}
+body:has(.stApp .st-key-top_header) [data-testid="stPopoverBody"] button:is([data-testid="stBaseButton-primary"], [data-testid="stBaseButton-primaryFormSubmit"]) {
+  background: var(--wa-blue) !important;
+  border-color: var(--wa-blue) !important;
+  color: var(--wa-on-accent) !important;
+}
+body:has(.stApp .st-key-top_header) [data-testid="stPopoverBody"] button[data-testid="stBaseButton-tertiary"] { background: transparent !important; border-color: transparent !important; }
+body:has(.stApp .st-key-top_header) [data-testid="stPopoverBody"] button p { font-weight: inherit !important; }
+body:has(.stApp .st-key-top_header) [data-testid="stPopoverBody"] button:hover { filter: none; border-color: var(--wa-blue) !important; }
+body:has(.stApp .st-key-top_header) [data-testid="stPopoverBody"] button:disabled { opacity: .65; cursor: not-allowed; }
+body:has(.stApp .st-key-top_header) [data-testid="stPopoverBody"] :is(button, a, input, textarea, select):focus-visible { outline: 3px solid var(--wa-blue) !important; outline-offset: 3px; }
+body:has(.stApp .st-key-top_header) [data-testid="stPopoverBody"] input::placeholder,
+body:has(.stApp .st-key-top_header) [data-testid="stPopoverBody"] textarea::placeholder { color: var(--wa-muted) !important; opacity: 1; }
+body:has(.stApp .st-key-top_header) [data-testid="stPopoverBody"]:has([class*="st-key-table_page_jump_"]) { min-width: min(240px, calc(100vw - 32px)); max-width: calc(100vw - 32px); }
+
+@media (max-width: 700px) {
+  .stApp:has(.st-key-top_header) h1 { font-size: var(--wa-value) !important; }
+  .stApp:has(.st-key-top_header) .kpi-value { font-size: var(--wa-section) !important; }
+  .stApp:has(.st-key-top_header) .demo-notice span:last-child { flex-basis: 100%; }
+  .stApp:has(.st-key-top_header) .section-heading { flex-wrap: wrap; gap: 6px 12px; }
+  .stApp:has(.st-key-top_header) .st-key-top_header button { padding: 8px; }
+  .stApp:has(.st-key-top_header) .st-key-top_header [data-testid="stHorizontalBlock"] { flex-wrap: wrap !important; gap: 8px !important; justify-content: flex-end; }
+  .stApp:has(.st-key-top_header) .st-key-top_header [data-testid="stColumn"] { flex: 0 0 auto !important; min-width: 44px !important; width: auto !important; }
+  .stApp:has(.st-key-top_header) .st-key-top_header [data-testid="stColumn"]:has(.st-key-workspace_search_trigger) { flex: 1 1 100% !important; width: 100% !important; max-width: 100%; }
+  .stApp:has(.st-key-top_header) .st-key-filter_secondary_row [data-testid="stHorizontalBlock"] { gap: 10px !important; }
+  .stApp:has(.st-key-top_header) [class*="st-key-table_pagination_"] [data-testid="stHorizontalBlock"] { flex-wrap: wrap !important; gap: 8px !important; }
+  .stApp:has(.st-key-top_header) [class*="st-key-table_pagination_"] [data-testid="stColumn"] { flex: 1 1 100px !important; min-width: 80px !important; }
+  body:has(.stApp .st-key-top_header) [data-testid="stPopoverBody"] .st-key-advanced_filter_controls [data-testid="stHorizontalBlock"] { flex-wrap: wrap !important; }
+  body:has(.stApp .st-key-top_header) [data-testid="stPopoverBody"] .st-key-advanced_filter_controls [data-testid="stColumn"] { min-width: 0 !important; flex: 1 1 100% !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stApp:has(.st-key-top_header) *,
+  .stApp:has(.st-key-top_header) *::before,
+  .stApp:has(.st-key-top_header) *::after {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important;
+  }
+}

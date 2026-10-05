@@ -1,0 +1,157 @@
+{
+  "checked_at": "2026-10-05T17:39:41.714241+00:00",
+  "passed": true,
+  "measurements": {
+    "guide-overview": {
+      "families": [
+        "Inter, \"Segoe UI\", Arial, sans-serif",
+        "\"Material Symbols Rounded\"",
+        "ui-monospace, \"Cascadia Code\", Consolas, monospace"
+      ],
+      "sizes": [
+        "16px",
+        "12px",
+        "14px",
+        "32px",
+        "24px",
+        "20px"
+      ],
+      "colors": [
+        "rgb(255, 255, 255)",
+        "rgb(158, 183, 255)",
+        "rgb(211, 220, 236)",
+        "rgb(82, 98, 122)",
+        "rgb(24, 37, 61)",
+        "rgb(102, 81, 184)",
+        "rgb(167, 53, 70)",
+        "rgb(49, 93, 230)",
+        "rgb(134, 93, 23)"
+      ],
+      "radii": [
+        "0px",
+        "6px",
+        "999px",
+        "10px",
+        "16px"
+      ],
+      "button_styles": [
+        "rgba(0, 0, 0, 0)|rgb(211, 220, 236)|1px|rgba(0, 0, 0, 0)|6px|14px",
+        "rgb(49, 93, 230)|rgb(255, 255, 255)|1px|rgb(49, 93, 230)|6px|14px",
+        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|rgb(227, 233, 242)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_buttons": [],
+      "overflow": {
+        "width": 1512,
+        "doc": 1512,
+        "body": 1512
+      }
+    },
+    "polished-order": {
+      "families": [
+        "Inter, \"Segoe UI\", Arial, sans-serif",
+        "\"Material Symbols Rounded\"",
+        "ui-monospace, \"Cascadia Code\", Consolas, monospace"
+      ],
+      "sizes": [
+        "16px",
+        "12px",
+        "14px",
+        "32px",
+        "20px",
+        "24px"
+      ],
+      "colors": [
+        "rgb(255, 255, 255)",
+        "rgb(158, 183, 255)",
+        "rgb(211, 220, 236)",
+        "rgb(82, 98, 122)",
+        "rgb(24, 37, 61)",
+        "rgb(102, 81, 184)",
+        "rgb(134, 93, 23)",
+        "rgb(49, 93, 230)"
+      ],
+      "radii": [
+        "0px",
+        "6px",
+        "999px",
+        "10px",
+        "16px"
+      ],
+      "button_styles": [
+        "rgba(0, 0, 0, 0)|rgb(211, 220, 236)|1px|rgba(0, 0, 0, 0)|6px|14px",
+        "rgb(49, 93, 230)|rgb(255, 255, 255)|1px|rgb(49, 93, 230)|6px|14px",
+        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|rgb(227, 233, 242)|6px|14px",
+        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|rgb(49, 93, 230)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_buttons": [],
+      "overflow": {
+        "width": 1512,
+        "doc": 1512,
+        "body": 1512
+      }
+    },
+    "final-mobile": {
+      "families": [
+        "Inter, \"Segoe UI\", Arial, sans-serif",
+        "\"Material Symbols Rounded\"",
+        "ui-monospace, \"Cascadia Code\", Consolas, monospace"
+      ],
+      "sizes": [
+        "16px",
+        "12px",
+        "14px",
+        "24px",
+        "20px"
+      ],
+      "colors": [
+        "rgb(255, 255, 255)",
+        "rgb(158, 183, 255)",
+        "rgb(211, 220, 236)",
+        "rgb(24, 37, 61)",
+        "rgb(82, 98, 122)",
+        "rgb(102, 81, 184)",
+        "rgb(167, 53, 70)",
+        "rgb(49, 93, 230)",
+        "rgb(134, 93, 23)"
+      ],
+      "radii": [
+        "0px",
+        "6px",
+        "999px",
+        "10px",
+        "16px"
+      ],
+      "button_styles": [
+        "rgba(0, 0, 0, 0)|rgb(211, 220, 236)|1px|rgba(0, 0, 0, 0)|6px|14px",
+        "rgb(49, 93, 230)|rgb(255, 255, 255)|1px|rgb(49, 93, 230)|6px|14px",
+        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|rgb(227, 233, 242)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_buttons": [],
+      "overflow": {
+        "width": 390,
+        "doc": 390,
+        "body": 390
+      }
+    }
+  },
+  "functional": [
+    "Secondary sidebar tools expand with the keyboard; core routes remain visible",
+    "Guided order is passed to the Prediction Lab; trained model runs successfully",
+    "Current report generates once, prevents duplicate generation and downloads a valid PDF",
+    "Five-step guide finishes without changing source datasets",
+    "Table CSV download works with the new feedback callback"
+  ],
+  "errors": [],
+  "route_times_ms": {
+    "delivery": 3716.26,
+    "orders": 1765.33,
+    "scenarios": 909.57,
+    "reports": 614.04
+  }
+}

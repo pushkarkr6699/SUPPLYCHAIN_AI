@@ -2,19 +2,39 @@ from html import escape
 import streamlit as st
 from components.navigation import GROUPS, go
 from services.auth_service import logout
+from components.brand import MARK
+
+
+def navigation_items(items):
+    for route, label, icon in items:
+        st.button(label, key=f"nav_{route}", icon=f":material/{icon}:", width="stretch",
+                  type="primary" if st.session_state.route == route else "tertiary", on_click=go, args=(route,))
 
 
 def sidebar():
     with st.sidebar, st.container(key="sidebar_shell"):
-        st.html('<div class="brand"><span class="brand-mark">S</span><div>SUPPLYCHAIN <b>AI</b><small>Decision Intelligence Platform</small></div></div><div class="workspace-tag"><span class="workspace-dot"></span>Decision Intelligence Workspace</div>')
+        st.html(f'<div class="brand"><span class="brand-mark">{MARK}</span><div>SUPPLYCHAIN <b>AI</b><small>Decision Intelligence Platform</small></div></div><div class="workspace-tag"><span class="workspace-dot"></span>Decision Intelligence Workspace</div>')
         for group, items in GROUPS.items():
             visible_items = [(route, label, icon) for route, label, icon in items if route != "diagnostics" or st.session_state.developer_mode]
             if not visible_items:
                 continue
-            st.html(f'<div class="nav-group">{escape(group)}</div>')
-            for route, label, icon in visible_items:
-                st.button(label, key=f"nav_{route}", icon=f":material/{icon}:", width="stretch",
-                    type="primary" if st.session_state.route == route else "tertiary", on_click=go, args=(route,))
+            if group == "COMMAND CENTER":
+                st.html('<div class="nav-group">WORKSPACE</div>')
+                navigation_items(visible_items)
+            elif group == "INTELLIGENCE":
+                navigation_items([item for item in visible_items if item[0] in {"delivery", "demand"}])
+                other = [item for item in visible_items if item[0] not in {"delivery", "demand"}]
+                with st.expander("Additional intelligence", expanded=st.session_state.route in {item[0] for item in other}):
+                    navigation_items(other)
+            elif group == "ANALYSIS":
+                navigation_items([item for item in visible_items if item[0] == "orders"])
+                other = [item for item in visible_items if item[0] != "orders"]
+                with st.expander("Explore & simulate", expanded=st.session_state.route in {item[0] for item in other}):
+                    navigation_items(other)
+            else:
+                label = {"AI": "Copilot & insights", "ML GOVERNANCE": "Models & validation", "DATA": "Data & provenance", "OUTPUTS": "Reports & exports", "SYSTEM": "Settings & system"}[group]
+                with st.expander(label, expanded=st.session_state.route in {item[0] for item in visible_items}):
+                    navigation_items(visible_items)
         with st.container(key="sidebar_footer"):
             from services.provider import get_service
             demo = get_service().demo

@@ -6,6 +6,31 @@ Evidence assembled at 2026-10-05T08:07:37.826406+00:00. Scope: single-operator l
 
 ## Release result
 
+### Final product polish — 2026-10-05
+
+Final formal acceptance: **65/65 passed, zero failed or blocked**, using the completed 32-step browser showcase. The final guided workflow also passed after the visible brand mark correction. Latest observed guide route transitions were approximately 3.7s Delivery, 1.8s Order, 0.9s Prediction and 0.6s Report on this local run.
+
+All 16 requested upgrades are documented in [FINAL_POLISH.md](docs/FINAL_POLISH.md). Current full regression: **120 passed** (two expected malformed-date fixture warnings). Integration rerun: 27 routes, 26 source artifact hashes, both trained prediction controls and PDF exports passed. Rendered workspace/Delivery/public audits and the new guide/order/mobile workflow passed; the 32-step real-data showcase completed successfully. The earlier follow-up counts below are historical.
+
+The final guide exercised keyboard disclosure navigation, selected-order trained inference, a guarded report-generation action and actual CSV/PDF downloads. PDF pages were rendered and inspected. Local security checks passed with no findings across 84 runtime Python files. Measured date filtering returned identical rows and reduced its median from approximately 62ms to 8ms on 65,752 rows; total browser route timings are recorded separately, without a loading-speed guarantee.
+
+Evidence: `metadata/final_polish_qa.json`, `metadata/final_polish_performance.json`, `metadata/workspace_usability_qa.json`, `metadata/delivery_usability_qa.json`, `metadata/public_usability_qa.json`, `metadata/integration_qa.json`, `metadata/showcase_qa.json`, `metadata/security_audit.json`.
+
+### Latest workspace and Delivery follow-up — 2026-10-05
+
+The preceding 18 workspace issues and the new 16 Delivery issues are implemented, with numbered root-cause/fix notes in [WORKSPACE_USABILITY_FIXES.md](docs/WORKSPACE_USABILITY_FIXES.md) and [DELIVERY_USABILITY_FIXES.md](docs/DELIVERY_USABILITY_FIXES.md).
+
+- Full regression: **115 passed**, two expected malformed-date fixture warnings.
+- Workspace browser audit: **14 measurements and 9 functional groups passed**, zero browser errors.
+- Delivery browser audit: **10 measurements and 3 functional groups passed**, zero browser errors. Daily risk aggregation also has direct unit tests covering missing values and source immutability.
+- Public browser regression: **10 responsive route/width combinations passed**.
+- Integration rerun: **27 routes**, **26 artifact hashes**, delivery/demand inference, dataset switching, Copilot and PDF generation passed.
+- Local security audit: passed with no findings; model-path traversal rejected, DuckDB external access blocked, unsafe Copilot requests refused. Session access remains demo-only, without production authentication or multi-user authorization.
+
+Evidence: `metadata/workspace_usability_qa.json`, `metadata/delivery_usability_qa.json`, `metadata/public_usability_qa.json`, `metadata/integration_qa.json`, `metadata/security_audit.json`. Screenshots are in `tmp/screenshots/workspace-experience/` and `tmp/screenshots/public-experience/`. The earlier 113-test public follow-up below is historical; the current full regression result is 115.
+
+Public usability follow-up: all **19 landing and 12 login issues** have numbered root-cause and implementation notes in [docs/PUBLIC_USABILITY_FIXES.md](docs/PUBLIC_USABILITY_FIXES.md). The executed public browser audit passed all 10 route/width combinations (1512, 1366, 820, 390 and 320px), real login/navigation flows and workspace sidebar regression checks. The repeated login audit uses the native right-side submit arrow and verifies explicit field resets after sign-in/demo/logout. The original public browser workflow also passed. The latest full platform regression suite remained **113 passed**, with its two expected malformed-date source warnings (41.29s). See [metadata/public_usability_qa.json](metadata/public_usability_qa.json) for current computed measurements; this follow-up does not change the earlier data/model release evidence below.
+
 | Area | Result | Evidence |
 | --- | --- | --- |
 | Application / runtime | PASS | 27 routes; recoverable missing-source handling; local health endpoint |

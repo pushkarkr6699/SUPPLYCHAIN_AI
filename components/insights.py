@@ -19,7 +19,7 @@ def apply_insight_filter(item):
 
 def insight_card(item, df, key, show_evidence=False, show_actions=False):
     tone = {"Critical": "danger", "Attention": "warning"}.get(item["Severity"], "info")
-    label = "SUPPLIED RECORDS" if df.attrs.get("verified_artifacts") else "DEMO RECORDS"
+    label = "supplied records" if df.attrs.get("verified_artifacts") else "demo records"
     st.html(f'<div class="insight-card">{badge(item["Severity"], tone)} {badge(item["Category"], "neutral")}<h3>{escape(item["Title"])}</h3><p>{escape(item["Description"])}</p><span class="eyebrow">{item["Records"]:,} {label}</span></div>')
     if show_evidence:
         evidence(df)

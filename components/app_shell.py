@@ -1,6 +1,7 @@
 from copy import deepcopy
 from datetime import datetime
 from time import perf_counter
+from functools import lru_cache
 import streamlit as st
 from config import ROOT, DEFAULTS
 from components.sidebar import sidebar
@@ -16,6 +17,13 @@ from components.navigation import nav_button
 from views.registry import PAGES
 from components.filters import dataset_for_route
 from services.provider import get_service
+from components.decision_context import coverage_strip, decision_brief
+from components.demo_guide import guide
+
+
+@lru_cache(maxsize=24)
+def stylesheet(path, modified_ns):
+    return path.read_text(encoding="utf-8")
 
 
 def initialize():
@@ -32,8 +40,10 @@ def initialize():
 
 
 def load_styles():
-    content = "\n".join((ROOT / "styles" / name).read_text(encoding="utf-8") for name in ["theme.css", "layout.css", "components.css", "landing.css", "auth.css", "dashboard.css", "presentation.css"])
+    paths = [ROOT / "styles" / name for name in ["theme.css", "layout.css", "components.css", "landing.css", "auth.css", "dashboard.css", "workspace_audit.css", "premium.css", "presentation.css"]]
+    content = "\n".join(stylesheet(path, path.stat().st_mtime_ns) for path in paths)
     dark = ':root{--bg:#0e192b;--surface:#16243a;--surface-alt:#1c2e48;--text:#e0e9f9;--muted:#9cacc6;--border:#2a3a54;--blue:#7799ff;--purple:#aa94ef;--green:#62bda4;--shadow:none}'
+    dark += '.stApp:has(.st-key-top_header),body:has(.stApp .st-key-top_header){--wa-muted:#d3dcec;--wa-blue:#9eb7ff;--wa-purple:#c2b1ff;--wa-green:#83d9ba;--wa-amber:#f0cc84;--wa-red:#ffabb5;--wa-on-accent:#16243a}'
     theme = st.session_state.theme
     if theme == "Dark": content += dark
     if theme == "System": content += '@media(prefers-color-scheme:dark){' + dark + '}'
@@ -60,8 +70,7 @@ def render():
     if route == "overview":
         hour = datetime.now().astimezone().hour
         greeting = "Good morning" if hour < 12 else "Good afternoon" if hour < 17 else "Good evening"
-        st.markdown(f"### {greeting}. Here’s what changed.")
-        st.caption("Review delivery and demand signals in the selected datasets. Filters below set the context for this analysis.")
+        st.html(f'<div class="workspace-greeting"><h2>{greeting}. Here’s what changed.</h2><p>Review delivery and demand signals in the selected datasets. Filters below set the context for this analysis.</p></div>')
     query_start = perf_counter()
     try:
         df = filters()
@@ -76,6 +85,11 @@ def render():
         demo_notice(service.data_source_label(dataset))
     else:
         artifact_notice(service.data_source_label(dataset))
+    if route not in {"settings", "diagnostics", "lineage"}:
+        coverage_strip(df)
+        guide(df)
+    if route in {"overview", "delivery", "demand"}:
+        decision_brief(df)
     no_data_ok = {"profitability", "cross_risk", "settings", "diagnostics", "lineage", "drift", "health", "changes", "reports"}
     if df.empty and route not in no_data_ok:
         empty_state()

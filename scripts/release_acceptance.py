@@ -229,7 +229,7 @@ def execute(number):
         assert "--bg:#f5f7fb" in styles
         if theme == "Dark": assert "--bg:#0e192b" in styles
         else: assert ":root{--bg:#0e192b" not in styles
-        assert ("#dce6f8" if theme == "Dark" else "#66758e") in str(chart(at, "delivery_trend"))
+        assert ("#d3dcec" if theme == "Dark" else "#52627a") in str(chart(at, "delivery_trend"))
     elif number == 11:
         previous = provider.SUPPLYCHAIN_PROVIDER
         try:
@@ -274,7 +274,9 @@ def execute(number):
         assert int(kpi(at, "High-Risk").replace(",", "")) == frame.Risk.eq("High").sum()
     elif number == 21:
         at = app("delivery"); data = chart(at, "delivery_trend")["data"][0]
-        group = expected(at).groupby("Date")["Risk Probability"].mean()
+        frame = expected(at).dropna(subset=["Risk Probability"]).copy()
+        frame["Date"] = frame["Date"].dt.normalize()
+        group = frame.groupby("Date")["Risk Probability"].mean()
         values = vector(data["y"])
         np.testing.assert_allclose(values, group.to_numpy(), equal_nan=True)
     elif number == 22:
@@ -283,7 +285,7 @@ def execute(number):
         assert dict(zip(data["labels"], vector(data["values"]))) == counts.to_dict()
     elif number in {23, 24, 26}:
         dimension = {23: "Market", 24: "Region", 26: "Shipping Mode"}[number]
-        check_bar(app("delivery"), f"delivery_{dimension}", dimension, horizontal=True)
+        check_bar(app("delivery", delivery_active_tab="Operational Segments"), f"delivery_{dimension}", dimension, horizontal=True)
     elif number == 25:
         check_bar(app("geography"), "geo_country", "Country", metric="Orders", horizontal=True)
     elif number == 27:
@@ -296,7 +298,10 @@ def execute(number):
         filter_app(column, "High" if column == "Risk" else None)
     elif number in {35, 36, 37, 43}:
         at = filter_app("Risk", "High") if number == 43 else filter_app("Market", "Pacific Asia")
-        if number == 36: check_bar(at, "delivery_Market", "Market", horizontal=True)
+        if number == 36:
+            at.session_state.delivery_active_tab = "Operational Segments"
+            at.run(); clean(at)
+            check_bar(at, "delivery_Market", "Market", horizontal=True)
         if number in {37,43}:
             table = at.dataframe[0].value
             assert set(table.Order).issubset(set(expected(at).Order))

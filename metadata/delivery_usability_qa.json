@@ -1,0 +1,473 @@
+{
+  "checked_at": "2026-10-05T17:33:05.964882+00:00",
+  "issue_numbers": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16
+  ],
+  "measurements": {
+    "delivery-light-1512": {
+      "families": [
+        "Inter, \"Segoe UI\", Arial, sans-serif",
+        "\"Material Symbols Rounded\"",
+        "ui-monospace, \"Cascadia Code\", Consolas, monospace"
+      ],
+      "sizes": [
+        "16px",
+        "12px",
+        "14px",
+        "32px",
+        "24px",
+        "20px"
+      ],
+      "colors": [
+        "rgb(255, 255, 255)",
+        "rgb(158, 183, 255)",
+        "rgb(211, 220, 236)",
+        "rgb(82, 98, 122)",
+        "rgb(24, 37, 61)",
+        "rgb(102, 81, 184)",
+        "rgb(49, 93, 230)",
+        "rgb(20, 113, 94)"
+      ],
+      "radii": [
+        "0px",
+        "6px",
+        "999px",
+        "10px",
+        "16px"
+      ],
+      "button_styles": [
+        "rgba(0, 0, 0, 0)|rgb(211, 220, 236)|1px|rgba(0, 0, 0, 0)|6px|14px",
+        "rgb(49, 93, 230)|rgb(255, 255, 255)|1px|rgb(158, 183, 255)|6px|14px",
+        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|rgb(227, 233, 242)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_buttons": [],
+      "overflow": {
+        "width": 1512,
+        "doc": 1512,
+        "body": 1512
+      }
+    },
+    "delivery-light-1366": {
+      "families": [
+        "Inter, \"Segoe UI\", Arial, sans-serif",
+        "\"Material Symbols Rounded\"",
+        "ui-monospace, \"Cascadia Code\", Consolas, monospace"
+      ],
+      "sizes": [
+        "16px",
+        "12px",
+        "14px",
+        "32px",
+        "24px",
+        "20px"
+      ],
+      "colors": [
+        "rgb(255, 255, 255)",
+        "rgb(158, 183, 255)",
+        "rgb(211, 220, 236)",
+        "rgb(82, 98, 122)",
+        "rgb(24, 37, 61)",
+        "rgb(102, 81, 184)",
+        "rgb(49, 93, 230)",
+        "rgb(20, 113, 94)"
+      ],
+      "radii": [
+        "0px",
+        "6px",
+        "999px",
+        "10px",
+        "16px"
+      ],
+      "button_styles": [
+        "rgba(0, 0, 0, 0)|rgb(211, 220, 236)|1px|rgba(0, 0, 0, 0)|6px|14px",
+        "rgb(49, 93, 230)|rgb(255, 255, 255)|1px|rgb(158, 183, 255)|6px|14px",
+        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|rgb(227, 233, 242)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_buttons": [],
+      "overflow": {
+        "width": 1366,
+        "doc": 1366,
+        "body": 1366
+      }
+    },
+    "delivery-light-820": {
+      "families": [
+        "Inter, \"Segoe UI\", Arial, sans-serif",
+        "\"Material Symbols Rounded\"",
+        "ui-monospace, \"Cascadia Code\", Consolas, monospace"
+      ],
+      "sizes": [
+        "16px",
+        "12px",
+        "14px",
+        "32px",
+        "24px",
+        "20px"
+      ],
+      "colors": [
+        "rgb(255, 255, 255)",
+        "rgb(158, 183, 255)",
+        "rgb(211, 220, 236)",
+        "rgb(82, 98, 122)",
+        "rgb(24, 37, 61)",
+        "rgb(102, 81, 184)",
+        "rgb(49, 93, 230)",
+        "rgb(20, 113, 94)"
+      ],
+      "radii": [
+        "0px",
+        "6px",
+        "999px",
+        "10px",
+        "16px"
+      ],
+      "button_styles": [
+        "rgba(0, 0, 0, 0)|rgb(211, 220, 236)|1px|rgba(0, 0, 0, 0)|6px|14px",
+        "rgb(49, 93, 230)|rgb(255, 255, 255)|1px|rgb(158, 183, 255)|6px|14px",
+        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|rgb(227, 233, 242)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_buttons": [],
+      "overflow": {
+        "width": 820,
+        "doc": 820,
+        "body": 820
+      }
+    },
+    "delivery-light-390": {
+      "families": [
+        "Inter, \"Segoe UI\", Arial, sans-serif",
+        "\"Material Symbols Rounded\"",
+        "ui-monospace, \"Cascadia Code\", Consolas, monospace"
+      ],
+      "sizes": [
+        "16px",
+        "12px",
+        "14px",
+        "24px",
+        "20px"
+      ],
+      "colors": [
+        "rgb(255, 255, 255)",
+        "rgb(158, 183, 255)",
+        "rgb(211, 220, 236)",
+        "rgb(24, 37, 61)",
+        "rgb(82, 98, 122)",
+        "rgb(102, 81, 184)",
+        "rgb(49, 93, 230)",
+        "rgb(20, 113, 94)"
+      ],
+      "radii": [
+        "0px",
+        "6px",
+        "999px",
+        "10px",
+        "16px"
+      ],
+      "button_styles": [
+        "rgba(0, 0, 0, 0)|rgb(211, 220, 236)|1px|rgba(0, 0, 0, 0)|6px|14px",
+        "rgb(49, 93, 230)|rgb(255, 255, 255)|1px|rgb(49, 93, 230)|6px|14px",
+        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|rgb(227, 233, 242)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_buttons": [],
+      "overflow": {
+        "width": 390,
+        "doc": 390,
+        "body": 390
+      }
+    },
+    "delivery-light-320": {
+      "families": [
+        "Inter, \"Segoe UI\", Arial, sans-serif",
+        "\"Material Symbols Rounded\"",
+        "ui-monospace, \"Cascadia Code\", Consolas, monospace"
+      ],
+      "sizes": [
+        "16px",
+        "12px",
+        "14px",
+        "24px",
+        "20px"
+      ],
+      "colors": [
+        "rgb(255, 255, 255)",
+        "rgb(158, 183, 255)",
+        "rgb(211, 220, 236)",
+        "rgb(24, 37, 61)",
+        "rgb(82, 98, 122)",
+        "rgb(102, 81, 184)",
+        "rgb(49, 93, 230)",
+        "rgb(20, 113, 94)"
+      ],
+      "radii": [
+        "0px",
+        "6px",
+        "999px",
+        "10px",
+        "16px"
+      ],
+      "button_styles": [
+        "rgba(0, 0, 0, 0)|rgb(211, 220, 236)|1px|rgba(0, 0, 0, 0)|6px|14px",
+        "rgb(49, 93, 230)|rgb(255, 255, 255)|1px|rgb(49, 93, 230)|6px|14px",
+        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|rgb(227, 233, 242)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_buttons": [],
+      "overflow": {
+        "width": 320,
+        "doc": 320,
+        "body": 320
+      }
+    },
+    "delivery-advanced-filters": {
+      "families": [
+        "Inter, \"Segoe UI\", Arial, sans-serif",
+        "\"Material Symbols Rounded\"",
+        "ui-monospace, \"Cascadia Code\", Consolas, monospace"
+      ],
+      "sizes": [
+        "16px",
+        "12px",
+        "14px",
+        "32px",
+        "24px",
+        "20px"
+      ],
+      "colors": [
+        "rgb(255, 255, 255)",
+        "rgb(158, 183, 255)",
+        "rgb(211, 220, 236)",
+        "rgb(82, 98, 122)",
+        "rgb(24, 37, 61)",
+        "rgb(102, 81, 184)",
+        "rgb(49, 93, 230)",
+        "rgb(20, 113, 94)"
+      ],
+      "radii": [
+        "0px",
+        "6px",
+        "999px",
+        "10px",
+        "16px"
+      ],
+      "button_styles": [
+        "rgba(0, 0, 0, 0)|rgb(211, 220, 236)|1px|rgba(0, 0, 0, 0)|6px|14px",
+        "rgb(49, 93, 230)|rgb(255, 255, 255)|1px|rgb(49, 93, 230)|6px|14px",
+        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|rgb(227, 233, 242)|6px|14px",
+        "rgb(255, 255, 255)|rgb(24, 37, 61)|1px|rgb(49, 93, 230)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_buttons": [],
+      "overflow": {
+        "width": 1512,
+        "doc": 1512,
+        "body": 1512
+      }
+    },
+    "delivery-dark-1512": {
+      "families": [
+        "Inter, \"Segoe UI\", Arial, sans-serif",
+        "\"Material Symbols Rounded\"",
+        "ui-monospace, \"Cascadia Code\", Consolas, monospace"
+      ],
+      "sizes": [
+        "16px",
+        "12px",
+        "14px",
+        "32px",
+        "24px",
+        "20px"
+      ],
+      "colors": [
+        "rgb(255, 255, 255)",
+        "rgb(158, 183, 255)",
+        "rgb(211, 220, 236)",
+        "rgb(22, 36, 58)",
+        "rgb(224, 233, 249)",
+        "rgb(194, 177, 255)",
+        "rgb(131, 217, 186)"
+      ],
+      "radii": [
+        "0px",
+        "6px",
+        "999px",
+        "10px",
+        "16px"
+      ],
+      "button_styles": [
+        "rgba(0, 0, 0, 0)|rgb(211, 220, 236)|1px|rgba(0, 0, 0, 0)|6px|14px",
+        "rgb(158, 183, 255)|rgb(22, 36, 58)|1px|rgb(158, 183, 255)|6px|14px",
+        "rgb(22, 36, 58)|rgb(224, 233, 249)|1px|rgb(42, 58, 84)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_buttons": [],
+      "overflow": {
+        "width": 1512,
+        "doc": 1512,
+        "body": 1512
+      }
+    },
+    "delivery-dark-390": {
+      "families": [
+        "Inter, \"Segoe UI\", Arial, sans-serif",
+        "\"Material Symbols Rounded\"",
+        "ui-monospace, \"Cascadia Code\", Consolas, monospace"
+      ],
+      "sizes": [
+        "16px",
+        "12px",
+        "14px",
+        "24px",
+        "20px"
+      ],
+      "colors": [
+        "rgb(255, 255, 255)",
+        "rgb(158, 183, 255)",
+        "rgb(211, 220, 236)",
+        "rgb(22, 36, 58)",
+        "rgb(224, 233, 249)",
+        "rgb(194, 177, 255)",
+        "rgb(131, 217, 186)"
+      ],
+      "radii": [
+        "0px",
+        "6px",
+        "999px",
+        "10px",
+        "16px"
+      ],
+      "button_styles": [
+        "rgba(0, 0, 0, 0)|rgb(211, 220, 236)|1px|rgba(0, 0, 0, 0)|6px|14px",
+        "rgb(158, 183, 255)|rgb(22, 36, 58)|1px|rgb(158, 183, 255)|6px|14px",
+        "rgb(22, 36, 58)|rgb(224, 233, 249)|1px|rgb(42, 58, 84)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_buttons": [],
+      "overflow": {
+        "width": 390,
+        "doc": 390,
+        "body": 390
+      }
+    },
+    "delivery-system-1512": {
+      "families": [
+        "Inter, \"Segoe UI\", Arial, sans-serif",
+        "\"Material Symbols Rounded\"",
+        "ui-monospace, \"Cascadia Code\", Consolas, monospace"
+      ],
+      "sizes": [
+        "16px",
+        "12px",
+        "14px",
+        "32px",
+        "24px",
+        "20px"
+      ],
+      "colors": [
+        "rgb(255, 255, 255)",
+        "rgb(158, 183, 255)",
+        "rgb(211, 220, 236)",
+        "rgb(22, 36, 58)",
+        "rgb(224, 233, 249)",
+        "rgb(194, 177, 255)",
+        "rgb(131, 217, 186)"
+      ],
+      "radii": [
+        "0px",
+        "6px",
+        "999px",
+        "10px",
+        "16px"
+      ],
+      "button_styles": [
+        "rgba(0, 0, 0, 0)|rgb(211, 220, 236)|1px|rgba(0, 0, 0, 0)|6px|14px",
+        "rgb(158, 183, 255)|rgb(22, 36, 58)|1px|rgb(158, 183, 255)|6px|14px",
+        "rgb(22, 36, 58)|rgb(224, 233, 249)|1px|rgb(42, 58, 84)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_buttons": [],
+      "overflow": {
+        "width": 1512,
+        "doc": 1512,
+        "body": 1512
+      }
+    },
+    "delivery-system-390": {
+      "families": [
+        "Inter, \"Segoe UI\", Arial, sans-serif",
+        "\"Material Symbols Rounded\"",
+        "ui-monospace, \"Cascadia Code\", Consolas, monospace"
+      ],
+      "sizes": [
+        "16px",
+        "12px",
+        "14px",
+        "24px",
+        "20px"
+      ],
+      "colors": [
+        "rgb(255, 255, 255)",
+        "rgb(158, 183, 255)",
+        "rgb(211, 220, 236)",
+        "rgb(22, 36, 58)",
+        "rgb(224, 233, 249)",
+        "rgb(194, 177, 255)",
+        "rgb(131, 217, 186)"
+      ],
+      "radii": [
+        "0px",
+        "6px",
+        "999px",
+        "10px",
+        "16px"
+      ],
+      "button_styles": [
+        "rgba(0, 0, 0, 0)|rgb(211, 220, 236)|1px|rgba(0, 0, 0, 0)|6px|14px",
+        "rgb(158, 183, 255)|rgb(22, 36, 58)|1px|rgb(158, 183, 255)|6px|14px",
+        "rgb(22, 36, 58)|rgb(224, 233, 249)|1px|rgb(42, 58, 84)|6px|14px"
+      ],
+      "small": [],
+      "contrast_failures": [],
+      "short_buttons": [],
+      "overflow": {
+        "width": 390,
+        "doc": 390,
+        "body": 390
+      }
+    }
+  },
+  "functional": [
+    "H2 section headings; readable disclosure/badge/subtitle; one investigation entry; daily risk means with unique dates",
+    "Compact advanced filters; previous/next pagination; selected-order investigation opens Order Explorer",
+    "Operational Segments and Model Diagnostics tabs open without application exceptions"
+  ],
+  "errors": [],
+  "passed": true
+}

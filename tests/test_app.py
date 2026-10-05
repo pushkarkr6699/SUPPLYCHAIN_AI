@@ -21,6 +21,8 @@ def test_every_route_renders(route):
 
 def test_demo_login_and_logout_clear_session():
     at = app("login", authenticated=False)
+    at.text_input(key="login_username").set_value("Session Tester")
+    at.text_input(key="login_password").set_value("sample-only")
     at.button(key="login_demo").click().run()
     assert at.session_state.authenticated
     assert at.session_state.route == "overview"
@@ -28,6 +30,8 @@ def test_demo_login_and_logout_clear_session():
     next(b for b in at.button if b.label == "Log out").click().run()
     assert not at.session_state.authenticated
     assert at.session_state.route == "login"
+    assert at.text_input(key="login_username").value == ""
+    assert at.text_input(key="login_password").value == ""
     assert not at.exception
 
 

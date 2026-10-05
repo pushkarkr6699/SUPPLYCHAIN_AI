@@ -13,10 +13,11 @@ def header():
         with left:
             breadcrumbs(group, label)
         with right:
-            cols = st.columns([3.4, 1, 1, 1, 1, 1])
+            cols = st.columns([1.6, 1, 1, 1, 1, 1])
             with cols[0]:
-                with st.popover("Search", icon=":material/search:", width="stretch"):
-                    search_bar()
+                with st.container(key="workspace_search_trigger"):
+                    with st.popover("Search", icon=":material/search:", width="content", help="Open workspace search"):
+                        search_bar()
             cols[1].button("", icon=":material/fullscreen_exit:" if st.session_state.presentation else ":material/fullscreen:", help="Toggle presentation mode", key="presentation_button", on_click=toggle_presentation)
             with cols[2]:
                 with st.popover("", icon=":material/contrast:", help="Appearance"):

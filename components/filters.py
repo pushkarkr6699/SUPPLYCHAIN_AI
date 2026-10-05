@@ -48,6 +48,8 @@ def reset_filters():
     st.session_state.filters = {}
     # Recreate the date widget so its visible segments match the reset bounds.
     st.session_state.date_reset_revision = st.session_state.get("date_reset_revision", 0) + 1
+    # Hidden popover widgets need a fresh identity to discard cached client values.
+    st.session_state.filters_widget_revision = st.session_state.get("filters_widget_revision", 0) + 1
     dataset = st.session_state.get("active_filter_dataset", "demo")
     st.session_state.setdefault("filters_by_dataset", {})[dataset] = {}
     for key in list(st.session_state):
@@ -71,6 +73,7 @@ def restore_view():
             st.session_state.active_filter_dataset = target_dataset
             st.session_state.setdefault("filters_by_dataset", {})[target_dataset] = deepcopy({key: value for key, value in saved.items() if key != "__meta__"})
             go(meta["page"])
+        st.toast("Saved view restored for this session.")
 
 
 def rename_view():
@@ -79,11 +82,13 @@ def rename_view():
     if old in st.session_state.saved_views and new and new != old:
         st.session_state.saved_views[new] = st.session_state.saved_views.pop(old)
         st.session_state.saved_view_choice = new
+        st.toast("Saved view renamed.")
 
 
 def delete_view():
     name = st.session_state.get("saved_view_choice")
     st.session_state.saved_views.pop(name, None)
+    st.toast("Saved view deleted.")
     remaining = list(st.session_state.saved_views)
     if remaining:
         st.session_state.saved_view_choice = remaining[0]
@@ -119,7 +124,9 @@ def filters():
             date_value = (max(date_min, date_max - timedelta(days=st.session_state.default_days - 1)), date_max)
         else:
             date_value = (max(date_min, date_value[0]), min(date_max, date_value[1]))
-        visible = [name for name in PAGE_FILTERS.get(st.session_state.route, list(options)) if name in options]
+        available_fields = [name for name in PAGE_FILTERS.get(st.session_state.route, list(options)) if name in options]
+        essential = ["Market", "Risk"] if "Risk" in available_fields else ["Category", "Product"]
+        visible = [name for name in essential if name in available_fields] or available_fields[:2]
         spare = [name for name in options if name not in visible]
         unapplied = [name for name, values in st.session_state.filters.items() if name != "Date" and values and name not in options]
         if unapplied:
@@ -151,7 +158,7 @@ def filters():
                 view_name = st.text_input("View name", key="view_name", max_chars=60)
                 if st.button("Save current view", disabled=not bool(view_name.strip()), key="save_workspace_view"):
                     st.session_state.saved_views[view_name.strip()] = {
-                        **st.session_state.filters,
+                        **deepcopy(st.session_state.filters),
                         "__meta__": {
                             "page": st.session_state.route,
                             "dataset": dataset,
@@ -169,20 +176,32 @@ def filters():
                     action_cols[2].button("Delete", on_click=delete_view, key="delete_workspace_view", width="stretch")
         with cols[-1]:
             st.button("Reset", on_click=reset_filters, width="stretch", key="reset_workspace_filters")
-        if spare:
-            with st.expander("More filters", icon=":material/tune:"):
-                extra_cols = st.columns(min(4, len(spare)))
-                for i, name in enumerate(spare):
-                    with extra_cols[i % len(extra_cols)]:
-                        widget_key = f"filter_{name}{widget_scope}"
-                        selected_values = st.session_state.filters.get(name, [])
-                        if any(value not in options[name] for value in selected_values):
-                            st.session_state.pop(widget_key, None)
-                            selected_values = [value for value in selected_values if value in options[name]]
-                        value = st.multiselect(name, options[name], default=selected_values, key=widget_key)
-                        st.session_state.filters[name] = value
-        filter_chips()
-        df = service.records(st.session_state.filters, dataset=dataset)
-        st.session_state.filters_by_dataset[dataset] = deepcopy(st.session_state.filters)
-        st.caption(f"{len(df):,} records in view · {service.data_source_label(dataset)}")
+        with st.container(key="filter_secondary_row"):
+            secondary = st.columns([1, 3.1, 1.9], vertical_alignment="center", gap="small") if spare else st.columns([3.1, 1.9], vertical_alignment="center", gap="small")
+            if spare:
+                with secondary[0]:
+                    with st.container(key="filter_more_control"):
+                        with st.popover("More filters", icon=":material/tune:", width="content"):
+                            with st.container(key="advanced_filter_controls"):
+                                extra_cols = st.columns(min(2, len(spare)))
+                                for i, name in enumerate(spare):
+                                    with extra_cols[i % len(extra_cols)]:
+                                        widget_key = f"filter_{name}{widget_scope}"
+                                        advanced_revision = st.session_state.get("filters_widget_revision", 0)
+                                        if advanced_revision:
+                                            widget_key += f"_{advanced_revision}"
+                                        selected_values = st.session_state.filters.get(name, [])
+                                        if any(value not in options[name] for value in selected_values):
+                                            st.session_state.pop(widget_key, None)
+                                            selected_values = [value for value in selected_values if value in options[name]]
+                                        value = st.multiselect(name, options[name], default=selected_values, key=widget_key)
+                                        st.session_state.filters[name] = value
+            with secondary[-2]:
+                with st.container(key="filter_active_summary"):
+                    filter_chips(exclude=("Date", *visible) if st.session_state.route == "delivery" else ())
+            df = service.records(st.session_state.filters, dataset=dataset)
+            st.session_state.filters_by_dataset[dataset] = deepcopy(st.session_state.filters)
+            with secondary[-1]:
+                with st.container(key="filter_record_summary"):
+                    st.caption(f"{len(df):,} {dataset} records in view")
     return df

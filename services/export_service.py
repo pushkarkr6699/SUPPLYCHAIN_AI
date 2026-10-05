@@ -3,6 +3,7 @@ from io import BytesIO
 from collections import OrderedDict
 from hashlib import sha256
 from threading import Lock
+from datetime import datetime, timezone
 from xml.sax.saxutils import escape
 import pandas as pd
 from reportlab.lib import colors
@@ -12,6 +13,7 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, Tabl
 from reportlab.graphics.shapes import Drawing, Line, String, PolyLine
 from services.analytics import summary, trend
 from services.provider import filter_description
+from services.decision_context import coverage_context, decision_summary
 
 _excel_cache = OrderedDict()
 _excel_lock = Lock()
@@ -68,19 +70,25 @@ def report_pdf(df, report_name, filters, sections):
     doc = SimpleDocTemplate(buffer, pagesize=(595, 842), rightMargin=42, leftMargin=42,
         topMargin=48, bottomMargin=45, title=f"{source} - {report_name} Report")
     styles = getSampleStyleSheet()
-    styles.add(ParagraphStyle(name="Meta", fontSize=8, leading=12, textColor=colors.HexColor("#68768d")))
+    styles.add(ParagraphStyle(name="Meta", fontSize=9, leading=13, textColor=colors.HexColor("#52627a")))
     styles["Title"].textColor = colors.HexColor("#182b4a")
     styles["Title"].fontSize = 24
     styles["BodyText"].leading = 15
     styles["Heading2"].keepWithNext = True
+    styles["Heading2"].textColor = colors.HexColor("#315de6")
+    generated_at = datetime.now(timezone.utc).strftime("%d %b %Y %H:%M UTC")
+    context = coverage_context(df)
     note = ("Analysis of supplied data and precomputed outputs. Model inference is not performed by this report. "
             "Delivery and demand datasets have separate grains and are not joined." if verified else
             "This report demonstrates the reporting interface. It does not contain verified operational results or production model performance.")
     flow = [Paragraph("SUPPLYCHAIN AI", styles["Meta"]), Spacer(1, 18),
         Paragraph(f"{escape(report_name)} Report", styles["Title"]),
-        Paragraph(escape(source), styles["Meta"]), Spacer(1, 18),
+        Paragraph(escape(source), styles["Meta"]),
+        Paragraph("Generated: " + generated_at, styles["Meta"]),
+        Paragraph("Selected records: " + escape(context["period"].replace("–", "-")), styles["Meta"]),
+        Paragraph("Source freshness: " + escape(context["freshness"].replace("·", "|")), styles["Meta"]), Spacer(1, 18),
         Paragraph(note, styles["BodyText"]), Spacer(1, 12),
-        Paragraph("Filter context: " + escape(filter_description(filters, "All records in supplied dataset" if verified else "All demo records")), styles["Meta"]), Spacer(1, 22)]
+        Paragraph("Filter context: " + escape(filter_description(filters, "All records in supplied dataset" if verified else "All demo records").replace("–", "-")), styles["Meta"]), Spacer(1, 22)]
     m = summary(df)
 
     def add_table(rows, widths, heading):
@@ -119,7 +127,9 @@ def report_pdf(df, report_name, filters, sections):
             series = [("Actual Demand", "#4169dc"), ("Forecast Demand", "#8970dc")]
             chart_title, legend = "Demand through the selected period", "Actual (blue) / Forecast (purple) - next-day visits"
         elif delivery:
-            data = df.dropna(subset=["Risk Probability"]).groupby("Date", as_index=False)["Risk Probability"].mean()
+            data = df.dropna(subset=["Risk Probability"]).copy()
+            data["Date"] = pd.to_datetime(data["Date"]).dt.normalize()
+            data = data.groupby("Date", as_index=False)["Risk Probability"].mean()
             series = [("Risk Probability", "#4169dc")]
             chart_title, legend = "Delivery risk through the selected period", "Mean supplied probability per day - scored rows only"
         else:
@@ -129,7 +139,8 @@ def report_pdf(df, report_name, filters, sections):
             drawing.add(Line(40, 25, 500, 25, strokeColor=colors.HexColor("#cbd4e4")))
             upper = max(max(float(data[column].max()) for column, _ in series), .01)
             for fraction in [0, .5, 1]:
-                drawing.add(String(0, 27 + fraction * 105, f"{upper * fraction:,.2f}", fontSize=7, fillColor=colors.HexColor("#68768d")))
+                label = f"{upper * fraction:.0%}" if delivery and not demand else f"{upper * fraction:,.0f}"
+                drawing.add(String(0, 27 + fraction * 105, label, fontSize=9, fillColor=colors.HexColor("#52627a")))
             for column, color in series:
                 points = [(40 + i * 455 / max(len(data) - 1, 1), 30 + float(value) / upper * 105) for i, value in enumerate(data[column])]
                 if len(points) > 1:
@@ -139,7 +150,7 @@ def report_pdf(df, report_name, filters, sections):
             drawing.add(String(425, 8, data.Date.max().strftime("%d %b %Y"), fontSize=8))
             flow.append(KeepTogether([Paragraph(chart_title, styles["Heading2"]), drawing]))
     if "Insights" in sections:
-        observations = []
+        observations = [decision_summary(df, "demand" if report_name == "Demand" else None).replace("→", "to")]
         if delivery:
             observations.append(f"{df['Risk Probability'].notna().sum():,} of {len(df):,} rows contain supplied probabilities. Unscored rows are excluded from probability averages.")
         if demand:
@@ -157,12 +168,26 @@ def report_pdf(df, report_name, filters, sections):
             columns = [column for column in ["Order", "Market", "Risk Probability", "Risk"] if column in df]
             records = df.sort_values("Risk Probability", ascending=False, na_position="last").head(10)
         if columns:
-            rows = [columns] + [["N/A" if pd.isna(row[column]) else str(row[column]) for column in columns] for _, row in records.iterrows()]
+            rows = [columns] + [["N/A" if pd.isna(row[column]) else f"{row[column]:.1%}" if column == "Risk Probability" else str(row[column]) for column in columns] for _, row in records.iterrows()]
             add_table(rows, [510 / len(columns)] * len(columns), "Supporting records - up to ten")
+    provenance = [["SOURCE / LIMITATION", "DETAIL"],
+        ["Primary artifact", df.attrs.get("artifact", "Synthetic demo fixture")],
+        ["Score artifact", df.attrs.get("score_artifact", "Not separately supplied")],
+        ["Refresh", "Historical snapshot; no operational refresh feed" if verified else "Fixed synthetic demo snapshot"]]
+    if delivery:
+        provenance.extend([["Delivery model", df.attrs.get("model_name", "Demo fixture")],
+            ["Decision threshold", str(df.attrs.get("production_threshold", "Demo configuration"))],
+            ["Evaluation", df.attrs.get("evaluation_note", "Illustrative demo outputs")],
+            ["Explanation", "No individual SHAP artifact or causal explanation supplied"]])
+    if demand:
+        provenance.append(["Demand scope", "Next-day web visits; inventory and fulfilled units are not supplied"])
+    add_table(provenance, [150, 360], "Sources and interpretation limits")
     def footer(canvas, doc):
         canvas.saveState()
         canvas.setFont("Helvetica", 8)
         canvas.setFillColor(colors.HexColor("#68768d"))
+        canvas.setStrokeColor(colors.HexColor("#cbd4e4"))
+        canvas.line(42, 38, 552, 38)
         canvas.drawString(42, 24, "SUPPLYCHAIN AI | " + ("Supplied artifact analysis" if verified else "DEMO UI DATA"))
         canvas.drawRightString(552, 24, str(doc.page))
         canvas.restoreState()

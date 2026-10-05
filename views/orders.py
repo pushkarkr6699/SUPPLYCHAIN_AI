@@ -11,6 +11,7 @@ from components.status import badge
 from services.mock_data import FEATURES
 from services.export_service import csv_bytes
 from config import DELIVERY_MODEL, PRODUCTION_THRESHOLD
+from components.feedback import download_feedback
 
 
 def _signal_card(title, status, body, tone="info"):
@@ -31,6 +32,9 @@ def render(df):
             return
         options = candidates.Order.drop_duplicates().tolist()
         selected = st.session_state.get("selected_order")
+        if selected in options and selected != st.session_state.get("order_last_navigation"):
+            st.session_state.order_result_select = selected
+            st.session_state.order_last_navigation = selected
         if selected and selected not in options and not query:
             st.caption("The previously selected order is outside this view. Showing an available result below.")
         order = st.selectbox("Order results", options, index=options.index(selected) if selected in options else 0, key="order_result_select")
@@ -84,6 +88,14 @@ def render(df):
             st.write(f"**Decision threshold:** {active_threshold:.2f}")
             st.write("**Prediction source:** Supplied scored CSV" if verified and has_score else "**Prediction source:** Unavailable" if verified else "**Prediction source:** Demo fixtures")
             st.write("**Prediction timestamp:** Not available")
+            st.caption(f"Primary source: {df.attrs.get('artifact', 'Synthetic demo fixture')}")
+            st.caption(f"Score source: {df.attrs.get('score_artifact', 'Supplied score file' if verified else 'Demo fixture')}")
+        with st.container(border=True, key="order_next_action"):
+            section("Next step", "Choose an action supported by this record")
+            st.write("Review shipping details and the recorded outcome alongside this estimate. A high score identifies a record for review; it does not explain why the delivery was late." if has_score else "This order has no supplied historical score. Run the registered model explicitly in the Prediction Lab when required source features are available.")
+            prediction, report = st.columns(2)
+            with prediction: nav_button("Run trained prediction" if verified else "Open demo scenario", "scenarios", key="order_prediction", selected_order=order)
+            with report: nav_button("Create delivery brief", "reports", key="order_report", report_type="Delivery")
         with st.expander("Advanced Record Data"):
             st.dataframe(record.to_frame("Value").astype(str), width="stretch")
         cols = st.columns(4)
@@ -94,4 +106,4 @@ def render(df):
                 go("geography")
                 st.rerun()
         with cols[2]: nav_button("Explain prediction", "explainability", key="order_explain")
-        cols[3].download_button("Download record", csv_bytes(df[df.Order.eq(order)]), f'{"order" if verified else "demo"}-{order}.csv', "text/csv", width="stretch")
+        cols[3].download_button("Download record", csv_bytes(df[df.Order.eq(order)]), f'{"order" if verified else "demo"}-{order}.csv', "text/csv", width="stretch", on_click=download_feedback, args=("Order download",))

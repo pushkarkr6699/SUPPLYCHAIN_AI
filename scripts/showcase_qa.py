@@ -35,7 +35,9 @@ def settled(page):
 
 def navigate(page,name):
     started=perf_counter()
-    button=page.get_by_test_id("stSidebar").get_by_role("button",name=re.compile(re.escape(name)))
+    button=page.get_by_test_id("stSidebar").get_by_role("button",name=re.compile(re.escape(name)), include_hidden=True)
+    if not button.is_visible():
+        button.locator('xpath=ancestor::details').locator('summary').click()
     try:
         button.click()
     except Exception:
@@ -131,12 +133,13 @@ def run():
         page.get_by_role("textbox",name="Search order ID",exact=True).press("Enter")
         settled(page)
         page.get_by_role("heading",name=f"Case file · {order}",exact=True).wait_for()
+        settled(page)
         record(10,"Search real Order ID",order)
         source=raw[raw["Order Id"].eq(int(order))].iloc[0]
         fields={"Order":order,"Date":str(source.Order_Date.date()),"Market":source.Market,"Region":source["Order Region"],"Country":source["Order Country"],"Shipping Mode":source["Shipping Mode"],"Sales":str(source.Sales)}
         for field,value in fields.items():
             detail=page.locator(".record-profile > div").filter(has=page.locator("dt",has_text=re.compile("^"+re.escape(field)+"$")))
-            assert detail.locator("dd").inner_text()==value,field
+            expect(detail.locator("dd")).to_have_text(value, timeout=60000)
         record(11,"Verify order against source","ID/date/market/region/country/shipping/sales exactly matched CSV")
         assert f"{selected.Late_Delivery_Probability:.1%} probability" in page.locator("body").inner_text()
         assert "Risk: "+selected.Risk_Level.replace(" Risk","") in page.locator(".case-status-row").inner_text()

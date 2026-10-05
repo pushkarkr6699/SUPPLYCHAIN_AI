@@ -13,11 +13,11 @@
       "description": "Application starts successfully",
       "expected_result": "Application starts successfully using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:46:57.678927+00:00",
+      "executed_at_utc": "2026-10-05T17:39:25.471971+00:00",
       "actual_result": "Running Streamlit health endpoint returned HTTP 200 / ok.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.14
+      "elapsed_seconds": 0.13
     },
     {
       "test_id": "TC-02",
@@ -25,11 +25,11 @@
       "description": "Streamlit loads without Python traceback",
       "expected_result": "Streamlit loads without Python traceback using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:46:57.820120+00:00",
+      "executed_at_utc": "2026-10-05T17:39:25.602571+00:00",
       "actual_result": "Actual app script rendered without exception or error panels.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 2.547
+      "elapsed_seconds": 2.039
     },
     {
       "test_id": "TC-03",
@@ -37,11 +37,11 @@
       "description": "Landing page renders correctly",
       "expected_result": "Landing page renders correctly using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:47:00.367903+00:00",
+      "executed_at_utc": "2026-10-05T17:39:27.642324+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.356
+      "elapsed_seconds": 0.249
     },
     {
       "test_id": "TC-04",
@@ -49,11 +49,11 @@
       "description": "Session login and logout behave correctly",
       "expected_result": "Session login and logout behave correctly using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:47:00.724485+00:00",
+      "executed_at_utc": "2026-10-05T17:39:27.892305+00:00",
       "actual_result": "Session-only access and logout executed; this is not production authentication.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.851
+      "elapsed_seconds": 0.618
     },
     {
       "test_id": "TC-05",
@@ -61,11 +61,11 @@
       "description": "Navigation loads every registered page",
       "expected_result": "Navigation loads every registered page using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:47:01.576285+00:00",
+      "executed_at_utc": "2026-10-05T17:39:28.510769+00:00",
       "actual_result": "All 25 authenticated routes executed, including developer diagnostics in developer mode.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 14.441
+      "elapsed_seconds": 11.83
     },
     {
       "test_id": "TC-06",
@@ -73,7 +73,7 @@
       "description": "Sidebar renders correctly",
       "expected_result": "Sidebar renders correctly using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:47:16.017874+00:00",
+      "executed_at_utc": "2026-10-05T17:39:40.341245+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
@@ -85,7 +85,7 @@
       "description": "Header renders correctly",
       "expected_result": "Header renders correctly using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:47:16.018846+00:00",
+      "executed_at_utc": "2026-10-05T17:39:40.342046+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
@@ -97,11 +97,11 @@
       "description": "Theme styles load",
       "expected_result": "Theme styles load using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:47:16.020141+00:00",
+      "executed_at_utc": "2026-10-05T17:39:40.343207+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 1.062
+      "elapsed_seconds": 0.447
     },
     {
       "test_id": "TC-09",
@@ -109,11 +109,11 @@
       "description": "Dark mode works",
       "expected_result": "Dark mode works using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:47:17.082613+00:00",
+      "executed_at_utc": "2026-10-05T17:39:40.791000+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 1.348
+      "elapsed_seconds": 0.453
     },
     {
       "test_id": "TC-10",
@@ -121,11 +121,11 @@
       "description": "Light mode works",
       "expected_result": "Light mode works using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:47:18.431497+00:00",
+      "executed_at_utc": "2026-10-05T17:39:41.244498+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 1.293
+      "elapsed_seconds": 0.501
     },
     {
       "test_id": "TC-11",
@@ -133,11 +133,11 @@
       "description": "Demo Mode loads correctly",
       "expected_result": "Demo Mode loads correctly using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:47:19.726347+00:00",
+      "executed_at_utc": "2026-10-05T17:39:41.746889+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 1.004
+      "elapsed_seconds": 0.498
     },
     {
       "test_id": "TC-12",
@@ -145,7 +145,7 @@
       "description": "Real repository snapshot mode loads correctly",
       "expected_result": "Real repository snapshot mode loads correctly using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:47:20.730690+00:00",
+      "executed_at_utc": "2026-10-05T17:39:42.244979+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
@@ -157,11 +157,11 @@
       "description": "Verified workspace does not display fabricated demo KPIs",
       "expected_result": "Verified workspace does not display fabricated demo KPIs using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:47:20.745090+00:00",
+      "executed_at_utc": "2026-10-05T17:39:42.246108+00:00",
       "actual_result": "All normal authenticated routes checked for synthetic HTML KPIs/chart annotations; public marketing preview is explicitly demo.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 12.52
+      "elapsed_seconds": 13.433
     },
     {
       "test_id": "TC-14",
@@ -169,11 +169,11 @@
       "description": "Primary Delivery dataset loads",
       "expected_result": "Primary Delivery dataset loads using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:47:33.265323+00:00",
+      "executed_at_utc": "2026-10-05T17:39:55.679353+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.042
+      "elapsed_seconds": 0.036
     },
     {
       "test_id": "TC-15",
@@ -181,7 +181,7 @@
       "description": "Delivery row count is verified",
       "expected_result": "Delivery row count is verified using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:47:33.308073+00:00",
+      "executed_at_utc": "2026-10-05T17:39:55.716230+00:00",
       "actual_result": "65,752 primary orders; 2,123 scored rows; 2,123 unique matching scored IDs.",
       "status": "PASS",
       "retest_result": "PASS",
@@ -193,11 +193,11 @@
       "description": "Delivery schema validates",
       "expected_result": "Delivery schema validates using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:47:33.308588+00:00",
+      "executed_at_utc": "2026-10-05T17:39:55.717175+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.014
+      "elapsed_seconds": 0.017
     },
     {
       "test_id": "TC-17",
@@ -205,11 +205,11 @@
       "description": "Delivery date fields parse",
       "expected_result": "Delivery date fields parse using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:47:33.323182+00:00",
+      "executed_at_utc": "2026-10-05T17:39:55.734594+00:00",
       "actual_result": "All dates parsed; range 2015-01-01 00:00:00 to 2018-01-31 23:38:00.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.001
+      "elapsed_seconds": 0.002
     },
     {
       "test_id": "TC-18",
@@ -217,11 +217,11 @@
       "description": "Delivery identifiers are unique and aligned",
       "expected_result": "Delivery identifiers are unique and aligned using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:47:33.325290+00:00",
+      "executed_at_utc": "2026-10-05T17:39:55.736976+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.004
+      "elapsed_seconds": 0.005
     },
     {
       "test_id": "TC-19",
@@ -229,11 +229,11 @@
       "description": "Delivery null and quality checks work",
       "expected_result": "Delivery null and quality checks work using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:47:33.330212+00:00",
+      "executed_at_utc": "2026-10-05T17:39:55.742391+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.173
+      "elapsed_seconds": 0.205
     },
     {
       "test_id": "TC-20",
@@ -241,11 +241,11 @@
       "description": "Delivery dashboard shows source KPI values",
       "expected_result": "Delivery dashboard shows source KPI values using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:47:33.504080+00:00",
+      "executed_at_utc": "2026-10-05T17:39:55.948048+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 1.201
+      "elapsed_seconds": 0.672
     },
     {
       "test_id": "TC-21",
@@ -253,11 +253,11 @@
       "description": "Delivery trend chart shows source data",
       "expected_result": "Delivery trend chart shows source data using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:47:34.706035+00:00",
+      "executed_at_utc": "2026-10-05T17:39:56.621053+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.022
+      "elapsed_seconds": 0.025
     },
     {
       "test_id": "TC-22",
@@ -265,11 +265,11 @@
       "description": "Delivery risk distribution shows source data",
       "expected_result": "Delivery risk distribution shows source data using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:47:34.729330+00:00",
+      "executed_at_utc": "2026-10-05T17:39:56.646506+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.022
+      "elapsed_seconds": 0.021
     },
     {
       "test_id": "TC-23",
@@ -277,11 +277,11 @@
       "description": "Market analysis shows source data",
       "expected_result": "Market analysis shows source data using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:47:34.751875+00:00",
+      "executed_at_utc": "2026-10-05T17:39:56.668392+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.024
+      "elapsed_seconds": 0.685
     },
     {
       "test_id": "TC-24",
@@ -289,11 +289,11 @@
       "description": "Regional analysis shows source data",
       "expected_result": "Regional analysis shows source data using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:47:34.776705+00:00",
+      "executed_at_utc": "2026-10-05T17:39:57.353853+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.024
+      "elapsed_seconds": 0.675
     },
     {
       "test_id": "TC-25",
@@ -301,11 +301,11 @@
       "description": "Country analysis shows source data",
       "expected_result": "Country analysis shows source data using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:47:34.801076+00:00",
+      "executed_at_utc": "2026-10-05T17:39:58.030100+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.584
+      "elapsed_seconds": 0.674
     },
     {
       "test_id": "TC-26",
@@ -313,11 +313,11 @@
       "description": "Shipping-mode analysis shows source data",
       "expected_result": "Shipping-mode analysis shows source data using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:47:35.386722+00:00",
+      "executed_at_utc": "2026-10-05T17:39:58.704851+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.023
+      "elapsed_seconds": 0.716
     },
     {
       "test_id": "TC-27",
@@ -325,11 +325,11 @@
       "description": "Global date filter works",
       "expected_result": "Global date filter works using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:47:35.411006+00:00",
+      "executed_at_utc": "2026-10-05T17:39:59.421463+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 1.982
+      "elapsed_seconds": 0.887
     },
     {
       "test_id": "TC-28",
@@ -337,11 +337,11 @@
       "description": "Market filter works",
       "expected_result": "Market filter works using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:47:37.394556+00:00",
+      "executed_at_utc": "2026-10-05T17:40:00.309797+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 2.614
+      "elapsed_seconds": 1.215
     },
     {
       "test_id": "TC-29",
@@ -349,11 +349,11 @@
       "description": "Region filter works",
       "expected_result": "Region filter works using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:47:40.010388+00:00",
+      "executed_at_utc": "2026-10-05T17:40:01.525630+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 2.372
+      "elapsed_seconds": 0.981
     },
     {
       "test_id": "TC-30",
@@ -361,11 +361,11 @@
       "description": "Country filter works",
       "expected_result": "Country filter works using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:47:42.383570+00:00",
+      "executed_at_utc": "2026-10-05T17:40:02.507753+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 3.22
+      "elapsed_seconds": 1.071
     },
     {
       "test_id": "TC-31",
@@ -373,11 +373,11 @@
       "description": "Shipping-mode filter works",
       "expected_result": "Shipping-mode filter works using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:47:45.604843+00:00",
+      "executed_at_utc": "2026-10-05T17:40:03.579265+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 2.467
+      "elapsed_seconds": 0.865
     },
     {
       "test_id": "TC-32",
@@ -385,11 +385,11 @@
       "description": "Customer-segment filter works",
       "expected_result": "Customer-segment filter works using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:47:48.073622+00:00",
+      "executed_at_utc": "2026-10-05T17:40:04.445510+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 2.605
+      "elapsed_seconds": 0.92
     },
     {
       "test_id": "TC-33",
@@ -397,11 +397,11 @@
       "description": "Order-type filter works",
       "expected_result": "Order-type filter works using verified artifacts or explicit unavailable state",
       "fix_applied": "Added actual Type to available filters and order profile",
-      "executed_at_utc": "2026-10-05T07:47:50.680125+00:00",
+      "executed_at_utc": "2026-10-05T17:40:05.366902+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 2.744
+      "elapsed_seconds": 0.919
     },
     {
       "test_id": "TC-34",
@@ -409,11 +409,11 @@
       "description": "Risk-level filter works",
       "expected_result": "Risk-level filter works using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:47:53.437238+00:00",
+      "executed_at_utc": "2026-10-05T17:40:06.287079+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 2.488
+      "elapsed_seconds": 1.009
     },
     {
       "test_id": "TC-35",
@@ -421,11 +421,11 @@
       "description": "Filters update KPIs",
       "expected_result": "Filters update KPIs using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:47:55.926090+00:00",
+      "executed_at_utc": "2026-10-05T17:40:07.297210+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 3.444
+      "elapsed_seconds": 1.461
     },
     {
       "test_id": "TC-36",
@@ -433,11 +433,11 @@
       "description": "Filters update charts",
       "expected_result": "Filters update charts using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:47:59.375187+00:00",
+      "executed_at_utc": "2026-10-05T17:40:08.758926+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 3.511
+      "elapsed_seconds": 2.083
     },
     {
       "test_id": "TC-37",
@@ -445,11 +445,11 @@
       "description": "Filters update tables",
       "expected_result": "Filters update tables using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:48:02.887176+00:00",
+      "executed_at_utc": "2026-10-05T17:40:10.842865+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 3.527
+      "elapsed_seconds": 1.412
     },
     {
       "test_id": "TC-38",
@@ -457,11 +457,11 @@
       "description": "Order Explorer loads",
       "expected_result": "Order Explorer loads using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:48:06.414483+00:00",
+      "executed_at_utc": "2026-10-05T17:40:12.255357+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.611
+      "elapsed_seconds": 0.799
     },
     {
       "test_id": "TC-39",
@@ -469,11 +469,11 @@
       "description": "Order ID search works",
       "expected_result": "Order ID search works using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:48:07.025820+00:00",
+      "executed_at_utc": "2026-10-05T17:40:13.055926+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.61
+      "elapsed_seconds": 0.713
     },
     {
       "test_id": "TC-40",
@@ -481,11 +481,11 @@
       "description": "Order detail matches source values",
       "expected_result": "Order detail matches source values using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:48:07.649782+00:00",
+      "executed_at_utc": "2026-10-05T17:40:13.769718+00:00",
       "actual_result": "Order 75287: ID/date/market/region/country/shipping/sales exactly match source.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.606
+      "elapsed_seconds": 0.727
     },
     {
       "test_id": "TC-41",
@@ -493,11 +493,11 @@
       "description": "Actual outcome is distinguished from prediction",
       "expected_result": "Actual outcome is distinguished from prediction using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:48:08.256962+00:00",
+      "executed_at_utc": "2026-10-05T17:40:14.497686+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.623
+      "elapsed_seconds": 0.692
     },
     {
       "test_id": "TC-42",
@@ -505,11 +505,11 @@
       "description": "Verified prediction and probability display correctly",
       "expected_result": "Verified prediction and probability display correctly using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:48:08.880847+00:00",
+      "executed_at_utc": "2026-10-05T17:40:15.190298+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.795
+      "elapsed_seconds": 0.615
     },
     {
       "test_id": "TC-43",
@@ -517,11 +517,11 @@
       "description": "High-risk order filtering works",
       "expected_result": "High-risk order filtering works using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:48:09.676663+00:00",
+      "executed_at_utc": "2026-10-05T17:40:15.806458+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 2.561
+      "elapsed_seconds": 1.041
     },
     {
       "test_id": "TC-44",
@@ -529,11 +529,11 @@
       "description": "Universal Explorer uses valid source columns",
       "expected_result": "Universal Explorer uses valid source columns using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:48:12.238613+00:00",
+      "executed_at_utc": "2026-10-05T17:40:16.848607+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.572
+      "elapsed_seconds": 0.627
     },
     {
       "test_id": "TC-45",
@@ -541,7 +541,7 @@
       "description": "Geographic Intelligence works",
       "expected_result": "Geographic Intelligence works using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:48:12.811233+00:00",
+      "executed_at_utc": "2026-10-05T17:40:17.477191+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
@@ -553,11 +553,11 @@
       "description": "What Changed compares sufficient historical data",
       "expected_result": "What Changed compares sufficient historical data using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:48:12.812456+00:00",
+      "executed_at_utc": "2026-10-05T17:40:17.478397+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.707
+      "elapsed_seconds": 0.721
     },
     {
       "test_id": "TC-47",
@@ -565,11 +565,11 @@
       "description": "Insight Center shows evidence-based observations",
       "expected_result": "Insight Center shows evidence-based observations using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:48:13.520625+00:00",
+      "executed_at_utc": "2026-10-05T17:40:18.200779+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.466
+      "elapsed_seconds": 0.589
     },
     {
       "test_id": "TC-48",
@@ -577,11 +577,11 @@
       "description": "Alert Center shows valid alerts",
       "expected_result": "Alert Center shows valid alerts using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:48:13.987347+00:00",
+      "executed_at_utc": "2026-10-05T17:40:18.790761+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.898
+      "elapsed_seconds": 0.843
     },
     {
       "test_id": "TC-49",
@@ -589,11 +589,11 @@
       "description": "Model Intelligence shows verified model information",
       "expected_result": "Model Intelligence shows verified model information using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:48:14.886540+00:00",
+      "executed_at_utc": "2026-10-05T17:40:19.635168+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.869
+      "elapsed_seconds": 1.046
     },
     {
       "test_id": "TC-50",
@@ -601,11 +601,11 @@
       "description": "Feature importance shows the actual baseline artifact",
       "expected_result": "Feature importance shows the actual baseline artifact using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:48:15.756969+00:00",
+      "executed_at_utc": "2026-10-05T17:40:20.682414+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.509
+      "elapsed_seconds": 0.433
     },
     {
       "test_id": "TC-51",
@@ -613,11 +613,11 @@
       "description": "Explainability does not fabricate local explanations",
       "expected_result": "Explainability does not fabricate local explanations using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:48:16.266987+00:00",
+      "executed_at_utc": "2026-10-05T17:40:21.115984+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.002
+      "elapsed_seconds": 0.003
     },
     {
       "test_id": "TC-52",
@@ -625,11 +625,11 @@
       "description": "Data Quality works",
       "expected_result": "Data Quality works using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:48:16.269553+00:00",
+      "executed_at_utc": "2026-10-05T17:40:21.120381+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.513
+      "elapsed_seconds": 0.445
     },
     {
       "test_id": "TC-53",
@@ -637,11 +637,11 @@
       "description": "Data Lineage works",
       "expected_result": "Data Lineage works using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:48:16.784027+00:00",
+      "executed_at_utc": "2026-10-05T17:40:21.566661+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.386
+      "elapsed_seconds": 0.38
     },
     {
       "test_id": "TC-54",
@@ -649,11 +649,11 @@
       "description": "Copilot answers real-data questions",
       "expected_result": "Copilot answers real-data questions using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:48:17.171599+00:00",
+      "executed_at_utc": "2026-10-05T17:40:21.947397+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.712
+      "elapsed_seconds": 0.574
     },
     {
       "test_id": "TC-55",
@@ -661,11 +661,11 @@
       "description": "Copilot numbers have source evidence",
       "expected_result": "Copilot numbers have source evidence using verified artifacts or explicit unavailable state",
       "fix_applied": "Unsafe prompts now refused before analytics intent routing",
-      "executed_at_utc": "2026-10-05T07:48:17.884669+00:00",
+      "executed_at_utc": "2026-10-05T17:40:22.523075+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.705
+      "elapsed_seconds": 0.576
     },
     {
       "test_id": "TC-56",
@@ -673,11 +673,11 @@
       "description": "Reports generate successfully",
       "expected_result": "Reports generate successfully using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:48:18.595403+00:00",
+      "executed_at_utc": "2026-10-05T17:40:23.100348+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.951
+      "elapsed_seconds": 0.758
     },
     {
       "test_id": "TC-57",
@@ -685,11 +685,11 @@
       "description": "CSV download exports source values",
       "expected_result": "CSV download exports source values using verified artifacts or explicit unavailable state",
       "fix_applied": "Formula injection protection includes leading whitespace/control characters",
-      "executed_at_utc": "2026-10-05T07:48:19.547577+00:00",
+      "executed_at_utc": "2026-10-05T17:40:23.859368+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.634
+      "elapsed_seconds": 0.56
     },
     {
       "test_id": "TC-58",
@@ -697,11 +697,11 @@
       "description": "Excel download exports source values",
       "expected_result": "Excel download exports source values using verified artifacts or explicit unavailable state",
       "fix_applied": "Same neutralization for Excel exports",
-      "executed_at_utc": "2026-10-05T07:48:20.182024+00:00",
+      "executed_at_utc": "2026-10-05T17:40:24.426301+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.756
+      "elapsed_seconds": 0.697
     },
     {
       "test_id": "TC-59",
@@ -709,11 +709,11 @@
       "description": "PDF generation and download are valid",
       "expected_result": "PDF generation and download are valid using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:48:20.939389+00:00",
+      "executed_at_utc": "2026-10-05T17:40:25.123901+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.709
+      "elapsed_seconds": 0.649
     },
     {
       "test_id": "TC-60",
@@ -721,11 +721,11 @@
       "description": "Demand page shows connected forecast values",
       "expected_result": "Demand page shows connected forecast values using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:48:21.649340+00:00",
+      "executed_at_utc": "2026-10-05T17:40:25.774218+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.813
+      "elapsed_seconds": 0.78
     },
     {
       "test_id": "TC-61",
@@ -733,11 +733,11 @@
       "description": "Demand filters and charts work",
       "expected_result": "Demand filters and charts work using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:48:22.463127+00:00",
+      "executed_at_utc": "2026-10-05T17:40:26.554630+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 1.434
+      "elapsed_seconds": 1.348
     },
     {
       "test_id": "TC-62",
@@ -745,11 +745,11 @@
       "description": "Empty and nonexistent-order states work",
       "expected_result": "Empty and nonexistent-order states work using verified artifacts or explicit unavailable state",
       "fix_applied": "Preserved source-aware empty/unscored states",
-      "executed_at_utc": "2026-10-05T07:48:23.898483+00:00",
+      "executed_at_utc": "2026-10-05T17:40:27.903824+00:00",
       "actual_result": "Expected behavior executed and assertions passed against the source data/rendered UI.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.931
+      "elapsed_seconds": 0.71
     },
     {
       "test_id": "TC-63",
@@ -757,11 +757,11 @@
       "description": "Missing model and CSV errors fail closed",
       "expected_result": "Missing model and CSV errors fail closed using verified artifacts or explicit unavailable state",
       "fix_applied": "Sanitized missing demand-artifact errors; diagnostics requires developer preference",
-      "executed_at_utc": "2026-10-05T07:48:24.830336+00:00",
+      "executed_at_utc": "2026-10-05T17:40:28.614882+00:00",
       "actual_result": "Missing model reports disable inference; missing CSV produces recoverable generic error, without traceback/path exposure.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.294
+      "elapsed_seconds": 0.297
     },
     {
       "test_id": "TC-64",
@@ -769,11 +769,11 @@
       "description": "Implemented security checks identify no unresolved critical local-showcase issue",
       "expected_result": "Implemented security checks identify no unresolved critical local-showcase issue using verified artifacts or explicit unavailable state",
       "fix_applied": "Updated vulnerable pip; hardened prompts/exports; validated finite inputs",
-      "executed_at_utc": "2026-10-05T07:48:25.124745+00:00",
+      "executed_at_utc": "2026-10-05T17:40:28.912339+00:00",
       "actual_result": "Advisory, source-code, secret-pattern, controlled-tool, file-boundary and export checks passed for local showcase scope; not a penetration-test guarantee.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 0.101
+      "elapsed_seconds": 0.099
     },
     {
       "test_id": "TC-65",
@@ -781,11 +781,11 @@
       "description": "Complete source-service-model-filter-UI-report-export workflow passes",
       "expected_result": "Complete source-service-model-filter-UI-report-export workflow passes using verified artifacts or explicit unavailable state",
       "fix_applied": "No fix required for this case",
-      "executed_at_utc": "2026-10-05T07:48:25.226825+00:00",
+      "executed_at_utc": "2026-10-05T17:40:29.013094+00:00",
       "actual_result": "Order 75082 model parity, filtered UI/source totals, CSV, Excel, PDF and actual 32-step browser showcase passed.",
       "status": "PASS",
       "retest_result": "PASS",
-      "elapsed_seconds": 20.502
+      "elapsed_seconds": 17.902
     }
   ]
 }
