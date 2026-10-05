@@ -1,0 +1,12 @@
+{
+  "status": "passed",
+  "delivery_rows": 65752,
+  "export_rows": 17577,
+  "cold_records_seconds": 0.5236,
+  "warm_records_seconds": 0.013,
+  "csv_generation_seconds": 0.3228,
+  "cold_excel_seconds": 13.7846,
+  "warm_excel_seconds": 0.1932,
+  "cached_export_identical": true,
+  "scope": "single-process local showcase; no concurrency or production SLA"
+}

@@ -49,6 +49,9 @@ def render():
     sidebar()
     header()
     route = st.session_state.route
+    if route == "diagnostics" and not st.session_state.developer_mode:
+        route = "overview"
+        st.session_state.route = route
     if route not in PAGES:
         route = "overview"
         st.session_state.route = route

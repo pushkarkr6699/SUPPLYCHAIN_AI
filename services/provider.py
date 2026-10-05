@@ -11,7 +11,7 @@ from services.contracts import AnalyticsService
 from services.verified_data import (delivery_records, order_delivery_records, demand_records, threshold_records,
     tabular_artifact, summary_artifact, text_artifact, DELIVERY_MODEL_COLUMNS, FEATURE_COLUMNS)
 
-FILTER_COLUMNS = ["Market", "Region", "Country", "Category", "Department", "Shipping Mode", "Customer Segment", "Risk", "Product"]
+FILTER_COLUMNS = ["Market", "Region", "Country", "Category", "Department", "Shipping Mode", "Customer Segment", "Type", "Risk", "Product"]
 
 
 def filter_description(filters, empty_label="All demo records"):
@@ -34,7 +34,7 @@ class MockAnalyticsService:
         for key, values in (filters or {}).items():
             if key == "Date" and len(values) == 2:
                 df = df[df.Date.dt.date.between(values[0], values[1])]
-            elif key in FILTER_COLUMNS and values:
+            elif key in FILTER_COLUMNS and key in df and values:
                 df = df[df[key].isin(values)]
         return df.reset_index(drop=True)
 

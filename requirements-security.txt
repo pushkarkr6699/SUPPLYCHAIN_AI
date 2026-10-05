@@ -1,0 +1,2 @@
+# Optional release-audit tooling; separate from the inference runtime.
+pip-audit==2.10.1

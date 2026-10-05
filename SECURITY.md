@@ -1,20 +1,46 @@
-# Security notes
+# Local showcase security
 
 ## Current application boundary
 
-- The application is configured for local loopback use and deterministic demo data. `DEMO_MODE` is `True`; no operational dataset, model artifact, external AI provider, or real identity provider is connected.
+- The application binds to `127.0.0.1`. The verified provider connects supplied historical delivery and demand CSVs and runs registered trained models after parity validation. Demo mode remains selectable. No real identity provider or external AI provider is connected. This is a single-operator classroom release, not public multi-user production.
 - Demo sign-in is a UI preview, not an authorization boundary. Never use it with confidential data. A production deployment must replace it with a verified authentication provider and server-side authorization.
 - Do not commit `.env`, `.streamlit/secrets.toml`, credentials, access tokens, private keys, or private datasets. `.env.example` is a list of blank integration placeholders only.
 - `services/mock_data.py` creates synthetic records in memory. Do not add silent demo fallback to a future production provider. Return an explicit unavailable/error state if live data cannot be served.
 - `services/query_engine.py` accepts in-memory DataFrames only and disables DuckDB external access. Keep query values parameterized and never execute SQL or Python supplied by a user or Copilot.
 - Copilot currently uses deterministic application code and supported intents. Any future provider/tool integration must validate inputs, constrain tool scope, preserve evidence/provenance, and fail closed for unsupported questions.
-- CSV/Excel exports add formula guards and a demo provenance column. Before exposing real records, review row-level authorization, export auditing, data minimization, and retention requirements.
+- CSV/Excel exports neutralize formula prefixes, including leading whitespace, tabs and carriage returns, and preserve source provenance. Numeric values remain numeric. Downloads are generated in memory. Before public deployment, add row-level authorization, export auditing and retention controls.
 
-## Before handling real data
+## Model, file and input boundaries
 
-1. Review and approve the dataset/model artifact manifest, access permissions, schemas, row grain, retention, and data classification.
+Only fixed, hash-registered model/preprocessor paths are accepted. Original artifact hashes, portable export hashes, named feature schemas, pinned runtime versions and successful parity reports gate inference. Uploaded or caller-selected pickle files are unsupported. Pickle/joblib loading can execute code: registration establishes identity with the supplied files, not safety of an untrusted model. Keep the registry and local artifacts under administrator control.
+
+CSV uploads are in-memory data buffers and cannot specify executable code, SQL or model paths. Delivery features and demand histories are validated before scoring. Demand requires finite nonnegative visits, complete dimensions and at least 15 consecutive daily rows per product. Administrator-configured `.env` dataset paths are trusted configuration; they are not browser-entered paths. Streamlit's upload-size limit is not a complete resource-exhaustion defense.
+
+Copilot has no shell, code interpreter, filesystem write tool or external LLM. Unsafe execution/deletion/secret/threshold-change requests are refused before analytics intent routing. Fixed DuckDB queries use in-memory frames with external access disabled. Error panels show controlled unavailable/invalid-input states without raw tracebacks or absolute paths. Diagnostics requires a developer preference and is hidden in presentation mode; the preference is not authorization. Operator logs may contain technical details and must remain private.
+
+`.env`, Streamlit secrets, source CSV/model directories, backups, environments, logs and temporary browser downloads are Git-ignored. Original notebooks are training provenance and may contain private dataset examples; do not distribute these artifacts without reviewing their contents. Temporary QA outputs stay in ignored `tmp/` and are never application routes or runtime configuration.
+
+## Executed audit and reproducibility
+
+Evidence is in [QA_REPORT.md](QA_REPORT.md), `metadata/security_audit.json` and `metadata/dependency_audit.json`. Checks cover runtime AST inspection, tracked-file credential patterns, ignored secret stores, loopback binding, model-path traversal, disabled DuckDB external reads, malicious Copilot requests, corrupted/missing inputs and spreadsheet formula payloads.
+
+The initial dependency audit found advisories affecting pip 25.1.1. Updating the toolchain to pip 26.2.1 resolved the reported findings; model dependency pins were preserved. The subsequent installed-environment audit found no known vulnerabilities. `pip check` passed. These checks are point-in-time evidence, not a guarantee against future or undisclosed vulnerabilities. Regex scanning cannot establish absence of every possible credential; this is not an independent penetration test.
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements-security.txt
+.\.venv\Scripts\python.exe -m pip check
+.\.venv\Scripts\python.exe -m pip_audit --format json --output metadata/dependency_audit.json
+.\.venv\Scripts\python.exe scripts/security_audit.py
+.\.venv\Scripts\python.exe -m pytest -q
+```
+
+Revalidate model parity whenever registered sources, models or inference dependencies change. Never remove validation gates or change thresholds to pass QA.
+
+## Before public deployment
+
+1. Review the dataset/model manifest, access permissions, schemas, row grain, retention and data classification. Historical data is not a refreshed feed.
 2. Add secrets through the deployment secret manager or Streamlit secrets; never put values in source or committed environment files.
 3. Replace session-only demo access with authentication and authorization.
-4. Add provider validation, safe query parameterization, audit logging, and integration tests.
+4. Add durable per-user sessions, audit events, TLS, upload quotas, controlled artifact ingestion and monitoring.
 5. Run a dedicated secret scanner and dependency/security review on the deployment revision.
 6. Keep profitability and combined-risk routes unavailable until their independent artifacts, permissions, validation, and join coverage are approved.

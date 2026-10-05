@@ -46,6 +46,8 @@ def dataset_for_route(route):
 
 def reset_filters():
     st.session_state.filters = {}
+    # Recreate the date widget so its visible segments match the reset bounds.
+    st.session_state.date_reset_revision = st.session_state.get("date_reset_revision", 0) + 1
     dataset = st.session_state.get("active_filter_dataset", "demo")
     st.session_state.setdefault("filters_by_dataset", {})[dataset] = {}
     for key in list(st.session_state):
@@ -125,11 +127,15 @@ def filters():
         widths = [1.45] + [1.15] * len(visible) + [1.0, .72]
         cols = st.columns(widths, vertical_alignment="bottom")
         date_key = f"filter_Date{widget_scope}"
+        revision = st.session_state.get("date_reset_revision", 0)
+        if revision:
+            date_key += f"_{revision}"
         stale_widget_date = st.session_state.get(date_key)
         if stale_widget_date and len(stale_widget_date) == 2 and (stale_widget_date[1] < date_min or stale_widget_date[0] > date_max):
             st.session_state.pop(date_key, None)
         with cols[0]:
-            dates = st.date_input("Date", value=tuple(date_value), min_value=frame.Date.min().date(), max_value=frame.Date.max().date(), key=date_key, format="DD/MM/YYYY")
+            with st.container(key=f"date_control{widget_scope}_{revision}"):
+                dates = st.date_input("Date", value=tuple(date_value), min_value=frame.Date.min().date(), max_value=frame.Date.max().date(), key=date_key, format="DD/MM/YYYY")
         st.session_state.filters["Date"] = dates
         for col, name in zip(cols[1:1 + len(visible)], visible):
             with col:

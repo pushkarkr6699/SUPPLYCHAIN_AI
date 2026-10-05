@@ -1,0 +1,503 @@
+{
+  "artifacts_verified": 26,
+  "profiles": [
+    {
+      "path": "data/delivery/final/DataCo_Final_Order_Level_Dataset.csv",
+      "role": "primary order-level analytical dataset",
+      "status": "present/readable/hash matches",
+      "rows": 65752,
+      "columns": 30,
+      "schema": {
+        "Order Id": "int64",
+        "Late_delivery_risk": "int64",
+        "Type": "str",
+        "Customer Segment": "str",
+        "Customer Country": "str",
+        "Customer State": "str",
+        "Market": "str",
+        "Order Country": "str",
+        "Order Region": "str",
+        "Shipping Mode": "str",
+        "Order Item Quantity": "int64",
+        "Sales": "float64",
+        "Order Item Discount": "float64",
+        "Order Item Discount Rate": "float64",
+        "Order Profit Per Order": "float64",
+        "Order Item Profit Ratio": "float64",
+        "Order_Year": "int64",
+        "Order_Month": "int64",
+        "Order_DayOfWeek": "int64",
+        "Order_Hour": "int64",
+        "Order_Weekend": "int64",
+        "Number_of_Items": "int64",
+        "Number_of_Products": "int64",
+        "Number_of_Categories": "int64",
+        "Order_Date": "str",
+        "Average_Sales_Per_Item": "float64",
+        "Average_Quantity_Per_Item": "float64",
+        "Discount_to_Sales_Ratio": "float64",
+        "Profit_Margin": "float64",
+        "Order_Complexity": "int64"
+      },
+      "null_cells": 0,
+      "duplicate_rows": 0,
+      "nonfinite_numeric_cells": 0,
+      "date_range": {
+        "column": "Order_Date",
+        "start": "2015-01-01 00:00:00",
+        "end": "2018-01-31 23:38:00",
+        "missing": 0
+      },
+      "identifier_integrity": {
+        "unique_orders": 65752,
+        "missing_ids": 0,
+        "duplicate_ids": 0
+      }
+    },
+    {
+      "path": "data/delivery/final/DataCo_Final_Scored_Orders.csv",
+      "role": "Tuned XGBoost scored test orders",
+      "status": "present/readable/hash matches",
+      "rows": 2123,
+      "columns": 19,
+      "schema": {
+        "Order Id": "int64",
+        "Order_Date": "str",
+        "Type": "str",
+        "Customer Segment": "str",
+        "Market": "str",
+        "Order Country": "str",
+        "Order Region": "str",
+        "Shipping Mode": "str",
+        "Sales": "float64",
+        "Order Profit Per Order": "float64",
+        "Number_of_Items": "int64",
+        "Number_of_Products": "int64",
+        "Number_of_Categories": "int64",
+        "Late_delivery_risk": "int64",
+        "Predicted_Late_Delivery": "int64",
+        "Late_Delivery_Probability": "float64",
+        "Risk_Level": "str",
+        "Prediction_Model": "str",
+        "Decision_Threshold": "float64"
+      },
+      "null_cells": 0,
+      "duplicate_rows": 0,
+      "nonfinite_numeric_cells": 0,
+      "date_range": {
+        "column": "Order_Date",
+        "start": "2018-01-01 00:13:00",
+        "end": "2018-01-31 23:38:00",
+        "missing": 0
+      },
+      "identifier_integrity": {
+        "unique_orders": 2123,
+        "missing_ids": 0,
+        "duplicate_ids": 0
+      },
+      "risk_counts": {
+        "Medium Risk": 857,
+        "High Risk": 702,
+        "Low Risk": 564
+      },
+      "model_identifiers": [
+        "Tuned XGBoost"
+      ],
+      "decision_thresholds": [
+        0.35
+      ]
+    },
+    {
+      "path": "data/delivery/final/DataCo_Late_Delivery_Predictions.csv",
+      "role": "earlier Random Forest prediction reference",
+      "status": "present/readable/hash matches",
+      "rows": 2123,
+      "columns": 8,
+      "schema": {
+        "Order Id": "int64",
+        "Market": "str",
+        "Order Region": "str",
+        "Shipping Mode": "str",
+        "Late_delivery_risk": "int64",
+        "Predicted_Late_Risk": "int64",
+        "Late_Risk_Probability": "float64",
+        "Risk_Level": "str"
+      },
+      "null_cells": 0,
+      "duplicate_rows": 0,
+      "nonfinite_numeric_cells": 0,
+      "identifier_integrity": {
+        "unique_orders": 2123,
+        "missing_ids": 0,
+        "duplicate_ids": 0
+      },
+      "risk_counts": {
+        "Medium Risk": 1347,
+        "High Risk": 631,
+        "Low Risk": 145
+      }
+    },
+    {
+      "path": "data/delivery/final/DataCo_Risk_Level_Summary.csv",
+      "role": "scored risk aggregation reference",
+      "status": "present/readable/hash matches",
+      "rows": 3,
+      "columns": 4,
+      "schema": {
+        "Risk_Level": "str",
+        "Orders": "int64",
+        "Average_Predicted_Risk": "float64",
+        "Actual_Late_Rate": "float64"
+      },
+      "null_cells": 0,
+      "duplicate_rows": 0,
+      "nonfinite_numeric_cells": 0,
+      "risk_counts": {
+        "High Risk": 1,
+        "Low Risk": 1,
+        "Medium Risk": 1
+      }
+    },
+    {
+      "path": "data/delivery/final/evaluation/DataCo_Feature_Importance.csv",
+      "role": "Random Forest importance",
+      "status": "present/readable/hash matches",
+      "rows": 264,
+      "columns": 2,
+      "schema": {
+        "Feature": "str",
+        "Importance": "float64"
+      },
+      "null_cells": 0,
+      "duplicate_rows": 0,
+      "nonfinite_numeric_cells": 0
+    },
+    {
+      "path": "data/delivery/final/evaluation/DataCo_Final_Model_Comparison.csv",
+      "role": "model evaluation reference",
+      "status": "present/readable/hash matches",
+      "rows": 3,
+      "columns": 8,
+      "schema": {
+        "Model": "str",
+        "Accuracy": "float64",
+        "Precision": "float64",
+        "Recall": "float64",
+        "F1": "float64",
+        "ROC_AUC": "float64",
+        "PR_AUC": "float64",
+        "Brier_Score": "float64"
+      },
+      "null_cells": 0,
+      "duplicate_rows": 0,
+      "nonfinite_numeric_cells": 0
+    },
+    {
+      "path": "data/delivery/final/evaluation/DataCo_Model_Comparison.csv",
+      "role": "model evaluation reference",
+      "status": "present/readable/hash matches",
+      "rows": 4,
+      "columns": 6,
+      "schema": {
+        "Model": "str",
+        "Accuracy": "float64",
+        "Precision": "float64",
+        "Recall": "float64",
+        "F1 Score": "float64",
+        "ROC AUC": "float64"
+      },
+      "null_cells": 0,
+      "duplicate_rows": 0,
+      "nonfinite_numeric_cells": 0
+    },
+    {
+      "path": "data/delivery/final/evaluation/DataCo_Model_Comparison (1).csv",
+      "role": "model evaluation reference",
+      "status": "present/readable/hash matches",
+      "rows": 4,
+      "columns": 6,
+      "schema": {
+        "Model": "str",
+        "Accuracy": "float64",
+        "Precision": "float64",
+        "Recall": "float64",
+        "F1 Score": "float64",
+        "ROC AUC": "float64"
+      },
+      "null_cells": 0,
+      "duplicate_rows": 0,
+      "nonfinite_numeric_cells": 0
+    },
+    {
+      "path": "models/delivery/DataCo_Late_Delivery_Model.pkl",
+      "role": "serialized model; not executed by importer",
+      "status": "present/readable/hash matches"
+    },
+    {
+      "path": "models/delivery/DataCo_Tuned_XGBoost.pkl",
+      "role": "serialized model; not executed by importer",
+      "status": "present/readable/hash matches"
+    },
+    {
+      "path": "notebooks/delivery/Welcome_To_Colab (2).ipynb",
+      "role": "training provenance",
+      "status": "present/readable/hash matches"
+    },
+    {
+      "path": "data/demand/final/AccessLogs_Final_Advanced_Forecast.csv",
+      "role": "forecast output",
+      "status": "present/readable/hash matches",
+      "rows": 2280,
+      "columns": 13,
+      "schema": {
+        "DateOnly": "str",
+        "Product": "str",
+        "Category": "str",
+        "Department": "str",
+        "Visits": "int64",
+        "Next_Day_Visits": "float64",
+        "Predicted_Next_Day_Visits": "float64",
+        "Error": "float64",
+        "Absolute_Error": "float64",
+        "Prediction_Lower_90": "float64",
+        "Prediction_Upper_90": "float64",
+        "Demand_Level": "str",
+        "Stock_Attention_Flag": "str"
+      },
+      "null_cells": 0,
+      "duplicate_rows": 0,
+      "nonfinite_numeric_cells": 0,
+      "date_range": {
+        "column": "DateOnly",
+        "start": "2018-01-01 00:00:00",
+        "end": "2018-01-30 00:00:00",
+        "missing": 0
+      },
+      "product_day_integrity": {
+        "products": 76,
+        "duplicate_keys": 0
+      }
+    },
+    {
+      "path": "data/demand/final/AccessLogs_Final_Model_Comparison.csv",
+      "role": "mixed comparison reference",
+      "status": "present/readable/hash matches",
+      "rows": 3,
+      "columns": 13,
+      "schema": {
+        "Model": "str",
+        "MAE": "float64",
+        "RMSE": "float64",
+        "R2": "float64",
+        "WAPE_%": "float64",
+        "SMAPE_%": "float64",
+        "Accuracy": "float64",
+        "Precision": "float64",
+        "Recall": "float64",
+        "F1": "float64",
+        "ROC_AUC": "float64",
+        "PR_AUC": "float64",
+        "Brier_Score": "float64"
+      },
+      "null_cells": 19,
+      "duplicate_rows": 0,
+      "nonfinite_numeric_cells": 0
+    },
+    {
+      "path": "models/demand/AccessLogs_Final_XGBoost_Demand_Model.pkl",
+      "role": "serialized demand model",
+      "status": "present/readable/hash matches"
+    },
+    {
+      "path": "notebooks/demand/Welcome_To_Colab (1).ipynb",
+      "role": "training provenance",
+      "status": "present/readable/hash matches"
+    },
+    {
+      "path": "data/delivery/legacy/d3/Best_Threshold.txt",
+      "role": "separate line-item model reference",
+      "status": "present/readable/hash matches"
+    },
+    {
+      "path": "data/delivery/legacy/d3/Winning_Model.txt",
+      "role": "separate line-item model reference",
+      "status": "present/readable/hash matches"
+    },
+    {
+      "path": "data/delivery/legacy/d3/Late_Delivery_Feature_Importance.csv",
+      "role": "separate line-item model reference",
+      "status": "present/readable/hash matches",
+      "rows": 4349,
+      "columns": 2,
+      "schema": {
+        "Feature": "str",
+        "Importance": "float64"
+      },
+      "null_cells": 0,
+      "duplicate_rows": 0,
+      "nonfinite_numeric_cells": 0
+    },
+    {
+      "path": "data/delivery/legacy/d3/Late_Delivery_Final_Summary.csv",
+      "role": "separate line-item model reference",
+      "status": "present/readable/hash matches",
+      "rows": 15,
+      "columns": 2,
+      "schema": {
+        "Property": "str",
+        "Value": "str"
+      },
+      "null_cells": 0,
+      "duplicate_rows": 0,
+      "nonfinite_numeric_cells": 0
+    },
+    {
+      "path": "data/delivery/legacy/d3/Late_Delivery_Model_Comparison.csv",
+      "role": "separate line-item model reference",
+      "status": "present/readable/hash matches",
+      "rows": 4,
+      "columns": 9,
+      "schema": {
+        "Model": "str",
+        "Accuracy": "float64",
+        "Balanced_Accuracy": "float64",
+        "Precision": "float64",
+        "Recall": "float64",
+        "F1": "float64",
+        "ROC_AUC": "float64",
+        "PR_AUC": "float64",
+        "MCC": "float64"
+      },
+      "null_cells": 0,
+      "duplicate_rows": 0,
+      "nonfinite_numeric_cells": 0
+    },
+    {
+      "path": "data/delivery/legacy/d3/Late_Delivery_Scored_Orders.csv",
+      "role": "separate line-item model reference",
+      "status": "present/readable/hash matches",
+      "rows": 24369,
+      "columns": 14,
+      "schema": {
+        "Order Id": "int64",
+        "Market": "str",
+        "Order Region": "str",
+        "Order Country": "str",
+        "Category Name": "str",
+        "Department Name": "str",
+        "Customer Segment": "str",
+        "Shipping Mode": "str",
+        "Order_Date": "str",
+        "Actual_Late_Delivery": "int64",
+        "Late_Delivery_Probability": "float64",
+        "Predicted_Late_Delivery": "int64",
+        "Correct_Prediction": "int64",
+        "Delivery_Risk_Level": "str"
+      },
+      "null_cells": 0,
+      "duplicate_rows": 1757,
+      "nonfinite_numeric_cells": 0,
+      "date_range": {
+        "column": "Order_Date",
+        "start": "2017-07-01 00:07:00",
+        "end": "2018-01-31 23:38:00",
+        "missing": 0
+      },
+      "identifier_integrity": {
+        "unique_orders": 13670,
+        "missing_ids": 0,
+        "duplicate_ids": 10699
+      }
+    },
+    {
+      "path": "data/delivery/legacy/d3/Late_Delivery_Threshold_Analysis.csv",
+      "role": "separate line-item model reference",
+      "status": "present/readable/hash matches",
+      "rows": 62,
+      "columns": 7,
+      "schema": {
+        "Threshold": "float64",
+        "Accuracy": "float64",
+        "Balanced_Accuracy": "float64",
+        "Precision": "float64",
+        "Recall": "float64",
+        "F1": "float64",
+        "MCC": "float64"
+      },
+      "null_cells": 0,
+      "duplicate_rows": 0,
+      "nonfinite_numeric_cells": 0
+    },
+    {
+      "path": "data/delivery/legacy/d3/Late-Delviery-final",
+      "role": "separate line-item model reference",
+      "status": "present/readable/hash matches"
+    },
+    {
+      "path": "models/delivery/d3/Final_Late_Delivery_Model.pkl",
+      "role": "separate line-item model",
+      "status": "present/readable/hash matches"
+    },
+    {
+      "path": "notebooks/delivery/d3/Welcome_To_Colab.ipynb",
+      "role": "training provenance",
+      "status": "present/readable/hash matches"
+    },
+    {
+      "path": "data/demand/legacy/d3/AccessLogs_Final_Advanced_Forecast.csv",
+      "role": "duplicate forecast reference",
+      "status": "present/readable/hash matches",
+      "rows": 2280,
+      "columns": 13,
+      "schema": {
+        "DateOnly": "str",
+        "Product": "str",
+        "Category": "str",
+        "Department": "str",
+        "Visits": "int64",
+        "Next_Day_Visits": "float64",
+        "Predicted_Next_Day_Visits": "float64",
+        "Error": "float64",
+        "Absolute_Error": "float64",
+        "Prediction_Lower_90": "float64",
+        "Prediction_Upper_90": "float64",
+        "Demand_Level": "str",
+        "Stock_Attention_Flag": "str"
+      },
+      "null_cells": 0,
+      "duplicate_rows": 0,
+      "nonfinite_numeric_cells": 0,
+      "date_range": {
+        "column": "DateOnly",
+        "start": "2018-01-01 00:00:00",
+        "end": "2018-01-30 00:00:00",
+        "missing": 0
+      },
+      "product_day_integrity": {
+        "products": 76,
+        "duplicate_keys": 0
+      }
+    }
+  ],
+  "active_delivery": {
+    "rows": 65752,
+    "scored_rows": 2123,
+    "matching_unique_scored_orders": 2123,
+    "unscored_orders": 63629,
+    "threshold": 0.35,
+    "model": "Tuned XGBoost"
+  },
+  "earlier_prediction_reference": {
+    "aligned_order_ids": 2123,
+    "earlier_rows": 2123,
+    "earlier_reference_is_active": false,
+    "different_probabilities": 2122,
+    "different_predicted_labels": 1103
+  },
+  "notes": [
+    "Earlier Random Forest predictions are a distinct reference, not final tuned scores",
+    "Demand units are web visits; DateOnly is base date and target is following day",
+    "d3 line-item delivery is preserved separately; not a one-to-one source",
+    "Demand comparison XGBoost classification row is an export defect, excluded from regression comparison"
+  ]
+}

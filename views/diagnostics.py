@@ -5,6 +5,7 @@ import streamlit as st
 from components.section_header import section
 from components.loading_states import skeletons
 from components.empty_states import empty_state
+from services.provider import get_service
 
 
 def render(df):
@@ -12,7 +13,7 @@ def render(df):
         st.info("Diagnostics are hidden in Presentation Mode. Exit Presentation Mode from the header to inspect runtime details.")
         return
     if not st.session_state.developer_mode:
-        empty_state("Developer mode is disabled", "Enable Developer mode in Settings → Privacy / Security to inspect runtime metadata.", "Restricted UI view")
+        empty_state("Developer mode is disabled", "Enable Developer mode in Settings to inspect runtime metadata.", "Restricted UI view")
         return
     section("Runtime inventory", "Version information only · no environment variables or secrets")
     runtime = [{"Package": "Python", "Version": platform.python_version()}]
@@ -21,17 +22,20 @@ def render(df):
         except PackageNotFoundError: installed = "Not installed · future backend dependency"
         runtime.append({"Package": package, "Version": installed})
     st.dataframe(pd.DataFrame(runtime), hide_index=True, width="stretch")
-    section("Artifact status", "The UI does not scan or open project CSV/PKL files")
+    service = get_service()
+    from services.inference_service import status as delivery_status
+    from services.demand_inference import status as demand_status
+    section("Artifact status", "Fixed registered sources and trained-model validation")
     st.dataframe(pd.DataFrame([
-        {"Artifact": "Operational data files", "Status": "Not connected"},
-        {"Artifact": "Delivery model files", "Status": "Not loaded"},
-        {"Artifact": "Demand model files", "Status": "Not loaded"},
+        {"Artifact": "Data files", "Status": "Synthetic fixtures" if service.demo else "Verified historical CSVs"},
+        {"Artifact": "Delivery model files", "Status": "Demo only" if service.demo else "Validated; on-demand inference" if delivery_status()["available"] else "Unavailable"},
+        {"Artifact": "Demand model files", "Status": "Demo only" if service.demo else "Validated; on-demand inference" if demand_status()["available"] else "Unavailable"},
         {"Artifact": "Profitability model files", "Status": "Unverified / not connected"},
     ]), hide_index=True, width="stretch")
     section("Performance", "Measured UI timings · not production benchmarks")
-    st.write({"Previous page render (ms)": st.session_state.get("last_render_ms", "First render"), "Last mock query (ms)": st.session_state.get("last_query_ms", "Not measured"), "Cache": "In-memory fixture cache", "Cold startup": "Not instrumented"})
+    st.write({"Previous page render (ms)": st.session_state.get("last_render_ms", "First render"), "Last query (ms)": st.session_state.get("last_query_ms", "Not measured"), "Cache": "In-memory fixture cache" if service.demo else "Source-version CSV and validated join cache", "Cold startup": "Not instrumented"})
     with st.expander("Safe context"):
-        st.write({"Current page": st.session_state.route, "Current filters": str(st.session_state.filters), "Selected order": st.session_state.selected_order, "Selected product": st.session_state.selected_product, "Provider version": "demo-ui-v1"})
+        st.write({"Current page": st.session_state.route, "Current filters": str(st.session_state.filters), "Selected order": st.session_state.selected_order, "Selected product": st.session_state.selected_product, "Provider": "demo" if service.demo else "verified"})
     with st.expander("Component states · loading, empty, error"):
         skeletons()
         empty_state("No matching records", "Adjust the filter context to populate this state.")

@@ -164,7 +164,9 @@ def inference_status() -> dict:
         _, report = _validated_context()
         return {"enabled": True, "model": "Tuned XGBoost", "threshold": THRESHOLD,
                 "parity_rows": report["parity_rows"], "reason": "Registered model passed scored-output parity."}
-    except (OSError, ValueError, KeyError) as exc:
+    except OSError:
+        return {"enabled": False, "model": "Tuned XGBoost", "reason": "A required delivery model artifact or validation report is unavailable."}
+    except (ValueError, KeyError) as exc:
         return {"enabled": False, "model": "Tuned XGBoost", "reason": str(exc)}
 
 

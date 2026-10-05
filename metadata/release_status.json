@@ -1,0 +1,21 @@
+{
+  "overall": "READY WITH DOCUMENTED LIMITATIONS",
+  "scope": "local classroom showcase",
+  "assembled_at_utc": "2026-10-05T08:07:37.826406+00:00",
+  "acceptance": {
+    "passed": 65,
+    "failed": 0,
+    "blocked": 0,
+    "executed": 65
+  },
+  "pytest_passed": 113,
+  "pytest_warnings": 2,
+  "browser_steps_passed": 32,
+  "integration_routes": 27,
+  "security": "passed",
+  "known_dependency_findings": 0,
+  "performance": "passed",
+  "public_production_ready": false,
+  "profitability": "unavailable",
+  "cross_risk": "unavailable"
+}

@@ -104,7 +104,9 @@ def status():
     try:
         _, _, report = context()
         return {"available": True, "parity_rows": report["parity_rows"], "reason": "Trained XGBoost web-visit model validated."}
-    except (OSError, ValueError, KeyError) as exc:
+    except OSError:
+        return {"available": False, "reason": "Demand model artifacts or validation report are missing or unreadable. Check Model Health and offline validation."}
+    except (ValueError, KeyError) as exc:
         return {"available": False, "reason": str(exc)}
 
 

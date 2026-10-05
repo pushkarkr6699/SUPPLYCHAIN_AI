@@ -31,8 +31,8 @@ def render(df):
             return
         options = candidates.Order.drop_duplicates().tolist()
         selected = st.session_state.get("selected_order")
-        if selected and selected not in options:
-            st.info("The selected order is outside this view. Choose an available record.")
+        if selected and selected not in options and not query:
+            st.caption("The previously selected order is outside this view. Showing an available result below.")
         order = st.selectbox("Order results", options, index=options.index(selected) if selected in options else 0, key="order_result_select")
         st.caption(f'{len(candidates):,} matching {"orders" if verified else "demo records"}')
         st.button("Open delivery view", key="order_delivery_shortcut", on_click=go, args=("delivery",), width="stretch")
@@ -57,7 +57,7 @@ def render(df):
                 _signal_card("RECORDED PROFIT", f'{record["Profit"]:,.2f}', "Recorded order profit; this is not a model prediction.", "neutral")
             else:
                 _signal_card("PROFITABILITY SIGNAL", "Not connected", "No verified profitability score is available.", "neutral")
-        fields = [field for field in ["Order", "Date", "Market", "Region", "Country", "Category", "Department", "Customer Segment", "Shipping Mode", "Sales", "Profit"] if field in record]
+        fields = [field for field in ["Order", "Date", "Market", "Region", "Country", "Category", "Department", "Customer Segment", "Type", "Shipping Mode", "Sales", "Profit"] if field in record]
         with st.expander("Order profile", expanded=True):
             st.html('<dl class="record-profile">' + ''.join(f'<div><dt>{escape(field)}</dt><dd>{escape(str(record[field].date()) if field == "Date" else str(record[field]))}</dd></div>' for field in fields) + '</dl>')
         section("Delivery probability", "Prediction versus the recorded decision threshold")

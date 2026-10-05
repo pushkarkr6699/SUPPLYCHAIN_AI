@@ -1,5 +1,6 @@
 import streamlit as st
 from components.section_header import section
+from services.provider import get_service
 
 
 def render(df):
@@ -23,16 +24,17 @@ def render(df):
             st.toggle("Chart transitions", key="animation", help="Reduced-motion preferences take priority")
             st.selectbox("Table page size", [10, 15, 25, 50], key="page_size")
         elif active == "Data":
-            section("Data", "Current UI phase uses isolated synthetic fixtures")
-            st.selectbox("Default date range (days)", [7, 14, 28, 56], key="default_days")
-            st.caption("Applied when the workspace date filter is reset. No operational data source is connected.")
-            st.info("Data is synthetic and excludes personal customer details. No secrets or credentials are displayed.")
+            service = get_service()
+            section("Data", "Synthetic demo fixtures" if service.demo else "Verified historical repository snapshot")
+            st.selectbox("Default date range (days)", [7, 14, 28, 56, 3650], key="default_days", format_func=lambda value: "All available history" if value == 3650 else str(value))
+            st.caption("Applied when the workspace date filter is reset.")
+            st.info("Synthetic data is selected." if service.demo else "Supplied delivery and web-visit datasets are connected. This is a historical snapshot; it is not a refreshed operational feed.")
         elif active == "Copilot":
             section("Copilot", "Offline assistant configuration")
             st.toggle("Enable Copilot", key="copilot_enabled")
-            st.write("**Provider status:** Offline preview")
+            st.write("**Provider status:** " + ("Synthetic demo" if get_service().demo else "Verified repository analytics"))
             st.write("**Model status:** No LLM connected")
-            st.caption("Responses use the isolated mock service. No prompt is sent to an external provider.")
+            st.caption("Responses use deterministic, read-only analytics on the selected dataset. No prompt is sent to an external provider.")
         else:
             section("Developer", "Runtime diagnostics and non-sensitive context")
             st.caption("Enabling Developer mode adds runtime and integration diagnostics to the sidebar.")

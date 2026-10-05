@@ -1,0 +1,766 @@
+[
+  {
+    "status": "failed",
+    "executed_at_utc": "2026-10-05T05:11:34.891084+00:00",
+    "steps_passed": 3,
+    "steps": [
+      {
+        "step": 1,
+        "description": "Start application",
+        "status": "PASS",
+        "actual": "Health returned HTTP 200 / ok"
+      },
+      {
+        "step": 2,
+        "description": "Open dashboard",
+        "status": "PASS",
+        "actual": "Executive Command Center rendered"
+      },
+      {
+        "step": 3,
+        "description": "Confirm real-data indicator",
+        "status": "PASS",
+        "actual": "Verified repository snapshot explicitly distinguished from refreshed/live feed"
+      }
+    ],
+    "failure": "AssertionError: Locator expected to have text '65.6k'\nActual value: 1,918 \nCall log:\n  - Expect \"to_have_text\" locator(\".kpi-card\").filter(has=locator(\".kpi-label\").filter(has_text=\"Total Orders\")).locator(\".kpi-value\") with timeout 5000ms\n  - waiting for locator(\".kpi-card\").filter(has=locator(\".kpi-label\").filter(has_text=\"Total Orders\")).locator(\".kpi-value\")\n    14 \u00d7 locator resolved to <div class=\"kpi-value\">1,918</div>\n       - unexpected value \"1,918\"\n\nAria snapshot:\n- text: 1,918",
+    "timings": {
+      "initial_workspace_seconds": 9.25
+    },
+    "browser": "isolated headless Chrome"
+  },
+  {
+    "status": "failed",
+    "executed_at_utc": "2026-10-05T05:22:59.873954+00:00",
+    "steps_passed": 3,
+    "steps": [
+      {
+        "step": 1,
+        "description": "Start application",
+        "status": "PASS",
+        "actual": "Health returned HTTP 200 / ok"
+      },
+      {
+        "step": 2,
+        "description": "Open dashboard",
+        "status": "PASS",
+        "actual": "Executive Command Center rendered"
+      },
+      {
+        "step": 3,
+        "description": "Confirm real-data indicator",
+        "status": "PASS",
+        "actual": "Verified repository snapshot explicitly distinguished from refreshed/live feed"
+      }
+    ],
+    "failure": "AssertionError: Locator expected to have text '1,918'\nActual value: 65.8k \nCall log:\n  - Expect \"to_have_text\" locator(\".kpi-card\").filter(has=locator(\".kpi-label\").filter(has_text=\"Total Orders\")).locator(\".kpi-value\") with timeout 5000ms\n  - waiting for locator(\".kpi-card\").filter(has=locator(\".kpi-label\").filter(has_text=\"Total Orders\")).locator(\".kpi-value\")\n    13 \u00d7 locator resolved to <div class=\"kpi-value\">65.8k</div>\n       - unexpected value \"65.8k\"\n\nAria snapshot:\n- text: 65.8k",
+    "timings": {
+      "initial_workspace_seconds": 14.507,
+      "page_switch_seconds": [
+        1.479,
+        2.835
+      ]
+    },
+    "browser": "isolated headless Chrome"
+  },
+  {
+    "status": "failed",
+    "executed_at_utc": "2026-10-05T05:26:23.989443+00:00",
+    "steps_passed": 3,
+    "steps": [
+      {
+        "step": 1,
+        "description": "Start application",
+        "status": "PASS",
+        "actual": "Health returned HTTP 200 / ok"
+      },
+      {
+        "step": 2,
+        "description": "Open dashboard",
+        "status": "PASS",
+        "actual": "Executive Command Center rendered"
+      },
+      {
+        "step": 3,
+        "description": "Confirm real-data indicator",
+        "status": "PASS",
+        "actual": "Verified repository snapshot explicitly distinguished from refreshed/live feed"
+      }
+    ],
+    "failure": "AssertionError: Locator expected to have attribute '2015'\nActual value: 2018 \nCall log:\n  - Expect \"to_have_attribute\" get_by_role(\"spinbutton\", name=\"year, Date start date\", exact=True) with timeout 30000ms\n  - waiting for get_by_role(\"spinbutton\", name=\"year, Date start date\", exact=True)\n    61 \u00d7 locator resolved to <span data-rac=\"\" tabindex=\"0\" data-type=\"year\" role=\"spinbutton\" aria-valuemin=\"1\" autocorrect=\"off\" spellcheck=\"false\" enterkeyhint=\"next\" inputmode=\"numeric\" aria-valuenow=\"2018\" aria-valuemax=\"9999\" aria-valuetext=\"2018\" contenteditable=\"true\" id=\"react-aria4225026844-:rcq:\" aria-label=\"year, Date start date\" class=\"st-emotion-cache-hi7v09 eho2kp75\">2018</span>\n       - unexpected value \"2018\"\n\nAria snapshot:\n- spinbutton \"year, Date start date\": \"2018\"",
+    "timings": {
+      "initial_workspace_seconds": 7.765,
+      "page_switch_seconds": [
+        1.57,
+        1.854
+      ]
+    },
+    "browser": "isolated headless Chrome"
+  },
+  {
+    "status": "failed",
+    "executed_at_utc": "2026-10-05T05:28:25.223755+00:00",
+    "steps_passed": 3,
+    "steps": [
+      {
+        "step": 1,
+        "description": "Start application",
+        "status": "PASS",
+        "actual": "Health returned HTTP 200 / ok"
+      },
+      {
+        "step": 2,
+        "description": "Open dashboard",
+        "status": "PASS",
+        "actual": "Executive Command Center rendered"
+      },
+      {
+        "step": 3,
+        "description": "Confirm real-data indicator",
+        "status": "PASS",
+        "actual": "Verified repository snapshot explicitly distinguished from refreshed/live feed"
+      }
+    ],
+    "failure": "AssertionError: Locator expected to have attribute '2015'\nActual value: 2018 \nCall log:\n  - Expect \"to_have_attribute\" get_by_role(\"spinbutton\", name=\"year, Date start date\", exact=True) with timeout 30000ms\n  - waiting for get_by_role(\"spinbutton\", name=\"year, Date start date\", exact=True)\n    61 \u00d7 locator resolved to <span data-rac=\"\" tabindex=\"0\" data-type=\"year\" role=\"spinbutton\" aria-valuemin=\"1\" autocorrect=\"off\" spellcheck=\"false\" enterkeyhint=\"next\" inputmode=\"numeric\" aria-valuenow=\"2018\" aria-valuemax=\"9999\" aria-valuetext=\"2018\" contenteditable=\"true\" id=\"react-aria6245286935-:rc3:\" aria-label=\"year, Date start date\" class=\"st-emotion-cache-hi7v09 eho2kp75\">2018</span>\n       - unexpected value \"2018\"\n\nAria snapshot:\n- spinbutton \"year, Date start date\": \"2018\"",
+    "timings": {
+      "initial_workspace_seconds": 7.833,
+      "page_switch_seconds": [
+        1.586,
+        1.866
+      ]
+    },
+    "browser": "isolated headless Chrome"
+  },
+  {
+    "status": "failed",
+    "executed_at_utc": "2026-10-05T05:30:02.139267+00:00",
+    "steps_passed": 3,
+    "steps": [
+      {
+        "step": 1,
+        "description": "Start application",
+        "status": "PASS",
+        "actual": "Health returned HTTP 200 / ok"
+      },
+      {
+        "step": 2,
+        "description": "Open dashboard",
+        "status": "PASS",
+        "actual": "Executive Command Center rendered"
+      },
+      {
+        "step": 3,
+        "description": "Confirm real-data indicator",
+        "status": "PASS",
+        "actual": "Verified repository snapshot explicitly distinguished from refreshed/live feed"
+      }
+    ],
+    "failure": "AssertionError: Locator expected to have attribute '2015'\nActual value: 2018 \nCall log:\n  - Expect \"to_have_attribute\" get_by_role(\"spinbutton\", name=\"year, Date start date\", exact=True) with timeout 30000ms\n  - waiting for get_by_role(\"spinbutton\", name=\"year, Date start date\", exact=True)\n    62 \u00d7 locator resolved to <span data-rac=\"\" tabindex=\"0\" data-type=\"year\" role=\"spinbutton\" aria-valuemin=\"1\" autocorrect=\"off\" spellcheck=\"false\" enterkeyhint=\"next\" inputmode=\"numeric\" aria-valuenow=\"2018\" aria-valuemax=\"9999\" aria-valuetext=\"2018\" contenteditable=\"true\" id=\"react-aria2943880311-:r9s:\" aria-label=\"year, Date start date\" class=\"st-emotion-cache-hi7v09 eho2kp75\">2018</span>\n       - unexpected value \"2018\"\n\nAria snapshot:\n- spinbutton \"year, Date start date\": \"2018\"",
+    "timings": {
+      "initial_workspace_seconds": 13.728,
+      "page_switch_seconds": [
+        0.827,
+        1.776
+      ]
+    },
+    "browser": "isolated headless Chrome"
+  },
+  {
+    "status": "failed",
+    "executed_at_utc": "2026-10-05T05:33:49.282360+00:00",
+    "steps_passed": 3,
+    "steps": [
+      {
+        "step": 1,
+        "description": "Start application",
+        "status": "PASS",
+        "actual": "Health returned HTTP 200 / ok"
+      },
+      {
+        "step": 2,
+        "description": "Open dashboard",
+        "status": "PASS",
+        "actual": "Executive Command Center rendered"
+      },
+      {
+        "step": 3,
+        "description": "Confirm real-data indicator",
+        "status": "PASS",
+        "actual": "Verified repository snapshot explicitly distinguished from refreshed/live feed"
+      }
+    ],
+    "failure": "AssertionError: Locator expected to have attribute '2015'\nActual value: 2018 \nCall log:\n  - Expect \"to_have_attribute\" get_by_role(\"spinbutton\", name=\"year, Date start date\", exact=True) with timeout 30000ms\n  - waiting for get_by_role(\"spinbutton\", name=\"year, Date start date\", exact=True)\n    61 \u00d7 locator resolved to <span data-rac=\"\" tabindex=\"0\" data-type=\"year\" role=\"spinbutton\" aria-valuemin=\"1\" autocorrect=\"off\" spellcheck=\"false\" enterkeyhint=\"next\" inputmode=\"numeric\" aria-valuenow=\"2018\" aria-valuemax=\"9999\" aria-valuetext=\"2018\" contenteditable=\"true\" id=\"react-aria9147942165-:r9g:\" aria-label=\"year, Date start date\" class=\"st-emotion-cache-hi7v09 eho2kp75\">2018</span>\n       - unexpected value \"2018\"\n\nAria snapshot:\n- spinbutton \"year, Date start date\": \"2018\"",
+    "timings": {
+      "initial_workspace_seconds": 11.733,
+      "page_switch_seconds": [
+        0.846,
+        1.707
+      ]
+    },
+    "browser": "isolated headless Chrome"
+  },
+  {
+    "status": "failed",
+    "executed_at_utc": "2026-10-05T06:11:32.178055+00:00",
+    "steps_passed": 6,
+    "steps": [
+      {
+        "step": 1,
+        "description": "Start application",
+        "status": "PASS",
+        "actual": "Health returned HTTP 200 / ok"
+      },
+      {
+        "step": 2,
+        "description": "Open dashboard",
+        "status": "PASS",
+        "actual": "Executive Command Center rendered"
+      },
+      {
+        "step": 3,
+        "description": "Confirm real-data indicator",
+        "status": "PASS",
+        "actual": "Verified repository snapshot explicitly distinguished from refreshed/live feed"
+      },
+      {
+        "step": 4,
+        "description": "Show real delivery KPI",
+        "status": "PASS",
+        "actual": "65752 orders matches source in widened date range 2015-01-01 to 2018-01-31"
+      },
+      {
+        "step": 5,
+        "description": "Apply market filter",
+        "status": "PASS",
+        "actual": "Pacific Asia"
+      },
+      {
+        "step": 6,
+        "description": "Verify KPI changes",
+        "status": "PASS",
+        "actual": "65752 to 17577 matches source predicate"
+      }
+    ],
+    "failure": "TimeoutError: Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for get_by_test_id(\"stSidebar\").get_by_role(\"button\", name=re.compile(r\"Delivery\\ Intelligence\"))\n",
+    "timings": {
+      "initial_workspace_seconds": 13.892,
+      "page_switch_seconds": [
+        4.156,
+        2.612
+      ],
+      "filter_change_seconds": 2.004
+    },
+    "browser": "isolated headless Chrome"
+  },
+  {
+    "status": "failed",
+    "executed_at_utc": "2026-10-05T06:15:00.415951+00:00",
+    "steps_passed": 6,
+    "steps": [
+      {
+        "step": 1,
+        "description": "Start application",
+        "status": "PASS",
+        "actual": "Health returned HTTP 200 / ok"
+      },
+      {
+        "step": 2,
+        "description": "Open dashboard",
+        "status": "PASS",
+        "actual": "Executive Command Center rendered"
+      },
+      {
+        "step": 3,
+        "description": "Confirm real-data indicator",
+        "status": "PASS",
+        "actual": "Verified repository snapshot explicitly distinguished from refreshed/live feed"
+      },
+      {
+        "step": 4,
+        "description": "Show real delivery KPI",
+        "status": "PASS",
+        "actual": "65752 orders matches source in widened date range 2015-01-01 to 2018-01-31"
+      },
+      {
+        "step": 5,
+        "description": "Apply market filter",
+        "status": "PASS",
+        "actual": "Pacific Asia"
+      },
+      {
+        "step": 6,
+        "description": "Verify KPI changes",
+        "status": "PASS",
+        "actual": "65752 to 17577 matches source predicate"
+      }
+    ],
+    "failure": "TimeoutError: Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for get_by_test_id(\"stSidebar\").get_by_role(\"button\", name=re.compile(r\"Delivery\\ Intelligence\"))\n",
+    "timings": {
+      "initial_workspace_seconds": 7.34,
+      "page_switch_seconds": [
+        1.463,
+        1.739
+      ],
+      "filter_change_seconds": 1.896
+    },
+    "browser": "isolated headless Chrome"
+  },
+  {
+    "status": "passed",
+    "executed_at_utc": "2026-10-05T06:19:49.459892+00:00",
+    "steps_passed": 32,
+    "steps": [
+      {
+        "step": 1,
+        "description": "Start application",
+        "status": "PASS",
+        "actual": "Health returned HTTP 200 / ok"
+      },
+      {
+        "step": 2,
+        "description": "Open dashboard",
+        "status": "PASS",
+        "actual": "Executive Command Center rendered"
+      },
+      {
+        "step": 3,
+        "description": "Confirm real-data indicator",
+        "status": "PASS",
+        "actual": "Verified repository snapshot explicitly distinguished from refreshed/live feed"
+      },
+      {
+        "step": 4,
+        "description": "Show real delivery KPI",
+        "status": "PASS",
+        "actual": "65752 orders matches source in widened date range 2015-01-01 to 2018-01-31"
+      },
+      {
+        "step": 5,
+        "description": "Apply market filter",
+        "status": "PASS",
+        "actual": "Pacific Asia"
+      },
+      {
+        "step": 6,
+        "description": "Verify KPI changes",
+        "status": "PASS",
+        "actual": "65752 to 17577 matches source predicate"
+      },
+      {
+        "step": 7,
+        "description": "Open Delivery Intelligence",
+        "status": "PASS",
+        "actual": "Real-data delivery page loaded"
+      },
+      {
+        "step": 8,
+        "description": "Open risk analysis",
+        "status": "PASS",
+        "actual": "Plotly risk chart rendered from supplied scores"
+      },
+      {
+        "step": 9,
+        "description": "Open Order Explorer",
+        "status": "PASS",
+        "actual": "Order search and case file rendered"
+      },
+      {
+        "step": 10,
+        "description": "Search real Order ID",
+        "status": "PASS",
+        "actual": "75082"
+      },
+      {
+        "step": 11,
+        "description": "Verify order against source",
+        "status": "PASS",
+        "actual": "ID/date/market/region/country/shipping/sales exactly matched CSV"
+      },
+      {
+        "step": 12,
+        "description": "Show verified prediction and risk",
+        "status": "PASS",
+        "actual": "Saved probability 0.75967735; threshold 0.35"
+      },
+      {
+        "step": 13,
+        "description": "Open Model Intelligence",
+        "status": "PASS",
+        "actual": "Governance page loaded"
+      },
+      {
+        "step": 14,
+        "description": "Show verified model",
+        "status": "PASS",
+        "actual": "Tuned XGBoost with validated model status and 0.35 threshold"
+      },
+      {
+        "step": 15,
+        "description": "Show model metrics",
+        "status": "PASS",
+        "actual": "Source comparison at 0.50 distinguished from test-selected 0.35 scores"
+      },
+      {
+        "step": 16,
+        "description": "Show feature importance",
+        "status": "PASS",
+        "actual": "Actual earlier Random Forest artifact labeled separately"
+      },
+      {
+        "step": 17,
+        "description": "Open Data Quality",
+        "status": "PASS",
+        "actual": "Real source page rendered without error"
+      },
+      {
+        "step": 18,
+        "description": "Open Data Lineage",
+        "status": "PASS",
+        "actual": "Real source page rendered without error"
+      },
+      {
+        "step": 19,
+        "description": "Open Insight Center",
+        "status": "PASS",
+        "actual": "Real source page rendered without error"
+      },
+      {
+        "step": 20,
+        "description": "Open Alert Center",
+        "status": "PASS",
+        "actual": "Real source page rendered without error"
+      },
+      {
+        "step": 21,
+        "description": "Ask Copilot real-data question",
+        "status": "PASS",
+        "actual": "Market-risk response displayed with current source/filter evidence"
+      },
+      {
+        "step": 22,
+        "description": "Generate report",
+        "status": "PASS",
+        "actual": "Executive report generated for verified filtered delivery scope"
+      },
+      {
+        "step": 23,
+        "description": "Download CSV",
+        "status": "PASS",
+        "actual": "Actual browser download row IDs and market match source filter"
+      },
+      {
+        "step": 24,
+        "description": "Download Excel",
+        "status": "PASS",
+        "actual": "Actual browser workbook rows match source filter"
+      },
+      {
+        "step": 25,
+        "description": "Verify PDF report",
+        "status": "PASS",
+        "actual": "Actual downloaded PDF parsed and provenance/filter text verified; first page rendered"
+      },
+      {
+        "step": 26,
+        "description": "Open Demand Intelligence",
+        "status": "PASS",
+        "actual": "Separate product/base-day dataset loaded"
+      },
+      {
+        "step": 27,
+        "description": "Show connected demand forecasts",
+        "status": "PASS",
+        "actual": "UI forecast sum matches source; web visits and next-day target labeled"
+      },
+      {
+        "step": 28,
+        "description": "Test demand filters",
+        "status": "PASS",
+        "actual": "Single-product KPI matches saved source forecasts"
+      },
+      {
+        "step": 29,
+        "description": "Test empty state",
+        "status": "PASS",
+        "actual": "Nonexistent product produces clear empty result without traceback"
+      },
+      {
+        "step": 30,
+        "description": "Switch theme",
+        "status": "PASS",
+        "actual": "Dark theme selected and applied"
+      },
+      {
+        "step": 31,
+        "description": "Return to Executive Dashboard",
+        "status": "PASS",
+        "actual": "Dashboard context retained"
+      },
+      {
+        "step": 32,
+        "description": "Confirm no runtime errors",
+        "status": "PASS",
+        "actual": "32-step browser workflow completed without exception panels"
+      }
+    ],
+    "failure": null,
+    "timings": {
+      "initial_workspace_seconds": 12.038,
+      "page_switch_seconds": [
+        0.821,
+        1.843,
+        4.839,
+        1.513,
+        1.906,
+        1.221,
+        0.847,
+        1.054,
+        1.004,
+        0.89,
+        0.946,
+        31.947,
+        15.693,
+        16.253,
+        1.641,
+        4.391
+      ],
+      "filter_change_seconds": 2.26,
+      "report_generation_seconds": 2.168,
+      "downloads_seconds": [
+        1.241,
+        1.009,
+        0.37
+      ]
+    },
+    "browser": "isolated headless Chrome"
+  },
+  {
+    "status": "passed",
+    "executed_at_utc": "2026-10-05T07:46:36.213851+00:00",
+    "steps_passed": 32,
+    "steps": [
+      {
+        "step": 1,
+        "description": "Start application",
+        "status": "PASS",
+        "actual": "Health returned HTTP 200 / ok"
+      },
+      {
+        "step": 2,
+        "description": "Open dashboard",
+        "status": "PASS",
+        "actual": "Executive Command Center rendered"
+      },
+      {
+        "step": 3,
+        "description": "Confirm real-data indicator",
+        "status": "PASS",
+        "actual": "Verified repository snapshot explicitly distinguished from refreshed/live feed"
+      },
+      {
+        "step": 4,
+        "description": "Show real delivery KPI",
+        "status": "PASS",
+        "actual": "65752 orders matches source in widened date range 2015-01-01 to 2018-01-31"
+      },
+      {
+        "step": 5,
+        "description": "Apply market filter",
+        "status": "PASS",
+        "actual": "Pacific Asia"
+      },
+      {
+        "step": 6,
+        "description": "Verify KPI changes",
+        "status": "PASS",
+        "actual": "65752 to 17577 matches source predicate"
+      },
+      {
+        "step": 7,
+        "description": "Open Delivery Intelligence",
+        "status": "PASS",
+        "actual": "Real-data delivery page loaded"
+      },
+      {
+        "step": 8,
+        "description": "Open risk analysis",
+        "status": "PASS",
+        "actual": "Plotly risk chart rendered from supplied scores"
+      },
+      {
+        "step": 9,
+        "description": "Open Order Explorer",
+        "status": "PASS",
+        "actual": "Order search and case file rendered"
+      },
+      {
+        "step": 10,
+        "description": "Search real Order ID",
+        "status": "PASS",
+        "actual": "75082"
+      },
+      {
+        "step": 11,
+        "description": "Verify order against source",
+        "status": "PASS",
+        "actual": "ID/date/market/region/country/shipping/sales exactly matched CSV"
+      },
+      {
+        "step": 12,
+        "description": "Show verified prediction and risk",
+        "status": "PASS",
+        "actual": "Saved probability 0.75967735; threshold 0.35"
+      },
+      {
+        "step": 13,
+        "description": "Open Model Intelligence",
+        "status": "PASS",
+        "actual": "Governance page loaded"
+      },
+      {
+        "step": 14,
+        "description": "Show verified model",
+        "status": "PASS",
+        "actual": "Tuned XGBoost with validated model status and 0.35 threshold"
+      },
+      {
+        "step": 15,
+        "description": "Show model metrics",
+        "status": "PASS",
+        "actual": "Source comparison at 0.50 distinguished from test-selected 0.35 scores"
+      },
+      {
+        "step": 16,
+        "description": "Show feature importance",
+        "status": "PASS",
+        "actual": "Actual earlier Random Forest artifact labeled separately"
+      },
+      {
+        "step": 17,
+        "description": "Open Data Quality",
+        "status": "PASS",
+        "actual": "Real source page rendered without error"
+      },
+      {
+        "step": 18,
+        "description": "Open Data Lineage",
+        "status": "PASS",
+        "actual": "Real source page rendered without error"
+      },
+      {
+        "step": 19,
+        "description": "Open Insight Center",
+        "status": "PASS",
+        "actual": "Real source page rendered without error"
+      },
+      {
+        "step": 20,
+        "description": "Open Alert Center",
+        "status": "PASS",
+        "actual": "Real source page rendered without error"
+      },
+      {
+        "step": 21,
+        "description": "Ask Copilot real-data question",
+        "status": "PASS",
+        "actual": "Market-risk response displayed with current source/filter evidence"
+      },
+      {
+        "step": 22,
+        "description": "Generate report",
+        "status": "PASS",
+        "actual": "Executive report generated for verified filtered delivery scope"
+      },
+      {
+        "step": 23,
+        "description": "Download CSV",
+        "status": "PASS",
+        "actual": "Actual browser download row IDs and market match source filter"
+      },
+      {
+        "step": 24,
+        "description": "Download Excel",
+        "status": "PASS",
+        "actual": "Actual browser workbook rows match source filter"
+      },
+      {
+        "step": 25,
+        "description": "Verify PDF report",
+        "status": "PASS",
+        "actual": "Actual downloaded PDF parsed and provenance/filter text verified; first page rendered"
+      },
+      {
+        "step": 26,
+        "description": "Open Demand Intelligence",
+        "status": "PASS",
+        "actual": "Separate product/base-day dataset loaded"
+      },
+      {
+        "step": 27,
+        "description": "Show connected demand forecasts",
+        "status": "PASS",
+        "actual": "UI forecast sum matches source; web visits and next-day target labeled"
+      },
+      {
+        "step": 28,
+        "description": "Test demand filters",
+        "status": "PASS",
+        "actual": "Single-product KPI matches saved source forecasts"
+      },
+      {
+        "step": 29,
+        "description": "Test empty state",
+        "status": "PASS",
+        "actual": "Nonexistent product produces clear empty result without traceback"
+      },
+      {
+        "step": 30,
+        "description": "Switch theme",
+        "status": "PASS",
+        "actual": "Dark theme selected and applied"
+      },
+      {
+        "step": 31,
+        "description": "Return to Executive Dashboard",
+        "status": "PASS",
+        "actual": "Dashboard context retained"
+      },
+      {
+        "step": 32,
+        "description": "Confirm no runtime errors",
+        "status": "PASS",
+        "actual": "32-step browser workflow completed without exception panels"
+      }
+    ],
+    "failure": null,
+    "timings": {
+      "initial_workspace_seconds": 7.411,
+      "page_switch_seconds": [
+        1.036,
+        0.943,
+        2.694,
+        0.85,
+        0.858,
+        0.58,
+        0.48,
+        0.52,
+        0.442,
+        0.513,
+        0.549,
+        14.599,
+        0.476,
+        1.901,
+        0.435,
+        1.869
+      ],
+      "filter_change_seconds": 1.304,
+      "report_generation_seconds": 0.545,
+      "downloads_seconds": [
+        0.569,
+        0.347,
+        0.241
+      ]
+    },
+    "browser": "isolated headless Chrome"
+  }
+]

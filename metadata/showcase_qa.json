@@ -1,0 +1,229 @@
+{
+  "status": "passed",
+  "executed_at_utc": "2026-10-05T07:46:36.213851+00:00",
+  "steps_passed": 32,
+  "steps": [
+    {
+      "step": 1,
+      "description": "Start application",
+      "status": "PASS",
+      "actual": "Health returned HTTP 200 / ok"
+    },
+    {
+      "step": 2,
+      "description": "Open dashboard",
+      "status": "PASS",
+      "actual": "Executive Command Center rendered"
+    },
+    {
+      "step": 3,
+      "description": "Confirm real-data indicator",
+      "status": "PASS",
+      "actual": "Verified repository snapshot explicitly distinguished from refreshed/live feed"
+    },
+    {
+      "step": 4,
+      "description": "Show real delivery KPI",
+      "status": "PASS",
+      "actual": "65752 orders matches source in widened date range 2015-01-01 to 2018-01-31"
+    },
+    {
+      "step": 5,
+      "description": "Apply market filter",
+      "status": "PASS",
+      "actual": "Pacific Asia"
+    },
+    {
+      "step": 6,
+      "description": "Verify KPI changes",
+      "status": "PASS",
+      "actual": "65752 to 17577 matches source predicate"
+    },
+    {
+      "step": 7,
+      "description": "Open Delivery Intelligence",
+      "status": "PASS",
+      "actual": "Real-data delivery page loaded"
+    },
+    {
+      "step": 8,
+      "description": "Open risk analysis",
+      "status": "PASS",
+      "actual": "Plotly risk chart rendered from supplied scores"
+    },
+    {
+      "step": 9,
+      "description": "Open Order Explorer",
+      "status": "PASS",
+      "actual": "Order search and case file rendered"
+    },
+    {
+      "step": 10,
+      "description": "Search real Order ID",
+      "status": "PASS",
+      "actual": "75082"
+    },
+    {
+      "step": 11,
+      "description": "Verify order against source",
+      "status": "PASS",
+      "actual": "ID/date/market/region/country/shipping/sales exactly matched CSV"
+    },
+    {
+      "step": 12,
+      "description": "Show verified prediction and risk",
+      "status": "PASS",
+      "actual": "Saved probability 0.75967735; threshold 0.35"
+    },
+    {
+      "step": 13,
+      "description": "Open Model Intelligence",
+      "status": "PASS",
+      "actual": "Governance page loaded"
+    },
+    {
+      "step": 14,
+      "description": "Show verified model",
+      "status": "PASS",
+      "actual": "Tuned XGBoost with validated model status and 0.35 threshold"
+    },
+    {
+      "step": 15,
+      "description": "Show model metrics",
+      "status": "PASS",
+      "actual": "Source comparison at 0.50 distinguished from test-selected 0.35 scores"
+    },
+    {
+      "step": 16,
+      "description": "Show feature importance",
+      "status": "PASS",
+      "actual": "Actual earlier Random Forest artifact labeled separately"
+    },
+    {
+      "step": 17,
+      "description": "Open Data Quality",
+      "status": "PASS",
+      "actual": "Real source page rendered without error"
+    },
+    {
+      "step": 18,
+      "description": "Open Data Lineage",
+      "status": "PASS",
+      "actual": "Real source page rendered without error"
+    },
+    {
+      "step": 19,
+      "description": "Open Insight Center",
+      "status": "PASS",
+      "actual": "Real source page rendered without error"
+    },
+    {
+      "step": 20,
+      "description": "Open Alert Center",
+      "status": "PASS",
+      "actual": "Real source page rendered without error"
+    },
+    {
+      "step": 21,
+      "description": "Ask Copilot real-data question",
+      "status": "PASS",
+      "actual": "Market-risk response displayed with current source/filter evidence"
+    },
+    {
+      "step": 22,
+      "description": "Generate report",
+      "status": "PASS",
+      "actual": "Executive report generated for verified filtered delivery scope"
+    },
+    {
+      "step": 23,
+      "description": "Download CSV",
+      "status": "PASS",
+      "actual": "Actual browser download row IDs and market match source filter"
+    },
+    {
+      "step": 24,
+      "description": "Download Excel",
+      "status": "PASS",
+      "actual": "Actual browser workbook rows match source filter"
+    },
+    {
+      "step": 25,
+      "description": "Verify PDF report",
+      "status": "PASS",
+      "actual": "Actual downloaded PDF parsed and provenance/filter text verified; first page rendered"
+    },
+    {
+      "step": 26,
+      "description": "Open Demand Intelligence",
+      "status": "PASS",
+      "actual": "Separate product/base-day dataset loaded"
+    },
+    {
+      "step": 27,
+      "description": "Show connected demand forecasts",
+      "status": "PASS",
+      "actual": "UI forecast sum matches source; web visits and next-day target labeled"
+    },
+    {
+      "step": 28,
+      "description": "Test demand filters",
+      "status": "PASS",
+      "actual": "Single-product KPI matches saved source forecasts"
+    },
+    {
+      "step": 29,
+      "description": "Test empty state",
+      "status": "PASS",
+      "actual": "Nonexistent product produces clear empty result without traceback"
+    },
+    {
+      "step": 30,
+      "description": "Switch theme",
+      "status": "PASS",
+      "actual": "Dark theme selected and applied"
+    },
+    {
+      "step": 31,
+      "description": "Return to Executive Dashboard",
+      "status": "PASS",
+      "actual": "Dashboard context retained"
+    },
+    {
+      "step": 32,
+      "description": "Confirm no runtime errors",
+      "status": "PASS",
+      "actual": "32-step browser workflow completed without exception panels"
+    }
+  ],
+  "failure": null,
+  "timings": {
+    "initial_workspace_seconds": 7.411,
+    "page_switch_seconds": [
+      1.036,
+      0.943,
+      2.694,
+      0.85,
+      0.858,
+      0.58,
+      0.48,
+      0.52,
+      0.442,
+      0.513,
+      0.549,
+      14.599,
+      0.476,
+      1.901,
+      0.435,
+      1.869
+    ],
+    "filter_change_seconds": 1.304,
+    "report_generation_seconds": 0.545,
+    "downloads_seconds": [
+      0.569,
+      0.347,
+      0.241
+    ]
+  },
+  "browser": "isolated headless Chrome"
+}

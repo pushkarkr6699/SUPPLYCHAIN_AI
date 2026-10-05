@@ -33,8 +33,10 @@ def records_table(df, key="records", search=True, investigate=True):
     with toolbar[2].popover("Columns", icon=":material/view_column:"):
         column_key = f"table_columns_{key}"
         if column_key in st.session_state:
-            st.session_state[column_key] = [c for c in st.session_state[column_key] if c in view]
-        columns = st.multiselect("Visible columns", list(view.columns), default=preferred, key=f"table_columns_{key}")
+            valid = [c for c in st.session_state[column_key] if c in view]
+            if valid != st.session_state[column_key]:
+                st.session_state[column_key] = valid
+        columns = st.multiselect("Visible columns", list(view.columns), default=None if column_key in st.session_state else preferred, key=column_key)
     prefix = "verified" if df.attrs.get("verified_artifacts") else "demo"
     toolbar[3].download_button("Download", csv_bytes(view), f"{prefix}-{key}.csv", "text/csv", key=f"download_{key}", width="stretch")
     if not view.empty and not columns:

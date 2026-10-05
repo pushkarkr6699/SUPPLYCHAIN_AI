@@ -1,5 +1,7 @@
 # Repository audit
 
+**Final local-showcase release:** [QA_REPORT.md](../QA_REPORT.md) and [SECURITY.md](../SECURITY.md) contain current executed data, model, runtime, security, browser and acceptance evidence. The historical audit below is retained for provenance.
+
 **Historical UI-stage audit:** current dataset/model implementation is documented in [FINAL_HANDOFF.md](../docs/FINAL_HANDOFF.md), the v2 registries and runtime QA reports. Its trained inference and source counts supersede the UI-only status below.
 
 **Audit date:** 2026-10-04  

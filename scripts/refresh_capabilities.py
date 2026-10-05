@@ -8,6 +8,8 @@ from services.inference_service import status as delivery_status, FEATURES as DE
 from services.demand_inference import status as demand_status, FEATURES as DEMAND_FEATURES, MODEL as DEMAND_MODEL
 
 delivery, demand = delivery_status(), demand_status()
+qa_path = ROOT / "metadata/release_status.json"
+qa = json.loads(qa_path.read_text()) if qa_path.exists() else {}
 
 def write(name, value):
     (ROOT / "metadata" / name).write_text(json.dumps(value, indent=2) + "\n", encoding="utf-8")
@@ -25,7 +27,9 @@ write("capability_matrix.json", {"version": 2, "capabilities": {
     "shap": {"status": "unavailable", "reason": "No verified SHAP outputs"},
     "drift": {"status": "unavailable", "reason": "No reference/current operational windows"},
     "copilot": {"status": "available", "implementation": "deterministic source-aware analytics; no external LLM"},
-    "public_production_authentication": {"status": "unavailable", "reason": "Session-only access flow preserved"}
+    "public_production_authentication": {"status": "unavailable", "reason": "Session-only access flow preserved"},
+    "local_classroom_showcase": {"status": qa.get("overall", "awaiting final QA"), "evidence": "QA_REPORT.md", "public_production_ready": False},
+    "security_review": {"status": qa.get("security", "awaiting final QA"), "scope": "practical loopback-only showcase checks", "evidence": "SECURITY.md"}
 }})
 write("model_registry.json", {"registry_version": 2, "models": [
     {"id": "delivery_d1_tuned_xgboost", "display_name": "Tuned XGBoost", "artifact_path": MODEL_PATH,

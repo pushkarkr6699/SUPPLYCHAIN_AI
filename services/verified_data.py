@@ -17,7 +17,7 @@ DELIVERY_COLUMNS = {
     "Correct_Prediction", "Delivery_Risk_Level",
 }
 DEMAND_COLUMNS = {
-    "DateOnly", "Product", "Category", "Department", "Next_Day_Visits",
+    "DateOnly", "Product", "Category", "Department", "Visits", "Next_Day_Visits",
     "Predicted_Next_Day_Visits", "Error", "Absolute_Error", "Prediction_Lower_90",
     "Prediction_Upper_90", "Demand_Level", "Stock_Attention_Flag",
 }
@@ -75,12 +75,16 @@ def delivery_records(path):
 
 def demand_records(path):
     raw, source = _read(path, DEMAND_COLUMNS, "Demand forecast output")
-    numeric = ["Next_Day_Visits", "Predicted_Next_Day_Visits", "Error", "Absolute_Error", "Prediction_Lower_90", "Prediction_Upper_90"]
+    numeric = ["Visits", "Next_Day_Visits", "Predicted_Next_Day_Visits", "Error", "Absolute_Error", "Prediction_Lower_90", "Prediction_Upper_90"]
     raw["DateOnly"] = pd.to_datetime(raw["DateOnly"], errors="raise")
     raw[numeric] = raw[numeric].apply(pd.to_numeric, errors="raise")
-    nonnegative = ["Next_Day_Visits", "Predicted_Next_Day_Visits", "Absolute_Error", "Prediction_Lower_90", "Prediction_Upper_90"]
-    if raw[numeric].isna().any().any() or (raw[nonnegative] < 0).any().any():
+    nonnegative = ["Visits", "Next_Day_Visits", "Predicted_Next_Day_Visits", "Absolute_Error", "Prediction_Lower_90", "Prediction_Upper_90"]
+    if not np.isfinite(raw[numeric]).all().all() or (raw[nonnegative] < 0).any().any():
         raise ValueError("Demand forecast output contains missing or negative values.")
+    if raw.DateOnly.isna().any() or any(raw[column].isna().any() or not raw[column].map(lambda value: isinstance(value, str) and bool(value.strip())).all() for column in ("Product", "Category", "Department")):
+        raise ValueError("Demand dates and product dimensions must be complete.")
+    if not raw.Stock_Attention_Flag.isin(["Normal", "Review Stock"]).all():
+        raise ValueError("Demand output contains unsupported stock-attention flags.")
     if not (raw.Error.sub(raw.Next_Day_Visits - raw.Predicted_Next_Day_Visits).abs() < .001).all():
         raise ValueError("Demand Error values do not match actual minus predicted demand.")
     if not (raw.Absolute_Error.sub(raw.Error.abs()).abs() < .001).all():
@@ -105,6 +109,14 @@ def demand_records(path):
 
 
 def order_delivery_records(primary_path, scored_path):
+    """Cache validated joins by both source versions; return an isolated frame."""
+    primary, scored = Path(primary_path).resolve(strict=True), Path(scored_path).resolve(strict=True)
+    return _cached_order_delivery_records(str(primary), primary.stat().st_mtime_ns, primary.stat().st_size,
+                                         str(scored), scored.stat().st_mtime_ns, scored.stat().st_size).copy(deep=True)
+
+
+@lru_cache(maxsize=2)
+def _cached_order_delivery_records(primary_path, primary_modified, primary_size, scored_path, scored_modified, scored_size):
     """Attach d1 scores to the unique-order analytical source; retain missing scores."""
     required = {"Order Id", "Order_Date", "Late_delivery_risk", "Market", "Order Region", "Order Country", "Shipping Mode", "Customer Segment"}
     primary, source = _read(primary_path, required, "Primary delivery dataset")
@@ -116,6 +128,11 @@ def order_delivery_records(primary_path, scored_path):
     primary["Order_Date"] = pd.to_datetime(primary["Order_Date"], errors="raise")
     if primary.Order_Date.isna().any() or not primary.Late_delivery_risk.isin([0, 1]).all():
         raise ValueError("Delivery dates and binary target labels must be complete.")
+    dimensions = ["Market", "Order Region", "Order Country", "Shipping Mode", "Customer Segment"]
+    if any(primary[column].isna().any() or not primary[column].map(lambda value: isinstance(value, str) and bool(value.strip())).all() for column in dimensions):
+        raise ValueError("Delivery dimensions must contain complete nonempty text.")
+    if not np.isfinite(primary.select_dtypes(include="number")).all().all():
+        raise ValueError("Primary delivery numerical values must be finite and complete.")
     probability = pd.to_numeric(scored.Late_Delivery_Probability, errors="raise")
     if not np.isfinite(probability).all() or not probability.between(0, 1).all():
         raise ValueError("Delivery probabilities must be finite values in [0, 1].")
@@ -127,6 +144,9 @@ def order_delivery_records(primary_path, scored_path):
         raise ValueError("Scored predictions do not match the supplied decision threshold.")
     if not scored.Risk_Level.isin(["Low Risk", "Medium Risk", "High Risk"]).all():
         raise ValueError("Scored orders contain unsupported risk labels.")
+    expected_risk = np.select([probability < .4, probability < .7], ["Low Risk", "Medium Risk"], default="High Risk")
+    if not scored.Risk_Level.eq(expected_risk).all() or not scored.Prediction_Model.eq("Tuned XGBoost").all() or threshold != .35:
+        raise ValueError("Final scored model, threshold or risk bands differ from the registered d1 contract.")
     if not scored["Order Id"].isin(primary["Order Id"]).all():
         raise ValueError("Scored orders contain IDs absent from the primary dataset.")
     indexed = primary.set_index("Order Id").loc[scored["Order Id"]].reset_index()

@@ -42,7 +42,7 @@ DELIVERY_WINNING_MODEL_URI = _artifact_path("DELIVERY_WINNING_MODEL_URI")
 DELIVERY_BEST_THRESHOLD_URI = _artifact_path("DELIVERY_BEST_THRESHOLD_URI")
 DELIVERY_MODEL_URI = _artifact_path("DELIVERY_MODEL_URI")
 DEMAND_MODEL_COMPARISON_URI = _artifact_path("DEMAND_MODEL_COMPARISON_URI")
-PRODUCTION_THRESHOLD = 0.56  # Supplied project metadata; never changed by UI controls.
+PRODUCTION_THRESHOLD = 0.56  # Demo/d3 reference default; active d1 contract is 0.35.
 DELIVERY_MODEL = "XGBoost"
 DEFAULTS = {
     "route": "landing", "authenticated": False, "theme": "Light",

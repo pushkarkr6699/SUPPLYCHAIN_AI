@@ -62,6 +62,16 @@
     "public_production_authentication": {
       "status": "unavailable",
       "reason": "Session-only access flow preserved"
+    },
+    "local_classroom_showcase": {
+      "status": "READY WITH DOCUMENTED LIMITATIONS",
+      "evidence": "QA_REPORT.md",
+      "public_production_ready": false
+    },
+    "security_review": {
+      "status": "passed",
+      "scope": "practical loopback-only showcase checks",
+      "evidence": "SECURITY.md"
     }
   }
 }

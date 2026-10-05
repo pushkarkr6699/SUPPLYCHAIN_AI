@@ -1,6 +1,6 @@
 # SUPPLYCHAIN AI
 
-Decision Intelligence Platform — a complete **UI-first Streamlit application**.
+Decision Intelligence Platform — a **local classroom showcase** with connected historical datasets and validated trained inference.
 
 The existing demo UI is preserved. This workspace also connects the supplied delivery and demand datasets and runs their original trained XGBoost models after hash and prediction-parity validation. No retraining occurs. Profitability models and cross-risk joins remain unavailable because their required artifacts and shared keys were not supplied.
 
@@ -60,7 +60,7 @@ The implementation deliberately uses `views/` instead of Streamlit's auto-discov
 | Outputs | Reports, Downloads |
 | System | Settings, Developer / Diagnostics |
 
-Developer navigation is enabled in Settings → Privacy / Security. It is a UI preference, not a security boundary. The native sidebar is collapsible. Presentation mode hides it and can be exited from the header. Query parameters reflect navigation; a new session must enter demo access.
+Developer navigation is enabled in Settings. It is a UI preference, not a security boundary. The native sidebar is collapsible. Presentation mode hides it and can be exited from the header. Query parameters reflect navigation; a new session must enter demonstration access.
 
 ## Reusable components
 
@@ -72,11 +72,11 @@ Developer navigation is enabled in Settings → Privacy / Security. It is a UI p
 - The synthetic dataset covers **10 August–4 October 2026**, with a default last-28-day view. Dates describe the fixture, not a live feed.
 - Search, order case files, geography and product profiles provide drill-downs. Tables have search, pagination and labeled downloads.
 - The Copilot retains evidence from the question-time filter context; suggested prompts use deterministic responses. Its dashboard/filter/record/export actions are wired.
-- Analysis threshold changes recompute synthetic confusion metrics and never change the supplied **0.56** production threshold.
+- Demo threshold analysis uses synthetic labels. Verified order-level inference keeps the supplied **0.35** threshold; the separate d3 reference uses **0.56**. Analysis never rewrites a trained model or saved score.
 - Demo scenarios use illustrative rules. Verified Scenario Lab runs trained delivery inference; Demand Intelligence runs next-day web-visit inference. Neither is a causal simulation.
 - Alerts have session-only New / Acknowledged / Resolved / Reopen actions. They are workflow UI states, not a live alert service or persisted audit history.
 - Reports have section selection, previews, generation and downloads. Changed report context invalidates the previous generated download.
-- CSV and Excel exports include a demo provenance column. PDFs include demo provenance on every page. Chart PNG export uses the Plotly toolbar camera icon.
+- CSV, Excel and PDF exports include provenance for the selected provider and dataset. Spreadsheet exports neutralize formula-like text. Chart PNG export uses the Plotly toolbar camera icon.
 - Light, Dark, System, density and presentation preferences are session-scoped. Native Streamlit canvas widgets retain some base-theme styling.
 
 ## Validate
@@ -89,8 +89,8 @@ Optional visual checks, with Chrome installed and the app running:
 
 ```powershell
 .\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
-.\.venv\Scripts\python.exe scripts\visual_qa.py
-.\.venv\Scripts\python.exe scripts\verify_pdf.py
+.\.venv\Scripts\python.exe scripts\verified_browser_qa.py
+.\.venv\Scripts\python.exe scripts\showcase_qa.py
 ```
 
 Visual outputs go to ignored `tmp/` directories. The browser script uses a fresh headless profile, without reading an existing user's profile or sessions.
@@ -112,4 +112,26 @@ Original Colab pickles are preserved. Native XGBoost JSON and original fitted pr
 Run `.\.venv\Scripts\python.exe scripts\verify_integration.py` to verify all 26 artifact hashes, all 27 routes and both prediction controls. See [docs/FINAL_HANDOFF.md](docs/FINAL_HANDOFF.md) for setup, validation and remaining production deployment requirements.
 
 Implementation references: [Streamlit chart API](https://docs.streamlit.io/develop/api-reference/charts/st.plotly_chart), [Streamlit testing API](https://docs.streamlit.io/develop/api-reference/app-testing).
+
+## Final release QA
+
+See [QA_REPORT.md](QA_REPORT.md) for the executed 65-case acceptance matrix, source reconciliation, 32-step teacher workflow, measured timings, fixes and final checklist. [SECURITY.md](SECURITY.md) defines the local trust boundary and public-deployment requirements. The older implementation audit documents describe earlier phases.
+
+With the app running in verified mode and optional QA dependencies installed:
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt -r requirements-security.txt
+.\.venv\Scripts\python.exe scripts/audit_datasets.py
+.\.venv\Scripts\python.exe scripts/security_audit.py
+.\.venv\Scripts\python.exe scripts/verify_integration.py
+.\.venv\Scripts\python.exe scripts/showcase_qa.py
+.\.venv\Scripts\python.exe scripts/release_acceptance.py
+.\.venv\Scripts\python.exe scripts/build_qa_report.py
+```
+
+Run the browser workflow before the acceptance suite: TC-65 requires its actual completed 32-step evidence. Supplied CSV/model files are local ignored assets; cloning source alone does not include them. `scripts/import_artifacts.py` uses the documented local artifact allowlist and preserves source originals.
+
+For a market-filter demonstration, choose **Settings → Data → All available history**, return to the dashboard and press **Reset**, then choose a Market. The default January 2018 window contains only Pacific Asia. Reset recreates the date control so its displayed bounds agree with the applied filter. Settings → Dashboard can disable compact numbers for exact totals.
+
+This platform has session-only access, alerts and saved views. Historical snapshots are not refreshed operational feeds. Profitability ML, cross-risk joins, SHAP, drift and inventory remain unavailable without verified artifacts. The active delivery threshold was selected on the same scored test rows, so performance is not an independent post-selection estimate. Demand forecasts measure web visits; source 90% bounds are empirically under-covering. Preserve these limitations when presenting the project.
 

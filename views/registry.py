@@ -4,11 +4,11 @@ from views import overview, delivery, demand, unavailable, explorer, orders, geo
 PAGES = {
     "overview": ("Executive Command Center", "A unified operational view across predictive risk, forecast demand and model health.", overview.render),
     "delivery": ("Delivery Intelligence", "Explore predicted late-delivery risk across orders, markets, regions and shipping dimensions.", delivery.render),
-    "demand": ("Demand Intelligence", "Forecast next-day product demand, monitor uncertainty and identify products requiring inventory attention.", demand.render),
+    "demand": ("Demand Intelligence", "Explore next-day forecasts, uncertainty and product-level attention flags in the selected dataset.", demand.render),
     "profitability": ("Profitability Intelligence", "Architecture-ready profitability classification. Model not connected.", unavailable.profitability),
     "cross_risk": ("Cross-Risk Command Center", "Combine independent model signals to prioritize potentially critical operational records.", unavailable.cross_risk),
     "explorer": ("Universal Explorer", "Search the workspace. Follow an entity from a signal to its records.", explorer.render),
-    "orders": ("Order Explorer", "An intelligence case file for every order in the active demo context.", orders.render),
+    "orders": ("Order Explorer", "An intelligence case file for every order in the active dataset context.", orders.render),
     "geography": ("Geographic Intelligence", "Understand where orders, delivery signals and forecast demand are concentrated.", geography.render),
     "changes": ("What Changed?", "Compare periods and investigate observed changes across operational segments.", changes.render),
     "scenarios": ("Scenario Lab", "Explore supported inputs in a clearly separated experimental workspace.", scenarios.render),
@@ -24,7 +24,7 @@ PAGES = {
     "lineage": ("Data Lineage", "Trace the intended path from operational sources to analytical decisions.", lineage.render),
     "data": ("Data Explorer", "Inspect, search, sort and export non-sensitive records in your current view.", data.render),
     "reports": ("Reports", "Turn the current analytical context into a focused, shareable decision brief.", reports.render),
-    "downloads": ("Downloads", "Export filtered demo data, prediction fixtures, comparison metrics and reports.", downloads.render),
+    "downloads": ("Downloads", "Export filtered source data, predictions, comparison metrics and reports.", downloads.render),
     "settings": ("Settings", "Customize your session, presentation preferences and analytical workspace.", settings.render),
     "diagnostics": ("Developer / Diagnostics", "Runtime visibility and safe integration diagnostics for the UI phase.", diagnostics.render),
 }

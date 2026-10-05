@@ -32,8 +32,8 @@ def render(df):
         registry_path = ROOT / "metadata" / "data_registry.json"
         try:
             registry = json.loads(registry_path.read_text(encoding="utf-8"))
-        except (OSError, ValueError) as exc:
-            st.error(f"Artifact registry unavailable: {exc}")
+        except (OSError, ValueError):
+            st.error("Artifact registry unavailable. Check Model Health and restore the verified metadata registry.")
             return
         st.info("Artifact lineage records supplied files and their provenance. Training notebooks are archived; pipeline execution is not implied.")
         artifacts = registry.get("artifacts", [])

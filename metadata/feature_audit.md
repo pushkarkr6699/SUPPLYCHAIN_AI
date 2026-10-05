@@ -1,5 +1,7 @@
 # Feature audit and completion status
 
+**Final local-showcase release:** [QA_REPORT.md](../QA_REPORT.md) records the executed 65-case matrix and teacher workflow; capability_matrix.json declares available and unavailable capabilities. The historical feature list below is retained for provenance.
+
 **Historical UI-stage audit:** see [FINAL_HANDOFF.md](../docs/FINAL_HANDOFF.md), capability_matrix.json and integration_qa.json for current completed dataset connections and validated delivery/demand inference.
 
 **Audit date:** 2026-10-04  

@@ -1,5 +1,8 @@
 """In-memory downloads carrying the source provenance of the supplied frame."""
 from io import BytesIO
+from collections import OrderedDict
+from hashlib import sha256
+from threading import Lock
 from xml.sax.saxutils import escape
 import pandas as pd
 from reportlab.lib import colors
@@ -10,11 +13,15 @@ from reportlab.graphics.shapes import Drawing, Line, String, PolyLine
 from services.analytics import summary, trend
 from services.provider import filter_description
 
+_excel_cache = OrderedDict()
+_excel_lock = Lock()
+_EXCEL_CACHE_BYTES = 32 * 1024 * 1024
+
 
 def safe_frame(df, source=None):
     frame = df.copy()
     for col in frame.select_dtypes(include=["object", "string"]):
-        frame[col] = frame[col].map(lambda value: "'" + value if isinstance(value, str) and value.startswith(("=", "+", "-", "@")) else value)
+        frame[col] = frame[col].map(lambda value: "'" + value if isinstance(value, str) and value.lstrip(" \t\r\n").startswith(("=", "+", "-", "@")) else value)
     frame["Source"] = source or frame.attrs.get("data_source", "DEMO UI DATA")
     return frame
 
@@ -24,10 +31,27 @@ def csv_bytes(df, source=None):
 
 
 def excel_bytes(df, source=None):
-    buffer = BytesIO()
     frame = safe_frame(df, source)
+    # Hash every row, column, dtype and provenance; never sample a large frame.
+    digest = sha256(pd.util.hash_pandas_object(frame, index=True, categorize=False).values.tobytes())
+    digest.update(repr([(column, str(dtype)) for column, dtype in zip(frame.columns, frame.dtypes)]).encode("utf-8"))
+    for column in frame.select_dtypes(include=["object", "string"]):
+        types = frame[column].map(lambda value: type(value).__name__)
+        digest.update(pd.util.hash_pandas_object(types, index=False, categorize=False).values.tobytes())
+    key = digest.hexdigest()
+    with _excel_lock:
+        if key in _excel_cache:
+            _excel_cache.move_to_end(key)
+            return _excel_cache[key]
+    buffer = BytesIO()
     frame.to_excel(buffer, index=False, sheet_name="SupplyChain Data")
-    return buffer.getvalue()
+    result = buffer.getvalue()
+    if len(result) <= _EXCEL_CACHE_BYTES:
+        with _excel_lock:
+            _excel_cache[key] = result
+            while len(_excel_cache) > 3 or sum(map(len, _excel_cache.values())) > _EXCEL_CACHE_BYTES:
+                _excel_cache.popitem(last=False)
+    return result
 
 
 def report_pdf(df, report_name, filters, sections):

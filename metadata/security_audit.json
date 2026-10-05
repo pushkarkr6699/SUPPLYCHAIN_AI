@@ -1,0 +1,33 @@
+{
+  "status": "passed",
+  "executed_at_utc": "2026-10-05T08:07:37.609761+00:00",
+  "scope": "Practical static/dynamic checks for loopback-only classroom showcase; not an independent penetration test",
+  "runtime_python_files_checked": 79,
+  "tracked_files_secret_scanned": 162,
+  "findings": [],
+  "trusted_internal_deserializers": [
+    {
+      "path": "services/demand_inference.py",
+      "line": 87
+    },
+    {
+      "path": "services/inference_service.py",
+      "line": 116
+    },
+    {
+      "path": "services/inference_service.py",
+      "line": 114
+    }
+  ],
+  "secret_stores_ignored": true,
+  "loopback_binding": true,
+  "model_path_traversal": "rejected",
+  "duckdb_external_access": "blocked",
+  "unsafe_copilot_requests": "refused",
+  "limitations": [
+    "Session access is not production authentication",
+    "No multi-user authorization or persistent storage",
+    "Private source data/model assets require controlled local access",
+    "Regex secret scan cannot prove absence of every possible credential"
+  ]
+}

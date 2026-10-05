@@ -23,16 +23,18 @@ def render(df):
     category = st.radio("Download category", ["Filtered Data", "Predictions", "Model Metrics", "Reports", "Charts"], horizontal=True)
     st.caption(f"Exports preserve source provenance: {source}. Each dataset uses its own filter context.")
     with st.container(border=True):
-        st.caption("**Current filters** ? " + filter_description(active, "All records in selected dataset"))
+        st.caption("**Current filters** · " + filter_description(active, "All records in selected dataset"))
         columns = st.columns(3)
         columns[0].metric("Rows in context", f"{len(df):,}")
         columns[1].metric("Available columns", f"{len(df.columns):,}")
         columns[2].metric("Generated at", datetime.now().astimezone().strftime("%d %b %Y %H:%M %Z"))
     if category == "Filtered Data":
-        section("Filtered workspace data", f"{len(df):,} records ? {source}")
+        section("Filtered workspace data", f"{len(df):,} records · {source}")
         a, b = st.columns(2)
-        a.download_button("Filtered data ? CSV", csv_bytes(df), f"{prefix}-{dataset}-filtered-data.csv", "text/csv", width="stretch")
-        b.download_button("Filtered data ? Excel", excel_bytes(df), f"{prefix}-{dataset}-filtered-data.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", width="stretch")
+        a.download_button("Filtered data · CSV", csv_bytes(df), f"{prefix}-{dataset}-filtered-data.csv", "text/csv", width="stretch", on_click="ignore")
+        with st.spinner("Preparing spreadsheet export…"):
+            workbook = excel_bytes(df)
+        b.download_button("Filtered data · Excel", workbook, f"{prefix}-{dataset}-filtered-data.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", width="stretch", on_click="ignore")
     elif category == "Predictions":
         for col, name in zip(st.columns(2), ["delivery", "demand"]):
             with col, st.container(border=True):
@@ -55,11 +57,11 @@ def render(df):
             comparison, curve = service.demand_model_comparison(), None
         a, b = st.columns(2)
         if comparison is not None and not comparison.empty:
-            a.download_button("Model Comparison ? CSV", csv_bytes(comparison, None if service.demo else comparison.attrs.get("data_source", "Supplied model evaluation artifact")), f"{prefix}-{dataset}-model-comparison.csv", "text/csv", width="stretch")
+            a.download_button("Model Comparison · CSV", csv_bytes(comparison, None if service.demo else comparison.attrs.get("data_source", "Supplied model evaluation artifact")), f"{prefix}-{dataset}-model-comparison.csv", "text/csv", width="stretch")
         else:
             a.info("Model comparison is unavailable for this dataset.")
         if curve is not None:
-            b.download_button("Threshold Analysis ? CSV", csv_bytes(curve), f"{prefix}-threshold-analysis.csv", "text/csv", width="stretch")
+            b.download_button("Threshold Analysis · CSV", csv_bytes(curve), f"{prefix}-threshold-analysis.csv", "text/csv", width="stretch")
             if not service.demo:
                 b.caption("Recomputed on filtered rows with supplied delivery scores; this is not a new held-out evaluation.")
         elif not service.demo and dataset == "demand":
@@ -71,7 +73,7 @@ def render(df):
                 section(f"{report} PDF", records.attrs.get("data_source", "DEMO UI DATA"))
                 st.download_button("Download PDF", report_pdf(records, report, report_filters, ["KPIs", "Charts", "Insights"]), f"{prefix}-{report.lower()}.pdf", "application/pdf", key=f"dl_pdf_{report}", width="stretch", disabled=records.empty)
     else:
-        section("Chart export ? PNG", "Use the camera icon in the chart toolbar to save a PNG.")
+        section("Chart export · PNG", "Use the camera icon in the chart toolbar to save a PNG.")
         if dataset == "demand" or service.demo:
             forecast_chart(df, "downloads_chart", 350)
         else:

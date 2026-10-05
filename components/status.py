@@ -11,4 +11,4 @@ def demo_notice(label="DEMO UI DATA · synthetic planning records"):
 
 
 def artifact_notice(label):
-    st.html(f'<div class="demo-notice"><span class="status-dot"></span><b>Verified scored output</b><span>{escape(label)} · precomputed predictions; no model inference</span></div>')
+    st.html(f'<div class="demo-notice"><span class="status-dot"></span><b>REAL DATA · Verified repository snapshot</b><span>{escape(label)} · historical analytics; trained predictions run on request</span></div>')

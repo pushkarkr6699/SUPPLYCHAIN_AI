@@ -19,7 +19,7 @@ def render(df):
         with col:
             ready = name in ["Executive", "Delivery", "Demand"]
             status = ("Demo report available" if service.demo else "Artifact report available") if ready else "Model not connected"
-            st.html(f'<div class="model-card"><h3>{name} Report</h3><span class="badge badge-{ "info" if ready else "neutral" }">{status}</span><p>PDF ? current filter context</p></div>')
+            st.html(f'<div class="model-card"><h3>{name} Report</h3><span class="badge badge-{ "info" if ready else "neutral" }">{status}</span><p>PDF · current filter context</p></div>')
     left, right = st.columns([1, 2.5], gap="large")
     with left, st.container(border=True):
         section("Report configuration", "Each dataset uses its own workspace filters")
@@ -39,7 +39,7 @@ def render(df):
         signature = (report, dataset, tuple(sections), str(active), source, int(pd.util.hash_pandas_object(df, index=True).sum()))
         generate_label = "Generate Executive Report" if report == "Executive" else "Generate PDF"
         if st.button(generate_label, type="primary", width="stretch", disabled=not available):
-            with st.spinner("Preparing your report?"):
+            with st.spinner("Preparing your report…"):
                 st.session_state.generated_report = (signature, report_pdf(df, report, active, sections))
             st.success("PDF generated. Ready to download.")
         generated = st.session_state.get("generated_report")
@@ -55,7 +55,7 @@ def render(df):
         elif df.empty:
             st.info("No records match this dataset's filters.")
         elif st.session_state.get("report_preview"):
-            section(f"{report} report / preview", f"{source} ? selected sections and dataset filter context")
+            section(f"{report} report / preview", f"{source} · selected sections and dataset filter context")
             m = summary(df)
             demand = "Forecast Demand" in df and (dataset == "demand" or service.demo)
             if "KPIs" in sections:
