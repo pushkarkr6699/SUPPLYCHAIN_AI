@@ -68,15 +68,15 @@
 }
 .stApp:has(.st-key-top_header) [data-testid="stSidebar"] .nav-group { margin: 16px 0 8px; }
 .stApp:has(.st-key-top_header) .brand-mark { font-weight: 800; letter-spacing: -.04em; }
-.stApp:has(.st-key-top_header) .brand-network { display: block; position: relative; width: 24px; height: 24px; }
-.stApp:has(.st-key-top_header) .brand-network > span { position: absolute; display: block; width: 18px; height: 3px; background: currentColor; left: 3px; }
-.stApp:has(.st-key-top_header) .brand-network > span:first-child { top: 4px; }
-.stApp:has(.st-key-top_header) .brand-network > span:nth-child(2) { top: 11px; left: 0; width: 24px; transform: rotate(-45deg); }
-.stApp:has(.st-key-top_header) .brand-network > span:last-child { bottom: 4px; }
-.stApp:has(.st-key-top_header) .brand-network::before,
-.stApp:has(.st-key-top_header) .brand-network::after { content: ""; position: absolute; width: 6px; height: 6px; background: currentColor; border-radius: var(--wa-radius-round); }
-.stApp:has(.st-key-top_header) .brand-network::before { top: 2px; left: 1px; }
-.stApp:has(.st-key-top_header) .brand-network::after { bottom: 2px; right: 1px; }
+.stApp .brand-network { display: block; position: relative; width: 24px; height: 24px; }
+.stApp .brand-network > span { position: absolute; display: block; width: 18px; height: 3px; background: currentColor; left: 3px; }
+.stApp .brand-network > span:first-child { top: 4px; }
+.stApp .brand-network > span:nth-child(2) { top: 11px; left: 0; width: 24px; transform: rotate(-45deg); }
+.stApp .brand-network > span:last-child { bottom: 4px; }
+.stApp .brand-network::before,
+.stApp .brand-network::after { content: ""; position: absolute; width: 6px; height: 6px; background: currentColor; border-radius: var(--wa-radius-round); }
+.stApp .brand-network::before { top: 2px; left: 1px; }
+.stApp .brand-network::after { bottom: 2px; right: 1px; }
 .stApp:has(.st-key-top_header) .st-key-demo_guide:not(:has(.st-key-guide_next)),
 .stApp:has(.st-key-top_header) [data-testid="stLayoutWrapper"]:has(> .st-key-demo_guide:not(:has(.st-key-guide_next))) { background: transparent !important; width: fit-content !important; }
 .stApp:has(.st-key-top_header) .st-key-global_filters [data-testid="stHorizontalBlock"] { row-gap: 12px; }
@@ -91,6 +91,6 @@
 @media(prefers-reduced-motion:reduce) {
   .stApp:has(.st-key-top_header) *,
   body:has(.stApp .st-key-top_header) [data-testid="stPopoverBody"] * {
-    animation-duration: .01ms !important; transition-duration: .01ms !important; scroll-behavior: auto !important;
+    animation: none !important; transition: none !important; scroll-behavior: auto !important;
   }
 }

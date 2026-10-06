@@ -1,3 +1,4 @@
+from components.brand import MARK
 import streamlit as st
 from components.landing_components import CAPABILITIES, capability_card, landing_heading, dashboard_preview, hero_preview, flow
 from components.navigation import go
@@ -9,7 +10,7 @@ def render():
     with st.container(key="public_header"):
         brand, links, signin, launch = st.columns([1.48, 3.55, .85, 1.38], vertical_alignment="center")
         with brand:
-            st.html('<a class="public-brand" href="#top" aria-label="SupplyChain AI home"><span class="brand-symbol">S</span><span>SUPPLYCHAIN <b>AI</b><small>Decision Intelligence Platform</small></span></a>')
+            st.html('<a class="public-brand" href="#top" aria-label="SupplyChain AI home"><span class="brand-symbol">' + MARK + '</span><span>SUPPLYCHAIN <b>AI</b><small>Decision Intelligence Platform</small></span></a>')
         with links:
             st.html('<nav class="public-links" aria-label="Main navigation"><a href="#platform">Platform</a><a href="#intelligence">Intelligence</a><a href="#copilot">AI Copilot</a><a href="#governance">Governance</a><a href="#architecture">Architecture</a></nav>')
         with signin:
@@ -84,4 +85,4 @@ def render():
         final_open.button("Start an analysis", key="final_launch", type="secondary", icon=":material/arrow_outward:", on_click=enter_demo, width="stretch")
         final_signin.button("Sign in", key="final_signin", on_click=go, args=("login",), width="stretch")
 
-    st.html('<footer class="public-footer"><a class="footer-brand" href="#top"><span class="brand-symbol">S</span><span>SUPPLYCHAIN AI<small>Decision Intelligence Platform</small></span></a><div class="footer-group"><b>PLATFORM</b><a href="#platform">Executive Overview</a><a href="#intelligence">Delivery Intelligence</a><a href="#intelligence">Demand Intelligence</a><a href="#copilot">Copilot</a></div><div class="footer-group"><b>GOVERNANCE</b><a href="#governance">Models</a><a href="#governance">Explainability</a><a href="#governance">Data Quality</a><a href="#governance">Model Health</a></div><div class="footer-group"><b>PROJECT</b><a href="#architecture">Architecture</a><a href="#capabilities">Documentation</a><a href="#top">About</a></div></footer><div class="footer-bottom"><span>Academic / Portfolio Decision Intelligence Platform</span><span>DEMO UI · No operational data · No external AI provider</span></div>')
+    st.html('<footer class="public-footer"><a class="footer-brand" href="#top"><span class="brand-symbol">' + MARK + '</span><span>SUPPLYCHAIN AI<small>Decision Intelligence Platform</small></span></a><div class="footer-group"><b>PLATFORM</b><a href="#platform">Executive Overview</a><a href="#intelligence">Delivery Intelligence</a><a href="#intelligence">Demand Intelligence</a><a href="#copilot">Copilot</a></div><div class="footer-group"><b>GOVERNANCE</b><a href="#governance">Models</a><a href="#governance">Explainability</a><a href="#governance">Data Quality</a><a href="#governance">Model Health</a></div><div class="footer-group"><b>PROJECT</b><a href="#architecture">Architecture</a><a href="#capabilities">Documentation</a><a href="#top">About</a></div></footer><div class="footer-bottom"><span>Academic / Portfolio Decision Intelligence Platform</span><span>DEMO UI · No operational data · No external AI provider</span></div>')

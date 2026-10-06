@@ -1,0 +1,248 @@
+{
+  "checked_at": "2026-10-06T00:45:04.589242+00:00",
+  "passed": true,
+  "checks": [
+    "Landing -> login validation/recovery -> session sign-in -> dashboard; shared brand and entry motion",
+    "All seven sidebar groups: expanded, hover, keyboard focus, collapsed and selected child contrast in Light/Dark/System",
+    "Sidebar repeatedly closes to zero reserved width and reopens at 1512/1366/820/390/320px",
+    "Copilot panel releases its column when closed",
+    "Presentation mode enters and exits without a sidebar gap",
+    "Device reduced-motion disables page and sidebar animations",
+    "Interface animations preference disables/enables workspace motion",
+    "Logout -> cleared login -> website -> Open platform remains connected"
+  ],
+  "errors": [],
+  "geometry": {
+    "1512": {
+      "open": {
+        "stSidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 275,
+          "height": 1060,
+          "top": 0,
+          "right": 275,
+          "bottom": 1060,
+          "left": 0
+        },
+        "stMain": {
+          "x": 275,
+          "y": 0,
+          "width": 1237,
+          "height": 1060,
+          "top": 0,
+          "right": 1512,
+          "bottom": 1060,
+          "left": 275
+        }
+      },
+      "closed": {
+        "stSidebar": {
+          "x": -300,
+          "y": 0,
+          "width": 0,
+          "height": 1060,
+          "top": 0,
+          "right": -300,
+          "bottom": 1060,
+          "left": -300
+        },
+        "stMain": {
+          "x": 0,
+          "y": 0,
+          "width": 1512,
+          "height": 1060,
+          "top": 0,
+          "right": 1512,
+          "bottom": 1060,
+          "left": 0
+        }
+      }
+    },
+    "1366": {
+      "open": {
+        "stSidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 275,
+          "height": 1060,
+          "top": 0,
+          "right": 275,
+          "bottom": 1060,
+          "left": 0
+        },
+        "stMain": {
+          "x": 275,
+          "y": 0,
+          "width": 1091,
+          "height": 1060,
+          "top": 0,
+          "right": 1366,
+          "bottom": 1060,
+          "left": 275
+        }
+      },
+      "closed": {
+        "stSidebar": {
+          "x": -300,
+          "y": 0,
+          "width": 0,
+          "height": 1060,
+          "top": 0,
+          "right": -300,
+          "bottom": 1060,
+          "left": -300
+        },
+        "stMain": {
+          "x": 0,
+          "y": 0,
+          "width": 1366,
+          "height": 1060,
+          "top": 0,
+          "right": 1366,
+          "bottom": 1060,
+          "left": 0
+        }
+      }
+    },
+    "820": {
+      "open": {
+        "stSidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 275,
+          "height": 1060,
+          "top": 0,
+          "right": 275,
+          "bottom": 1060,
+          "left": 0
+        },
+        "stMain": {
+          "x": 275,
+          "y": 0,
+          "width": 545,
+          "height": 1060,
+          "top": 0,
+          "right": 820,
+          "bottom": 1060,
+          "left": 275
+        }
+      },
+      "closed": {
+        "stSidebar": {
+          "x": -300,
+          "y": 0,
+          "width": 0,
+          "height": 1060,
+          "top": 0,
+          "right": -300,
+          "bottom": 1060,
+          "left": -300
+        },
+        "stMain": {
+          "x": 0,
+          "y": 0,
+          "width": 820,
+          "height": 1060,
+          "top": 0,
+          "right": 820,
+          "bottom": 1060,
+          "left": 0
+        }
+      }
+    },
+    "390": {
+      "open": {
+        "stSidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 275,
+          "height": 1060,
+          "top": 0,
+          "right": 275,
+          "bottom": 1060,
+          "left": 0
+        },
+        "stMain": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 1060,
+          "top": 0,
+          "right": 390,
+          "bottom": 1060,
+          "left": 0
+        }
+      },
+      "closed": {
+        "stSidebar": {
+          "x": -300,
+          "y": 0,
+          "width": 0,
+          "height": 1060,
+          "top": 0,
+          "right": -300,
+          "bottom": 1060,
+          "left": -300
+        },
+        "stMain": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 1060,
+          "top": 0,
+          "right": 390,
+          "bottom": 1060,
+          "left": 0
+        }
+      }
+    },
+    "320": {
+      "open": {
+        "stSidebar": {
+          "x": 0,
+          "y": 0,
+          "width": 275,
+          "height": 1060,
+          "top": 0,
+          "right": 275,
+          "bottom": 1060,
+          "left": 0
+        },
+        "stMain": {
+          "x": 0,
+          "y": 0,
+          "width": 320,
+          "height": 1060,
+          "top": 0,
+          "right": 320,
+          "bottom": 1060,
+          "left": 0
+        }
+      },
+      "closed": {
+        "stSidebar": {
+          "x": -300,
+          "y": 0,
+          "width": 0,
+          "height": 1060,
+          "top": 0,
+          "right": -300,
+          "bottom": 1060,
+          "left": -300
+        },
+        "stMain": {
+          "x": 0,
+          "y": 0,
+          "width": 320,
+          "height": 1060,
+          "top": 0,
+          "right": 320,
+          "bottom": 1060,
+          "left": 0
+        }
+      }
+    }
+  },
+  "completion_checked_at": "2026-10-06T00:48:13.395762+00:00"
+}

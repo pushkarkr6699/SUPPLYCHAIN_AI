@@ -16,12 +16,12 @@ def render(df):
             st.radio("Theme", ["Light", "Dark", "System"], key="settings_theme", index=["Light", "Dark", "System"].index(st.session_state.theme), on_change=sync_theme, horizontal=True)
             st.radio("Density", ["Comfortable", "Compact"], key="density", horizontal=True)
             st.toggle("Presentation mode", key="presentation")
+            st.toggle("Interface animations", key="animation", help="Applies across landing, login and workspace. Your device reduced-motion preference always takes priority.")
         elif active == "Dashboard":
             section("Dashboard", "Tune chart and table defaults")
             st.toggle("Chart value labels", key="labels")
             st.toggle("Chart gridlines", key="gridlines")
             st.toggle("Compact numbers", key="compact_numbers")
-            st.toggle("Chart transitions", key="animation", help="Reduced-motion preferences take priority")
             st.selectbox("Table page size", [10, 15, 25, 50], key="page_size")
         elif active == "Data":
             service = get_service()

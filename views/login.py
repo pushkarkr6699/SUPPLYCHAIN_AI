@@ -1,10 +1,11 @@
+from components.brand import MARK
 import streamlit as st
 from components.auth_components import login_card
 
 
 def render():
     with st.container(key="auth_header"):
-        st.html('<div class="public-brand"><span class="brand-symbol" aria-hidden="true">S</span><span>SUPPLYCHAIN <b>AI</b><small>Decision Intelligence Platform</small></span></div>')
+        st.html('<div class="public-brand"><span class="brand-symbol" aria-hidden="true">' + MARK + '</span><span>SUPPLYCHAIN <b>AI</b><small>Decision Intelligence Platform</small></span></div>')
 
     left, right = st.columns([.96, 1.04], gap="large", vertical_alignment="center")
     with left, st.container(key="auth_brand_panel"):

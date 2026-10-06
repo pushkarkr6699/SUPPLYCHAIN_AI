@@ -4,7 +4,9 @@
 [data-testid="stExpandSidebarButton"]{visibility:visible!important;pointer-events:auto;background:var(--surface)!important;color:var(--text)!important;border:1px solid var(--border)!important}
 [data-testid="stExpandSidebarButton"] [data-testid="stIconMaterial"]{color:var(--text)!important}
 .stApp:has([data-testid="stExpandSidebarButton"]) [data-testid="stMainBlockContainer"]{padding-top:3rem}
-[data-testid="stSidebar"]{background:#111f38;border-right:1px solid #26334c;min-width:255px!important;max-width:275px!important}
+[data-testid="stSidebar"]{background:#111f38;border-right:1px solid #26334c}
+[data-testid="stSidebar"][aria-expanded="true"]{min-width:255px!important;max-width:275px!important}
+[data-testid="stSidebar"][aria-expanded="false"]{width:0!important;min-width:0!important;max-width:0!important;flex-basis:0!important;border-right:0!important;overflow:hidden!important}
 [data-testid="stSidebarContent"]{padding-top:.4rem}
 [data-testid="stSidebar"] [data-testid="stVerticalBlock"]{gap:.24rem}
 [data-testid="stSidebar"] p,[data-testid="stSidebar"] button{color:#b8c5da}

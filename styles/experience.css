@@ -1,0 +1,40 @@
+/* One interaction language across the public site, session login and workspace. */
+:root { --motion-fast:160ms; --motion-enter:360ms; --motion-ease:cubic-bezier(.2,.7,.2,1); }
+/* Explicit inverse surfaces protect sidebar text in every native disclosure state. */
+.stApp:has(.st-key-top_header) [data-testid="stSidebar"] [data-testid="stExpander"] details { background:transparent!important; }
+.stApp:has(.st-key-top_header) [data-testid="stSidebar"] [data-testid="stExpander"] summary {
+  background:#111f38!important; color:#d3dcec!important; border:1px solid transparent!important;
+  border-radius:6px!important; min-height:44px; padding:8px 10px;
+}
+.stApp:has(.st-key-top_header) [data-testid="stSidebar"] [data-testid="stExpander"] details[open] > summary { background:#1b2b47!important; color:#fff!important; }
+.stApp:has(.st-key-top_header) [data-testid="stSidebar"] [data-testid="stExpander"] summary:is(:hover,:focus-visible) { background:#263f69!important; color:#fff!important; border-color:#9eb7ff!important; }
+.stApp:has(.st-key-top_header) [data-testid="stSidebar"] [data-testid="stExpander"] summary :is(p,span,[data-testid="stIconMaterial"]) { color:inherit!important; }
+.stApp:has(.st-key-top_header) [data-testid="stSidebar"] button:focus-visible { outline-color:#9eb7ff!important; }
+.stApp:has(.st-key-top_header) [data-testid="stSidebar"] button[data-testid="stBaseButton-primary"] { box-shadow:inset 3px 0 0 currentColor; }
+/* Closing either navigation or context panel lets the existing flexible main area grow. */
+.stApp:has(.st-key-top_header) [data-testid="stMain"] { min-width:0; flex:1 1 0%; }
+.stApp:has(.st-key-top_header) .st-key-copilot_drawer { padding:16px; border:1px solid var(--border); border-radius:10px!important; background:var(--surface); }
+@keyframes sc-enter { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+@keyframes sc-surface { from { opacity:.65; } to { opacity:1; } }
+@keyframes sc-orbit { from { transform:translateY(0); } to { transform:translateY(-7px); } }
+@media(prefers-reduced-motion:no-preference) {
+  .stApp :is(button,a,summary,[role="tab"],[data-baseweb="input"],[data-baseweb="select"] > div) { transition:background-color var(--motion-fast),border-color var(--motion-fast),color var(--motion-fast),box-shadow var(--motion-fast); }
+  .stApp [data-testid="stSidebar"] { transition:width 220ms var(--motion-ease),min-width 220ms var(--motion-ease),max-width 220ms var(--motion-ease),transform 220ms var(--motion-ease); }
+  .stApp :is(.hero h1,.auth-brand h1,.page-heading h1) { animation:sc-enter var(--motion-enter) var(--motion-ease); }
+  .stApp :is(.hero-copy,.hero-kicker,.auth-brand > p,.login-intro,.page-heading > p) { animation:sc-enter 420ms var(--motion-ease); }
+  .stApp :is(.hero-surface,.sc-in-view,.kpi-card,.insight-card,.model-card,.decision-brief,.coverage-strip) { animation:sc-enter var(--motion-enter) var(--motion-ease); transition:border-color var(--motion-fast),box-shadow var(--motion-fast); }
+  .stApp :is(.st-key-login_card,.st-key-copilot_drawer,[role="tabpanel"],[data-testid="stAlert"],.status-strip) { animation:sc-surface 220ms ease-out; }
+  .stApp details[open] > [data-testid="stExpanderDetails"], body [data-testid="stPopoverBody"] { animation:sc-enter 200ms var(--motion-ease); }
+  .stApp .auth-orbit { animation:sc-orbit 4s ease-in-out 2 alternate; }
+  .stApp :is(.capability-card,.problem-panel):hover { border-color:var(--blue); box-shadow:0 5px 18px #315de612; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .stApp *,body [data-testid="stPopoverBody"] * { animation:none!important; transition:none!important; scroll-behavior:auto!important; }
+}
+
+/* Unavailable capability previews stay readable; the status is shown in text. */
+.stApp:has(.st-key-top_header) .matrix-preview .risk-matrix { opacity:1; filter:none; }
+.stApp:has(.st-key-top_header) .matrix-disabled { position:static; padding:12px; background:var(--surface-alt); color:var(--wa-muted)!important; }
+
+/* Runtime-only helpers never reserve visible space. */
+.st-key-ui_runtime,[data-testid="stLayoutWrapper"]:has(> .st-key-ui_runtime) { display:none!important; }

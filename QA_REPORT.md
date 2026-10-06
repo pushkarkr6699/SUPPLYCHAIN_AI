@@ -6,6 +6,13 @@ Evidence assembled at 2026-10-05T08:07:37.826406+00:00. Scope: single-operator l
 
 ## Release result
 
+### Unified public/login/workspace follow-up ? 2026-10-06
+
+The supplied recording was reviewed. The sidebar now releases all reserved width when closed, all seven navigation disclosures retain readable colors in Light/Dark/System states, and closing the Copilot drawer restores the dashboard width. Landing, login and workspace share branding and accessible interface motion. Settings ? Appearance provides a session animation toggle; device reduced motion takes priority. See [UNIFIED_EXPERIENCE.md](docs/UNIFIED_EXPERIENCE.md).
+
+Regression: **120 passed**, two expected malformed-date fixture warnings. Public QA: **10 page/width combinations passed**. Chart QA: **14 layouts passed** with working zoom/pan/autoscale/reset/fullscreen/export. Local security audit: passed, no findings. Integrated browser QA: **8 functional groups passed, zero browser errors**. Evidence is recorded in `metadata/unified_experience_qa.json`, including sidebar collapse at 1512/1366/820/390/320px and the complete landing/login/logout flow.
+
+
 ### Shared chart controls follow-up ? 2026-10-05
 
 The shared main application chart renderer now keeps toolbars visible, with contrasting 20px icons and 44px controls in Light and Dark themes. Controls wrap on narrow screens, have reserved space above the plot, and retain their native labels and handlers. Multi-series legends are separated from the toolbar and date labels. This applies to both demo and verified-data charts.

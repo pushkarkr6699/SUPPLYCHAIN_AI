@@ -40,7 +40,7 @@ def initialize():
 
 
 def load_styles():
-    paths = [ROOT / "styles" / name for name in ["theme.css", "layout.css", "components.css", "landing.css", "auth.css", "dashboard.css", "workspace_audit.css", "premium.css", "presentation.css"]]
+    paths = [ROOT / "styles" / name for name in ["theme.css", "layout.css", "components.css", "landing.css", "auth.css", "dashboard.css", "workspace_audit.css", "premium.css", "presentation.css", "experience.css"]]
     content = "\n".join(stylesheet(path, path.stat().st_mtime_ns) for path in paths)
     dark = ':root{--bg:#0e192b;--surface:#16243a;--surface-alt:#1c2e48;--text:#e0e9f9;--muted:#9cacc6;--border:#2a3a54;--blue:#7799ff;--purple:#aa94ef;--green:#62bda4;--shadow:none}'
     dark += '.stApp:has(.st-key-top_header),body:has(.stApp .st-key-top_header){--wa-muted:#d3dcec;--wa-blue:#9eb7ff;--wa-purple:#c2b1ff;--wa-green:#83d9ba;--wa-amber:#f0cc84;--wa-red:#ffabb5;--wa-on-accent:#16243a}'
@@ -51,9 +51,13 @@ def load_styles():
         content += '.kpi-card{padding:10px 13px;height:108px}.st-key-global_filters{padding:8px 14px}.stApp [data-testid="stVerticalBlock"]{gap:.7rem}.page-heading{padding:5px 0 8px}'
     if st.session_state.presentation:
         content += '[data-testid="stSidebar"],[data-testid="stExpandSidebarButton"]{display:none!important}[data-testid="stMainBlockContainer"]{max-width:1550px}.kpi-value{font-size:2.3rem}.kpi-card{height:145px}.kpi-label{font-size:.85rem}'
+    if not st.session_state.animation:
+        content += ".stApp *,body [data-testid=stPopoverBody] *{animation:none!important;transition:none!important;scroll-behavior:auto!important}"
     st.html(f"<style>{content}</style>")
-    script = ROOT / "components" / "chart_resize.js"
-    st.html("<script>" + stylesheet(script, script.stat().st_mtime_ns) + "</script>", unsafe_allow_javascript=True)
+    with st.container(key="ui_runtime"):
+        for name in ("chart_resize.js", "experience.js"):
+            script = ROOT / "components" / name
+            st.html("<script>" + stylesheet(script, script.stat().st_mtime_ns) + "</script>", unsafe_allow_javascript=True)
 
 
 def render():
@@ -99,10 +103,10 @@ def render():
         return
     if st.session_state.copilot_open and route != "copilot" and st.session_state.copilot_enabled:
         main, drawer = st.columns([3.8, 1])
-        with drawer:
+        with drawer, st.container(key="copilot_drawer"):
             context_drawer()
             nav_button("Open Copilot workspace →", "copilot", key="drawer_open")
-        with main:
+        with main, st.container(key="dashboard"):
             try:
                 view(df)
             except Exception:
