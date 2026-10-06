@@ -37,7 +37,7 @@ ROUTE_DATASET = {
 def dataset_for_route(route):
     if get_service().demo:
         return "demo"
-    if route in {"data", "quality", "downloads", "explorer"}:
+    if route in {"data", "quality", "downloads", "explorer", "comparison"}:
         return st.session_state.get(f"{route}_dataset", "delivery")
     if route == "copilot":
         return st.session_state.get("copilot_dataset", "delivery")
@@ -98,6 +98,8 @@ def delete_view():
 
 
 def filters():
+    if st.session_state.route == "comparison":
+        st.selectbox("Comparison dataset", ["delivery", "demand"], format_func=lambda name: "Delivery orders" if name == "delivery" else "Demand forecasts", key="comparison_dataset")
     service = get_service()
     dataset = dataset_for_route(st.session_state.route)
     st.session_state.setdefault("filters_by_dataset", {})

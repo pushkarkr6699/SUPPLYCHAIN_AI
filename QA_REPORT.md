@@ -325,3 +325,11 @@ Start the preview, choose Open platform, then use Settings → Data → All avai
 ## Reproduce
 
 Run the commands in README.md. Browser workflow precedes the formal suite because TC-65 consumes its completed actual evidence. Keep supplied local assets and pinned inference dependencies. After changing runtime files or artifacts, rerun relevant tests and regenerate this report.
+
+## Comparison Studio validation — 6 October 2026
+
+The new comparison workspace is integrated into the existing app and both providers. The full regression suite passed **144 tests** (two expected warnings from intentionally malformed-date fixtures). All **28 routes** passed registered-artifact integration checks. Comparison controls produced trained predictions for **1,918 selected delivery orders** and **76 demand products**. The original synthetic demo remains usable and blocks trained inference on demo records.
+
+Rendered browser QA covers all five chart types, real prediction actions, CSV/JSON downloads, missing-key recovery, light/dark themes and desktop/390px/320px layouts. Separate chart checks verify zoom in/out, pan/zoom, autoscale/reset, fullscreen exit and valid PNG export. Evidence is saved in `metadata/comparison_functional_qa.json`, `metadata/comparison_browser_qa.json` and `metadata/comparison_chart_qa.json`. Screenshots are local under ignored `tmp/screenshots/comparison/`.
+
+Optional OpenAI narration uses only aggregate evidence and anonymous segment labels. Structured response success, missing key, invalid evidence references, HTTP failures, malformed/refused responses and timeouts are tested with mocked API responses. No live OpenAI call was verified because no local API key was configured. Follow [the Comparison Studio setup](docs/COMPARISON_STUDIO.md) to enable it. Existing deployment and model limitations above continue to apply.

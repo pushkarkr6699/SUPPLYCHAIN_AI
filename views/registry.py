@@ -1,7 +1,8 @@
 """One explicit route registry; pages stay focused on presentation."""
-from views import overview, delivery, demand, unavailable, explorer, orders, geography, changes, scenarios, copilot, insights, alerts, models, explainability, threshold, drift, health, quality, lineage, data, reports, downloads, settings, diagnostics
+from views import comparison, overview, delivery, demand, unavailable, explorer, orders, geography, changes, scenarios, copilot, insights, alerts, models, explainability, threshold, drift, health, quality, lineage, data, reports, downloads, settings, diagnostics
 
 PAGES = {
+    "comparison": ("Comparison Studio", "Compare your selected dataset fields, inspect evidence and run connected trained models.", comparison.render),
     "overview": ("Executive Command Center", "A unified operational view across predictive risk, forecast demand and model health.", overview.render),
     "delivery": ("Delivery Intelligence", "Explore predicted late-delivery risk across orders, markets, regions and shipping dimensions.", delivery.render),
     "demand": ("Demand Intelligence", "Explore next-day forecasts, uncertainty and product-level attention flags in the selected dataset.", demand.render),

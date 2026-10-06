@@ -3,7 +3,7 @@
   "delivery_orders": 65752,
   "supplied_scored_orders": 2123,
   "demand_rows": 2280,
-  "routes_passed": 27,
+  "routes_passed": 28,
   "delivery_inference": {
     "enabled": true,
     "model": "Tuned XGBoost",

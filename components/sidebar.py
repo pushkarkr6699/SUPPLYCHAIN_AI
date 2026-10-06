@@ -27,8 +27,8 @@ def sidebar():
                 with st.expander("Additional intelligence", expanded=st.session_state.route in {item[0] for item in other}):
                     navigation_items(other)
             elif group == "ANALYSIS":
-                navigation_items([item for item in visible_items if item[0] == "orders"])
-                other = [item for item in visible_items if item[0] != "orders"]
+                navigation_items([item for item in visible_items if item[0] in {"orders", "comparison"}])
+                other = [item for item in visible_items if item[0] not in {"orders", "comparison"}]
                 with st.expander("Explore & simulate", expanded=st.session_state.route in {item[0] for item in other}):
                     navigation_items(other)
             else:

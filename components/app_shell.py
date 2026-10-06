@@ -96,7 +96,7 @@ def render():
         guide(df)
     if route in {"overview", "delivery", "demand"}:
         decision_brief(df)
-    no_data_ok = {"profitability", "cross_risk", "settings", "diagnostics", "lineage", "drift", "health", "changes", "reports"}
+    no_data_ok = {"profitability", "cross_risk", "settings", "diagnostics", "lineage", "drift", "health", "changes", "reports", "comparison"}
     if df.empty and route not in no_data_ok:
         empty_state()
         evidence(df)

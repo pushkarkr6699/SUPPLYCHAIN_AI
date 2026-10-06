@@ -1,0 +1,9 @@
+{
+  "checked_at": "2026-10-06T04:11:28.405425+00:00",
+  "passed": true,
+  "checks": [
+    "Zoom in/out, pan, zoom, autoscale and reset work on comparison facets",
+    "Fullscreen expands and exits",
+    "PNG export is a valid image"
+  ]
+}

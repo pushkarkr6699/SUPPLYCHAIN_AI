@@ -38,3 +38,22 @@
 
 /* Runtime-only helpers never reserve visible space. */
 .st-key-ui_runtime,[data-testid="stLayoutWrapper"]:has(> .st-key-ui_runtime) { display:none!important; }
+
+/* Comparison Studio uses the same readable surfaces and motion as the workspace. */
+.stApp:has(.st-key-top_header) .comparison-flow { display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin:12px 0; }
+.stApp:has(.st-key-top_header) .comparison-flow > div { padding:14px;background:var(--surface);border:1px solid var(--border);border-radius:10px!important; }
+.stApp:has(.st-key-top_header) .comparison-flow b { display:block;color:var(--wa-blue)!important;margin-bottom:6px; }
+.stApp:has(.st-key-top_header) .comparison-flow span { display:block;color:var(--wa-muted)!important;overflow-wrap:anywhere; }
+@media(max-width:700px) { .stApp:has(.st-key-top_header) .comparison-flow { grid-template-columns:1fr; } }
+/* Selected fields and slider values keep readable contrast in both themes. */
+.stApp:has(.st-key-top_header) [data-testid="stMultiSelect"] [data-tag],
+.stApp:has(.st-key-top_header) [data-testid="stMultiSelect"] [data-tag] span {
+  background:var(--surface-alt)!important;color:var(--text)!important;
+}
+.stApp:has(.st-key-top_header) [data-testid="stMultiSelect"] [data-tag] { border:1px solid var(--border);border-radius:5px!important;padding:4px 7px; }
+.stApp:has(.st-key-top_header) [data-testid="stSliderThumbValue"],
+.stApp:has(.st-key-top_header) [data-testid="stSliderThumbValue"] p { background:var(--surface)!important;color:var(--text)!important; }
+.stApp:has(.st-key-top_header) [data-testid="stSelectbox"] .react-aria-ComboBox > [role="group"] {
+  background:var(--surface-alt)!important;color:var(--text)!important;border:1px solid var(--border);border-radius:7px!important;
+}
+.stApp:has(.st-key-top_header) [data-testid="stSelectbox"] input { background:transparent!important;color:var(--text)!important; }

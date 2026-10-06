@@ -117,7 +117,7 @@ Original Colab pickles are preserved. Native XGBoost JSON and original fitted pr
 
 **Run trained predictions:** use Scenario Lab for a selected order or uploaded order-level feature rows. In Demand Intelligence, open Run trained next-day web-visit forecast to use supplied history or upload daily visits with `DateOnly, Product, Category, Department, Visits`, including zero-visit days and at least 15 consecutive days per product. New forecasts are point estimates.
 
-Run `.\.venv\Scripts\python.exe scripts\verify_integration.py` to verify all 26 artifact hashes, all 27 routes and both prediction controls. See [docs/FINAL_HANDOFF.md](docs/FINAL_HANDOFF.md) for setup, validation and remaining production deployment requirements.
+Run `.\.venv\Scripts\python.exe scripts\verify_integration.py` to verify all 26 artifact hashes, all 28 routes and both prediction controls. See [docs/FINAL_HANDOFF.md](docs/FINAL_HANDOFF.md) for setup, validation and remaining production deployment requirements.
 
 Implementation references: [Streamlit chart API](https://docs.streamlit.io/develop/api-reference/charts/st.plotly_chart), [Streamlit testing API](https://docs.streamlit.io/develop/api-reference/app-testing).
 
@@ -145,3 +145,7 @@ For a market-filter demonstration, choose **Settings → Data → All available 
 
 This platform has session-only access, alerts and saved views. Historical snapshots are not refreshed operational feeds. Profitability ML, cross-risk joins, SHAP, drift and inventory remain unavailable without verified artifacts. The active delivery threshold was selected on the same scored test rows, so performance is not an independent post-selection estimate. Demand forecasts measure web visits; source 90% bounds are empirically under-covering. Preserve these limitations when presenting the project.
 
+
+## Comparison Studio
+
+Use **Sidebar → Comparison Studio** to compare your selected delivery or demand dataset fields with groupings, A/B cohorts, numeric ranges, five chart types, computed insights, trained predictions and complete evidence exports. Both verified data and the original demo provider are supported. See [the workflow and optional OpenAI setup](docs/COMPARISON_STUDIO.md). AI narration requires `OPENAI_API_KEY` configured locally; it sends aggregate evidence and anonymous segment labels only. Local insights and trained inference work independently of that key.
