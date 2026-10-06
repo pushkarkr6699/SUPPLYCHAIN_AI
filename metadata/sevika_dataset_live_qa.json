@@ -1,0 +1,31 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "dataset": "delivery",
+      "passed": true,
+      "evidence_references": 8,
+      "seconds": 2.78
+    },
+    {
+      "dataset": "demand",
+      "passed": true,
+      "evidence_references": 12,
+      "seconds": 2.46
+    },
+    {
+      "dataset": "profitability",
+      "passed": true,
+      "evidence_references": 13,
+      "seconds": 5.63
+    },
+    {
+      "dataset": "delivery_final",
+      "passed": true,
+      "evidence_references": 15,
+      "seconds": 2.54
+    }
+  ],
+  "authorization": "User explicitly approved anonymized summaries for Hugging Face/Groq",
+  "payload": "Anonymous numerical summaries, no raw rows or group identifiers"
+}

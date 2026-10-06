@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "full_suite": {
+    "passed": 207,
+    "failed": 0,
+    "existing_warnings": 13
+  },
+  "live_dataset_sources": [
+    "delivery",
+    "demand",
+    "profitability",
+    "delivery_final"
+  ],
+  "actual_delivery_live_browser_answer": true,
+  "prediction_cap_orders": 50,
+  "source_artifacts_modified": false,
+  "new_dependencies": false,
+  "scope": "Local showcase with preserved demo and verified providers; not a production deployment",
+  "browser_navigation_mobile_themes_passed": true,
+  "private_token_findings": 0
+}

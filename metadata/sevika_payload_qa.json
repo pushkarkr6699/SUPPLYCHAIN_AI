@@ -1,0 +1,34 @@
+{
+  "passed": true,
+  "network_calls": 0,
+  "datasets": {
+    "delivery": {
+      "passed": true,
+      "raw_rows": 0,
+      "anonymous_segments": true,
+      "evidence_items": 14,
+      "bytes": 3392
+    },
+    "demand": {
+      "passed": true,
+      "raw_rows": 0,
+      "anonymous_segments": true,
+      "evidence_items": 12,
+      "bytes": 2885
+    },
+    "profitability": {
+      "passed": true,
+      "raw_rows": 0,
+      "anonymous_segments": true,
+      "evidence_items": 26,
+      "bytes": 5110
+    },
+    "delivery_final": {
+      "passed": true,
+      "raw_rows": 0,
+      "anonymous_segments": true,
+      "evidence_items": 18,
+      "bytes": 4023
+    }
+  }
+}

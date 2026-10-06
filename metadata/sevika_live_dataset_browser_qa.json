@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "checked_at": "2026-10-06T14:57:51.355544+00:00",
+  "dataset": "delivery",
+  "actual_api_response_rendered": true,
+  "downloaded_conversation_validated": true,
+  "evidence_references": 13,
+  "credential_findings": 0,
+  "direct_browser_provider_requests": 0,
+  "authorization": "Explicit user approval for anonymous summaries to Hugging Face/Groq"
+}

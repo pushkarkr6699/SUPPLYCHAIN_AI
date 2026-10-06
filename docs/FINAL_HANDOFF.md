@@ -33,7 +33,7 @@ Set `SUPPLYCHAIN_PROVIDER=demo` in `.env` and restart to return to the original 
 
 ## Validation and restore
 
-Run `.venv/Scripts/python.exe -m pytest -q`. Integration, source reconciliation, functional, browser and security scripts are under `scripts/`; current results are in `QA_REPORT.md` and `metadata/`. PDF reports were rendered and reviewed; a footer-only final-page defect was fixed. External AI remains unverified until a key is configured; mocked API tests cover generated-response and stale-result behavior.
+Run `.venv/Scripts/python.exe -m pytest -q`. Integration, source reconciliation, functional, browser and security scripts are under `scripts/`; current results are in `QA_REPORT.md` and `metadata/`. PDF reports were rendered and reviewed; a footer-only final-page defect was fixed. Live Hugging Face/Groq AI is privately configured and verified on anonymized summaries from all four supplied datasets following explicit user approval. Sevika also passed an actual browser-rendered delivery answer and conversation download. Mocked API tests separately cover malformed responses and stale-result behavior. See [Sevika](SEVIKA.md).
 
 Source assets are Git-ignored. Restore CSV/model/notebook assets together with registries and portable exports from the release archive in `metadata/release_backup_manifest.json`; earlier backups are retained. Credentials are excluded from archives and Git.
 

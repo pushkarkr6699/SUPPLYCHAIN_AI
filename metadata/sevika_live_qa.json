@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "payload": "public workflow only; zero supplied rows",
+  "actual_response_rendered": true,
+  "validated_download": true,
+  "engine": "Live AI"
+}

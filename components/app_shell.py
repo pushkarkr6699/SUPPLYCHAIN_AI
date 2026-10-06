@@ -40,7 +40,7 @@ def initialize():
 
 
 def load_styles():
-    paths = [ROOT / "styles" / name for name in ["theme.css", "layout.css", "components.css", "landing.css", "auth.css", "dashboard.css", "workspace_audit.css", "premium.css", "presentation.css", "experience.css"]]
+    paths = [ROOT / "styles" / name for name in ["theme.css", "layout.css", "components.css", "landing.css", "auth.css", "dashboard.css", "workspace_audit.css", "premium.css", "presentation.css", "experience.css", "sevika.css"]]
     content = "\n".join(stylesheet(path, path.stat().st_mtime_ns) for path in paths)
     dark = ':root{--bg:#0e192b;--surface:#16243a;--surface-alt:#1c2e48;--text:#e0e9f9;--muted:#9cacc6;--border:#2a3a54;--blue:#7799ff;--purple:#aa94ef;--green:#62bda4;--shadow:none}'
     dark += '.stApp:has(.st-key-top_header),body:has(.stApp .st-key-top_header){--wa-muted:#d3dcec;--wa-blue:#9eb7ff;--wa-purple:#c2b1ff;--wa-green:#83d9ba;--wa-amber:#f0cc84;--wa-red:#ffabb5;--wa-on-accent:#16243a}'
@@ -82,7 +82,7 @@ def render():
         df = filters()
     except (RuntimeError, ConnectionError, ValueError, OSError) as error:
         service_error(error)
-        return
+        return None,route,'unavailable'
     st.session_state.last_query_ms = round((perf_counter() - query_start) * 1000, 2)
     service = get_service()
     dataset = dataset_for_route(route)
@@ -100,7 +100,7 @@ def render():
     if df.empty and route not in no_data_ok:
         empty_state()
         evidence(df)
-        return
+        return df,route,dataset
     if st.session_state.copilot_open and route != "copilot" and st.session_state.copilot_enabled:
         main, drawer = st.columns([3.8, 1])
         with drawer, st.container(key="copilot_drawer"):
@@ -124,4 +124,5 @@ def render():
     if route not in {"settings", "diagnostics", "copilot", "changes"}:
         evidence(df)
     st.session_state.last_render_ms = round((perf_counter() - started) * 1000, 2)
+    return df,route,dataset
 

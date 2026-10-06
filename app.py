@@ -7,10 +7,18 @@ st.set_page_config(page_title="SupplyChain AI · Decision Intelligence", page_ic
 initialize()
 load_styles()
 
+context = None
 route = st.session_state.route
 if route == "landing":
     landing.render()
 elif route == "login" or not st.session_state.authenticated:
     login.render()
 else:
-    render()
+    context = render()
+
+from components.sevika import render as sevika
+# Keep one assistant host across public and authenticated navigation.
+if context is None:
+    sevika(route='landing' if route=='landing' else 'login')
+else:
+    sevika(*context)

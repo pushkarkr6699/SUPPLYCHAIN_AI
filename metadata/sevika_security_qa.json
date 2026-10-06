@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "files_scanned": 286,
+  "credential_findings": 0,
+  "includes_new_files_and_logs": true,
+  "token_server_only": true,
+  "cors_protection": true,
+  "xsrf_protection": true,
+  "loopback_only": true
+}

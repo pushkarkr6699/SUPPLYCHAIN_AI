@@ -1,0 +1,23 @@
+/* A floating assistant never consumes a dashboard column. */
+[data-testid="stLayoutWrapper"]:has(> .st-key-sevika_launcher) {position:fixed!important;right:24px;bottom:24px;width:145px!important;z-index:9999;margin:0!important;}
+.st-key-sevika_launcher {width:145px!important;}
+.st-key-sevika_launcher button[data-testid="stPopoverButton"] {background:#254fcb!important;color:#fff!important;border:1px solid #a9bfff!important;border-radius:999px!important;min-height:52px!important;padding:12px 22px!important;box-shadow:0 6px 24px #142a6540;}
+.st-key-sevika_launcher button :is(p,span) {color:inherit!important;}
+body [data-testid="stPopoverBody"]:has(.st-key-sevika_panel) {position:fixed!important;inset:auto 24px 88px auto!important;transform:none!important;width:min(440px,calc(100vw - 32px))!important;max-height:calc(100dvh - 120px);overflow-y:auto!important;background:var(--surface,#fff)!important;color:var(--text,#15233a)!important;border:1px solid var(--border,#ccd5e1)!important;border-radius:16px!important;padding:18px!important;box-shadow:0 16px 60px #10234735;z-index:10000!important;}
+.st-key-sevika_panel {font-size:.9rem;}
+.st-key-sevika_panel h3 {margin:0!important;font-size:1.35rem!important;}
+[data-testid="stLayoutWrapper"]:has(> .st-key-sevika_heading) {position:sticky;top:-18px;z-index:3;background:var(--surface)!important;}
+.st-key-sevika_heading {background:var(--surface)!important;padding:6px 0;}
+.st-key-sevika_panel [data-testid="stCaptionContainer"],.st-key-sevika_panel [data-testid="stCaptionContainer"] :is(p,span) {font-size:.72rem!important;color:var(--wa-muted,var(--muted))!important;}
+.st-key-sevika_panel [data-testid="stChatMessage"] {background:var(--surface-alt)!important;border-radius:10px!important;}
+.st-key-sevika_panel [data-testid="stTextInput"] input {font-size:16px!important;}
+.st-key-sevika_panel [data-testid="stForm"] {position:sticky;bottom:-18px;z-index:2;background:var(--surface)!important;box-shadow:0 -6px 18px #1023470c;}
+.st-key-sevika_panel button {min-height:44px;}
+.st-key-sevika_panel :is(button,input):focus-visible {outline:3px solid var(--blue)!important;outline-offset:3px;}
+@media(max-width:600px) {
+ [data-testid="stLayoutWrapper"]:has(> .st-key-sevika_launcher) {right:16px;bottom:max(16px,env(safe-area-inset-bottom));}
+ body [data-testid="stPopoverBody"]:has(.st-key-sevika_panel) {right:16px!important;bottom:80px!important;max-height:calc(100dvh - 100px);padding:14px!important;}
+ .st-key-sevika_panel [data-testid="stForm"] {bottom:-14px;}
+ [data-testid="stLayoutWrapper"]:has(> .st-key-sevika_heading) {top:-14px;}
+}
+@media(prefers-reduced-motion:no-preference) {body [data-testid="stPopoverBody"]:has(.st-key-sevika_panel) {animation:sc-enter 180ms ease-out;}}

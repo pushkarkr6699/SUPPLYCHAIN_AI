@@ -18,7 +18,7 @@ Actual external verification passed:
 - Settings connection check: actual browser -> Streamlit -> central AI service -> Hugging Face -> validated JSON -> browser success. Its payload is synthetic connection evidence, with no dataset sent.
 - Executive Overview: actual synthetic demo fixture aggregates -> Hugging Face -> validated insight display and downloaded JSON brief. An ordinary rerun reuses the cached answer.
 
-The complete regression suite passed **188 tests, zero failed**, with 13 existing dependency/date-validation warnings. All **28 routes** were separately exercised with verified registered datasets. **41 source artifact hashes** matched. Delivery/demand trained predictions, local Copilot, dataset switching and PDFs passed. Profitability and cross-risk PDFs and all four comparison source paths passed functional checks. Browser checks and security evidence are recorded separately under `metadata/`.
+The complete regression suite passed **207 tests, zero failed**, with 13 existing dependency/date-validation warnings. All **28 routes** were separately exercised with verified registered datasets. **41 source artifact hashes** matched. Delivery/demand trained predictions, local Copilot, dataset switching and PDFs passed. Profitability and cross-risk PDFs and all four comparison source paths passed functional checks. Browser checks and security evidence are recorded separately under `metadata/`.
 
 ## Security and request limits
 
@@ -28,9 +28,11 @@ Requests are explicit, capped at 24,000 prompt bytes and 2,048 output tokens, wi
 
 Tests cover missing credentials, rejected credentials, quota/rate limits, unavailable model/provider, connection failure, timeout, empty/refused/truncated responses, malformed JSON, unexpected fields, invalid evidence references and credential echoes. Errors leave local analysis available. Generated code, SQL and tools are never executed.
 
-## Remaining live verification
+## Approved supplied-data live verification
 
-Automatic approval review rejected exporting the supplied-business dataset aggregates, even after local checks proved they contain only anonymous numerical evidence. The user has been asked for explicit approval to transfer these summaries to Hugging Face/Groq. **Until that approval arrives, live calls using delivery, demand, profitability and final-delivery supplied data remain unverified.** No workaround exports that data. The configured UI remains available; controlled local tests and synthetic live tests are distinguished above.
+The user explicitly approved sending anonymized numerical summaries to Hugging Face/Groq. Actual Sevika requests now passed on delivery, demand, profitability and final-delivery data; all returned validated JSON with valid evidence references. No raw rows, order/customer IDs or original group labels were sent. Results are saved in `metadata/sevika_dataset_live_qa.json`; offline payload checks are in `metadata/sevika_payload_qa.json`.
+
+The original approval-review block is resolved by that explicit authorization. Public-help live chat and its downloaded conversation were also verified in the browser. See [Sevika](SEVIKA.md) for the current contextual chat and local trained-prediction controls.
 
 This preserves the existing local showcase scope. Session/demo access is not production identity or multi-user authorization. Profitability/final-delivery source-score parity still requires unavailable original complete model inputs; synthetic conversion probes establish conversion fidelity only. See `SECURITY.md` and `docs/PROFITABILITY_INTEGRATION.md`.
 
@@ -47,8 +49,8 @@ From `D:\SUPPLYCHAIN_AI`:
 
 The browser harness requires the local preview to be running and makes one live synthetic Settings connection request. `--demo-operation` targets a separately launched synthetic demo server on port 8502. The UI harness uses controlled transport only and never exports supplied data.
 
-The subsequent security recheck added explicit provider-refusal and JSON-escaped credential-echo tests. All **188 tests** passed, including these safeguards. `scripts/hf_live_dataset_qa.py` now provides an offline preflight for all four supplied sources (zero network calls by default), with an explicit execution mode for the remaining approved live tests. The current key is configured; the outstanding supplied-data test is a transfer-approval constraint, not a missing `OPENAI_API_KEY`.
+The subsequent security recheck added explicit provider-refusal and JSON-escaped credential-echo tests. All **207 tests** passed, including these safeguards. `scripts/hf_live_dataset_qa.py` now provides an offline preflight for all four supplied sources (zero network calls by default), with an explicit execution mode for live tests. The current key is configured. Following explicit transfer approval, actual Sevika answers passed on all four sources; see `metadata/sevika_dataset_live_qa.json`.
 
 The latest public dependency advisory scan checked 92 installed packages and found no known vulnerabilities. The final private-token scan checked 247 project files with zero findings; these are point-in-time checks, not an independent penetration test.
 
-After the refusal/escaped-credential fixes, both the actual Settings connection and synthetic Overview insight generation passed again. The browser harness now waits for the actual generated result or controlled error, avoiding a premature check of the previous settled UI. The synthetic brief download, cached rerun and browser credential checks passed. Supplied-data live requests still await explicit transfer approval.
+After the refusal/escaped-credential fixes, both the actual Settings connection and synthetic Overview insight generation passed again. The browser harness now waits for the actual generated result or controlled error, avoiding a premature check of the previous settled UI. The synthetic brief download, cached rerun and browser credential checks passed. Supplied-data live verification subsequently passed after explicit user approval. The actual browser delivery-summary response, supporting references and conversation download also passed; see `metadata/sevika_live_dataset_browser_qa.json`.

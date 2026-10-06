@@ -1,0 +1,15 @@
+{
+  "checked_at": "2026-10-06T15:03:52.260582+00:00",
+  "passed": true,
+  "checks": [
+    "Local dataset totals, per-context conversation persistence and no reserved main width",
+    "Registered delivery model produces 50 outputs and chat explains measured predictions",
+    "Suggestions and isolated conversations follow demand, profitability and comparison pages",
+    "Light/dark desktop and 390px/320px panels stay within viewport; Escape closes accessibly"
+  ],
+  "live_ai_payload": "public workflow only; no supplied dataset summaries",
+  "private_credential_findings": 0,
+  "browser_direct_ai_requests": 0,
+  "javascript_errors": 0,
+  "live_request_in_this_run": false
+}
