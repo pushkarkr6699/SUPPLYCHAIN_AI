@@ -32,6 +32,7 @@ History is session-only: at most six dataset/page/filter contexts with six turns
 - Actual browser-rendered public help and conversation download: `metadata/sevika_live_qa.json`.
 - Actual browser delivery-summary live answer, evidence and download, with no browser token or direct provider request: `metadata/sevika_live_dataset_browser_qa.json`.
 - Current navigation, themes, mobile layouts, registered prediction and conversation checks: `metadata/sevika_browser_qa.json`.
+- Dark input/question surfaces and sticky mobile title: `metadata/sevika_contrast_qa.json`.
 - Local security review: `metadata/security_audit.json`.
 
 Repeat local browser checks with `.venv\Scripts\python.exe scripts/sevika_browser_qa.py --local-only` while the preview is running. Omitting that flag performs one real public-help request. Automated unit tests mock transport and independently cover payload privacy, selected context, unsafe requests, malformed outputs, failures, bounded memory, local math and prediction prerequisites.

@@ -7,7 +7,7 @@
     "Suggestions and isolated conversations follow demand, profitability and comparison pages",
     "Light/dark desktop and 390px/320px panels stay within viewport; Escape closes accessibly"
   ],
-  "live_ai_payload": "public workflow only; no supplied dataset summaries",
+  "live_ai_payload": "No external requests (local-only run)",
   "private_credential_findings": 0,
   "browser_direct_ai_requests": 0,
   "javascript_errors": 0,

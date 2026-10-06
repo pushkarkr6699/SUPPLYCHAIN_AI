@@ -21,3 +21,15 @@ body [data-testid="stPopoverBody"]:has(.st-key-sevika_panel) {position:fixed!imp
  [data-testid="stLayoutWrapper"]:has(> .st-key-sevika_heading) {top:-14px;}
 }
 @media(prefers-reduced-motion:no-preference) {body [data-testid="stPopoverBody"]:has(.st-key-sevika_panel) {animation:sc-enter 180ms ease-out;}}
+
+/* Native input/expander surfaces also live in a portal outside .stApp. */
+body [data-testid="stPopoverBody"] .st-key-sevika_panel [data-testid="stSelectbox"] .react-aria-ComboBox > [role="group"],
+body [data-testid="stPopoverBody"] .st-key-sevika_panel [data-testid="stTextInput"] [data-baseweb="input"] {
+ background:var(--surface-alt)!important;color:var(--text)!important;border-color:var(--border)!important;
+}
+body [data-testid="stPopoverBody"] .st-key-sevika_panel :is([data-testid="stTextInput"],[data-testid="stSelectbox"]) input {
+ background:transparent!important;color:var(--text)!important;
+}
+body [data-testid="stPopoverBody"] .st-key-sevika_panel [data-testid="stExpander"] :is(details,summary,[data-testid="stExpanderDetails"]) {
+ background:var(--surface)!important;color:var(--text)!important;border-color:var(--border)!important;
+}

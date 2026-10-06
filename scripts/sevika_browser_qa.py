@@ -104,7 +104,7 @@ with sync_playwright() as p:
  for choice in ['Light','Dark']:
   print('Checking theme',choice,flush=True);close_chat(page);theme(page,choice);ready(page)
   fit(page,'desktop-'+choice.lower());close_chat(page)
-  
+
   collapse=page.locator('[data-testid=stSidebarCollapseButton] button')
   if page.get_by_test_id('stSidebar').get_attribute('aria-expanded')=='true':collapse.click();ready(page)
   for width in [390,320]:
@@ -114,5 +114,5 @@ with sync_playwright() as p:
  scan(page.content());assert not findings and not js_errors
  assert not any('router.huggingface.co' in url or 'api.groq.com' in url for url in network)
  browser.close()
-report={'checked_at':datetime.now(timezone.utc).isoformat(),'passed':True,'checks':checks,'live_ai_payload':'public workflow only; no supplied dataset summaries','private_credential_findings':len(findings),'browser_direct_ai_requests':0,'javascript_errors':len(js_errors),'live_request_in_this_run':not LOCAL_ONLY}
+report={'checked_at':datetime.now(timezone.utc).isoformat(),'passed':True,'checks':checks,'live_ai_payload':'No external requests (local-only run)' if LOCAL_ONLY else 'Public workflow only; no supplied dataset summaries','private_credential_findings':len(findings),'browser_direct_ai_requests':0,'javascript_errors':len(js_errors),'live_request_in_this_run':not LOCAL_ONLY}
 (ROOT/'metadata/sevika_browser_qa.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8');print(json.dumps(report,indent=2))
