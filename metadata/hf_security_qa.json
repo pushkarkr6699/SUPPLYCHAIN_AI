@@ -1,11 +1,14 @@
 {
   "passed": true,
-  "project_files_scanned": 239,
+  "project_files_scanned": 247,
   "secret_findings": 0,
   "env_git_ignored": true,
   "env_example_blank_token": true,
   "cors_enabled": true,
   "xsrf_protection_enabled": true,
   "python_syntax": "passed",
-  "token_in_status": false
+  "token_in_status": false,
+  "checked_at": "2026-10-06T09:28:24.575111+00:00",
+  "explicit_refusal_test": "passed",
+  "json_escaped_credential_test": "passed"
 }

@@ -75,13 +75,20 @@ def generate(messages,schema=None):
     try:
         with OpenAI(base_url=BASE_URL,api_key=config.token,timeout=TIMEOUT_SECONDS,max_retries=0) as client:
             response=client.chat.completions.create(**arguments)
-        if not response.choices or response.choices[0].finish_reason!='stop':
+        if not response.choices or response.choices[0].finish_reason!='stop' or getattr(response.choices[0].message,'refusal',None):
             raise AIUnavailable('The AI response was empty, interrupted or refused. Retry the same analysis later.')
         content=response.choices[0].message.content
         if not isinstance(content,str) or not content.strip():
             raise AIUnavailable('The AI returned no usable answer. Retry later; local evidence remains available.')
         if len(content.encode('utf-8'))>200000 or config.token in content:
             raise AIUnavailable('The AI response did not pass safety validation. Local evidence remains available.')
+        if schema is not None:
+            try:
+                decoded=json.loads(content)
+            except (json.JSONDecodeError,ValueError):
+                raise AIUnavailable('The AI returned malformed JSON. Retry later; local evidence remains available.') from None
+            if config.token in json.dumps(decoded,ensure_ascii=False):
+                raise AIUnavailable('The AI response did not pass safety validation. Local evidence remains available.')
         return content
     except APITimeoutError:
         raise AIUnavailable('The AI request timed out. Retry later; local results remain available.') from None

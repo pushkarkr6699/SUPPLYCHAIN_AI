@@ -1,6 +1,7 @@
 {
   "passed": true,
-  "settings_live_connection": true,
+  "live_operation": "Settings connection check",
+  "live_result_displayed": true,
   "payload": "synthetic connection check; no dataset sent",
   "browser_credential_findings": 0,
   "browser_external_ai_requests": 0,

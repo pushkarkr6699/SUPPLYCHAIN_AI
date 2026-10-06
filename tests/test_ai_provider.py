@@ -95,3 +95,30 @@ def test_invalid_model_configuration_is_safe(monkeypatch,tmp_path):
     monkeypatch.setenv('HF_MODEL','invalid private model configuration')
     assert not provider.status()['available']
     assert 'invalid private model configuration' not in json.dumps(provider.status())
+
+
+def test_explicit_refusal_is_rejected_even_when_finish_reason_is_stop(monkeypatch,configured):
+    def handler(request):
+        result=response(request)
+        body=result.json()
+        body['choices'][0]['message']['refusal']='The provider refuses this request.'
+        return httpx.Response(200,json=body,request=request)
+    transport(monkeypatch,handler)
+    with pytest.raises(provider.AIUnavailable,match='refused'):
+        provider.generate([{'role':'user','content':'Test'}],{'type':'object'})
+
+
+def test_json_escaped_credential_echo_is_rejected_after_decoding(monkeypatch,configured):
+    escaped=''.join('\\u%04x'%ord(char) for char in TOKEN)
+    content='{"summary":"'+escaped+'"}'
+    assert TOKEN not in content
+    transport(monkeypatch,lambda request:response(request,content))
+    with pytest.raises(provider.AIUnavailable,match='safety validation') as caught:
+        provider.generate([{'role':'user','content':'Test'}],{'type':'object'})
+    assert TOKEN not in str(caught.value)
+
+
+def test_malformed_structured_response_is_safe_at_provider_boundary(monkeypatch,configured):
+    transport(monkeypatch,lambda request:response(request,'{"incomplete":'))
+    with pytest.raises(provider.AIUnavailable,match='malformed JSON'):
+        provider.generate([{'role':'user','content':'Test'}],{'type':'object'})

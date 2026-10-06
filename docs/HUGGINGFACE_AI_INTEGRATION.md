@@ -1,4 +1,4 @@
-# Hugging Face AI integration ? 2026-10-06
+# Hugging Face AI integration - 2026-10-06
 
 ## Configuration and implementation
 
@@ -15,10 +15,10 @@ All nine AI entrypoints passed controlled response, error and result lifecycle c
 Actual external verification passed:
 
 - Capital of France: GPT-OSS through Hugging Face/Groq returned a valid answer identifying Paris.
-- Settings connection check: actual browser ? Streamlit ? central AI service ? Hugging Face ? validated JSON ? browser success. Its payload is synthetic connection evidence, with no dataset sent.
-- Executive Overview: actual synthetic demo fixture aggregates ? Hugging Face ? validated insight display and downloaded JSON brief. An ordinary rerun reuses the cached answer.
+- Settings connection check: actual browser -> Streamlit -> central AI service -> Hugging Face -> validated JSON -> browser success. Its payload is synthetic connection evidence, with no dataset sent.
+- Executive Overview: actual synthetic demo fixture aggregates -> Hugging Face -> validated insight display and downloaded JSON brief. An ordinary rerun reuses the cached answer.
 
-The complete regression suite passed **185 tests, zero failed**, with 13 existing dependency/date-validation warnings. All **28 routes** were separately exercised with verified registered datasets. **41 source artifact hashes** matched. Delivery/demand trained predictions, local Copilot, dataset switching and PDFs passed. Profitability and cross-risk PDFs and all four comparison source paths passed functional checks. Browser checks and security evidence are recorded separately under `metadata/`.
+The complete regression suite passed **188 tests, zero failed**, with 13 existing dependency/date-validation warnings. All **28 routes** were separately exercised with verified registered datasets. **41 source artifact hashes** matched. Delivery/demand trained predictions, local Copilot, dataset switching and PDFs passed. Profitability and cross-risk PDFs and all four comparison source paths passed functional checks. Browser checks and security evidence are recorded separately under `metadata/`.
 
 ## Security and request limits
 
@@ -46,3 +46,9 @@ From `D:\SUPPLYCHAIN_AI`:
 ```
 
 The browser harness requires the local preview to be running and makes one live synthetic Settings connection request. `--demo-operation` targets a separately launched synthetic demo server on port 8502. The UI harness uses controlled transport only and never exports supplied data.
+
+The subsequent security recheck added explicit provider-refusal and JSON-escaped credential-echo tests. All **188 tests** passed, including these safeguards. `scripts/hf_live_dataset_qa.py` now provides an offline preflight for all four supplied sources (zero network calls by default), with an explicit execution mode for the remaining approved live tests. The current key is configured; the outstanding supplied-data test is a transfer-approval constraint, not a missing `OPENAI_API_KEY`.
+
+The latest public dependency advisory scan checked 92 installed packages and found no known vulnerabilities. The final private-token scan checked 247 project files with zero findings; these are point-in-time checks, not an independent penetration test.
+
+After the refusal/escaped-credential fixes, both the actual Settings connection and synthetic Overview insight generation passed again. The browser harness now waits for the actual generated result or controlled error, avoiding a premature check of the previous settled UI. The synthetic brief download, cached rerun and browser credential checks passed. Supplied-data live requests still await explicit transfer approval.

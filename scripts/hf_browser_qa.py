@@ -28,9 +28,15 @@ with sync_playwright() as p:
   assert 'synthetic' in page.inner_text('body').lower(),'Refuse demo AI test unless synthetic source is shown'
   exp=page.get_by_test_id('stExpander').filter(has=page.get_by_text('Live AI insights for this view',exact=True))
   exp.locator('summary').first.click()
-  page.locator('.st-key-live_ai_overview_generate button').click();ready(page)
+  page.locator('.st-key-live_ai_overview_generate button').click()
+  page.wait_for_function("()=>document.querySelector('.st-key-live_ai_overview_download button')||document.querySelector('[data-testid=stAlertContentError]')",timeout=35000)
+  ready(page)
   success=page.get_by_text('Hugging Face interpretation',exact=False).count()>0
-  assert success,'Demo live AI did not display a validated result'
+  if not success:
+   safe_errors=page.get_by_test_id('stAlertContentError').all_text_contents()
+   assert not token or token not in json.dumps(safe_errors)
+   (ROOT/'metadata/hf_demo_live_qa.json').write_text(json.dumps({'passed':False,'safe_errors':safe_errors,'payload':'synthetic fixtures only'},indent=2)+'\n',encoding='utf-8')
+   raise AssertionError('Demo live AI did not display a validated result: '+json.dumps(safe_errors))
   with page.expect_download() as event:page.get_by_role('button',name='Download AI insight brief',exact=True).click()
   answer=json.loads(Path(event.value.path()).read_text(encoding='utf-8'))
   from services.ai_narration import validate_narration
