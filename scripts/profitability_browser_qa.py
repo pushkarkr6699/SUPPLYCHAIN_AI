@@ -5,6 +5,8 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright,expect
 from unified_experience_qa import ready,contrast
 from workspace_usability_qa import ROOT,BASE,theme
+import sys
+sys.path.insert(0,str(ROOT))
 OUTPUT=ROOT/'tmp/screenshots/profitability';OUTPUT.mkdir(parents=True,exist_ok=True)
 report={'checked_at':datetime.now(timezone.utc).isoformat(),'passed':False,'checks':[],'errors':[],'live_external_ai_verified':False}
 
@@ -46,8 +48,10 @@ try:
         d.value.save_as(OUTPUT/'profitability_probe_predictions.csv')
         report['checks'].append('Incomplete inputs refused; 32 synthetic conversion probes score and download')
         page.get_by_role('tab',name='AI insights',exact=True).click();ready(page)
-        expect(page.get_by_role('button',name='Generate live AI insights',exact=True)).to_be_disabled()
-        report['checks'].append('Explicit missing API-key state')
+        from services.ai_narration import status
+        if not status()['available']:expect(page.get_by_role('button',name='Generate live AI insights',exact=True)).to_be_disabled()
+        else:expect(page.get_by_role('button',name='Generate live AI insights',exact=True)).to_be_enabled()
+        report['checks'].append('AI configuration state reflects local token availability')
         page.get_by_role('tab',name='Overview',exact=True).click();ready(page)
         for choice in ['Light','Dark']:
             theme(page,choice);ready(page)

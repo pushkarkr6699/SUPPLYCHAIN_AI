@@ -4,7 +4,7 @@ Decision Intelligence Platform — a **local classroom showcase** with connected
 
 The existing demo UI is preserved. Verified mode connects historical order-level delivery, next-day web-visit forecasts, profitability line items and the independent final delivery line-item experiment. Original trained models run through fixed, hash-validated portable exports; no retraining occurs. See [the latest integration handoff](docs/FINAL_HANDOFF.md).
 
-Latest integration (2026-10-06): **166 regression tests passed**. Profitability diagnostics, threshold analysis, complete-input trained predictions, cross-risk coverage and PDF reports are connected. The final delivery line-item experiment is available under **Delivery Intelligence ? Explore final delivery line-item experiment**, and in Comparison Studio and data tools. Optional live AI uses `OPENAI_API_KEY` in the ignored local `.env`; local evidence remains available without a key. See [profitability and final delivery details](docs/PROFITABILITY_INTEGRATION.md).
+Latest integration (2026-10-06): **185 regression tests passed**. Profitability diagnostics, threshold analysis, complete-input trained predictions, cross-risk coverage and PDF reports are connected. The final delivery line-item experiment is available under **Delivery Intelligence ? Explore final delivery line-item experiment**, and in Comparison Studio and data tools. Optional live AI uses `HF_TOKEN` in the ignored local `.env`; local evidence remains available without a key. See [profitability and final delivery details](docs/PROFITABILITY_INTEGRATION.md) and [Hugging Face integration and live verification](docs/HUGGINGFACE_AI_INTEGRATION.md).
 
 ## Run locally (PowerShell)
 
@@ -150,4 +150,4 @@ This platform has session-only access, alerts and saved views. Historical snapsh
 
 ## Comparison Studio
 
-Use **Sidebar → Comparison Studio** to compare your selected delivery or demand dataset fields with groupings, A/B cohorts, numeric ranges, five chart types, computed insights, trained predictions and complete evidence exports. Both verified data and the original demo provider are supported. See [the workflow and optional OpenAI setup](docs/COMPARISON_STUDIO.md). AI narration requires `OPENAI_API_KEY` configured locally; it sends aggregate evidence and anonymous segment labels only. Local insights and trained inference work independently of that key.
+Use **Sidebar → Comparison Studio** to compare your selected delivery or demand dataset fields with groupings, A/B cohorts, numeric ranges, five chart types, computed insights, trained predictions and complete evidence exports. Both verified data and the original demo provider are supported. See [the workflow and optional Hugging Face setup](docs/COMPARISON_STUDIO.md). AI narration requires `HF_TOKEN` configured locally; it sends aggregate evidence and anonymous segment labels only. Local insights and trained inference work independently of that key.

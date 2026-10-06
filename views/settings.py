@@ -35,9 +35,10 @@ def render(df):
             st.write("**Provider status:** " + ("Synthetic demo" if get_service().demo else "Verified repository analytics"))
             from services import ai_narration
             state=ai_narration.status()
+            st.write("**Live AI provider:**",state['provider'])
             st.write("**Live AI model:**",state['model'])
             st.info(state['reason'])
-            st.caption("Configure OPENAI_API_KEY and optional OPENAI_MODEL in the ignored local .env. Your key stays server-side. Explicit AI actions send your question and anonymized aggregate evidence.")
+            st.caption("Configure HF_TOKEN and optional HF_MODEL in the ignored local .env. Your key stays server-side. Explicit AI actions send your question and anonymized aggregate evidence.")
             if st.button("Check live AI connection",key="check_live_ai",disabled=not state['available']):
                 try:
                     with st.spinner("Checking the configured API connection?"):

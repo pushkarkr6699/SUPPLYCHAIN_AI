@@ -1,10 +1,10 @@
 {
-  "checked_at": "2026-10-06T05:53:47.210926+00:00",
+  "checked_at": "2026-10-06T09:09:48.247269+00:00",
   "passed": true,
   "checks": [
     "Profitability source KPIs and two overview charts",
     "Incomplete inputs refused; 32 synthetic conversion probes score and download",
-    "Explicit missing API-key state",
+    "AI configuration state reflects local token availability",
     "Light profitability desktop/mobile: readable text, no page overflow, visible controls",
     "Dark profitability desktop/mobile: readable text, no page overflow, visible controls",
     "Final delivery experiment and 31-feature trained upload path",

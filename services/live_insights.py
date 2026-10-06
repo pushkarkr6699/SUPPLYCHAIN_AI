@@ -25,5 +25,5 @@ def context(frame,question='Explain the most important findings and limitations.
     else:limitation=frame.attrs.get('evaluation_note','Historical observations; no causal or future guarantees.')
     payload=analysis.narration_payload(facts,params,'Verified historical '+frame.attrs.get('dataset','data') if frame.attrs.get('verified_artifacts') else 'Synthetic demonstration data')
     payload.update(focus=question,limitations=limitation,grain=frame.attrs.get('grain','Dataset observations'))
-    token=analysis.signature(frame,dict(params,model=ai_narration.status()['model']))
+    token=analysis.signature(frame,dict(params,model=ai_narration.status()['model'],provider=ai_narration.status()['provider']))
     return facts,payload,token

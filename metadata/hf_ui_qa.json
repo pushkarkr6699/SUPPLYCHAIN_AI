@@ -1,0 +1,74 @@
+{
+  "checked_at": "2026-10-06T09:09:51.154286+00:00",
+  "passed": true,
+  "live_external_ai_verified": false,
+  "checks": [
+    {
+      "check": "All public and authenticated routes, no automatic AI requests",
+      "routes": 28,
+      "passed": true
+    },
+    {
+      "check": "live_ai_overview result rendering and request lifecycle",
+      "passed": true,
+      "transport": "controlled mock"
+    },
+    {
+      "check": "live_ai_delivery result rendering and request lifecycle",
+      "passed": true,
+      "transport": "controlled mock"
+    },
+    {
+      "check": "live_ai_demand result rendering and request lifecycle",
+      "passed": true,
+      "transport": "controlled mock"
+    },
+    {
+      "check": "live_ai_profitability result rendering and request lifecycle",
+      "passed": true,
+      "transport": "controlled mock"
+    },
+    {
+      "check": "live_ai_final_delivery result rendering and request lifecycle",
+      "passed": true,
+      "transport": "controlled mock"
+    },
+    {
+      "check": "live_ai_insight_center result rendering and request lifecycle",
+      "passed": true,
+      "transport": "controlled mock"
+    },
+    {
+      "check": "live_ai_copilot result rendering and request lifecycle",
+      "passed": true,
+      "transport": "controlled mock"
+    },
+    {
+      "check": "comparison result rendering and request lifecycle",
+      "passed": true,
+      "transport": "controlled mock"
+    },
+    {
+      "check": "settings result rendering and request lifecycle",
+      "passed": true,
+      "transport": "controlled mock"
+    },
+    {
+      "check": "All nine AI panels gracefully render provider errors and permit explicit retry",
+      "passed": true
+    },
+    {
+      "check": "Comparison, Insight Center and Copilot operate on all four registered datasets",
+      "passed": true,
+      "transport": "controlled mock"
+    },
+    {
+      "check": "Changing AI model invalidates cached comparison narration without replacing trained inference",
+      "passed": true
+    },
+    {
+      "check": "Final delivery toggle restores independent filter and evidence scope",
+      "passed": true
+    }
+  ]
+}

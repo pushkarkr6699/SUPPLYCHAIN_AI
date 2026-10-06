@@ -36,7 +36,7 @@ The original pipeline was portably exported without fitting. Windows matched 32 
 
 ## Live AI setup
 
-Set `OPENAI_API_KEY` privately in the ignored project `.env`; optionally set `OPENAI_MODEL` to the supported model you wish to use. The current default is `gpt-4o-mini`. Never paste a secret into chat or commit it. Refresh and open **Settings → Copilot → Check live AI connection**, then explicitly generate insights in the desired view.
+Set `HF_TOKEN` privately in the ignored project `.env`; optionally set `HF_MODEL` to the supported model you wish to use. The current default is `openai/gpt-oss-120b:groq`. Never paste a secret into chat or commit it. Refresh and open **Settings → Copilot → Check live AI connection**, then explicitly generate insights in the desired view.
 
 The request sends the user's question and locally computed aggregate facts. Dataset rows and identifying group labels stay local; segment names are anonymized. The structured response cites checked evidence IDs. No AI-generated code executes. Changed data, filters or questions invalidate prior output. Local facts remain available without a key.
 

@@ -2,8 +2,6 @@
 import streamlit as st
 from components.app_shell import initialize, load_styles, render
 from views import landing, login
-import pandas as pd 
-
 
 st.set_page_config(page_title="SupplyChain AI · Decision Intelligence", page_icon="◈", layout="wide", initial_sidebar_state="expanded")
 initialize()
@@ -16,4 +14,3 @@ elif route == "login" or not st.session_state.authenticated:
     login.render()
 else:
     render()
-

@@ -25,7 +25,7 @@ Run `./run.ps1` in the project and open **http://127.0.0.1:8501 -> Open platform
 - Final delivery: **Delivery Intelligence -> Explore final delivery line-item experiment**, also under Model Intelligence's Delivery tab.
 - Flexible dataset comparisons: **Comparison Studio**, choose the source and actual fields.
 - Reports: Profitability and Cross-Risk are connected; final delivery exports include its own PDF.
-- Live AI: privately configure `OPENAI_API_KEY` in ignored `.env`, refresh, then **Settings -> Copilot -> Check live AI connection**. `OPENAI_MODEL` defaults to `gpt-4o-mini`.
+- Live AI: privately configure `HF_TOKEN` in ignored `.env`, refresh, then **Settings -> Copilot -> Check live AI connection**. `HF_MODEL` defaults to `openai/gpt-oss-120b:groq`.
 
 New profitability and final delivery predictions require all 23 and 31 named training features. Download the templates; absent inputs are refused. CSV uploads stay in memory and never overwrite registered datasets or models. Existing saved scores remain usable without those inputs. Uploaded models are never loaded.
 

@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "project_files_scanned": 239,
+  "secret_findings": 0,
+  "env_git_ignored": true,
+  "env_example_blank_token": true,
+  "cors_enabled": true,
+  "xsrf_protection_enabled": true,
+  "python_syntax": "passed",
+  "token_in_status": false
+}

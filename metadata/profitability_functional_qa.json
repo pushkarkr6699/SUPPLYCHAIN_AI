@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-06T05:17:46.574307+00:00",
+  "checked_at": "2026-10-06T08:59:43.526715+00:00",
   "passed": true,
   "checks": [
     "profitability",
@@ -30,8 +30,11 @@
   ],
   "live_external_ai_verified": false,
   "ai_configuration": {
-    "available": false,
-    "model": "gpt-4o-mini",
-    "reason": "Set OPENAI_API_KEY in your local .env or environment, then retry. Local comparison insights are available now."
+    "available": true,
+    "provider": "Hugging Face Inference Providers",
+    "model": "openai/gpt-oss-120b:groq",
+    "routing": "groq",
+    "base_url": "https://router.huggingface.co/v1",
+    "reason": "Hugging Face narration is configured. Use an explicit AI action to verify the connection."
   }
 }

@@ -1,4 +1,4 @@
-﻿"""Exercise Comparison Studio controls against the registered datasets."""
+"""Exercise Comparison Studio controls against the registered datasets."""
 import os
 os.environ['SUPPLYCHAIN_PROVIDER']='verified'
 import sys,json
@@ -35,8 +35,10 @@ checks.append('Dataset switch isolates demand; trained model forecasts 76 produc
 at.radio(key='comparison_demand_mode').set_value('Two cohorts').run();check(at)
 checks.append('Disjoint A/B cohort comparison renders')
 # A narrative token must be replaced after data or comparison factors change.
-assert any('OPENAI_API_KEY' in x.value for x in at.info)
-checks.append('Missing OpenAI key preserves local insights without network calls')
+from services import ai_narration
+assert ai_narration.status()['provider']=='Hugging Face Inference Providers'
+assert at.button(key='comparison_generate_ai').disabled == (not ai_narration.status()['available'])
+checks.append('Hugging Face configuration controls explicit narration; no automatic network calls')
 report={'checked_at':datetime.now(timezone.utc).isoformat(),'passed':True,'checks':checks,'delivery_outputs':len(at.session_state['comparison_prediction_delivery']['data']),'demand_outputs':len(result)}
 (ROOT/'metadata/comparison_functional_qa.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
 print(json.dumps(report,indent=2))

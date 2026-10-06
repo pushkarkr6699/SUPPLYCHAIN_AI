@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-06T02:55:45.141511+00:00",
+  "checked_at": "2026-10-06T08:59:03.159511+00:00",
   "passed": true,
   "checks": [
     "Delivery comparison route and source coverage",
@@ -10,7 +10,7 @@
     "Registered delivery model scored 1918 selected orders",
     "Dataset switch isolates demand; trained model forecasts 76 products",
     "Disjoint A/B cohort comparison renders",
-    "Missing OpenAI key preserves local insights without network calls"
+    "Hugging Face configuration controls explicit narration; no automatic network calls"
   ],
   "delivery_outputs": 1918,
   "demand_outputs": 76

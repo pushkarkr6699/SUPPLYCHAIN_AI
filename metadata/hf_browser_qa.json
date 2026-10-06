@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "settings_live_connection": true,
+  "payload": "synthetic connection check; no dataset sent",
+  "browser_credential_findings": 0,
+  "browser_external_ai_requests": 0,
+  "browser_js_errors": 0
+}

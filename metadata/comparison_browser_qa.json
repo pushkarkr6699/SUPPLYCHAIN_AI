@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-06T04:11:30.387284+00:00",
+  "checked_at": "2026-10-06T09:09:28.665060+00:00",
   "passed": true,
   "checks": [
     "Landing -> dashboard -> Comparison Studio connected",
@@ -7,7 +7,7 @@
     "Correlation heatmap and visible chart controls",
     "Distribution and visible chart controls",
     "Comparison bars and visible chart controls",
-    "Evidence insights and clear missing-key state",
+    "Evidence insights and AI button matches current provider configuration",
     "Delivery trained prediction action and download",
     "CSV and JSON contain current parameters and complete evidence",
     "Demand source switch and 76-product trained forecast",

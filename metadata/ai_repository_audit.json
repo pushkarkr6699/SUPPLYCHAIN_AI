@@ -1,0 +1,1744 @@
+{
+  "framework": "Streamlit Python server with generated browser UI, Plotly and shared CSS; no custom REST API",
+  "modules": [
+    {
+      "file": "services/ai_narration.py",
+      "imports": [
+        "json",
+        "os",
+        "pathlib",
+        "urllib",
+        "config"
+      ]
+    },
+    {
+      "file": "services/analytics.py",
+      "imports": [
+        "math",
+        "numpy",
+        "pandas",
+        "config",
+        "services.mock_data"
+      ]
+    },
+    {
+      "file": "services/auth_service.py",
+      "imports": [
+        "streamlit"
+      ]
+    },
+    {
+      "file": "services/comparison_service.py",
+      "imports": [
+        "pandas",
+        "services.analytics"
+      ]
+    },
+    {
+      "file": "services/contracts.py",
+      "imports": [
+        "typing",
+        "pandas"
+      ]
+    },
+    {
+      "file": "services/copilot_service.py",
+      "imports": [
+        "services.copilot.orchestrator"
+      ]
+    },
+    {
+      "file": "services/decision_context.py",
+      "imports": [
+        "pandas"
+      ]
+    },
+    {
+      "file": "services/demand_inference.py",
+      "imports": [
+        "functools",
+        "hashlib",
+        "json",
+        "numpy",
+        "pandas",
+        "services.inference_service",
+        "joblib",
+        "sklearn.pipeline",
+        "xgboost"
+      ]
+    },
+    {
+      "file": "services/export_service.py",
+      "imports": [
+        "io",
+        "collections",
+        "hashlib",
+        "threading",
+        "datetime",
+        "xml.sax.saxutils",
+        "pandas",
+        "reportlab.lib",
+        "reportlab.lib.styles",
+        "reportlab.lib.enums",
+        "reportlab.platypus",
+        "reportlab.graphics.shapes",
+        "services.analytics",
+        "services.provider",
+        "services.decision_context"
+      ]
+    },
+    {
+      "file": "services/final_delivery_data.py",
+      "imports": [
+        "functools",
+        "hashlib",
+        "json",
+        "numpy",
+        "pandas",
+        "config",
+        "services.verified_data",
+        "sklearn.metrics"
+      ]
+    },
+    {
+      "file": "services/final_delivery_inference.py",
+      "imports": [
+        "pathlib",
+        "functools",
+        "hashlib",
+        "datetime",
+        "json",
+        "numpy",
+        "pandas",
+        "config",
+        "services.final_delivery_data",
+        "services.inference_service",
+        "joblib",
+        "xgboost"
+      ]
+    },
+    {
+      "file": "services/health_service.py",
+      "imports": [
+        "datetime",
+        "zoneinfo",
+        "pandas",
+        "services.provider",
+        "services.inference_service",
+        "services.demand_inference",
+        "services.profitability_inference",
+        "services.final_delivery_inference",
+        "services.ai_narration"
+      ]
+    },
+    {
+      "file": "services/inference_service.py",
+      "imports": [
+        "__future__",
+        "datetime",
+        "functools",
+        "hashlib",
+        "importlib",
+        "json",
+        "pathlib",
+        "numpy",
+        "pandas",
+        "joblib",
+        "sklearn.pipeline",
+        "xgboost",
+        "argparse"
+      ]
+    },
+    {
+      "file": "services/live_insights.py",
+      "imports": [
+        "services",
+        "services",
+        "services.profitability_data"
+      ]
+    },
+    {
+      "file": "services/mock_data.py",
+      "imports": [
+        "functools",
+        "numpy",
+        "pandas"
+      ]
+    },
+    {
+      "file": "services/parameter_comparison.py",
+      "imports": [
+        "hashlib",
+        "json",
+        "numpy",
+        "pandas",
+        "pandas.api.types",
+        "services.inference_service",
+        "services.demand_inference"
+      ]
+    },
+    {
+      "file": "services/profitability_data.py",
+      "imports": [
+        "functools",
+        "hashlib",
+        "pathlib",
+        "json",
+        "numpy",
+        "pandas",
+        "config",
+        "sklearn.metrics"
+      ]
+    },
+    {
+      "file": "services/profitability_inference.py",
+      "imports": [
+        "pathlib",
+        "functools",
+        "hashlib",
+        "datetime",
+        "json",
+        "numpy",
+        "pandas",
+        "config",
+        "services.profitability_data",
+        "services.inference_service",
+        "joblib",
+        "xgboost"
+      ]
+    },
+    {
+      "file": "services/provider.py",
+      "imports": [
+        "config",
+        "pathlib",
+        "pandas",
+        "services",
+        "services.contracts",
+        "services.verified_data",
+        "services.inference_service",
+        "services.demand_inference",
+        "services.profitability_inference",
+        "services.final_delivery_inference",
+        "services.analytics",
+        "services.inference_service",
+        "services.final_delivery_data",
+        "services.profitability_data"
+      ]
+    },
+    {
+      "file": "services/query_engine.py",
+      "imports": [
+        "duckdb",
+        "pandas"
+      ]
+    },
+    {
+      "file": "services/scenario_service.py",
+      "imports": [
+        "services.mock_data"
+      ]
+    },
+    {
+      "file": "services/verified_data.py",
+      "imports": [
+        "functools",
+        "pathlib",
+        "pandas",
+        "numpy"
+      ]
+    },
+    {
+      "file": "services/__init__.py",
+      "imports": []
+    },
+    {
+      "file": "services/copilot/actions.py",
+      "imports": [
+        "streamlit",
+        "components.navigation",
+        "services.copilot.validation"
+      ]
+    },
+    {
+      "file": "services/copilot/context.py",
+      "imports": [
+        "datetime",
+        "copy"
+      ]
+    },
+    {
+      "file": "services/copilot/intent.py",
+      "imports": [
+        "re"
+      ]
+    },
+    {
+      "file": "services/copilot/orchestrator.py",
+      "imports": [
+        "services.copilot.intent",
+        "services.copilot.context",
+        "services.copilot.response",
+        "services.copilot.validation"
+      ]
+    },
+    {
+      "file": "services/copilot/prompts.py",
+      "imports": []
+    },
+    {
+      "file": "services/copilot/response.py",
+      "imports": [
+        "services.mock_data",
+        "pandas",
+        "services.analytics",
+        "services.copilot.tools"
+      ]
+    },
+    {
+      "file": "services/copilot/tools.py",
+      "imports": [
+        "pandas",
+        "services.analytics",
+        "services.comparison_service",
+        "services.provider",
+        "services.provider",
+        "services.analytics"
+      ]
+    },
+    {
+      "file": "services/copilot/validation.py",
+      "imports": []
+    },
+    {
+      "file": "services/copilot/__init__.py",
+      "imports": []
+    },
+    {
+      "file": "views/alerts.py",
+      "imports": [
+        "streamlit",
+        "html",
+        "components.kpi_cards",
+        "components.status",
+        "components.navigation",
+        "services.analytics",
+        "services.mock_data"
+      ]
+    },
+    {
+      "file": "views/changes.py",
+      "imports": [
+        "datetime",
+        "pandas",
+        "plotly.express",
+        "streamlit",
+        "components.charts",
+        "components.section_header",
+        "components.kpi_cards",
+        "components.evidence",
+        "services.provider",
+        "services.comparison_service",
+        "services.analytics"
+      ]
+    },
+    {
+      "file": "views/comparison.py",
+      "imports": [
+        "html",
+        "json",
+        "pandas",
+        "plotly.express",
+        "streamlit",
+        "components.charts",
+        "components.section_header",
+        "services.provider",
+        "services.export_service",
+        "services",
+        "services",
+        "views.final_delivery",
+        "views.profitability",
+        "services.inference_service",
+        "services.demand_inference"
+      ]
+    },
+    {
+      "file": "views/copilot.py",
+      "imports": [
+        "html",
+        "streamlit",
+        "components.copilot_ui",
+        "components.section_header",
+        "services.copilot_service",
+        "services.copilot.prompts",
+        "services.provider",
+        "components.live_ai",
+        "services.live_insights"
+      ]
+    },
+    {
+      "file": "views/cross_risk.py",
+      "imports": [
+        "streamlit",
+        "plotly.express",
+        "services.profitability_data",
+        "services.export_service",
+        "components.kpi_cards",
+        "components.charts",
+        "views.unavailable"
+      ]
+    },
+    {
+      "file": "views/data.py",
+      "imports": [
+        "streamlit",
+        "components.tables",
+        "components.section_header",
+        "services.analytics",
+        "services.export_service",
+        "services.provider"
+      ]
+    },
+    {
+      "file": "views/delivery.py",
+      "imports": [
+        "pandas",
+        "plotly.express",
+        "streamlit",
+        "html",
+        "components.section_header",
+        "components.kpi_cards",
+        "components.charts",
+        "components.tables",
+        "components.navigation",
+        "components.status",
+        "services.analytics",
+        "services.mock_data",
+        "services.provider",
+        "config",
+        "views.final_delivery"
+      ]
+    },
+    {
+      "file": "views/demand.py",
+      "imports": [
+        "pandas",
+        "plotly.express",
+        "streamlit",
+        "components.kpi_cards",
+        "components.section_header",
+        "components.charts",
+        "components.tables",
+        "components.status",
+        "services.analytics",
+        "config",
+        "services.demand_inference",
+        "services.export_service"
+      ]
+    },
+    {
+      "file": "views/diagnostics.py",
+      "imports": [
+        "importlib.metadata",
+        "platform",
+        "pandas",
+        "streamlit",
+        "components.section_header",
+        "components.loading_states",
+        "components.empty_states",
+        "services.provider",
+        "services.inference_service",
+        "services.demand_inference"
+      ]
+    },
+    {
+      "file": "views/downloads.py",
+      "imports": [
+        "streamlit",
+        "plotly.express",
+        "datetime",
+        "components.section_header",
+        "services.export_service",
+        "services.analytics",
+        "services.mock_data",
+        "components.charts",
+        "services.provider",
+        "services.final_delivery_data",
+        "services.profitability_data"
+      ]
+    },
+    {
+      "file": "views/drift.py",
+      "imports": [
+        "pandas",
+        "streamlit",
+        "components.empty_states",
+        "components.kpi_cards",
+        "components.status",
+        "components.section_header",
+        "views.profitability"
+      ]
+    },
+    {
+      "file": "views/explainability.py",
+      "imports": [
+        "streamlit",
+        "plotly.express",
+        "pandas",
+        "components.section_header",
+        "components.charts",
+        "components.empty_states",
+        "components.kpi_cards",
+        "services.mock_data",
+        "services.provider",
+        "config",
+        "views.profitability"
+      ]
+    },
+    {
+      "file": "views/explorer.py",
+      "imports": [
+        "streamlit",
+        "plotly.express",
+        "components.section_header",
+        "components.navigation",
+        "components.kpi_cards",
+        "components.charts",
+        "components.tables",
+        "services.analytics",
+        "services.provider"
+      ]
+    },
+    {
+      "file": "views/final_delivery.py",
+      "imports": [
+        "numpy",
+        "pandas",
+        "plotly.express",
+        "streamlit",
+        "services",
+        "services.export_service",
+        "components.charts",
+        "components.kpi_cards",
+        "components.section_header",
+        "services",
+        "hashlib",
+        "components.live_ai",
+        "services.export_service",
+        "io"
+      ]
+    },
+    {
+      "file": "views/geography.py",
+      "imports": [
+        "streamlit",
+        "components.charts",
+        "components.section_header",
+        "components.kpi_cards",
+        "components.tables",
+        "components.empty_states",
+        "services.analytics",
+        "plotly.express",
+        "services.provider",
+        "components.charts"
+      ]
+    },
+    {
+      "file": "views/health.py",
+      "imports": [
+        "streamlit",
+        "html",
+        "components.status",
+        "components.navigation",
+        "components.section_header",
+        "services.health_service"
+      ]
+    },
+    {
+      "file": "views/insights.py",
+      "imports": [
+        "streamlit",
+        "components.insights",
+        "components.kpi_cards",
+        "services.analytics",
+        "components.live_ai"
+      ]
+    },
+    {
+      "file": "views/landing.py",
+      "imports": [
+        "components.brand",
+        "streamlit",
+        "components.landing_components",
+        "components.navigation",
+        "services.auth_service",
+        "services.mock_data"
+      ]
+    },
+    {
+      "file": "views/lineage.py",
+      "imports": [
+        "streamlit",
+        "json",
+        "pathlib",
+        "config",
+        "services.provider",
+        "components.landing_components",
+        "components.empty_states",
+        "components.section_header"
+      ]
+    },
+    {
+      "file": "views/login.py",
+      "imports": [
+        "components.brand",
+        "streamlit",
+        "components.auth_components"
+      ]
+    },
+    {
+      "file": "views/models.py",
+      "imports": [
+        "streamlit",
+        "pandas",
+        "plotly.express",
+        "components.section_header",
+        "components.kpi_cards",
+        "components.charts",
+        "components.empty_states",
+        "components.navigation",
+        "services.mock_data",
+        "services.analytics",
+        "services.provider",
+        "config",
+        "services.demand_inference",
+        "views.profitability",
+        "views.final_delivery"
+      ]
+    },
+    {
+      "file": "views/orders.py",
+      "imports": [
+        "html",
+        "pandas",
+        "streamlit",
+        "plotly.express",
+        "components.section_header",
+        "components.charts",
+        "components.navigation",
+        "components.kpi_cards",
+        "components.empty_states",
+        "components.status",
+        "services.mock_data",
+        "services.export_service",
+        "config",
+        "components.feedback",
+        "services.profitability_data"
+      ]
+    },
+    {
+      "file": "views/overview.py",
+      "imports": [
+        "streamlit",
+        "components.section_header",
+        "components.kpi_cards",
+        "components.charts",
+        "components.tables",
+        "components.insights",
+        "components.model_cards",
+        "components.navigation",
+        "components.presentation",
+        "services.analytics",
+        "services.provider"
+      ]
+    },
+    {
+      "file": "views/profitability.py",
+      "imports": [
+        "hashlib",
+        "pandas",
+        "numpy",
+        "plotly.express",
+        "streamlit",
+        "services",
+        "services.export_service",
+        "components.charts",
+        "components.kpi_cards",
+        "components.section_header",
+        "views.unavailable",
+        "components.live_ai",
+        "io"
+      ]
+    },
+    {
+      "file": "views/quality.py",
+      "imports": [
+        "streamlit",
+        "plotly.express",
+        "components.section_header",
+        "components.kpi_cards",
+        "components.charts",
+        "services.analytics",
+        "services.mock_data",
+        "services.provider"
+      ]
+    },
+    {
+      "file": "views/registry.py",
+      "imports": [
+        "views"
+      ]
+    },
+    {
+      "file": "views/reports.py",
+      "imports": [
+        "pandas",
+        "plotly.express",
+        "streamlit",
+        "components.section_header",
+        "components.kpi_cards",
+        "components.charts",
+        "components.empty_states",
+        "components.tables",
+        "services.analytics",
+        "services.export_service",
+        "services.provider",
+        "components.feedback",
+        "services.profitability_data"
+      ]
+    },
+    {
+      "file": "views/scenarios.py",
+      "imports": [
+        "streamlit",
+        "components.section_header",
+        "components.kpi_cards",
+        "components.empty_states",
+        "components.navigation",
+        "services.mock_data",
+        "services.scenario_service",
+        "services.inference_service",
+        "views.profitability",
+        "services.inference_service",
+        "pandas",
+        "services.export_service"
+      ]
+    },
+    {
+      "file": "views/settings.py",
+      "imports": [
+        "streamlit",
+        "components.section_header",
+        "services.provider",
+        "services"
+      ]
+    },
+    {
+      "file": "views/threshold.py",
+      "imports": [
+        "plotly.express",
+        "streamlit",
+        "components.kpi_cards",
+        "components.section_header",
+        "components.charts",
+        "services.analytics",
+        "services.export_service",
+        "config",
+        "views.profitability"
+      ]
+    },
+    {
+      "file": "views/unavailable.py",
+      "imports": [
+        "streamlit",
+        "components.navigation",
+        "components.status",
+        "components.section_header"
+      ]
+    },
+    {
+      "file": "views/__init__.py",
+      "imports": []
+    },
+    {
+      "file": "components/alerts.py",
+      "imports": [
+        "html",
+        "streamlit",
+        "components.status",
+        "components.evidence",
+        "components.navigation",
+        "services.mock_data"
+      ]
+    },
+    {
+      "file": "components/app_shell.py",
+      "imports": [
+        "copy",
+        "datetime",
+        "time",
+        "functools",
+        "streamlit",
+        "config",
+        "components.sidebar",
+        "components.header",
+        "components.filters",
+        "components.status",
+        "components.section_header",
+        "components.evidence",
+        "components.empty_states",
+        "components.error_states",
+        "components.copilot_ui",
+        "components.navigation",
+        "views.registry",
+        "components.filters",
+        "services.provider",
+        "components.decision_context",
+        "components.demo_guide",
+        "components.live_ai"
+      ]
+    },
+    {
+      "file": "components/auth_components.py",
+      "imports": [
+        "streamlit",
+        "components.navigation",
+        "services.auth_service"
+      ]
+    },
+    {
+      "file": "components/brand.py",
+      "imports": []
+    },
+    {
+      "file": "components/breadcrumbs.py",
+      "imports": [
+        "html",
+        "streamlit"
+      ]
+    },
+    {
+      "file": "components/charts.py",
+      "imports": [
+        "plotly.express",
+        "plotly.graph_objects",
+        "streamlit",
+        "services.analytics"
+      ]
+    },
+    {
+      "file": "components/copilot_ui.py",
+      "imports": [
+        "html",
+        "streamlit",
+        "plotly.express",
+        "components.navigation",
+        "components.charts",
+        "components.kpi_cards",
+        "services.export_service",
+        "services.provider"
+      ]
+    },
+    {
+      "file": "components/decision_context.py",
+      "imports": [
+        "html",
+        "streamlit",
+        "services.decision_context"
+      ]
+    },
+    {
+      "file": "components/demo_guide.py",
+      "imports": [
+        "streamlit",
+        "components.navigation"
+      ]
+    },
+    {
+      "file": "components/empty_states.py",
+      "imports": [
+        "html",
+        "streamlit",
+        "components.status"
+      ]
+    },
+    {
+      "file": "components/error_states.py",
+      "imports": [
+        "logging",
+        "streamlit"
+      ]
+    },
+    {
+      "file": "components/evidence.py",
+      "imports": [
+        "streamlit",
+        "services.provider"
+      ]
+    },
+    {
+      "file": "components/feedback.py",
+      "imports": [
+        "streamlit"
+      ]
+    },
+    {
+      "file": "components/filters.py",
+      "imports": [
+        "copy",
+        "datetime",
+        "streamlit",
+        "services.provider",
+        "components.filter_chips",
+        "components.navigation"
+      ]
+    },
+    {
+      "file": "components/filter_chips.py",
+      "imports": [
+        "streamlit"
+      ]
+    },
+    {
+      "file": "components/header.py",
+      "imports": [
+        "streamlit",
+        "components.breadcrumbs",
+        "components.navigation",
+        "components.presentation",
+        "components.search_bar",
+        "services.auth_service"
+      ]
+    },
+    {
+      "file": "components/insights.py",
+      "imports": [
+        "html",
+        "streamlit",
+        "components.status",
+        "components.navigation",
+        "components.evidence",
+        "services.provider"
+      ]
+    },
+    {
+      "file": "components/kpi_cards.py",
+      "imports": [
+        "html",
+        "math",
+        "streamlit"
+      ]
+    },
+    {
+      "file": "components/landing_components.py",
+      "imports": [
+        "html",
+        "base64",
+        "re",
+        "streamlit",
+        "services.mock_data"
+      ]
+    },
+    {
+      "file": "components/live_ai.py",
+      "imports": [
+        "json",
+        "streamlit",
+        "services"
+      ]
+    },
+    {
+      "file": "components/loading_states.py",
+      "imports": [
+        "streamlit"
+      ]
+    },
+    {
+      "file": "components/model_cards.py",
+      "imports": [
+        "html",
+        "streamlit",
+        "services.provider",
+        "components.status"
+      ]
+    },
+    {
+      "file": "components/navigation.py",
+      "imports": [
+        "streamlit"
+      ]
+    },
+    {
+      "file": "components/presentation.py",
+      "imports": [
+        "streamlit"
+      ]
+    },
+    {
+      "file": "components/search_bar.py",
+      "imports": [
+        "streamlit",
+        "components.navigation"
+      ]
+    },
+    {
+      "file": "components/section_header.py",
+      "imports": [
+        "html",
+        "streamlit"
+      ]
+    },
+    {
+      "file": "components/sidebar.py",
+      "imports": [
+        "html",
+        "streamlit",
+        "components.navigation",
+        "services.auth_service",
+        "components.brand",
+        "services.provider"
+      ]
+    },
+    {
+      "file": "components/status.py",
+      "imports": [
+        "html",
+        "streamlit"
+      ]
+    },
+    {
+      "file": "components/tables.py",
+      "imports": [
+        "streamlit",
+        "components.navigation",
+        "services.export_service",
+        "components.feedback"
+      ]
+    },
+    {
+      "file": "components/__init__.py",
+      "imports": []
+    },
+    {
+      "file": "tests/conftest.py",
+      "imports": [
+        "sys",
+        "os",
+        "pathlib"
+      ]
+    },
+    {
+      "file": "tests/test_app.py",
+      "imports": [
+        "pathlib",
+        "pytest",
+        "streamlit.testing.v1",
+        "components.navigation",
+        "config"
+      ]
+    },
+    {
+      "file": "tests/test_delivery_integration.py",
+      "imports": [
+        "pandas",
+        "pytest",
+        "services.verified_data",
+        "services.analytics"
+      ]
+    },
+    {
+      "file": "tests/test_delivery_usability.py",
+      "imports": [
+        "pandas",
+        "pytest",
+        "views.delivery"
+      ]
+    },
+    {
+      "file": "tests/test_demand_inference.py",
+      "imports": [
+        "numpy",
+        "pandas",
+        "pytest",
+        "services.demand_inference"
+      ]
+    },
+    {
+      "file": "tests/test_final_delivery.py",
+      "imports": [
+        "numpy",
+        "pandas",
+        "pytest",
+        "services",
+        "services.provider",
+        "config"
+      ]
+    },
+    {
+      "file": "tests/test_final_polish.py",
+      "imports": [
+        "io",
+        "pandas",
+        "streamlit.testing.v1",
+        "services.decision_context",
+        "services.export_service",
+        "config",
+        "pymupdf"
+      ]
+    },
+    {
+      "file": "tests/test_inference_service.py",
+      "imports": [
+        "json",
+        "hashlib",
+        "numpy",
+        "pandas",
+        "pytest",
+        "services"
+      ]
+    },
+    {
+      "file": "tests/test_parameter_comparison.py",
+      "imports": [
+        "json",
+        "urllib.error",
+        "numpy",
+        "pandas",
+        "pytest",
+        "services",
+        "services"
+      ]
+    },
+    {
+      "file": "tests/test_profitability.py",
+      "imports": [
+        "json",
+        "numpy",
+        "pandas",
+        "pytest",
+        "services",
+        "services.export_service",
+        "pymupdf",
+        "pymupdf",
+        "services.profitability_data",
+        "services.export_service"
+      ]
+    },
+    {
+      "file": "tests/test_release_edges.py",
+      "imports": [
+        "pathlib",
+        "pandas",
+        "pytest",
+        "services.verified_data",
+        "services.export_service",
+        "services",
+        "streamlit.testing.v1",
+        "services",
+        "streamlit.testing.v1",
+        "io",
+        "openpyxl",
+        "services.export_service",
+        "services"
+      ]
+    },
+    {
+      "file": "tests/test_release_security.py",
+      "imports": [
+        "io",
+        "pandas",
+        "pytest",
+        "services.copilot_service",
+        "services.export_service",
+        "services.provider"
+      ]
+    },
+    {
+      "file": "tests/test_services.py",
+      "imports": [
+        "datetime",
+        "io",
+        "pandas",
+        "pytest",
+        "config",
+        "services.provider",
+        "services.analytics",
+        "services.comparison_service",
+        "services.export_service",
+        "services.copilot_service",
+        "services.query_engine",
+        "services.copilot.tools",
+        "services.copilot.validation",
+        "services.verified_data",
+        "services.provider",
+        "services.verified_data",
+        "services.provider"
+      ]
+    },
+    {
+      "file": "tests/test_verified_exports_views.py",
+      "imports": [
+        "io",
+        "pandas",
+        "pytest",
+        "streamlit.testing.v1",
+        "services.export_service",
+        "services.export_service",
+        "importlib"
+      ]
+    },
+    {
+      "file": "scripts/audit_datasets.py",
+      "imports": [
+        "pathlib",
+        "hashlib",
+        "json",
+        "pandas",
+        "numpy"
+      ]
+    },
+    {
+      "file": "scripts/audit_final_delivery.py",
+      "imports": [
+        "sys",
+        "json",
+        "hashlib",
+        "pathlib",
+        "datetime",
+        "numpy",
+        "pandas",
+        "services"
+      ]
+    },
+    {
+      "file": "scripts/audit_profitability.py",
+      "imports": [
+        "pathlib",
+        "datetime",
+        "hashlib",
+        "json",
+        "zipfile",
+        "numpy",
+        "pandas",
+        "sys",
+        "services",
+        "services.provider"
+      ]
+    },
+    {
+      "file": "scripts/backup_artifacts.py",
+      "imports": [
+        "pathlib",
+        "datetime",
+        "hashlib",
+        "json",
+        "zipfile"
+      ]
+    },
+    {
+      "file": "scripts/build_qa_report.py",
+      "imports": [
+        "pathlib",
+        "datetime",
+        "json",
+        "re",
+        "statistics"
+      ]
+    },
+    {
+      "file": "scripts/chart_controls_qa.py",
+      "imports": [
+        "json",
+        "datetime",
+        "pathlib",
+        "playwright.sync_api",
+        "workspace_usability_qa"
+      ]
+    },
+    {
+      "file": "scripts/comparison_browser_qa.py",
+      "imports": [
+        "json",
+        "datetime",
+        "pathlib",
+        "playwright.sync_api",
+        "unified_experience_qa",
+        "workspace_usability_qa"
+      ]
+    },
+    {
+      "file": "scripts/comparison_chart_qa.py",
+      "imports": [
+        "json",
+        "datetime",
+        "playwright.sync_api",
+        "unified_experience_qa",
+        "workspace_usability_qa"
+      ]
+    },
+    {
+      "file": "scripts/comparison_functional_qa.py",
+      "imports": [
+        "os",
+        "sys",
+        "json",
+        "pathlib",
+        "datetime",
+        "streamlit.testing.v1",
+        "services",
+        "services.provider"
+      ]
+    },
+    {
+      "file": "scripts/delivery_usability_qa.py",
+      "imports": [
+        "json",
+        "datetime",
+        "playwright.sync_api",
+        "workspace_usability_qa"
+      ]
+    },
+    {
+      "file": "scripts/export_portable_delivery.py",
+      "imports": [
+        "pathlib",
+        "hashlib",
+        "json",
+        "sys",
+        "joblib",
+        "numpy",
+        "pandas",
+        "services.inference_service"
+      ]
+    },
+    {
+      "file": "scripts/export_portable_demand.py",
+      "imports": [
+        "pathlib",
+        "sys",
+        "json",
+        "hashlib",
+        "joblib",
+        "numpy",
+        "pandas",
+        "services.demand_inference",
+        "services.inference_service"
+      ]
+    },
+    {
+      "file": "scripts/export_portable_final_delivery.py",
+      "imports": [
+        "pathlib",
+        "hashlib",
+        "sys",
+        "json",
+        "joblib",
+        "numpy",
+        "pandas",
+        "services.final_delivery_data"
+      ]
+    },
+    {
+      "file": "scripts/export_portable_profitability.py",
+      "imports": [
+        "pathlib",
+        "hashlib",
+        "sys",
+        "json",
+        "joblib",
+        "numpy",
+        "pandas",
+        "services.profitability_data"
+      ]
+    },
+    {
+      "file": "scripts/final_polish_artifacts.py",
+      "imports": [
+        "sys",
+        "json",
+        "statistics",
+        "pathlib",
+        "time",
+        "datetime",
+        "pandas",
+        "pymupdf",
+        "services.provider",
+        "services.export_service",
+        "config"
+      ]
+    },
+    {
+      "file": "scripts/final_polish_qa.py",
+      "imports": [
+        "json",
+        "datetime",
+        "time",
+        "pathlib",
+        "playwright.sync_api",
+        "workspace_usability_qa"
+      ]
+    },
+    {
+      "file": "scripts/final_release_smoke.py",
+      "imports": [
+        "sys",
+        "json",
+        "pathlib",
+        "datetime",
+        "streamlit.testing.v1",
+        "services",
+        "playwright.sync_api",
+        "unified_experience_qa",
+        "workspace_usability_qa"
+      ]
+    },
+    {
+      "file": "scripts/import_artifacts.py",
+      "imports": [
+        "argparse",
+        "hashlib",
+        "json",
+        "pathlib",
+        "shutil",
+        "pandas"
+      ]
+    },
+    {
+      "file": "scripts/landing_login_qa.py",
+      "imports": [
+        "pathlib",
+        "playwright.sync_api",
+        "playwright.sync_api"
+      ]
+    },
+    {
+      "file": "scripts/performance_qa.py",
+      "imports": [
+        "pathlib",
+        "time",
+        "os",
+        "sys",
+        "json",
+        "io",
+        "pandas",
+        "services.provider",
+        "services.export_service"
+      ]
+    },
+    {
+      "file": "scripts/profitability_browser_qa.py",
+      "imports": [
+        "json",
+        "datetime",
+        "pathlib",
+        "playwright.sync_api",
+        "unified_experience_qa",
+        "workspace_usability_qa"
+      ]
+    },
+    {
+      "file": "scripts/profitability_functional_qa.py",
+      "imports": [
+        "os",
+        "pathlib",
+        "sys",
+        "json",
+        "datetime",
+        "streamlit.testing.v1",
+        "services"
+      ]
+    },
+    {
+      "file": "scripts/public_usability_qa.py",
+      "imports": [
+        "json",
+        "datetime",
+        "pathlib",
+        "playwright.sync_api"
+      ]
+    },
+    {
+      "file": "scripts/refresh_capabilities.py",
+      "imports": [
+        "pathlib",
+        "sys",
+        "json",
+        "services.inference_service",
+        "services.demand_inference"
+      ]
+    },
+    {
+      "file": "scripts/release_acceptance.py",
+      "imports": [
+        "pathlib",
+        "os",
+        "sys",
+        "json",
+        "re",
+        "html",
+        "gc",
+        "base64",
+        "io",
+        "time",
+        "datetime",
+        "urllib.request",
+        "numpy",
+        "pandas",
+        "streamlit.testing.v1",
+        "components.navigation",
+        "services",
+        "services.analytics",
+        "services.export_service",
+        "services.copilot_service",
+        "services.inference_service",
+        "services.demand_inference",
+        "fitz",
+        "unittest.mock",
+        "services"
+      ]
+    },
+    {
+      "file": "scripts/security_audit.py",
+      "imports": [
+        "pathlib",
+        "ast",
+        "json",
+        "re",
+        "subprocess",
+        "sys",
+        "datetime",
+        "tomllib",
+        "services.inference_service",
+        "services.query_engine",
+        "pandas",
+        "services.copilot_service",
+        "services.provider"
+      ]
+    },
+    {
+      "file": "scripts/showcase_qa.py",
+      "imports": [
+        "pathlib",
+        "time",
+        "datetime",
+        "json",
+        "re",
+        "urllib.request",
+        "pandas",
+        "numpy",
+        "pymupdf",
+        "playwright.sync_api"
+      ]
+    },
+    {
+      "file": "scripts/unified_experience_qa.py",
+      "imports": [
+        "json",
+        "sys",
+        "datetime",
+        "playwright.sync_api",
+        "workspace_usability_qa"
+      ]
+    },
+    {
+      "file": "scripts/verified_browser_qa.py",
+      "imports": [
+        "pathlib",
+        "json",
+        "re",
+        "playwright.sync_api"
+      ]
+    },
+    {
+      "file": "scripts/verify_integration.py",
+      "imports": [
+        "os",
+        "pathlib",
+        "sys",
+        "json",
+        "hashlib",
+        "streamlit.testing.v1",
+        "components.navigation",
+        "services.provider",
+        "services.inference_service",
+        "services.demand_inference",
+        "pandas"
+      ]
+    },
+    {
+      "file": "scripts/verify_pdf.py",
+      "imports": [
+        "sys",
+        "pathlib",
+        "pymupdf",
+        "services.provider",
+        "services.export_service"
+      ]
+    },
+    {
+      "file": "scripts/visual_qa.py",
+      "imports": [
+        "pathlib",
+        "re",
+        "playwright.sync_api"
+      ]
+    },
+    {
+      "file": "scripts/workspace_usability_qa.py",
+      "imports": [
+        "csv",
+        "io",
+        "json",
+        "os",
+        "datetime",
+        "pathlib",
+        "playwright.sync_api"
+      ]
+    },
+    {
+      "file": "app.py",
+      "imports": [
+        "streamlit",
+        "components.app_shell",
+        "views",
+        "pandas",
+        "os",
+        "openai",
+        "os",
+        "openai"
+      ]
+    },
+    {
+      "file": "config.py",
+      "imports": [
+        "pathlib",
+        "os"
+      ]
+    }
+  ],
+  "external_ai_and_ui_calls": [
+    {
+      "file": "services/ai_narration.py",
+      "line": 56,
+      "call": "request.urlopen"
+    },
+    {
+      "file": "views/comparison.py",
+      "line": 214,
+      "call": "ai_narration.narrate"
+    },
+    {
+      "file": "views/copilot.py",
+      "line": 23,
+      "call": "live_ai"
+    },
+    {
+      "file": "views/final_delivery.py",
+      "line": 53,
+      "call": "live_ai"
+    },
+    {
+      "file": "views/insights.py",
+      "line": 9,
+      "call": "live_ai"
+    },
+    {
+      "file": "views/profitability.py",
+      "line": 122,
+      "call": "live_ai"
+    },
+    {
+      "file": "views/settings.py",
+      "line": 44,
+      "call": "ai_narration.narrate"
+    },
+    {
+      "file": "components/app_shell.py",
+      "line": 123,
+      "call": "live_ai"
+    },
+    {
+      "file": "components/live_ai.py",
+      "line": 20,
+      "call": "ai_narration.narrate"
+    },
+    {
+      "file": "tests/test_parameter_comparison.py",
+      "line": 92,
+      "call": "ai.narrate"
+    },
+    {
+      "file": "tests/test_parameter_comparison.py",
+      "line": 101,
+      "call": "ai.narrate"
+    },
+    {
+      "file": "tests/test_parameter_comparison.py",
+      "line": 107,
+      "call": "ai.narrate"
+    },
+    {
+      "file": "tests/test_parameter_comparison.py",
+      "line": 117,
+      "call": "ai.narrate"
+    },
+    {
+      "file": "tests/test_parameter_comparison.py",
+      "line": 123,
+      "call": "ai.narrate"
+    },
+    {
+      "file": "tests/test_verified_exports_views.py",
+      "line": 67,
+      "call": "requests.append"
+    },
+    {
+      "file": "scripts/profitability_functional_qa.py",
+      "line": 45,
+      "call": "at.button(key='live_ai_copilot_generate').click().run"
+    },
+    {
+      "file": "scripts/profitability_functional_qa.py",
+      "line": 45,
+      "call": "at.button(key='live_ai_copilot_generate').click"
+    },
+    {
+      "file": "scripts/release_acceptance.py",
+      "line": 202,
+      "call": "urllib.request.urlopen('http://127.0.0.1:8501/_stcore/health', timeout=10).read"
+    },
+    {
+      "file": "scripts/release_acceptance.py",
+      "line": 202,
+      "call": "urllib.request.urlopen"
+    },
+    {
+      "file": "scripts/showcase_qa.py",
+      "line": 92,
+      "call": "urllib.request.urlopen('http://127.0.0.1:8501/_stcore/health', timeout=10).read"
+    },
+    {
+      "file": "scripts/showcase_qa.py",
+      "line": 92,
+      "call": "urllib.request.urlopen"
+    },
+    {
+      "file": "app.py",
+      "line": 29,
+      "call": "client.chat.completions.create"
+    }
+  ],
+  "local_secret_findings": [],
+  "background_jobs": "No application scheduler/background AI worker",
+  "caching": "lru_cache for registered CSV/model assets; session AI results keyed by input/model signature",
+  "dependencies": [
+    "requirements-dev.txt",
+    "requirements-inference.txt",
+    "requirements-security.txt",
+    "requirements.txt"
+  ],
+  "test_config_files": [
+    "pytest.ini"
+  ],
+  "known_ai_dependency_map": "views/comparison.py and components/live_ai.py -> services/ai_narration.py; component live evidence from services/live_insights.py; XGBoost inference remains independent"
+}

@@ -5,6 +5,8 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright,expect
 from unified_experience_qa import ready,contrast
 from workspace_usability_qa import ROOT,BASE,theme
+import sys
+sys.path.insert(0,str(ROOT))
 OUTPUT=ROOT/'tmp/screenshots/comparison';OUTPUT.mkdir(parents=True,exist_ok=True)
 REPORT=ROOT/'metadata/comparison_browser_qa.json'
 report={'checked_at':datetime.now(timezone.utc).isoformat(),'passed':False,'checks':[],'errors':[]}
@@ -36,9 +38,11 @@ try:
             assert toolbar.locator('.modebar-btn').count()>=4
             report['checks'].append(kind+' and visible chart controls')
         page.get_by_role('tab',name='Key insights',exact=True).click();ready(page)
-        expect(page.get_by_role('button',name='Generate AI insights',exact=True)).to_be_disabled()
-        expect(page.get_by_text('OpenAI analyst narrative',exact=True)).to_be_visible()
-        report['checks'].append('Evidence insights and clear missing-key state')
+        from services.ai_narration import status
+        if not status()['available']:expect(page.get_by_role('button',name='Generate AI insights',exact=True)).to_be_disabled()
+        else:expect(page.get_by_role('button',name='Generate AI insights',exact=True)).to_be_enabled()
+        expect(page.get_by_text('AI analyst narrative',exact=True)).to_be_visible()
+        report['checks'].append('Evidence insights and AI button matches current provider configuration')
         page.get_by_role('tab',name='Predictions',exact=True).click();ready(page)
         page.get_by_role('button',name='Run trained predictions',exact=True).click();ready(page)
         expect(page.get_by_role('button',name='Download trained predictions',exact=True)).to_be_visible()

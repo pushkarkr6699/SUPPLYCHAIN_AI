@@ -37,6 +37,8 @@ ROUTE_DATASET = {
 def dataset_for_route(route):
     if get_service().demo:
         return "demo"
+    if route == "delivery" and st.session_state.get("delivery_final_experiment"):
+        return "delivery_final"
     if route in {"data", "quality", "downloads", "explorer", "comparison", "insights", "explainability", "threshold", "drift"}:
         return st.session_state.get(f"{route}_dataset", "delivery")
     if route == "copilot":

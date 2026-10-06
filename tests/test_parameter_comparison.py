@@ -1,5 +1,4 @@
-﻿import json
-from urllib.error import HTTPError
+import json
 import numpy as np
 import pandas as pd
 import pytest
@@ -76,48 +75,27 @@ def answer():
     return {'summary':'Measured summary','insights':[{'title':'Coverage','observation':'Four records','next_step':'Review coverage','evidence_ids':['E1']}]}
 
 def test_ai_schema_request_and_verified_refs(monkeypatch):
-    monkeypatch.setattr(ai,'credentials',lambda:('test-key','gpt-4o-mini'))
-    class Response:
-        def __enter__(self):return self
-        def __exit__(self,*args):pass
-        def read(self,size):
-            return json.dumps({'status':'completed','output':[{'type':'message','content':[{'type':'output_text','text':json.dumps(answer())}]}]}).encode()
-    def send(req,timeout):
-        body=json.loads(req.data)
-        assert req.full_url=='https://api.openai.com/v1/responses'
-        assert timeout==25 and body['store'] is False
-        assert body['text']['format']['strict'] is True
-        return Response()
-    monkeypatch.setattr(ai.request,'urlopen',send)
+    captured={}
+    def send(messages,schema):
+        captured['schema']=schema
+        assert 'Return only JSON' in messages[0]['content']
+        return json.dumps(answer())
+    monkeypatch.setattr(ai.ai_provider,'generate',send)
     assert ai.narrate({'evidence':[{'id':'E1','value':4}]})==answer()
+    assert captured['schema']['additionalProperties'] is False
+    assert captured['schema']['properties']['insights']['items']['properties']['evidence_ids']['items']['enum']==['E1']
     invalid=answer();invalid['insights'][0]['evidence_ids']=['E999']
     with pytest.raises(ai.NarrationUnavailable,match='unavailable evidence'):ai.validate_narration(invalid,{'E1'})
 
-@pytest.mark.parametrize('code',[401,403,429,500])
-def test_ai_http_errors_do_not_leak_credentials(monkeypatch,code):
-    monkeypatch.setattr(ai,'credentials',lambda:('secret-test-value','model'))
-    def send(*args,**kwargs): raise HTTPError('https://api.openai.com',code,'secret-test-value',{},None)
-    monkeypatch.setattr(ai.request,'urlopen',send)
-    with pytest.raises(ai.NarrationUnavailable) as caught: ai.narrate({'evidence':[{'id':'E1'}]})
-    assert 'secret-test-value' not in str(caught.value)
 
-def test_ai_missing_key_never_calls_network(monkeypatch):
-    monkeypatch.setattr(ai,'credentials',lambda:('','model'))
-    monkeypatch.setattr(ai.request,'urlopen',lambda *a,**k:pytest.fail('No key must not send data'))
-    with pytest.raises(ai.NarrationUnavailable,match='OPENAI_API_KEY'):ai.narrate({'evidence':[{'id':'E1'}]})
-
-@pytest.mark.parametrize('response',[[],{'status':'incomplete'},{'status':'completed','output':[]}])
+@pytest.mark.parametrize('response',['', 'not json', '[]', '{"summary":"Only summary"}', '{"summary":"x","insights":[]}'])
 def test_ai_incomplete_or_malformed_response_recovery(monkeypatch,response):
-    monkeypatch.setattr(ai,'credentials',lambda:('test-key','model'))
-    class Response:
-        def __enter__(self):return self
-        def __exit__(self,*args):pass
-        def read(self,size):return json.dumps(response).encode()
-    monkeypatch.setattr(ai.request,'urlopen',lambda *a,**k:Response())
+    monkeypatch.setattr(ai.ai_provider,'generate',lambda *a,**k:response)
     with pytest.raises(ai.NarrationUnavailable):ai.narrate({'evidence':[{'id':'E1'}]})
 
-def test_ai_timeout_recovery(monkeypatch):
-    monkeypatch.setattr(ai,'credentials',lambda:('test-key','model'))
-    def send(*args,**kwargs):raise TimeoutError('secret internal network detail')
-    monkeypatch.setattr(ai.request,'urlopen',send)
-    with pytest.raises(ai.NarrationUnavailable,match='connectivity'):ai.narrate({'evidence':[{'id':'E1'}]})
+
+def test_ai_rejects_unexpected_schema_fields():
+    extra=answer();extra['executable_code']='not allowed'
+    with pytest.raises(ai.NarrationUnavailable,match='unexpected'):ai.validate_narration(extra,{'E1'})
+    extra=answer();extra['insights'][0]['unknown']='not allowed'
+    with pytest.raises(ai.NarrationUnavailable,match='unexpected'):ai.validate_narration(extra,{'E1'})

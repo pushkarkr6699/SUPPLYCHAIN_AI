@@ -1,0 +1,38 @@
+{
+  "checked_at": "2026-10-06T09:13:08.728648+00:00",
+  "provider": "Hugging Face Inference Providers",
+  "model": "openai/gpt-oss-120b:groq",
+  "endpoint": "https://router.huggingface.co/v1",
+  "sdk": "openai==3.24.0",
+  "environment_variables": [
+    "HF_TOKEN",
+    "HF_MODEL"
+  ],
+  "regression_tests": {
+    "passed": 185,
+    "failed": 0,
+    "warnings": 13
+  },
+  "verified_routes": 28,
+  "artifact_hashes_verified": 41,
+  "controlled_ai_panels_passed": 9,
+  "live_tests": {
+    "capital_of_france": true,
+    "browser_settings_connection": true,
+    "browser_synthetic_overview": true,
+    "supplied_business_dataset_narration": "blocked_pending_explicit_transfer_approval"
+  },
+  "browser_regressions": {
+    "comparison": true,
+    "profitability": true,
+    "final_delivery": true,
+    "desktop_mobile_themes": true
+  },
+  "failure_tests": "passed with mocked upstream transport; no deliberate invalid live credential requests",
+  "security": "passed; server-only credentials, ignored .env, blank example, enabled CORS/XSRF, no browser token/direct AI requests",
+  "remaining": [
+    "Explicit authorization and live tests exporting anonymized supplied-business summaries to Hugging Face/Groq",
+    "Existing production identity/authorization and incomplete original model input limitations remain unchanged"
+  ],
+  "start_command": ".\\.venv\\Scripts\\python.exe -m streamlit run app.py --server.address=127.0.0.1 --server.port=8501"
+}

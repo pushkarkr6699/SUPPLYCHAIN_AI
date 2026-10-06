@@ -8,22 +8,22 @@ Open the local preview at http://127.0.0.1:8501, select **Open platform**, then 
 4. Choose up to three grouping fields (two plus Cohort for A/B), and one to eight numeric/Boolean measures. Numeric fields can be grouping fields too; a field cannot occupy both roles.
 5. Choose Mean, Sum, Median, Minimum or Maximum; date grouping; graph type; scale; and analysis focus. Press **Apply comparison**.
 6. Explore bars, date trends, scatter plots, correlations and distributions. The shared chart toolbar supplies zoom, pan, autoscale, reset, image export and fullscreen where applicable to the chart type.
-7. Read **Key insights** for computed findings with evidence IDs, or generate optional OpenAI narration.
+7. Read **Key insights** for computed findings with evidence IDs, or generate optional Hugging Face narration.
 8. Open **Predictions** and run the registered trained model. Delivery scores matching orders using the validated training features. Demand forecasts next-day web visits for selected products, retaining earlier history to build lags.
 9. Download the complete comparison CSV, evidence JSON brief, or trained predictions. Chart display limits do not truncate the comparison export.
 
-## Optional OpenAI narration
+## Optional Hugging Face narration
 
 In the ignored local `.env`, configure:
 
 ```dotenv
-OPENAI_API_KEY=your_key_here
-OPENAI_MODEL=gpt-4o-mini
+HF_TOKEN=
+HF_MODEL=openai/gpt-oss-120b:groq
 ```
 
 Keep the real key out of chat and Git. Refresh the page after configuring it, then press **Generate AI insights**. Environment values override `.env`. API usage is billed separately by the API provider.
 
-Narration is an explicit server-side request using the [OpenAI Responses API with Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs?api-mode=responses). Only computed aggregate values, field names, analysis focus and anonymous segment labels are sent. Order IDs, product names, raw rows and selected cohort values stay local. Responses use `store=false`, strict JSON schema and validated evidence references. A timeout, missing key, quota error or refused response leaves local analysis usable. Returned text is displayed without executing HTML or code.
+Narration is an explicit server-side request using the OpenAI-compatible chat completions through the Hugging Face router (`https://router.huggingface.co/v1`) using the OpenAI Python SDK. Only computed aggregate values, field names, analysis focus and anonymous segment labels are sent. Order IDs, product names, raw rows and selected cohort values stay local. Responses use strict JSON schema and validated evidence references. A timeout, missing key, quota error or refused response leaves local analysis usable. Returned text is displayed without executing HTML or code.
 
 Generated narratives and predictions belong to the current data and calculation signature. Changing selections hides stale results. Current AI narration is included in the evidence brief. Trained inference is independent of generative AI and requires verified artifacts; synthetic demo records never execute trained inference.
 

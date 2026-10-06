@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "live_operation": "Executive Overview",
+  "live_result_displayed": true,
+  "payload": "synthetic demo fixtures",
+  "browser_credential_findings": 0,
+  "browser_external_ai_requests": 0,
+  "browser_js_errors": 0
+}

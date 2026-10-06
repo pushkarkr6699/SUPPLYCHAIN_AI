@@ -15,16 +15,17 @@ def render(df):
     dataset = st.selectbox("Dataset", ["delivery", "demand", "profitability"], format_func=str.title, key="copilot_dataset")
     active = st.session_state.get("filters", {}) if service.demo or st.session_state.get("active_filter_dataset") == dataset else st.session_state.get("filters_by_dataset", {}).get(dataset, {})
     df = service.records(active, dataset=dataset)
-    engine = st.radio("Analysis engine", ["Local calculations", "Live OpenAI"], horizontal=True, key="copilot_engine")
-    if engine == "Live OpenAI" or dataset == "profitability":
+    if st.session_state.get("copilot_engine") == "Live OpenAI": st.session_state.copilot_engine = "Live AI"
+    engine = st.radio("Analysis engine", ["Local calculations", "Live AI"], horizontal=True, key="copilot_engine")
+    if engine == "Live AI" or dataset == "profitability":
         from components.live_ai import render as live_ai
         question=st.text_area("Your analytical question", value="Explain the key patterns, reliability and review priorities.", max_chars=1000, key="copilot_live_question")
-        if engine == "Live OpenAI":
+        if engine == "Live AI":
             live_ai(df,"copilot",question)
         else:
             from services.live_insights import context
             facts,_,_=context(df,question)
-            st.caption("Computed profitability evidence. Choose Live OpenAI for a written interpretation of your question.")
+            st.caption("Computed profitability evidence. Choose Live AI for a written interpretation of your question.")
             for fact in facts:st.write(fact["text"])
         return
     st.caption("OFFLINE ANALYTICAL ASSISTANT · Deterministic calculations · " + df.attrs.get("data_source", "DEMO UI DATA") + " · No external AI service")

@@ -197,22 +197,23 @@ def render(df):
         for fact in facts:
             st.write(f"**{fact['id']} · {fact['title']}**")
             st.write(fact['text'])
-        section('OpenAI analyst narrative','An interpretation of aggregate evidence with references to the calculations above.')
+        section('AI analyst narrative','An interpretation of aggregate evidence with references to the calculations above.')
         state=ai_narration.status()
-        st.caption('Only computed values and anonymized segment labels are sent to OpenAI. Raw records, order IDs, product names and cohort value selections stay local.')
+        ai_token=analysis.signature(frame,dict(parameters,ai_model=state['model'],ai_provider=state['provider']))
+        st.caption('Only computed values and anonymized segment labels are sent to Hugging Face and the selected inference provider. Raw records, order IDs, product names and cohort value selections stay local.')
         payload=analysis.narration_payload(facts,parameters,'Verified historical data' if frame.attrs.get('verified_artifacts') else 'Synthetic demonstration data');payload['focus']=focus;payload['limitations']=frame.attrs.get('evaluation_note','Historical data');payload['grain']=frame.attrs.get('grain','Dataset observations')
         if not state['available']:
             st.info(state['reason'])
             with st.expander('Configure AI narration'):
-                st.code('OPENAI_API_KEY=your_key_here\nOPENAI_MODEL=gpt-4o-mini',language='bash')
+                st.code('HF_TOKEN=your_local_token\nHF_MODEL=openai/gpt-oss-120b:groq',language='bash')
                 st.caption('Add these settings to the ignored project .env or your process environment. Never put the real key in a committed file. Retry when configured.')
         saved=st.session_state.get('comparison_narration')
-        current=saved and saved['token']==token
+        current=saved and saved['token']==ai_token
         if st.button('Generate AI insights',key='comparison_generate_ai',disabled=not state['available'] or bool(current),type='primary'):
             try:
                 with st.spinner('Interpreting the selected comparison evidence…'):
                     answer=ai_narration.narrate(payload)
-                saved={'token':token,'answer':answer,'model':state['model']};st.session_state.comparison_narration=saved;current=True
+                saved={'token':ai_token,'answer':answer,'model':state['model']};st.session_state.comparison_narration=saved;current=True
             except ai_narration.NarrationUnavailable as exc:st.error(str(exc))
         if current:
             answer=saved['answer'];st.write(answer['summary'])
@@ -230,7 +231,7 @@ def render(df):
         st.download_button('Download comparison CSV',csv_bytes(table,frame.attrs.get('data_source')),'parameter_comparison.csv','text/csv',key='comparison_csv',on_click='ignore')
         manifest={'parameters':parameters,'records':len(frame),'groups':len(table),'source':frame.attrs.get('data_source','Synthetic demo data'),'workspace_filters':st.session_state.get('filters',{}),'evidence':facts,'note':'Historical observations; association is not causation. No delivery-to-demand join.'}
         saved_narration=st.session_state.get('comparison_narration')
-        if saved_narration and saved_narration['token']==token:
+        if saved_narration and saved_narration['token']==ai_token:
             manifest['ai_narration']={'model':saved_narration['model'],'answer':saved_narration['answer']}
         st.download_button('Download evidence brief',json.dumps(manifest,default=str,indent=2).encode(),'comparison_evidence.json','application/json',key='comparison_brief',on_click='ignore')
         st.dataframe(pd.DataFrame(facts)[['id','title','text']],hide_index=True,width='stretch')
