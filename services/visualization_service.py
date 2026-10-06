@@ -10,6 +10,8 @@ COMPOSITION = {'Treemap','Sunburst','Pie','Donut'}
 
 
 def units(field, frame):
+    if field == frame.attrs.get('generated_measure'):return 'records'
+    if field == 'Predicted Visits' and frame.attrs.get('units') == 'web visits':return 'web visits'
     if 'Probability' in field or pd.api.types.is_bool_dtype(frame[field]):return 'fraction (0-1)'
     if field in {'Forecast Demand','Actual Demand','Forecast Error','Absolute Error','Lower','Upper','Lower Bound','Upper Bound'}:
         return 'web visits' if frame.attrs.get('verified_artifacts') and (frame.attrs.get('dataset')=='demand' or frame.attrs.get('artifact')=='AccessLogs_Final_Advanced_Forecast.csv') else 'source demand units'
@@ -81,7 +83,7 @@ def build(frame, kind, groups, metrics, operation='Mean', period='Day', limit=20
         note=f'{operation} in original field units, in separate measure panels. Largest {len(data):,} of {len(table):,} groups by record count.'
         shown=data
     elif kind in {'Line','Area'}:
-        if 'Date' not in frame:raise ValueError('Time charts require a Date field in the connected dataset.')
+        if 'Date' not in frame or not pd.api.types.is_datetime64_any_dtype(frame['Date']):raise ValueError('Time charts require a valid date field. Select a time field when preparing uploaded data.')
         dims=[c for c in groups if c!='Date']
         data=analysis.comparison(frame,['Date',*dims],metrics,operation,period)
         data['Series']=analysis.segment_labels(data,dims)

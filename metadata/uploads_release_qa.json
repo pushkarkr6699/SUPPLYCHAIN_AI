@@ -1,0 +1,39 @@
+{
+  "status": "passed",
+  "checked_at_utc": "2026-10-06T17:30:37.343886+00:00",
+  "feature": "Bring Your Data",
+  "full_regression": {
+    "passed": 280,
+    "warnings": 18,
+    "seconds": 133.32
+  },
+  "final_focused_checks": {
+    "upload_and_charts_passed": 71,
+    "registered_model_output_checks_passed": 4
+  },
+  "browser_reports": [
+    "metadata/uploads_browser_qa.json",
+    "metadata/uploads_models_browser_qa.json"
+  ],
+  "live_ai_report": "metadata/uploads_live_ai_qa.json",
+  "security_report": "metadata/security_audit.json",
+  "supported_formats": [
+    "CSV",
+    "TSV",
+    "XLSX",
+    "flat JSON"
+  ],
+  "chart_types": 18,
+  "registered_models": 4,
+  "privacy": "Session-only imports; external uploaded-data AI requires file-specific consent and anonymous numerical evidence",
+  "built_in_demo_preserved": true,
+  "original_datasets_and_model_artifacts_modified": false,
+  "new_dependencies": false,
+  "preview": "http://127.0.0.1:8501",
+  "limitations": [
+    "Local showcase session access is not production authentication",
+    "Complete compatible training features are required for model predictions",
+    "Compatibility does not establish predictive accuracy on a new population",
+    "Profitability historical discrimination is weak; supplied-score parity is unavailable for profitability and final delivery"
+  ]
+}

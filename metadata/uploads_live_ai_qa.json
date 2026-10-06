@@ -1,0 +1,19 @@
+{
+  "status": "passed",
+  "recorded_at_utc": "2026-10-06T17:20:32.514314+00:00",
+  "verification": "Actual successful service.upload_service.narrate request during this release",
+  "data": "Anonymous aggregates from three synthetic records; no private uploaded rows, headers or group labels",
+  "consent": true,
+  "insights_returned": 5,
+  "validated_evidence_ids": [
+    "E1",
+    "E2",
+    "E3",
+    "E4",
+    "E5",
+    "E6"
+  ],
+  "provider": "Hugging Face Inference Providers",
+  "model": "openai/gpt-oss-120b:groq",
+  "secrets_in_report": false
+}

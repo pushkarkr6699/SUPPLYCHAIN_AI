@@ -26,7 +26,7 @@ for path in source:
             findings.append({"check":"nonconstant SQL","path":path.relative_to(ROOT).as_posix(),"line":node.lineno})
 
 tracked=subprocess.run(["git","-c","safe.directory=D:/SUPPLYCHAIN_AI","ls-files","-z"],cwd=ROOT,capture_output=True,check=True).stdout.decode().split("\0")
-secret_patterns=[r"sk-[A-Za-z0-9_-]{24,}",r"gh[pousr]_[A-Za-z0-9]{30,}",r"AKIA[A-Z0-9]{16}",r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----"]
+secret_patterns=[r"hf_[A-Za-z0-9]{24,}",r"sk-[A-Za-z0-9_-]{24,}",r"gh[pousr]_[A-Za-z0-9]{30,}",r"AKIA[A-Z0-9]{16}",r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----"]
 scanned=0
 for name in tracked:
     if not name: continue

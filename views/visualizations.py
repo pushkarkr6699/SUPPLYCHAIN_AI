@@ -11,10 +11,11 @@ from services import visualization_service as viz, parameter_comparison as analy
 SOURCES={'delivery':'Delivery orders','demand':'Demand forecasts','profitability':'Profitability line items','delivery_final':'Final delivery line observations'}
 
 
-def board(frame,dataset,primary=False):
+def board(frame,dataset,primary=False,label=None):
     prefix='viz_'+dataset
-    section(SOURCES.get(dataset,'Demo workspace'),'Workspace filters' if primary else 'Independent source period; not joined to the primary dataset')
-    if not primary and not frame.empty:
+    has_dates='Date' in frame and pd.api.types.is_datetime64_any_dtype(frame['Date']) and frame['Date'].notna().any()
+    section(label or SOURCES.get(dataset,'Demo workspace'),'Uploaded selection' if frame.attrs.get('uploaded') else 'Workspace filters' if primary else 'Independent source period; not joined to the primary dataset')
+    if not primary and not frame.empty and has_dates:
         low,high=frame.Date.min().date(),frame.Date.max().date()
         dates=st.date_input('Additional source period',value=(low,high),min_value=low,max_value=high,key=prefix+'_period')
         if len(dates)!=2:st.info('Choose both start and end dates.');return
@@ -22,13 +23,17 @@ def board(frame,dataset,primary=False):
     if frame.empty:st.info('No matching records. Broaden this source period or reset workspace filters.');return
     fields,numeric=analysis.catalog(frame)
     if not numeric:st.info('This source has no numeric measures.');return
-    preferred=['Risk Probability','Actual Late'] if dataset=='delivery_final' else ['Forecast Demand','Actual Demand'] if dataset=='demand' else ['Profit','Profitability Probability'] if dataset=='profitability' else ['Risk Probability','Sales']
+    model=frame.attrs.get('model_key',dataset)
+    preferred=['Risk Probability','Actual Late','Predicted Late'] if model=='delivery_final' else ['Forecast Demand','Actual Demand','Predicted Visits'] if model=='demand' else ['Profit','Profitability Probability','Loss Probability'] if model=='profitability' else ['Risk Probability','Sales']
     defaults=list(dict.fromkeys([c for c in preferred if c in numeric]+numeric))[:2]
     group=next((c for c in ['Market','Category','Shipping Mode','Region'] if c in fields),None)
-    initial={'groups':[group] if group else [],'metrics':defaults,'operation':'Mean','period':'Day','limit':20,'size':'Record count','charts':['Vertical bars','Line','Histogram']}
+    if group is None and frame.attrs.get('uploaded'):
+        group=next((c for c in fields if c not in numeric and not pd.api.types.is_datetime64_any_dtype(frame[c])),None)
+    initial={'groups':[group] if group else [],'metrics':defaults,'operation':'Sum' if frame.attrs.get('generated_measure') else 'Mean','period':'Day','limit':20,'size':'Record count','charts':['Vertical bars','Line','Histogram']}
     plan=st.session_state.get(prefix+'_plan',initial)
     plan={**initial,**plan,'groups':[c for c in plan['groups'] if c in fields],'metrics':[c for c in plan['metrics'] if c in numeric]}
-    st.caption(f'{len(frame):,} records | {frame.Date.min():%d %b %Y} - {frame.Date.max():%d %b %Y} | '+str(frame.attrs.get('data_source','Synthetic demo workspace')))
+    period_label=f'{frame.Date.min():%d %b %Y} - {frame.Date.max():%d %b %Y}' if has_dates else 'No time axis selected'
+    st.caption(f'{len(frame):,} records | '+period_label+' | '+str(frame.attrs.get('data_source','Synthetic demo workspace')))
     with st.form(prefix+'_builder'):
         a,b=st.columns(2)
         groups=a.multiselect('Grouping fields',fields,default=plan['groups'],max_selections=2,key=prefix+'_groups')
@@ -63,7 +68,7 @@ def board(frame,dataset,primary=False):
         st.dataframe(table.head(1000),hide_index=True,width='stretch')
         if len(table)>1000:st.caption(f'Preview: first 1,000 of {len(table):,} groups. Download includes every group.')
         st.download_button('Download analysis CSV',csv_bytes(table,frame.attrs.get('data_source')),dataset+'_visualization_analysis.csv','text/csv',key=prefix+'_csv',on_click='ignore')
-        st.download_button('Download chart settings',json.dumps({'dataset':dataset,'records':len(frame),'period':[str(frame.Date.min()),str(frame.Date.max())],'source':frame.attrs.get('data_source'),**plan},indent=2).encode(),dataset+'_chart_settings.json','application/json',key=prefix+'_settings',on_click='ignore')
+        st.download_button('Download chart settings',json.dumps({'dataset':dataset,'records':len(frame),'period':[str(frame.Date.min()),str(frame.Date.max())] if has_dates else None,'source':frame.attrs.get('data_source'),**plan},indent=2).encode(),dataset+'_chart_settings.json','application/json',key=prefix+'_settings',on_click='ignore')
     st.caption('Zoom, pan, autoscale, reset, fullscreen and PNG export are available in each compatible chart toolbar. Composition charts use count/area controls instead of Cartesian axis zoom.')
 
 

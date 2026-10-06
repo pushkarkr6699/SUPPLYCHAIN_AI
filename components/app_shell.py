@@ -73,6 +73,12 @@ def render():
         st.session_state.route = route
     title, description, view = PAGES[route]
     page_title(title, description)
+    if route == 'uploads':
+        with st.container(key='dashboard'):
+            view(None)
+        st.session_state.last_render_ms = round((perf_counter() - started) * 1000, 2)
+        # Uploaded data never reaches the global assistant or built-in dataset filters.
+        return None, route, 'uploads'
     if route == "overview":
         hour = datetime.now().astimezone().hour
         greeting = "Good morning" if hour < 12 else "Good afternoon" if hour < 17 else "Good evening"

@@ -1,0 +1,22 @@
+{
+  "passed": true,
+  "checked_at_utc": "2026-10-06T17:23:27.984809+00:00",
+  "checks": [
+    "CSV types/date preparation, three charts, controls and formula-safe download",
+    "Consented live AI control enabled; unconsented control disabled",
+    "Light 390px and dark 320px layouts without horizontal page overflow",
+    "Changing file revokes AI consent and resets types, charts and results",
+    "Categorical-only uploads produce counts without fabricated numeric model inputs",
+    "TSV, flat JSON and values-only XLSX import",
+    "Malformed CSV and XLSX formulas fail with recoverable validation feedback",
+    "Delivery order risk actual uploaded inference, charts and prediction download",
+    "Next-day web visits actual uploaded inference, charts and prediction download",
+    "Profitability line items actual uploaded inference, charts and prediction download",
+    "Final delivery line items actual uploaded inference, charts and prediction download",
+    "Missing features disable scoring; stale prediction downloads disappear",
+    "Clear uploads removes session data and resets the uploader"
+  ],
+  "live_ai_synthetic_test": "not rerun; independently verified on synthetic evidence",
+  "browser_errors": [],
+  "screenshots": "tmp/screenshots/uploads"
+}

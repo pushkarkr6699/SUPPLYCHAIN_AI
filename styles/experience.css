@@ -1,5 +1,16 @@
 /* One interaction language across the public site, session login and workspace. */
 :root { --motion-fast:160ms; --motion-enter:360ms; --motion-ease:cubic-bezier(.2,.7,.2,1); }
+/* Imported filenames and drop targets follow the active workspace theme. */
+.stApp:has(.st-key-top_header) [data-testid="stFileUploader"],
+.stApp:has(.st-key-top_header) [data-testid="stFileUploader"] > div,
+.stApp:has(.st-key-top_header) [data-testid="stFileUploader"] section,
+.stApp:has(.st-key-top_header) [data-testid="stFileUploader"] [data-testid*="File"] {
+  background:var(--surface)!important; color:var(--text)!important;
+}
+.stApp:has(.st-key-top_header) [data-testid="stFileUploader"] :is(p,span,small) { color:var(--text)!important; }
+.stApp:has(.st-key-top_header) [data-testid="stFileUploader"] [data-testid="stFileUploaderDropzone"] {
+  border:1px dashed var(--border)!important; border-radius:10px!important;
+}
 /* Explicit inverse surfaces protect sidebar text in every native disclosure state. */
 .stApp:has(.st-key-top_header) [data-testid="stSidebar"] [data-testid="stExpander"] details { background:transparent!important; }
 .stApp:has(.st-key-top_header) [data-testid="stSidebar"] [data-testid="stExpander"] summary {

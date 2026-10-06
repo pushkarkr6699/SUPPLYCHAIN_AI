@@ -31,6 +31,11 @@ def sidebar():
                 other = [item for item in visible_items if item[0] not in {"orders", "comparison", "visualizations"}]
                 with st.expander("Explore & simulate", expanded=st.session_state.route in {item[0] for item in other}):
                     navigation_items(other)
+            elif group == 'DATA':
+                navigation_items([item for item in visible_items if item[0] == 'uploads'])
+                other = [item for item in visible_items if item[0] != 'uploads']
+                with st.expander('Data & provenance', expanded=st.session_state.route in {item[0] for item in other}):
+                    navigation_items(other)
             else:
                 label = {"AI": "Copilot & insights", "ML GOVERNANCE": "Models & validation", "DATA": "Data & provenance", "OUTPUTS": "Reports & exports", "SYSTEM": "Settings & system"}[group]
                 with st.expander(label, expanded=st.session_state.route in {item[0] for item in visible_items}):

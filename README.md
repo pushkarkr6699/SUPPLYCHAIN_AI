@@ -4,11 +4,13 @@ Decision Intelligence Platform — a **local classroom showcase** with connected
 
 The existing demo UI is preserved. Verified mode connects historical order-level delivery, next-day web-visit forecasts, profitability line items and the independent final delivery line-item experiment. Original trained models run through fixed, hash-validated portable exports; no retraining occurs. See [the latest integration handoff](docs/FINAL_HANDOFF.md).
 
-Latest integration (2026-10-06): **240 regression tests passed**. Profitability diagnostics, threshold analysis, complete-input trained predictions, cross-risk coverage and PDF reports are connected. The final delivery line-item experiment is available under **Delivery Intelligence ? Explore final delivery line-item experiment**, and in Comparison Studio and data tools. Optional live AI uses `HF_TOKEN` in the ignored local `.env`; local evidence remains available without a key. See [profitability and final delivery details](docs/PROFITABILITY_INTEGRATION.md) and [Hugging Face integration and live verification](docs/HUGGINGFACE_AI_INTEGRATION.md).
+Latest integration (2026-10-06): **280 regression tests passed**. Profitability diagnostics, threshold analysis, complete-input trained predictions, cross-risk coverage and PDF reports are connected. The final delivery line-item experiment is available under **Delivery Intelligence ? Explore final delivery line-item experiment**, and in Comparison Studio and data tools. Optional live AI uses `HF_TOKEN` in the ignored local `.env`; local evidence remains available without a key. See [profitability and final delivery details](docs/PROFITABILITY_INTEGRATION.md) and [Hugging Face integration and live verification](docs/HUGGINGFACE_AI_INTEGRATION.md).
 
 Sevika is the floating assistant at the bottom right on public and workspace pages. It follows the selected dataset, filters and order, offers field-specific questions, explains registered predictions, and supports live Hugging Face/Groq answers or explicit local analysis. Live answers have been verified against anonymized summaries from all four supplied datasets with your approval. See [Sevika usage and verification](docs/SEVIKA.md).
 
 Visualization Studio adds **18 chart types**, multiple graphs per source and independent boards for all four connected datasets. Open it from the sidebar or the final section of Executive Overview. Choose fields, calculations and charts, then build the board; complete grouped CSV and chart-settings downloads are included. See [Visualization Studio](docs/VISUALIZATION_STUDIO.md).
+
+Bring Your Data adds **CSV, TSV, XLSX and JSON imports**, two independent workflows (raw exploration or compatible trained-model predictions), all 18 chart types, feature mapping and downloadable templates for all four models. Local evidence is always available; uploaded-data live Sevika insights require file-specific consent and use anonymous numerical summaries. Uploads are session-only and preserve built-in demo/data/model files. See [Bring Your Data](docs/BRING_YOUR_DATA.md).
 
 ## Run locally (PowerShell)
 
@@ -60,7 +62,7 @@ Sign In is explicitly a temporary demo session, not authentication. Continue in 
 
 The implementation deliberately uses `views/` instead of Streamlit's auto-discovered `pages/` directory, so the custom grouped navigation has a single source of truth and public login cannot be bypassed by an auto-generated sidebar.
 
-## Navigation: 29 rendered routes
+## Navigation: 30 rendered routes
 
 | Group | Pages |
 | --- | --- |
@@ -70,7 +72,7 @@ The implementation deliberately uses `views/` instead of Streamlit's auto-discov
 | Analysis | Visualization Studio, Comparison Studio, Universal Explorer, Order Explorer, Geographic Intelligence, What Changed?, Scenario Lab |
 | AI | SupplyChain Copilot, Insight Center, Alert Center |
 | ML Governance | Model Intelligence, Explainability, Threshold Lab, Drift Monitor, Model Health |
-| Data | Data Quality, Data Lineage, Data Explorer |
+| Data | Bring Your Data, Data Quality, Data Lineage, Data Explorer |
 | Outputs | Reports, Downloads |
 | System | Settings, Developer / Diagnostics |
 

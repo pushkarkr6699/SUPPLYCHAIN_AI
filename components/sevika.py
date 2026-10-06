@@ -12,9 +12,11 @@ def refresh():
 def render(frame=None, route='landing', dataset='public'):
     if not st.session_state.get('copilot_enabled',True):return
     public=route in {'landing','login'}
+    if route == 'uploads':
+        frame = None
     context=sevika.build_context(pd.DataFrame() if public or frame is None else frame,route,dataset,
-        {} if public else st.session_state.get('filters',{}),
-        None if public else st.session_state.get('selected_order'))
+        {} if public or route == 'uploads' else st.session_state.get('filters',{}),
+        None if public or route == 'uploads' else st.session_state.get('selected_order'))
     panel(context)
 
 

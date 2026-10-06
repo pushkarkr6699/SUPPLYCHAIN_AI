@@ -6,7 +6,7 @@ GROUPS = {
     "ANALYSIS": [("visualizations", "Visualization Studio", "bar_chart"), ("comparison", "Comparison Studio", "compare_arrows"), ("explorer", "Universal Explorer", "search"), ("orders", "Order Explorer", "inventory_2"), ("geography", "Geographic Intelligence", "public"), ("changes", "What Changed?", "compare_arrows"), ("scenarios", "Scenario Lab", "science")],
     "AI": [("copilot", "SupplyChain Copilot", "auto_awesome"), ("insights", "Insight Center", "lightbulb"), ("alerts", "Alert Center", "notifications")],
     "ML GOVERNANCE": [("models", "Model Intelligence", "hub"), ("explainability", "Explainability", "account_tree"), ("threshold", "Threshold Lab", "tune"), ("drift", "Drift Monitor", "multiline_chart"), ("health", "Model Health", "ecg_heart")],
-    "DATA": [("quality", "Data Quality", "verified"), ("lineage", "Data Lineage", "conversion_path"), ("data", "Data Explorer", "table_view")],
+    "DATA": [("uploads", "Bring Your Data", "upload_file"), ("quality", "Data Quality", "verified"), ("lineage", "Data Lineage", "conversion_path"), ("data", "Data Explorer", "table_view")],
     "OUTPUTS": [("reports", "Reports", "description"), ("downloads", "Downloads", "download")],
     "SYSTEM": [("settings", "Settings", "settings"), ("diagnostics", "Developer / Diagnostics", "code")],
 }
