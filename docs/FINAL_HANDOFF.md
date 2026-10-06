@@ -1,49 +1,46 @@
-# Final dataset and trained-model handoff
+# Connected dataset/model handoff - 6 October 2026
 
-The existing UI and demo provider are preserved. The ignored local `.env` selects verified data; `.env.example` defaults to demo. Restart Streamlit after changing providers.
+The existing UI and original demo mode are preserved. The ignored `.env` selects verified mode; `.env.example` defaults to demo. Restart Streamlit after changing the provider.
 
-## Delivered
+## Connected capabilities
 
-All 26 allowlisted artifacts from d1/d2/d3 were imported with SHA-256 verification. Original source files and pickles remain unchanged. Earlier conflicting imports were archived under `data/delivery/legacy/previous_integration/`. Incomplete downloads are excluded. Registries record paths, roles, hashes and duplicate versions.
+| Source | Grain / saved threshold | Connected use |
+| --- | --- | --- |
+| Main delivery | 65,752 unique orders; 2,123 scored; 0.35 | Existing delivery/order/geography/report workflows and trained scoring |
+| Demand | 2,280 product/base-day observations | Next-day web-visit analytics and trained forecasts with complete history |
+| Profitability | 27,078 lines / 14,593 orders; 0.20 | Comparisons, calibration, diagnostics, historical drift, thresholds, trained complete-input uploads, reports and exports |
+| Final delivery | 24,369 observations / 13,670 orders; 0.56 | Separate final scores, diagnostics, importances, thresholds, trained complete-input uploads, comparison and data tools |
+| Cross-risk | Profitability aggregated once per Order; shared identity verified | Coverage and descriptive delivery/profitability comparison; no joint model |
+| Optional live AI | Computed aggregate evidence plus user question | Explicit dashboard, comparison, profitability/final delivery, Insight Center and Copilot insights |
 
-Delivery uses d1's 65,752 unique orders with 2,123 one-to-one matching final scores. Missing scores remain null. Delivery, orders, geography, threshold analysis, comparison, quality, reports and downloads use supplied data. Active threshold is 0.35; d3's 0.56 belongs to a separate line-item experiment. Random Forest feature importance is labeled as baseline, not tuned XGBoost explanation.
+All **41 original artifacts** are SHA-256 registered. The eight newly supplied DATACO FINAL files exactly match existing d3 imports; registry aliases record both locations. Originals and saved thresholds remain unchanged. Model conversions preserve fitted preprocessing and classifiers without retraining.
 
-Demand uses d2's 2,280 product/base-day observations across 76 products. Forecasts predict next-day web visits. Independent filters keep delivery and demand grains separate. Copilot, insights and alerts use source-aware deterministic analytics. Exports retain provenance and missing predictions.
+Main delivery reproduced all 2,123 supplied scores within 2.97e-8 probability. Demand reproduced 1,216 rows with complete history within 1.53e-5 visits. Profitability and final delivery each reproduced their original pipeline on 32 synthetic conversion probes within 2.68e-8 and 2.63e-8 probability. Their scored CSVs omit full inputs, so scored-row inference parity is unavailable.
 
-Both Colab models were converted in isolated Linux to native XGBoost JSON with their same fitted preprocessing. No model fitting occurred. Windows delivery inference reproduced every supplied scored order within 2.97e-8 probability and all labels matched. Demand reproduced all 1,216 rows with complete prior history within 1.53e-5 visits; the first 14 base dates were excluded. Hash and runtime checks disable changed artifacts until revalidation.
+## Preview
 
-## Use and preview
+Run `./run.ps1` in the project and open **http://127.0.0.1:8501 -> Open platform**.
 
-```powershell
-cd D:\SUPPLYCHAIN_AI
-.\.venv\Scripts\python.exe -m pip install -r requirements.txt -r requirements-inference.txt
-.\run.ps1
-```
+- Profitability: **Additional intelligence -> Profitability Intelligence**.
+- Final delivery: **Delivery Intelligence -> Explore final delivery line-item experiment**, also under Model Intelligence's Delivery tab.
+- Flexible dataset comparisons: **Comparison Studio**, choose the source and actual fields.
+- Reports: Profitability and Cross-Risk are connected; final delivery exports include its own PDF.
+- Live AI: privately configure `OPENAI_API_KEY` in ignored `.env`, refresh, then **Settings -> Copilot -> Check live AI connection**. `OPENAI_MODEL` defaults to `gpt-4o-mini`.
 
-Open http://127.0.0.1:8501 and use the existing demo-session access flow. That flow grants local session access; verified mode still reads your datasets.
+New profitability and final delivery predictions require all 23 and 31 named training features. Download the templates; absent inputs are refused. CSV uploads stay in memory and never overwrite registered datasets or models. Existing saved scores remain usable without those inputs. Uploaded models are never loaded.
 
-- Scenario Lab: select an order and compare a shipping input, or upload CSV rows with the 26 named training features shown in the page. Estimates are not causal effects. Profit inputs must be available at scoring time; training provenance does not establish pre-fulfillment availability.
-- Demand Intelligence: expand Run trained next-day web-visit forecast. Use supplied history or upload `DateOnly,Product,Category,Department,Visits`, with at least 15 consecutive days per product including zero-visit days. Product category/department must remain stable. Current and earlier visits are inputs; future targets are never inputs. Output shows both base date and forecast date. New history receives point forecasts without reused source intervals.
-- Uploaded CSVs are processed in memory and do not replace registered datasets. Uploaded models are never loaded.
-- Set `SUPPLYCHAIN_PROVIDER=demo` in `.env` and restart to return to the original demo.
+Set `SUPPLYCHAIN_PROVIDER=demo` in `.env` and restart to return to the original synthetic demo. Demo sign-in is session access, not production authentication.
 
-## Verify
+## Validation and restore
 
-```powershell
-.\.venv\Scripts\python.exe -m pytest -q -p no:cacheprovider
-.\.venv\Scripts\python.exe -m services.inference_service --validate
-.\.venv\Scripts\python.exe -m services.demand_inference
-.\.venv\Scripts\python.exe scripts\verify_integration.py
-```
+Run `.venv/Scripts/python.exe -m pytest -q`. Integration, source reconciliation, functional, browser and security scripts are under `scripts/`; current results are in `QA_REPORT.md` and `metadata/`. PDF reports were rendered and reviewed; a footer-only final-page defect was fixed. External AI remains unverified until a key is configured; mocked API tests cover generated-response and stale-result behavior.
 
-Actual-artifact QA verifies 26 hashes, 27 routes and both trained prediction controls. Results are in `metadata/integration_qa.json`, `metadata/inference_validation.json` and `metadata/demand_inference_validation.json`. Browser QA uses isolated headless Chrome and saves previews under `tmp/screenshots/verified/`. Models and CSVs are ignored by Git and must be backed up separately alongside registries and portable exports. The supplied originals remain at `D:\IBM Prac`.
+Source assets are Git-ignored. Restore CSV/model/notebook assets together with registries and portable exports from the release archive in `metadata/release_backup_manifest.json`; earlier backups are retained. Credentials are excluded from archives and Git.
 
-Final regression result: **77 passed, zero failed**. Actual-data interactions also passed dataset switching, delivery/demand Copilot questions and both PDF reports. Desktop, dark and mobile browser captures were reviewed. A local dataset/model/notebook ZIP backup was integrity-checked under `backups/`; its location and SHA-256 are recorded in `metadata/backup_manifest.json`.
+## Material limits
 
-## Remaining production requirements
+Profitability ROC-AUC is about 0.4978, balanced accuracy 0.50, and all saved labels are profitable at threshold 0.20. The app surfaces this weakness. Final delivery ROC-AUC is about 0.75356; its 1,757 exact repeated observations are retained because no unique source line key was supplied. Conversion fidelity is separate from real-world model performance.
 
-This is a locally working dataset/model platform. Public production deployment still needs real identity/authorization, persistent multi-user storage, hosting, operational refresh, monitoring and private-artifact backups. Current login, saved views, alert workflows and conversations remain session-only. Copilot does not call an external LLM.
+Cross-risk summaries are not calibrated order-profitability or combined-model probabilities. SHAP, operational drift, inventory-on-hand and refreshed feeds are absent. Source demand bounds labeled 90% cover about 67.63% of supplied rows. Main delivery threshold selection used its test predictions. Source history ends January 2018.
 
-Profitability prediction needs an approved model/dataset; recorded delivery Sales/Profit are historical analytics. Cross-risk needs a validated shared grain/key. Drift needs reference/current windows. Actual SHAP and demand feature-importance outputs are absent. Inventory-on-hand is absent.
-
-Delivery threshold was selected on its test predictions, so evaluation is retrospective. Source demand bounds named 90% cover about 67.63% of supplied rows. History ends January 2018; current predictions need current input data. These limitations are explicit in the UI rather than replaced by invented outputs.
+Public deployment requires real identity/authorization, persistent storage, hosting, data refresh and monitoring. Saved views, alert workflows and conversations remain session-scoped. See `SECURITY.md` and [detailed integration notes](PROFITABILITY_INTEGRATION.md).

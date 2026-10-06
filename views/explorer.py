@@ -19,6 +19,10 @@ METRIC_LABELS = {
 
 
 def grouped_values(df, dimension, metric):
+    if metric in {"Profitability Probability", "Loss Probability", "Profit"}:
+        return df.groupby(dimension,observed=True)[metric].mean().reset_index(name="Value")
+    if metric == "Line items":
+        return df.groupby(dimension,observed=True).size().reset_index(name="Value")
     if metric == "Orders":
         return df.groupby(dimension, observed=True).size().reset_index(name="Value")
     if metric == "Mean Delivery Risk":
@@ -125,13 +129,15 @@ def render(df):
 
 
 def _render_verified(df):
-    dataset = st.selectbox("Dataset", ["delivery", "demand"], format_func=lambda name: "Delivery orders" if name == "delivery" else "Demand forecasts", key="explorer_dataset")
+    dataset = st.selectbox("Dataset", ["delivery", "demand", "profitability", "delivery_final"], format_func=lambda name: {"delivery":"Delivery orders","demand":"Demand forecasts","profitability":"Profitability line items","delivery_final":"Final delivery line observations"}[name], key="explorer_dataset")
     df = get_service().records(st.session_state.get("filters_by_dataset", {}).get(dataset, {}), dataset=dataset)
     if df.empty:
         st.info("No records match this dataset's filters.")
         return
     dimensions = [name for name in DIMENSIONS if name in df]
-    metrics = ["Orders", "Mean Delivery Risk", "High-Risk Orders"] if dataset == "delivery" else ["Forecast Demand", "Actual Demand", "Mean Forecast Error", "Stock Attention"]
+    metrics = ["Orders", "Mean Delivery Risk", "High-Risk Orders"] if dataset in {"delivery","delivery_final"} else ["Forecast Demand", "Actual Demand", "Mean Forecast Error", "Stock Attention"]
+    if dataset == "delivery_final": metrics = ["Line items","Mean Delivery Risk","High-Risk Orders"]
+    if dataset == "profitability": metrics = ["Line items","Profitability Probability","Loss Probability","Profit"]
     left, right = st.columns(2)
     dimension = left.selectbox("Dimension", dimensions, key=f"verified_dimension_{dataset}")
     metric = right.selectbox("Metric", metrics, key=f"verified_metric_{dataset}")

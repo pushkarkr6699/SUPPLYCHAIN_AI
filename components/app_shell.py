@@ -117,6 +117,10 @@ def render():
                 view(df)
             except Exception:
                 page_error(route)
+    if route in {"overview", "delivery", "demand"}:
+        from components.live_ai import render as live_ai
+        with st.expander("Live AI insights for this view"):
+            live_ai(df,route)
     if route not in {"settings", "diagnostics", "copilot", "changes"}:
         evidence(df)
     st.session_state.last_render_ms = round((perf_counter() - started) * 1000, 2)

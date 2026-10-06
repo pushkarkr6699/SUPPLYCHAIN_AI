@@ -1,14 +1,18 @@
 {
   "status": "passed",
-  "executed_at_utc": "2026-10-06T04:09:09.602105+00:00",
+  "executed_at_utc": "2026-10-06T06:11:07.852141+00:00",
   "scope": "Practical static/dynamic checks for loopback-only classroom showcase; not an independent penetration test",
-  "runtime_python_files_checked": 87,
-  "tracked_files_secret_scanned": 203,
+  "runtime_python_files_checked": 96,
+  "tracked_files_secret_scanned": 234,
   "findings": [],
   "trusted_internal_deserializers": [
     {
       "path": "services/demand_inference.py",
       "line": 87
+    },
+    {
+      "path": "services/final_delivery_inference.py",
+      "line": 68
     },
     {
       "path": "services/inference_service.py",
@@ -17,6 +21,10 @@
     {
       "path": "services/inference_service.py",
       "line": 114
+    },
+    {
+      "path": "services/profitability_inference.py",
+      "line": 62
     }
   ],
   "secret_stores_ignored": true,

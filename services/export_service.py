@@ -58,12 +58,17 @@ def excel_bytes(df, source=None):
 
 def report_pdf(df, report_name, filters, sections):
     """Build a report for the supplied grain without inventing unavailable signals."""
-    if report_name not in {"Executive", "Delivery", "Demand"}:
+    if report_name not in {"Executive", "Delivery", "Demand", "Profitability", "Cross-Risk"}:
         raise ValueError("Report unavailable until verified model signals are connected.")
+    profitability = "Profitability Probability" in df
+    cross = "Maximum line loss probability" in df
+    if report_name == "Profitability" and not profitability or report_name == "Cross-Risk" and not cross:
+        raise ValueError("Report unavailable without its matching verified dataset.")
     delivery = "Risk Probability" in df
     demand = {"Actual Demand", "Forecast Demand"}.issubset(df)
     if report_name == "Delivery" and not delivery or report_name == "Demand" and not demand:
         raise ValueError(f"{report_name} report requires its matching dataset.")
+    line_delivery = df.attrs.get("dataset") == "delivery_final"
     verified = bool(df.attrs.get("verified_artifacts"))
     source = df.attrs.get("data_source", "DEMO UI DATA")
     buffer = BytesIO()
@@ -105,7 +110,7 @@ def report_pdf(df, report_name, filters, sections):
             ["Overall status", "Supplied artifact analysis" if verified else "Demonstration data"],
             ["Delivery intelligence", "Included for current delivery rows" if delivery else "Outside this report's dataset scope"],
             ["Demand intelligence", "Included for current demand observations" if demand else "Outside this report's dataset scope"],
-            ["Profitability / cross-risk", "Unavailable; no validated joint signal supplied"],
+            ["Profitability / cross-risk", "Connected in dedicated reports; separate source grains and limitations"],
             ["Model inference", "Precomputed outputs only; no model executed"],
             ["Data quality", "Missing scores remain missing; results describe the selected rows"]],
             [170, 340], "Executive Summary")
@@ -113,19 +118,27 @@ def report_pdf(df, report_name, filters, sections):
         metrics = [["MEASURE", "VALUE"], ["Rows", f"{len(df):,}"]]
         if delivery:
             scored = df["Risk Probability"].notna()
-            metrics.extend([["Orders with supplied scores", f"{int(scored.sum()):,}"],
+            metrics.extend([["Line observations with supplied scores" if line_delivery else "Orders with supplied scores", f"{int(scored.sum()):,}"],
                 ["Score coverage", f"{scored.mean():.1%}" if len(df) else "N/A"],
                 ["Mean supplied delivery risk", f"{df.loc[scored, 'Risk Probability'].mean():.1%}" if scored.any() else "N/A"],
                 ["High-risk scored rows", f"{int(df['Risk'].isin(['High', 'Critical']).sum()):,}" if "Risk" in df else "N/A"]])
         if demand:
             metrics.extend([["Forecast next-day visits", f"{m['forecast']:,.2f}" if m["forecast"] is not None else "N/A"],
                 ["Forecast WAPE", f"{m['wape']:.1%}" if m["wape"] is not None else "N/A"]])
+        if profitability:
+            metrics.extend([["Source line items",f"{len(df):,}"],["Unique order IDs",f"{df.Order.nunique():,}"],["Mean profit probability",f"{df["Profitability Probability"].mean():.1%}"],["Observed profitable rate",f"{df["Actual Profitable"].mean():.1%}"],["Recorded decision threshold","0.20"]])
+        if cross:
+            metrics.extend([["Orders with profitability lines",str(df["Profitability rows"].notna().sum())],["Orders with both scores",str((df["Profitability rows"].notna() & df["Risk Probability"].notna()).sum())]])
         add_table(metrics, [335, 175], "Workspace summary")
     if "Charts" in sections and len(df):
         if demand:
             data = df.groupby("Date", as_index=False)[["Actual Demand", "Forecast Demand"]].sum()
             series = [("Actual Demand", "#4169dc"), ("Forecast Demand", "#8970dc")]
             chart_title, legend = "Demand through the selected period", "Actual (blue) / Forecast (purple) - next-day visits"
+        elif profitability:
+            data=df.assign(Date=pd.to_datetime(df.Date).dt.normalize()).groupby("Date",as_index=False)[["Profitability Probability","Actual Profitable"]].mean()
+            series=[("Profitability Probability","#4169dc"),("Actual Profitable","#8970dc")]
+            chart_title,legend="Profitability in selected line items","Predicted profitability (blue) / observed profitable rate (purple)"
         elif delivery:
             data = df.dropna(subset=["Risk Probability"]).copy()
             data["Date"] = pd.to_datetime(data["Date"]).dt.normalize()
@@ -139,7 +152,7 @@ def report_pdf(df, report_name, filters, sections):
             drawing.add(Line(40, 25, 500, 25, strokeColor=colors.HexColor("#cbd4e4")))
             upper = max(max(float(data[column].max()) for column, _ in series), .01)
             for fraction in [0, .5, 1]:
-                label = f"{upper * fraction:.0%}" if delivery and not demand else f"{upper * fraction:,.0f}"
+                label = f"{upper * fraction:.0%}" if (delivery or profitability) and not demand else f"{upper * fraction:,.0f}"
                 drawing.add(String(0, 27 + fraction * 105, label, fontSize=9, fillColor=colors.HexColor("#52627a")))
             for column, color in series:
                 points = [(40 + i * 455 / max(len(data) - 1, 1), 30 + float(value) / upper * 105) for i, value in enumerate(data[column])]
@@ -158,17 +171,25 @@ def report_pdf(df, report_name, filters, sections):
             if {"Lower", "Upper"}.issubset(df) and len(df):
                 coverage = df["Actual Demand"].between(df["Lower"], df["Upper"]).mean()
                 observations.append(f"Observed coverage of supplied interval bounds is {coverage:.1%}; nominal labels do not establish calibration.")
+        if profitability:
+            observations.append(df.attrs.get("evaluation_note","Historical profitability line-item observations."))
+        if cross:
+            observations.append("Profitability is aggregated to unique order IDs before joining. Mean/max line probabilities are descriptive statistics, not a combined model or an order-level profitability probability.")
         observations.append("These observations do not establish causal effects.")
         flow.extend([Paragraph("Decision context", styles["Heading2"]), Paragraph(escape(" ".join(observations)), styles["BodyText"]), Spacer(1, 12)])
     if "Records" in sections:
-        if report_name == "Demand" or not delivery:
+        if profitability:
+            columns=["Profitability Row","Order","Profit","Profitability Probability"]
+            records=df.head(10)
+        elif report_name == "Demand" or not delivery:
             columns = [column for column in ["Date", "Product", "Actual Demand", "Forecast Demand"] if column in df]
             records = df.head(10)
         else:
             columns = [column for column in ["Order", "Market", "Risk Probability", "Risk"] if column in df]
+            if line_delivery: columns.insert(0,"Delivery Row")
             records = df.sort_values("Risk Probability", ascending=False, na_position="last").head(10)
         if columns:
-            rows = [columns] + [["N/A" if pd.isna(row[column]) else f"{row[column]:.1%}" if column == "Risk Probability" else str(row[column]) for column in columns] for _, row in records.iterrows()]
+            rows = [columns] + [["N/A" if pd.isna(row[column]) else f"{row[column]:.1%}" if column in {"Risk Probability","Profitability Probability"} else f"{row[column]:,.2f}" if column == "Profit" else str(row[column]) for column in columns] for _, row in records.iterrows()]
             add_table(rows, [510 / len(columns)] * len(columns), "Supporting records - up to ten")
     provenance = [["SOURCE / LIMITATION", "DETAIL"],
         ["Primary artifact", df.attrs.get("artifact", "Synthetic demo fixture")],
@@ -179,6 +200,9 @@ def report_pdf(df, report_name, filters, sections):
             ["Decision threshold", str(df.attrs.get("production_threshold", "Demo configuration"))],
             ["Evaluation", df.attrs.get("evaluation_note", "Illustrative demo outputs")],
             ["Explanation", "No individual SHAP artifact or causal explanation supplied"]])
+    if profitability or cross:
+        provenance.append(["Profitability scope", "Line-item source observations; no complete-order profit totals or calibrated order-profitability score are asserted."])
+        provenance.append(["Profitability reliability", "All saved predictions are profitable at threshold 0.20; test ROC-AUC approximately 0.4978. No source-score parity without complete features."])
     if demand:
         provenance.append(["Demand scope", "Next-day web visits; inventory and fulfilled units are not supplied"])
     add_table(provenance, [150, 360], "Sources and interpretation limits")
@@ -191,5 +215,7 @@ def report_pdf(df, report_name, filters, sections):
         canvas.drawString(42, 24, "SUPPLYCHAIN AI | " + ("Supplied artifact analysis" if verified else "DEMO UI DATA"))
         canvas.drawRightString(552, 24, str(doc.page))
         canvas.restoreState()
+    while flow and isinstance(flow[-1], Spacer):
+        flow.pop()
     doc.build(flow, onFirstPage=footer, onLaterPages=footer)
     return buffer.getvalue()

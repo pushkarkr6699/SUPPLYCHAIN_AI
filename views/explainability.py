@@ -11,6 +11,10 @@ from config import PRODUCTION_THRESHOLD
 
 
 def render(df):
+    if df.attrs.get("dataset")=="profitability":
+        from views.profitability import feature_view
+        feature_view("explainability_profitability")
+        return
     verified = bool(df.attrs.get("verified_artifacts", False))
     message = "The supplied feature ranking belongs to the Random Forest baseline. It does not explain the active Tuned XGBoost scores. Feature importance does not establish causality." if verified else "Feature contribution describes model behavior and does not establish causality. Charts below are illustrative fixtures; real global and record-specific explanations are unavailable."
     st.html(f'<div class="callout">{message}</div>')

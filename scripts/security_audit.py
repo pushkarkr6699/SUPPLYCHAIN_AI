@@ -20,7 +20,7 @@ for path in source:
             findings.append({"check":"arbitrary runtime execution","path":path.relative_to(ROOT).as_posix(),"line":node.lineno})
         if name in {"pickle.load","pickle.loads","joblib.load"}:
             deserializers.append({"path":path.relative_to(ROOT).as_posix(),"line":node.lineno})
-            if path.name not in {"inference_service.py","demand_inference.py"}:
+            if path.name not in {"inference_service.py","demand_inference.py","profitability_inference.py","final_delivery_inference.py"}:
                 findings.append({"check":"unexpected model deserialization","path":path.relative_to(ROOT).as_posix(),"line":node.lineno})
         if name.endswith("execute") and path.name=="query_engine.py" and (not node.args or not isinstance(node.args[0],ast.Constant)):
             findings.append({"check":"nonconstant SQL","path":path.relative_to(ROOT).as_posix(),"line":node.lineno})

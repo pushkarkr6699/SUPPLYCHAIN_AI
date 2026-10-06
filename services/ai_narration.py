@@ -58,7 +58,9 @@ def narrate(payload):
             if len(raw)>200000:raise NarrationUnavailable('The AI response exceeded the expected size. Retry narration.')
             result=json.loads(raw)
         if not isinstance(result,dict) or result.get('status')!='completed':raise NarrationUnavailable('The AI response was interrupted or refused. Retry narration.')
-        parts=[content['text'] for message in result.get('output',[]) if message.get('type')=='message' for content in message.get('content',[]) if content.get('type')=='output_text']
+        output=result.get('output',[])
+        if not isinstance(output,list):raise NarrationUnavailable('The AI response was malformed. Retry narration.')
+        parts=[content['text'] for message in output if isinstance(message,dict) and message.get('type')=='message' and isinstance(message.get('content'),list) for content in message['content'] if isinstance(content,dict) and content.get('type')=='output_text' and isinstance(content.get('text'),str)]
         return validate_narration(json.loads(''.join(parts)),set(ids))
     except error.HTTPError as exc:
         reasons={401:'The OpenAI API key was rejected. Check the local configuration.',403:'This API key cannot access the selected model.',429:'OpenAI quota or rate limit reached. Retry later or check your API account.'}

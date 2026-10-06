@@ -15,6 +15,18 @@ def render(df):
     if verified and "Profit" in df:
         options.insert(3, "Recorded Profit")
     metric = st.selectbox("Geographic metric", options)
+    if metric == "Profitability" and verified:
+        import plotly.express as px
+        from services.provider import get_service
+        from components.charts import show
+        profit=get_service().records(st.session_state.get("filters_by_dataset",{}).get("profitability",{}),dataset="profitability")
+        st.caption("Uses the profitability dataset and its own filter context; values are mean line-item probabilities.")
+        if profit.empty: st.info("No matching profitability rows."); return
+        for field in ["Country","Region","Market"]:
+            grouped=profit.groupby(field)["Profitability Probability"].mean().nlargest(20).reset_index()
+            show(px.bar(grouped,x="Profitability Probability",y=field,orientation="h"),"profit_geo_"+field,height=400)
+        records_table(profit,"profit_geo_records",investigate=False)
+        return
     if metric == "Profitability":
         empty_state("Profitability geography is unavailable", "No verified profitability dataset or scored model output is connected. Choose Orders, Delivery Risk, or Demand to continue.", "Model Not Connected")
         return

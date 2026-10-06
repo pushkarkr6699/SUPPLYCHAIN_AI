@@ -2,7 +2,7 @@
 
 ## Current application boundary
 
-- The application binds to `127.0.0.1`. The verified provider connects supplied historical delivery and demand CSVs and runs registered trained models after parity validation. Demo mode remains selectable. No real identity provider or external AI provider is connected. This is a single-operator classroom release, not public multi-user production.
+- The application binds to `127.0.0.1`. The verified provider connects supplied historical delivery and demand CSVs and runs registered trained models after parity validation. Demo mode remains selectable. No real identity provider is connected. Optional OpenAI narration is implemented and requires a locally configured API key. This is a single-operator classroom release, not public multi-user production.
 - Demo sign-in is a UI preview, not an authorization boundary. Never use it with confidential data. A production deployment must replace it with a verified authentication provider and server-side authorization.
 - Do not commit `.env`, `.streamlit/secrets.toml`, credentials, access tokens, private keys, or private datasets. `.env.example` is a list of blank integration placeholders only.
 - `services/mock_data.py` creates synthetic records in memory. Do not add silent demo fallback to a future production provider. Return an explicit unavailable/error state if live data cannot be served.
@@ -16,7 +16,7 @@ Only fixed, hash-registered model/preprocessor paths are accepted. Original arti
 
 CSV uploads are in-memory data buffers and cannot specify executable code, SQL or model paths. Delivery features and demand histories are validated before scoring. Demand requires finite nonnegative visits, complete dimensions and at least 15 consecutive daily rows per product. Administrator-configured `.env` dataset paths are trusted configuration; they are not browser-entered paths. Streamlit's upload-size limit is not a complete resource-exhaustion defense.
 
-Copilot has no shell, code interpreter, filesystem write tool or external LLM. Unsafe execution/deletion/secret/threshold-change requests are refused before analytics intent routing. Fixed DuckDB queries use in-memory frames with external access disabled. Error panels show controlled unavailable/invalid-input states without raw tracebacks or absolute paths. Diagnostics requires a developer preference and is hidden in presentation mode; the preference is not authorization. Operator logs may contain technical details and must remain private.
+Copilot has no shell, code interpreter or filesystem write tool. Its optional live OpenAI mode sends the user question and computed aggregate evidence only on explicit request; raw dataset rows and group identifiers stay local. Unsafe execution/deletion/secret/threshold-change requests are refused before analytics intent routing. Fixed DuckDB queries use in-memory frames with external access disabled. Error panels show controlled unavailable/invalid-input states without raw tracebacks or absolute paths. Diagnostics requires a developer preference and is hidden in presentation mode; the preference is not authorization. Operator logs may contain technical details and must remain private.
 
 `.env`, Streamlit secrets, source CSV/model directories, backups, environments, logs and temporary browser downloads are Git-ignored. Original notebooks are training provenance and may contain private dataset examples; do not distribute these artifacts without reviewing their contents. Temporary QA outputs stay in ignored `tmp/` and are never application routes or runtime configuration.
 
@@ -43,4 +43,10 @@ Revalidate model parity whenever registered sources, models or inference depende
 3. Replace session-only demo access with authentication and authorization.
 4. Add durable per-user sessions, audit events, TLS, upload quotas, controlled artifact ingestion and monitoring.
 5. Run a dedicated secret scanner and dependency/security review on the deployment revision.
-6. Keep profitability and combined-risk routes unavailable until their independent artifacts, permissions, validation, and join coverage are approved.
+6. Keep independent dataset grains and model thresholds separate. Profitability scores are line items; cross-risk uses a validated order-level aggregate join and does not produce a joint-model probability.
+
+## Optional live AI boundary
+
+The API key stays server-side in ignored `.env`, the environment or Streamlit secrets. Requests use a fixed HTTPS OpenAI Responses endpoint, a timeout, `store=false` and a strict structured response schema. Evidence references are checked against local facts; generated interpretations still require review. User-entered questions are sent as written, so the UI discloses that transfer. Failed or unavailable requests show a controlled error. Changing filters or the question invalidates the previous answer. No model-generated code, SQL or tool instructions are executed.
+
+Profitability and final delivery portable conversions were compared with their original fitted pipelines on 32 synthetic probes each. This establishes conversion fidelity, not parity with the supplied scored records, whose training inputs are incomplete. Registered preprocessors are trusted local artifacts, never browser uploads.

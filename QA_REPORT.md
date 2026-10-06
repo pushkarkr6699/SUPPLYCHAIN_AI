@@ -333,3 +333,19 @@ The new comparison workspace is integrated into the existing app and both provid
 Rendered browser QA covers all five chart types, real prediction actions, CSV/JSON downloads, missing-key recovery, light/dark themes and desktop/390px/320px layouts. Separate chart checks verify zoom in/out, pan/zoom, autoscale/reset, fullscreen exit and valid PNG export. Evidence is saved in `metadata/comparison_functional_qa.json`, `metadata/comparison_browser_qa.json` and `metadata/comparison_chart_qa.json`. Screenshots are local under ignored `tmp/screenshots/comparison/`.
 
 Optional OpenAI narration uses only aggregate evidence and anonymous segment labels. Structured response success, missing key, invalid evidence references, HTTP failures, malformed/refused responses and timeouts are tested with mocked API responses. No live OpenAI call was verified because no local API key was configured. Follow [the Comparison Studio setup](docs/COMPARISON_STUDIO.md) to enable it. Existing deployment and model limitations above continue to apply.
+
+## Profitability, optional live AI and final delivery release - 6 October 2026
+
+- Full regression: **166 passed**, zero failures. Warnings concern joblib/NumPy compatibility and intentionally malformed date inputs.
+- Profitability: all 15 files hash-verified, 27,078 lines / 14,593 orders, summaries/calibration/shortlist/drift reconciled; 238 feature importances match the model.
+- Final delivery: the eight new files match registered d3 hashes exactly; 24,369 observations / 13,670 orders, 1,757 repeated exported observations retained, summary metrics and 4,349 importances reconciled.
+- Portable conversion: original fitted models preserved without training; each reproduced on 32 synthetic probes within 2.68e-8 probability. Source-score parity is unavailable because CSVs omit trained inputs.
+- Functional QA passed profitability dataset switches, downloads, governance, Copilot, Profitability/Cross-Risk PDF generation, mocked live-AI results and invalidation; final delivery passed comparison/data/quality/explorer/delivery/model routes.
+- Browser QA passed actual incomplete/complete upload paths and downloads, light/dark desktop/390px/320px profitability layouts, visible chart controls, final model prediction and comparison selection. No JavaScript page errors.
+- Profitability, Cross-Risk and final delivery PDFs were rendered and reviewed. A trailing spacer caused a footer-only page and was removed; regression coverage now rejects blank report pages.
+- External live AI remains unverified: OPENAI_API_KEY is not configured. Aggregate evidence is available locally.
+- Originals and demo mode are preserved. Integrity-checked asset backup: `metadata/release_backup_manifest.json`. Current evidence: `metadata/profitability_*`, `metadata/final_delivery_*` and `metadata/security_audit.json`.
+
+The release security audit passed with zero findings across 96 runtime Python files and 234 tracked files. It checked ignored secrets, fixed model paths, loopback binding, DuckDB external access and unsafe local Copilot requests. This is a scoped local review, not a public-production penetration test.
+
+Final preview smoke passed: original-field duplicate counting, actual final delivery PDF download, and 390px/320px final delivery layouts without page overflow. Current integration QA passed all 28 routes and 41 original source hashes.

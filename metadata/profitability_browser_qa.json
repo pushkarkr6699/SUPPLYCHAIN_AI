@@ -1,0 +1,15 @@
+{
+  "checked_at": "2026-10-06T05:53:47.210926+00:00",
+  "passed": true,
+  "checks": [
+    "Profitability source KPIs and two overview charts",
+    "Incomplete inputs refused; 32 synthetic conversion probes score and download",
+    "Explicit missing API-key state",
+    "Light profitability desktop/mobile: readable text, no page overflow, visible controls",
+    "Dark profitability desktop/mobile: readable text, no page overflow, visible controls",
+    "Final delivery experiment and 31-feature trained upload path",
+    "Final delivery source available in Comparison Studio"
+  ],
+  "errors": [],
+  "live_external_ai_verified": false
+}

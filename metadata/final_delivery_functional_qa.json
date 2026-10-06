@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "checks": [
+    "comparison",
+    "data",
+    "quality",
+    "explorer",
+    "delivery",
+    "models"
+  ]
+}

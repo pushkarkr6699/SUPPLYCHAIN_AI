@@ -26,5 +26,30 @@
       "Upper": "Prediction_Upper_90"
     }
   },
-  "join_policy": "No delivery-to-demand join without validated shared grain/key."
+  "join_policy": "No delivery-to-demand join without validated shared grain/key.",
+  "profitability": {
+    "grain": "source line-item observations; Order not unique",
+    "threshold": 0.2,
+    "scored_rows": 27078,
+    "unique_orders": 14593,
+    "trained_features": 23,
+    "source_score_parity": false
+  },
+  "delivery_final": {
+    "grain": "source line-item observations; Order not unique",
+    "threshold": 0.56,
+    "risk_boundaries": [
+      0.41,
+      0.71
+    ],
+    "scored_rows": 24369,
+    "unique_orders": 13670,
+    "trained_features": 31,
+    "source_score_parity": false
+  },
+  "cross_risk": {
+    "join": "aggregate supplied profitability lines once per Order, verify Date/Market/Country, left join main delivery one-to-one",
+    "matched_orders": 14593,
+    "joint_model_probability": false
+  }
 }

@@ -60,7 +60,17 @@ def render(df):
             if "Profit" in record and pd.notna(record["Profit"]):
                 _signal_card("RECORDED PROFIT", f'{record["Profit"]:,.2f}', "Recorded order profit; this is not a model prediction.", "neutral")
             else:
-                _signal_card("PROFITABILITY SIGNAL", "Not connected", "No verified profitability score is available.", "neutral")
+                _signal_card("PROFITABILITY SIGNAL", "Demo unavailable", "Use the verified provider for supplied profitability scores.", "neutral")
+        if verified:
+            from services.profitability_data import records as profit_records
+            profit_lines=profit_records()
+            profit_lines=profit_lines[profit_lines.Order.eq(str(record["Order"]))]
+            with st.expander("Profitability line-item evidence"):
+                if len(profit_lines):
+                    mean_probability=profit_lines['Profitability Probability'].mean()
+                    st.caption(f"{len(profit_lines):,} supplied line items; mean profitability probability {mean_probability:.1%}. This is not an order-level probability.")
+                    st.dataframe(profit_lines,hide_index=True,width="stretch")
+                else:st.info("No profitability test rows are supplied for this order.")
         fields = [field for field in ["Order", "Date", "Market", "Region", "Country", "Category", "Department", "Customer Segment", "Type", "Shipping Mode", "Sales", "Profit"] if field in record]
         with st.expander("Order profile", expanded=True):
             st.html('<dl class="record-profile">' + ''.join(f'<div><dt>{escape(field)}</dt><dd>{escape(str(record[field].date()) if field == "Date" else str(record[field]))}</dd></div>' for field in fields) + '</dl>')

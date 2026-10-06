@@ -1,0 +1,58 @@
+{
+  "status": "validated",
+  "checked_at": "2026-10-06T05:02:49.175542+00:00",
+  "source_model_sha256": "fa50c3bc4d13d731294e2d862408d007fe1ab9295889026cee00fd204cec323e",
+  "artifacts": [
+    {
+      "path": "models/profitability/DataCo_Profitability.json",
+      "sha256": "408e890242d971d6e254bdfa8b6561e710cfa8f623b2767c0688f362db49fe85"
+    },
+    {
+      "path": "models/profitability/DataCo_Profitability_Preprocessor.joblib",
+      "sha256": "e3a2bdb5af2989e4da7ef791d446373a95dfc2a5da1deb40d4cc9bcdd3ccbe01"
+    },
+    {
+      "path": "data/cache/profitability_conversion_probe.csv",
+      "sha256": "3feab5330e2afe993ea64bf7979948c0fe882d33f1800590bcfbf36b8e8e0824"
+    }
+  ],
+  "packages": {
+    "scikit-learn": "1.6.1",
+    "xgboost": "3.4.1",
+    "joblib": "1.5.3",
+    "numpy": "2.5.3",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "threadpoolctl": "3.7.0"
+  },
+  "features": [
+    "Days for shipment (scheduled)",
+    "Category Id",
+    "Department Id",
+    "Order Item Discount",
+    "Order Item Discount Rate",
+    "Order Item Quantity",
+    "Order Item Product Price",
+    "Product Category Id",
+    "Product Price",
+    "Product Status",
+    "Order_Year",
+    "Order_Month",
+    "Order_Quarter",
+    "Order_DayOfWeek",
+    "Weekend",
+    "Type",
+    "Category Name",
+    "Customer Segment",
+    "Department Name",
+    "Market",
+    "Order Country",
+    "Order Region",
+    "Shipping Mode"
+  ],
+  "threshold": 0.2,
+  "probe_rows": 32,
+  "max_probability_difference": 2.6729583768592136e-08,
+  "supplied_score_parity": false,
+  "limitation": "The scored CSV lacks full training features. This validates conversion fidelity on synthetic probes, not source-score parity or real-world predictive quality."
+}

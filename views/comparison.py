@@ -81,6 +81,12 @@ def predictions(frame, dataset, dimensions, metrics, token):
     st.caption('Your field choices control comparison and display. Trained models use their validated training features from the registered source; arbitrary field choices do not retrain a model.')
     if not frame.attrs.get('verified_artifacts'):
         st.info('Demo mode displays synthetic data. Switch to the verified provider to run the connected trained models.');return
+    if dataset=='delivery_final':
+        from views.final_delivery import prediction_view
+        prediction_view(frame,'comparison_final_delivery');return
+    if dataset=='profitability':
+        from views.profitability import prediction_view
+        prediction_view(frame,'comparison_profitability');return
     if dataset=='delivery':
         from services.inference_service import status
     else:
@@ -154,7 +160,8 @@ def render(df):
         try:frame=analysis.cohorts(frame,field,left,right)
         except ValueError as exc:st.info(str(exc));return
         cohort_meta={'field':field,'A':left,'B':right}
-    preferred=['Risk Probability','Sales'] if dataset=='delivery' else ['Forecast Demand','Actual Demand']
+    preferred=['Risk Probability','Actual Late'] if dataset=='delivery_final' else ['Risk Probability','Sales'] if dataset=='delivery' else ['Forecast Demand','Actual Demand']
+    if dataset=='profitability':preferred=['Profitability Probability','Profit']
     defaults=[c for c in preferred if c in numeric] or numeric[:2]
     default_dimension=next((c for c in (['Market'] if dataset=='delivery' else ['Category','Product']) if c in dimensions),dimensions[0] if dimensions else None)
     group_key=prefix+'_groups'
@@ -193,7 +200,7 @@ def render(df):
         section('OpenAI analyst narrative','An interpretation of aggregate evidence with references to the calculations above.')
         state=ai_narration.status()
         st.caption('Only computed values and anonymized segment labels are sent to OpenAI. Raw records, order IDs, product names and cohort value selections stay local.')
-        payload=analysis.narration_payload(facts,parameters,'Verified historical data' if frame.attrs.get('verified_artifacts') else 'Synthetic demonstration data');payload['focus']=focus
+        payload=analysis.narration_payload(facts,parameters,'Verified historical data' if frame.attrs.get('verified_artifacts') else 'Synthetic demonstration data');payload['focus']=focus;payload['limitations']=frame.attrs.get('evaluation_note','Historical data');payload['grain']=frame.attrs.get('grain','Dataset observations')
         if not state['available']:
             st.info(state['reason'])
             with st.expander('Configure AI narration'):

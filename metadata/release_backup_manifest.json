@@ -1,0 +1,9 @@
+{
+  "archive": "backups/release_artifacts_20261006_113600.zip",
+  "files": 108,
+  "bytes": 12741306,
+  "sha256": "61a355a85376fc919e0752f41bf51e9cb1f5a5b71c7d85100a523c0c21cfac8a",
+  "integrity": "passed",
+  "secrets_included": false,
+  "created_at": "2026-10-06T06:06:03.072459+00:00"
+}

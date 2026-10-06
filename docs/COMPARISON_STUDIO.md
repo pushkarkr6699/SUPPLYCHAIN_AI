@@ -49,3 +49,7 @@ Generated narratives and predictions belong to the current data and calculation 
 ```
 
 Reports are saved under `metadata/comparison_*_qa.json`; screenshots and downloaded QA artifacts are ignored under `tmp/screenshots/comparison/`. OpenAI request format, evidence validation, credential handling and failure behavior are tested using mocked responses. A live OpenAI call requires a locally configured key and is not claimed as verified without one.
+
+## Added registered line-item sources (6 October 2026)
+
+Profitability and Final delivery line observations are selectable independently in verified mode. Their predictions require complete uploaded training inputs: 23 and 31 columns respectively. Selecting comparison metrics does not substitute for these inputs. Their saved scores remain available for charts and local evidence. Final delivery has threshold 0.56 and 0.41/0.71 bands; profitability has threshold 0.20 and its own bands. These source grains never silently replace the primary delivery or demand source. See [integration details](PROFITABILITY_INTEGRATION.md).

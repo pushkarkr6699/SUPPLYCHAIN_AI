@@ -7,6 +7,10 @@ from components.section_header import section
 
 
 def render(df):
+    if df.attrs.get("dataset")=="profitability":
+        from views.profitability import drift_view
+        drift_view("drift_profitability")
+        return
     st.html('<div class="model-meta-row">' + badge("Reference Window", "neutral") + " " + badge("Current Window", "neutral") + " " + badge("Drift Status · Unavailable", "warning") + '<span>Comparable production distributions are not connected</span></div>')
     kpis([
         ("Reference Records", "Not connected", "number", "No baseline window"),

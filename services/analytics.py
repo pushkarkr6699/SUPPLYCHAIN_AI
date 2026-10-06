@@ -86,7 +86,7 @@ def alerts(df):
         if "Stock Attention" in df:
             items.append({"Severity": "Attention", "Category": "Demand", "Title": "Stock review", "Description": "Product/day rows flagged by the supplied forecast output; inventory availability is not provided.", "Records": int(df["Stock Attention"].sum()), "Route": "demand"})
         items.append({"Severity": "Information", "Category": "Trend", "Title": "Period comparison available", "Description": "Compare observed records within the supplied historical dataset.", "Records": len(df), "Route": "changes"})
-        items.append({"Severity": "Information", "Category": "Model", "Title": "Profitability model unavailable", "Description": "Sales and realized profit are historical fields; no profitability prediction model is registered.", "Records": 0, "Route": "profitability"})
+        items.append({"Severity": "Information", "Category": "Model", "Title": "Profitability reliability review", "Description": "Profitability line-item scores are connected. Review the weak test discrimination and all-profitable saved-threshold predictions.", "Records": 0, "Route": "profitability"})
         for item in items:
             item.update(Timestamp=f"{df.Date.max():%Y-%m-%d}" if len(df) else "No records", Source=df.attrs.get("data_source", "Supplied artifacts"), Evidence=f'{item["Records"]:,} records in the active dataset context')
         return items

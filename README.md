@@ -2,7 +2,9 @@
 
 Decision Intelligence Platform — a **local classroom showcase** with connected historical datasets and validated trained inference.
 
-The existing demo UI is preserved. This workspace also connects the supplied delivery and demand datasets and runs their original trained XGBoost models after hash and prediction-parity validation. No retraining occurs. Profitability models and cross-risk joins remain unavailable because their required artifacts and shared keys were not supplied.
+The existing demo UI is preserved. Verified mode connects historical order-level delivery, next-day web-visit forecasts, profitability line items and the independent final delivery line-item experiment. Original trained models run through fixed, hash-validated portable exports; no retraining occurs. See [the latest integration handoff](docs/FINAL_HANDOFF.md).
+
+Latest integration (2026-10-06): **166 regression tests passed**. Profitability diagnostics, threshold analysis, complete-input trained predictions, cross-risk coverage and PDF reports are connected. The final delivery line-item experiment is available under **Delivery Intelligence ? Explore final delivery line-item experiment**, and in Comparison Studio and data tools. Optional live AI uses `OPENAI_API_KEY` in the ignored local `.env`; local evidence remains available without a key. See [profitability and final delivery details](docs/PROFITABILITY_INTEGRATION.md).
 
 ## Run locally (PowerShell)
 
@@ -54,7 +56,7 @@ Sign In is explicitly a temporary demo session, not authentication. Continue in 
 
 The implementation deliberately uses `views/` instead of Streamlit's auto-discovered `pages/` directory, so the custom grouped navigation has a single source of truth and public login cannot be bypassed by an auto-generated sidebar.
 
-## Navigation: 27 rendered routes
+## Navigation: 28 rendered routes
 
 | Group | Pages |
 | --- | --- |

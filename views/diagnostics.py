@@ -30,7 +30,7 @@ def render(df):
         {"Artifact": "Data files", "Status": "Synthetic fixtures" if service.demo else "Verified historical CSVs"},
         {"Artifact": "Delivery model files", "Status": "Demo only" if service.demo else "Validated; on-demand inference" if delivery_status()["available"] else "Unavailable"},
         {"Artifact": "Demand model files", "Status": "Demo only" if service.demo else "Validated; on-demand inference" if demand_status()["available"] else "Unavailable"},
-        {"Artifact": "Profitability model files", "Status": "Unverified / not connected"},
+        {"Artifact": "Profitability model files", "Status": "Demo only" if service.demo else "Registered; conversion fidelity validated; full features required"},
     ]), hide_index=True, width="stretch")
     section("Performance", "Measured UI timings · not production benchmarks")
     st.write({"Previous page render (ms)": st.session_state.get("last_render_ms", "First render"), "Last query (ms)": st.session_state.get("last_query_ms", "Not measured"), "Cache": "In-memory fixture cache" if service.demo else "Source-version CSV and validated join cache", "Cold startup": "Not instrumented"})

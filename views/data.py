@@ -8,11 +8,13 @@ from services.provider import get_service, filter_description
 
 def render(df):
     service = get_service()
-    dataset = st.selectbox("Dataset", ["delivery", "demand"], format_func=lambda name: ("Delivery orders" if name == "delivery" else "Demand forecast") + (" · demo" if service.demo else " · supplied data"), key="data_dataset")
+    dataset = st.selectbox("Dataset", (["delivery", "demand"] if service.demo else ["delivery", "demand", "profitability", "delivery_final"]), format_func=lambda name: {"delivery":"Delivery orders","demand":"Demand forecast","profitability":"Profitability line items","delivery_final":"Final delivery line observations"}[name] + (" · demo" if service.demo else " · supplied data"), key="data_dataset")
     active = st.session_state.get("filters", {}) if service.demo or st.session_state.get("active_filter_dataset") == dataset else st.session_state.get("filters_by_dataset", {}).get(dataset, {})
     df = service.records(active, dataset=dataset)
     source = df.attrs.get("data_source", "DEMO UI DATA")
     default = ["Order", "Date", "Market", "Region", "Risk Probability", "Risk"] if dataset == "delivery" else ["Date", "Product", "Category", "Actual Demand", "Forecast Demand", "Lower", "Upper"]
+    if dataset == "profitability": default = ["Profitability Row","Order","Date","Market","Category","Profit","Profitability Probability","Profitability Risk"]
+    if dataset == "delivery_final": default = ["Delivery Row","Order","Date","Market","Category","Risk Probability","Risk","Actual Late"]
     column_query = st.text_input("Search column names", placeholder="e.g. product, probability, region")
     options = [column for column in df.columns if not column_query.strip() or column_query.casefold() in column.casefold()]
     chosen_default = [column for column in default if column in options]

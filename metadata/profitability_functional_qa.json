@@ -1,0 +1,37 @@
+{
+  "checked_at": "2026-10-06T05:17:46.574307+00:00",
+  "passed": true,
+  "checks": [
+    "profitability",
+    "comparison",
+    "data",
+    "quality",
+    "downloads",
+    "Profitability download Predictions",
+    "Profitability download Model Metrics",
+    "Profitability download Reports",
+    "Profitability download Charts",
+    "explorer",
+    "insights",
+    "explainability",
+    "threshold",
+    "drift",
+    "copilot",
+    "Copilot live-AI panel",
+    "reports",
+    "Profitability report configuration",
+    "Profitability PDF generation",
+    "Cross-Risk report configuration",
+    "Cross-Risk PDF generation",
+    "settings",
+    "copilot",
+    "Live AI generated response renders with cited evidence (mocked API)",
+    "Changed AI question invalidates the prior answer"
+  ],
+  "live_external_ai_verified": false,
+  "ai_configuration": {
+    "available": false,
+    "model": "gpt-4o-mini",
+    "reason": "Set OPENAI_API_KEY in your local .env or environment, then retry. Local comparison insights are available now."
+  }
+}

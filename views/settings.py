@@ -28,13 +28,22 @@ def render(df):
             section("Data", "Synthetic demo fixtures" if service.demo else "Verified historical repository snapshot")
             st.selectbox("Default date range (days)", [7, 14, 28, 56, 3650], key="default_days", format_func=lambda value: "All available history" if value == 3650 else str(value))
             st.caption("Applied when the workspace date filter is reset.")
-            st.info("Synthetic data is selected." if service.demo else "Supplied delivery and web-visit datasets are connected. This is a historical snapshot; it is not a refreshed operational feed.")
+            st.info("Synthetic data is selected." if service.demo else "Supplied delivery and web-visit datasets are connected. Profitability line-item data is also connected. This is a historical snapshot; it is not a refreshed operational feed.")
         elif active == "Copilot":
-            section("Copilot", "Offline assistant configuration")
+            section("Copilot", "Local analysis and optional live AI configuration")
             st.toggle("Enable Copilot", key="copilot_enabled")
             st.write("**Provider status:** " + ("Synthetic demo" if get_service().demo else "Verified repository analytics"))
-            st.write("**Model status:** No LLM connected")
-            st.caption("Responses use deterministic, read-only analytics on the selected dataset. No prompt is sent to an external provider.")
+            from services import ai_narration
+            state=ai_narration.status()
+            st.write("**Live AI model:**",state['model'])
+            st.info(state['reason'])
+            st.caption("Configure OPENAI_API_KEY and optional OPENAI_MODEL in the ignored local .env. Your key stays server-side. Explicit AI actions send your question and anonymized aggregate evidence.")
+            if st.button("Check live AI connection",key="check_live_ai",disabled=not state['available']):
+                try:
+                    with st.spinner("Checking the configured API connection?"):
+                        ai_narration.narrate({'source':'Connection test; no dataset sent','evidence':[{'id':'E1','kind':'Connection check','metric':'Test records','value':0,'segment':None}],'focus':'Confirm this is a connection test with no data.'})
+                    st.success("Live AI connection succeeded.")
+                except ai_narration.NarrationUnavailable as exc: st.error(str(exc))
         else:
             section("Developer", "Runtime diagnostics and non-sensitive context")
             st.caption("Enabling Developer mode adds runtime and integration diagnostics to the sidebar.")

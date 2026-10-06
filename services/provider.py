@@ -75,6 +75,12 @@ class VerifiedArtifactsService(MockAnalyticsService):
             if not DEMAND_DATA_URI:
                 raise RuntimeError("Demand forecast CSV path is not configured.")
             frame = demand_records(DEMAND_DATA_URI)
+        elif dataset == "delivery_final":
+            from services.final_delivery_data import records
+            frame = records()
+        elif dataset == "profitability":
+            from services.profitability_data import records
+            frame = records()
         else:
             raise ValueError(f"Unsupported verified dataset: {dataset}")
         frame.attrs.update(verified_artifacts=True)
@@ -121,6 +127,8 @@ class VerifiedArtifactsService(MockAnalyticsService):
             coverage = records["Actual Demand"].between(records["Lower"], records["Upper"]).mean()
             context["Calculation"] = "WAPE = sum absolute forecast error / sum supplied next-day actuals; interval coverage is measured on these rows."
             context["Observed interval coverage"] = f"{coverage:.1%} · source bounds are labeled 90%; calibration is unverified"
+        if "Profitability Probability" in records:
+            context.update({"Grain":records.attrs["grain"],"Unique orders":records.Order.nunique(),"Decision threshold":0.20,"Evaluation":records.attrs["evaluation_note"]})
         return context
 
     def threshold_analysis(self):
@@ -187,13 +195,17 @@ class VerifiedArtifactsService(MockAnalyticsService):
     def model_status(self):
         from services.inference_service import status as delivery_status
         from services.demand_inference import status as demand_status
+        from services.profitability_inference import status as profit_status
+        from services.final_delivery_inference import status as final_status
         delivery, demand = delivery_status(), demand_status()
         return [
             {"Capability": "Delivery scored outputs", "Status": "Connected CSV", "Source": Path(DELIVERY_DATA_URI).name if DELIVERY_DATA_URI else "Not configured"},
             {"Capability": "Delivery model artifact / inference", "Status": "Validated · available" if delivery["available"] else delivery["reason"]},
             {"Capability": "Demand precomputed forecasts", "Status": "Connected CSV", "Source": Path(DEMAND_DATA_URI).name if DEMAND_DATA_URI else "Not configured"},
             {"Capability": "Demand model inference", "Status": "Validated · available" if demand["available"] else demand["reason"]},
-            {"Capability": "Profitability model", "Status": "Unavailable · no verified artifact"},
+            {"Capability": "Profitability scored outputs", "Status": "Connected CSV - line-item grain"},
+            {"Capability": "Profitability trained inference", "Status": profit_status()["reason"]},
+            {"Capability": "Final delivery trained inference", "Status": final_status()["reason"]},
         ]
 
 

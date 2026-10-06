@@ -14,6 +14,10 @@ def coverage_context(frame):
 
 
 def decision_summary(frame, dataset=None):
+    if "Profitability Probability" in frame:
+        return f"{len(frame):,} supplied profitability line items across {frame.Order.nunique():,} orders. Mean probability is {frame["Profitability Probability"].mean():.1%}; recorded profitable rate is {frame["Actual Profitable"].mean():.1%}. The saved threshold predicts every source row profitable; review model discrimination and calibration before relying on its ranking."
+    if frame.attrs.get("dataset") == "delivery_final":
+        return f"{len(frame):,} final delivery line observations across {frame.Order.nunique():,} orders. Mean late probability is {frame['Risk Probability'].mean():.1%}; observed late rate is {frame['Actual Late'].mean():.1%}. Saved threshold is 0.56. Repeated source observations are retained; interpret line-weighted results separately from main order-level delivery."
     if "Risk Probability" in frame and dataset != "demand":
         scored = frame.dropna(subset=["Risk Probability"])
         high = frame[frame["Risk"].isin(["High", "Critical"])] if "Risk" in frame else scored.iloc[:0]

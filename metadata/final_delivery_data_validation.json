@@ -1,0 +1,65 @@
+{
+  "passed": true,
+  "checked_at": "2026-10-06T05:52:27.775515+00:00",
+  "files": [
+    {
+      "name": "Best_Threshold.txt",
+      "registered_path": "data/delivery/legacy/d3/Best_Threshold.txt",
+      "sha256": "a2e1874b817226c34718f466c312f62f23d155b798b8f423d1444d54813cedf7"
+    },
+    {
+      "name": "Final_Late_Delivery_Model.pkl",
+      "registered_path": "models/delivery/d3/Final_Late_Delivery_Model.pkl",
+      "sha256": "843a282a7af22f72ea893d272e0515478bed9b523f68bcd64c406bc48e5fe4d3"
+    },
+    {
+      "name": "Late_Delivery_Feature_Importance.csv",
+      "registered_path": "data/delivery/legacy/d3/Late_Delivery_Feature_Importance.csv",
+      "sha256": "831ff107fc95035ad66d0ebab1b8d752191da30f4cbee349d18a7137916ca575"
+    },
+    {
+      "name": "Late_Delivery_Final_Summary.csv",
+      "registered_path": "data/delivery/legacy/d3/Late_Delivery_Final_Summary.csv",
+      "sha256": "5aedde122d323de51a7f700e8bf4561683a63f3125511b0f01a088045d14700a"
+    },
+    {
+      "name": "Late_Delivery_Model_Comparison.csv",
+      "registered_path": "data/delivery/legacy/d3/Late_Delivery_Model_Comparison.csv",
+      "sha256": "421e5f1b4ecd2ca47b2f6cb652d4abcb0c682ce6960afd8544de1a8da54ff73e"
+    },
+    {
+      "name": "Late_Delivery_Scored_Orders.csv",
+      "registered_path": "data/delivery/legacy/d3/Late_Delivery_Scored_Orders.csv",
+      "sha256": "d7a2a33d1cf5f903b90eabe3c8715a386fb55d1ffc113f675a5f8e08fbd414c0"
+    },
+    {
+      "name": "Late_Delivery_Threshold_Analysis.csv",
+      "registered_path": "data/delivery/legacy/d3/Late_Delivery_Threshold_Analysis.csv",
+      "sha256": "334ec531590147cc96e1d527898284e930c8306ee059960847aea29fb2740feb"
+    },
+    {
+      "name": "Winning_Model.txt",
+      "registered_path": "data/delivery/legacy/d3/Winning_Model.txt",
+      "sha256": "24564f4f168ee406e5f86d690ade31f0a00341530cf7fc04d01f729ceb05f817"
+    }
+  ],
+  "source_rows": 24369,
+  "unique_orders": 13670,
+  "exact_exported_duplicates": 1757,
+  "threshold": 0.56,
+  "source_score_metrics": {
+    "Accuracy": 0.6948992572530674,
+    "Balanced accuracy": 0.7120458561343053,
+    "Precision": 0.847536231884058,
+    "Recall": 0.5443037974683544,
+    "F1": 0.6628882339605532,
+    "ROC-AUC": 0.7535567440018184,
+    "PR-AUC": 0.8195463137549626,
+    "MCC": 0.44111264805075345
+  },
+  "importance_features": 4349,
+  "importance_matches_model": true,
+  "source_score_parity": false,
+  "main_delivery_unchanged": true,
+  "limitation": "Separate historical line-item experiment at threshold 0.56. Repeated Order IDs are line observations; these scores never replace the main order-level model or join profitability automatically. Split provenance is not independently established from these eight artifacts. Exact repeated exported observations are retained because no unique source line identifier was supplied."
+}

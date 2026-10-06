@@ -100,6 +100,11 @@ def _render_verified(df):
                 if not chart_df.empty:
                     show(px.bar(chart_df, x="Model", y=metric), "verified_demand_comparison")
         st.caption(f"Connected forecast rows: {len(demand_df):,} web-visit observations. Training precedes January 2018; these outputs are January 2018 test predictions. Source 90% bounds cover approximately 67.63% of supplied rows.")
+    with delivery:
+        if st.toggle("Inspect final delivery experiment",key="models_final_experiment"):
+            from views.final_delivery import render as final_delivery
+            final_delivery(key="models_final_delivery")
     with profitability:
-        empty_state("Profitability model unavailable", "No verified profitability model, metrics or scored data artifact is connected.", "Model Not Connected")
+        from views.profitability import model_diagnostics
+        model_diagnostics(service.records(dataset="profitability"),"model_profitability")
 

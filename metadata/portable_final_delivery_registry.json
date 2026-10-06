@@ -1,0 +1,89 @@
+{
+  "source_model_path": "models/delivery/d3/Final_Late_Delivery_Model.pkl",
+  "source_model_sha256": "843a282a7af22f72ea893d272e0515478bed9b523f68bcd64c406bc48e5fe4d3",
+  "conversion": "Native XGBoost JSON and original fitted preprocessing; no retraining",
+  "features": [
+    "Days for shipment (scheduled)",
+    "Category Id",
+    "Department Id",
+    "Order Item Discount",
+    "Order Item Discount Rate",
+    "Order Item Quantity",
+    "Order Item Product Price",
+    "Product Category Id",
+    "Product Price",
+    "Sales",
+    "Sales per customer",
+    "Order Item Total",
+    "Order_Year",
+    "Order_Month",
+    "Order_Quarter",
+    "Order_DayOfWeek",
+    "Weekend",
+    "Type",
+    "Category Name",
+    "Customer Segment",
+    "Department Name",
+    "Market",
+    "Order Country",
+    "Order Region",
+    "Shipping Mode",
+    "Product Name",
+    "Product Card Id",
+    "Order State",
+    "Order City",
+    "Customer Country",
+    "Customer State"
+  ],
+  "numeric_features": [
+    "Days for shipment (scheduled)",
+    "Category Id",
+    "Department Id",
+    "Order Item Discount",
+    "Order Item Discount Rate",
+    "Order Item Quantity",
+    "Order Item Product Price",
+    "Product Category Id",
+    "Product Price",
+    "Sales",
+    "Sales per customer",
+    "Order Item Total",
+    "Order_Year",
+    "Order_Month",
+    "Order_Quarter",
+    "Order_DayOfWeek",
+    "Weekend"
+  ],
+  "categorical_features": [
+    "Type",
+    "Category Name",
+    "Customer Segment",
+    "Department Name",
+    "Market",
+    "Order Country",
+    "Order Region",
+    "Shipping Mode",
+    "Product Name",
+    "Product Card Id",
+    "Order State",
+    "Order City",
+    "Customer Country",
+    "Customer State"
+  ],
+  "probe_rows": 32,
+  "source_score_parity": "Unavailable: supplied scored CSV omits required training inputs",
+  "artifacts": [
+    {
+      "path": "models/delivery/d3/DataCo_Final_Delivery.json",
+      "sha256": "bd14d563831d33902114c6dcdff1bd0bf9a136477b5ef53b7a2fd29db14dfc76"
+    },
+    {
+      "path": "models/delivery/d3/DataCo_Final_Delivery_Preprocessor.joblib",
+      "sha256": "112ed4d75cd41d960d24f0c8d3ad29fd864cd5292be4695a2346f0d2205955a0"
+    },
+    {
+      "path": "data/cache/final_delivery_conversion_probe.csv",
+      "sha256": "fba371a35e6a5209f127e144afc9dd4f868c86e400bd1ca0c731f7fa54b84b42"
+    }
+  ]
+}

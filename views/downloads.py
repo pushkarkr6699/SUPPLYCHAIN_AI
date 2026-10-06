@@ -11,7 +11,7 @@ from services.provider import get_service, filter_description
 
 def render(df):
     service = get_service()
-    dataset = st.selectbox("Dataset", ["delivery", "demand"], format_func=lambda name: name.title(), key="downloads_dataset")
+    dataset = st.selectbox("Dataset", (["delivery", "demand"] if service.demo else ["delivery", "demand", "profitability", "delivery_final"]), format_func=lambda name: name.title(), key="downloads_dataset")
 
     def context(name):
         active = st.session_state.get("filters", {}) if service.demo or st.session_state.get("active_filter_dataset") == name else st.session_state.get("filters_by_dataset", {}).get(name, {})
@@ -36,11 +36,12 @@ def render(df):
             workbook = excel_bytes(df)
         b.download_button("Filtered data · Excel", workbook, f"{prefix}-{dataset}-filtered-data.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", width="stretch", on_click="ignore")
     elif category == "Predictions":
-        for col, name in zip(st.columns(2), ["delivery", "demand"]):
+        for col, name in zip(st.columns(3 if not service.demo else 2), ["delivery", "demand", "profitability"] if not service.demo else ["delivery", "demand"]):
             with col, st.container(border=True):
                 records, _ = context(name)
                 wanted = ["Order", "Date", "Market", "Risk Probability", "Risk", "Actual Late", "Predicted Late"] if name == "delivery" else ["Date", "Product", "Category", "Actual Demand", "Forecast Demand", "Lower", "Upper"]
-                section("Delivery scored orders" if name == "delivery" else "Demand forecast", records.attrs.get("data_source", "DEMO UI DATA"))
+                if name == "profitability": wanted=["Profitability Row","Order","Date","Category","Profitability Probability","Predicted Profitable","Profitability Risk","Profit"]
+                section("Delivery scored orders" if name == "delivery" else "Profitability line-item scores" if name == "profitability" else "Demand forecast", records.attrs.get("data_source", "DEMO UI DATA"))
                 if name == "delivery":
                     records = records.loc[records["Risk Probability"].notna()]
                     st.caption("Only rows with supplied prediction scores are exported.")
@@ -53,6 +54,12 @@ def render(df):
             if df["Risk Probability"].notna().any():
                 curve = threshold_curve(df.dropna(subset=["Risk Probability", "Actual Late"]))
                 curve.attrs.update(df.attrs)
+        elif dataset == "delivery_final":
+            from services.final_delivery_data import artifact
+            comparison,curve=artifact("Late_Delivery_Model_Comparison.csv"),artifact("Late_Delivery_Threshold_Analysis.csv")
+        elif dataset == "profitability":
+            from services.profitability_data import artifact
+            comparison,curve=artifact("DataCo_Model_Comparison.csv"),artifact("DataCo_Threshold_Analysis.csv")
         else:
             comparison, curve = service.demand_model_comparison(), None
         a, b = st.columns(2)
@@ -63,18 +70,21 @@ def render(df):
         if curve is not None:
             b.download_button("Threshold Analysis · CSV", csv_bytes(curve), f"{prefix}-threshold-analysis.csv", "text/csv", width="stretch")
             if not service.demo:
-                b.caption("Recomputed on filtered rows with supplied delivery scores; this is not a new held-out evaluation.")
+                b.caption("Supplied profitability evaluation reference; independent of workspace filters." if dataset in {"profitability","delivery_final"} else "Recomputed on filtered delivery scores; not a new held-out evaluation.")
         elif not service.demo and dataset == "demand":
             b.info("Classification thresholds do not apply to demand forecasts.")
     elif category == "Reports":
-        for col, report in zip(st.columns(3), ["Executive", "Delivery", "Demand"]):
+        for col, report in zip(st.columns(4 if not service.demo else 3), ["Executive", "Delivery", "Demand", "Profitability"] if not service.demo else ["Executive", "Delivery", "Demand"]):
             with col, st.container(border=True):
                 records, report_filters = (df, active) if report == "Executive" else context(report.lower())
                 section(f"{report} PDF", records.attrs.get("data_source", "DEMO UI DATA"))
                 st.download_button("Download PDF", report_pdf(records, report, report_filters, ["KPIs", "Charts", "Insights"]), f"{prefix}-{report.lower()}.pdf", "application/pdf", key=f"dl_pdf_{report}", width="stretch", disabled=records.empty)
     else:
         section("Chart export · PNG", "Use the camera icon in the chart toolbar to save a PNG.")
-        if dataset == "demand" or service.demo:
+        if dataset == "profitability" and not service.demo:
+            data=df.assign(Date=df.Date.dt.normalize()).groupby("Date",as_index=False)["Profitability Probability"].mean()
+            show(px.line(data,x="Date",y="Profitability Probability"),"downloads_chart",350)
+        elif dataset == "demand" or service.demo:
             forecast_chart(df, "downloads_chart", 350)
         else:
             data = df.dropna(subset=["Risk Probability"]).groupby("Date", as_index=False)["Risk Probability"].mean()

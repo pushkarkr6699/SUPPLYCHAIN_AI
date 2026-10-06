@@ -12,18 +12,18 @@ def context_drawer(df=None, filters=None):
     service = get_service()
     if df is None:
         dataset = "demo" if service.demo else st.session_state.get("active_filter_dataset", "delivery")
-        if dataset not in {"delivery", "demand"} and not service.demo:
+        if dataset not in {"delivery", "demand", "profitability"} and not service.demo:
             dataset = "delivery"
         df = service.records(st.session_state.get("filters", {}), dataset=dataset)
     active = st.session_state.get("filters", {}) if filters is None else filters
     current = st.session_state.get("copilot_source_page", st.session_state.route)
-    st.html('<div class="copilot-context"><span class="eyebrow">WORKSPACE CONTEXT</span><h3>Connected to your view.</h3><p>The offline preview uses the same filters and selected entities.</p></div>')
+    st.html('<div class="copilot-context"><span class="eyebrow">WORKSPACE CONTEXT</span><h3>Connected to your view.</h3><p>Analysis uses the same filters and selected entities.</p></div>')
     st.write("**Current page**", ROUTES.get(current, (current,))[0])
     st.write("**Filters**", filter_description({k: v for k, v in active.items() if k != "Date"}, "All records in selected dataset"))
     st.write("**Selected order**", st.session_state.selected_order or "None")
     st.write("**Selected product**", st.session_state.selected_product or "None")
     st.write("**Date range**", filter_description({"Date": active.get("Date", [])}, "Full dataset date range"))
-    st.caption("Dataset: " + df.attrs.get("data_source", "DEMO UI DATA") + "\n\nAnalysis uses available rows; no external AI model is called.")
+    st.caption("Dataset: " + df.attrs.get("data_source", "DEMO UI DATA") + "\n\nLocal calculations use available rows. Live AI runs only when explicitly requested.")
 
 
 def response_card(response, provenance, key):

@@ -9,6 +9,10 @@ from config import PRODUCTION_THRESHOLD
 
 
 def render(df):
+    if df.attrs.get("dataset")=="profitability":
+        from views.profitability import threshold_view
+        threshold_view(df,"threshold_profitability")
+        return
     demo = not df.attrs.get("verified_artifacts", False)
     active_threshold = float(df.attrs.get("production_threshold", PRODUCTION_THRESHOLD))
     df = df.dropna(subset=["Risk Probability", "Actual Late"])

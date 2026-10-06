@@ -29,6 +29,9 @@ def daily_risk_trend(scored):
 
 def render(df):
     demo = not df.attrs.get("verified_artifacts", False)
+    if not demo and st.toggle("Explore final delivery line-item experiment",key="delivery_final_experiment"):
+        from views.final_delivery import render as final_delivery
+        final_delivery(st.session_state.get("filters",{}));return
     active_threshold = float(df.attrs.get("production_threshold", PRODUCTION_THRESHOLD))
     model_name = df.attrs.get("model_name", DELIVERY_MODEL)
     scored = df.dropna(subset=["Risk Probability", "Actual Late"])

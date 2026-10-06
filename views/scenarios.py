@@ -70,6 +70,9 @@ def render(df):
 
 
 def _render_verified(df):
+    with st.expander("Profitability trained prediction inputs"):
+        from views.profitability import prediction_view
+        prediction_view(df,"scenario_profitability")
     from services.inference_service import status, input_rows, predict_delivery
     availability = status()
     section("Delivery Prediction Lab", "Run the registered trained model on an order and compare a shipping input")

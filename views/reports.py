@@ -18,23 +18,26 @@ def render(df):
     cols = st.columns(5)
     for col, name in zip(cols, ["Executive", "Delivery", "Demand", "Profitability", "Cross-Risk"]):
         with col:
-            ready = name in ["Executive", "Delivery", "Demand"]
+            ready = name in ["Executive", "Delivery", "Demand"] or not service.demo
             status = ("Demo report available" if service.demo else "Artifact report available") if ready else "Model not connected"
             st.html(f'<div class="model-card"><h3>{name} Report</h3><span class="badge badge-{ "info" if ready else "neutral" }">{status}</span><p>PDF · current filter context</p></div>')
     left, right = st.columns([1, 2.5], gap="large")
     with left, st.container(border=True):
         section("Report configuration", "Each dataset uses its own workspace filters")
         report = st.selectbox("Report type", ["Executive", "Delivery", "Demand", "Profitability", "Cross-Risk"], key="report_type")
-        dataset = "demand" if report == "Demand" else "delivery"
+        dataset = "demand" if report == "Demand" else "profitability" if report == "Profitability" and not service.demo else "delivery"
         if report == "Executive" and not service.demo:
             dataset = st.selectbox("Executive report scope", ["delivery", "demand"], format_func=str.title, key="reports_scope")
         active = st.session_state.get("filters", {}) if service.demo or st.session_state.get("active_filter_dataset") == dataset else st.session_state.get("filters_by_dataset", {}).get(dataset, {})
         df = service.records(active, dataset=dataset)
+        if report == "Cross-Risk" and not service.demo:
+            from services.profitability_data import cross_risk
+            df=cross_risk(df)
         source = df.attrs.get("data_source", "DEMO UI DATA")
         st.caption(filter_description(active, "All records in selected dataset"))
         st.caption(source)
         sections = st.multiselect("Sections", ["KPIs", "Charts", "Insights", "Records"], default=["KPIs", "Charts", "Insights"])
-        available = report in ["Executive", "Delivery", "Demand"] and bool(sections) and len(df) > 0
+        available = (report in ["Executive", "Delivery", "Demand"] or not service.demo) and bool(sections) and len(df) > 0
         if st.button("Preview report", width="stretch", disabled=not available):
             st.session_state.report_preview = True
         signature = (report, dataset, tuple(sections), str(active), source, int(pd.util.hash_pandas_object(df, index=True).sum()))
@@ -56,7 +59,7 @@ def render(df):
         elif generated:
             st.caption("Report settings changed. Generate again to download an up-to-date PDF.")
     with right:
-        if report in ["Profitability", "Cross-Risk"]:
+        if report in ["Profitability", "Cross-Risk"] and service.demo:
             empty_state(f"{report} report unavailable", "Verified profitability signals must be connected before this report can be generated.", "Model Not Connected")
         elif not sections:
             st.info("Choose one or more report sections.")
@@ -64,6 +67,11 @@ def render(df):
             st.info("No records match this dataset's filters.")
         elif st.session_state.get("report_preview"):
             section(f"{report} report / preview", f"{source} · selected sections and dataset filter context")
+            if report in {"Profitability","Cross-Risk"}:
+                st.dataframe(df.head(100),hide_index=True,width="stretch")
+                st.caption(df.attrs.get("evaluation_note","Historical source evidence"))
+                st.caption("PDF includes selected KPIs, chart, insights, records and provenance. This preview shows up to 100 supporting rows.")
+                return
             m = summary(df)
             demand = "Forecast Demand" in df and (dataset == "demand" or service.demo)
             if "KPIs" in sections:

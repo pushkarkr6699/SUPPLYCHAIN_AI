@@ -7,11 +7,11 @@ from components.navigation import go
 
 
 PAGE_FILTERS = {
+    "profitability": ["Market", "Category", "Shipping Mode", "Customer Segment"],
     "overview": ["Market", "Region", "Risk", "Category"],
     "delivery": ["Market", "Region", "Shipping Mode", "Risk"],
     "models": ["Market", "Region", "Risk"],
     "demand": ["Market", "Category", "Department", "Product"],
-    "profitability": ["Market", "Region", "Category"],
     "cross_risk": ["Market", "Region", "Risk"],
     "orders": ["Market", "Region", "Risk", "Product"],
     "explorer": ["Market", "Region", "Risk", "Product"],
@@ -30,14 +30,14 @@ PAGE_FILTERS = {
 ROUTE_DATASET = {
     "delivery": "delivery", "orders": "delivery", "geography": "delivery",
     "changes": "delivery", "threshold": "delivery", "explainability": "delivery", "models": "delivery",
-    "demand": "demand",
+    "demand": "demand", "profitability": "profitability",
 }
 
 
 def dataset_for_route(route):
     if get_service().demo:
         return "demo"
-    if route in {"data", "quality", "downloads", "explorer", "comparison"}:
+    if route in {"data", "quality", "downloads", "explorer", "comparison", "insights", "explainability", "threshold", "drift"}:
         return st.session_state.get(f"{route}_dataset", "delivery")
     if route == "copilot":
         return st.session_state.get("copilot_dataset", "delivery")
@@ -98,8 +98,13 @@ def delete_view():
 
 
 def filters():
-    if st.session_state.route == "comparison":
-        st.selectbox("Comparison dataset", ["delivery", "demand"], format_func=lambda name: "Delivery orders" if name == "delivery" else "Demand forecasts", key="comparison_dataset")
+    if st.session_state.route in {"comparison", "insights", "explainability", "threshold", "drift"}:
+        route = st.session_state.route
+        choices = ["delivery", "profitability"] if route in {"explainability", "threshold", "drift"} else ["delivery", "demand", "profitability"]
+        if route == "comparison" and not get_service().demo: choices.append("delivery_final")
+        if get_service().demo: choices = [name for name in choices if name != "profitability"]
+        if not get_service().demo and route == "drift" and "drift_dataset" not in st.session_state: st.session_state.drift_dataset = "profitability"
+        st.selectbox("Comparison dataset" if route == "comparison" else "Analysis dataset", choices, format_func=lambda name: {"delivery":"Delivery orders","demand":"Demand forecasts","profitability":"Profitability line items","delivery_final":"Final delivery line observations"}[name], key=route+"_dataset")
     service = get_service()
     dataset = dataset_for_route(st.session_state.route)
     st.session_state.setdefault("filters_by_dataset", {})

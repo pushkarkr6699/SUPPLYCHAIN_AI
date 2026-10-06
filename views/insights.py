@@ -5,6 +5,9 @@ from services.analytics import alerts
 
 
 def render(df):
+    from components.live_ai import render as live_ai
+    live_ai(df,"insight_center")
+    if "Profitability Probability" in df: return
     items = alerts(df)
     caption = "Observed artifact insights" if df.attrs.get("verified_artifacts") else "Observed demo insights"
     kpis([

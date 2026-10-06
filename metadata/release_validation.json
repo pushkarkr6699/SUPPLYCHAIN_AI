@@ -1,0 +1,16 @@
+{
+  "checked_at": "2026-10-06T06:10:38.315928+00:00",
+  "passed": true,
+  "checks": [
+    "Source duplicate calculation is 1757; quality view renders without errors",
+    "Current final delivery PDF downloads successfully from browser",
+    "Current final delivery mobile 390px/320px has no page overflow"
+  ],
+  "regression_tests_passed": 166,
+  "live_ai": {
+    "available": false,
+    "model": "gpt-4o-mini",
+    "reason": "Set OPENAI_API_KEY in your local .env or environment, then retry. Local comparison insights are available now."
+  },
+  "live_external_ai_verified": false
+}

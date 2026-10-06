@@ -322,7 +322,10 @@
       "bytes": 4,
       "family": "delivery_d3",
       "role": "separate line-item model reference",
-      "status": "copied_and_hash_verified"
+      "status": "copied_and_hash_verified",
+      "source_aliases": [
+        "D:\\IBM Prac\\DATACO FINAL\\Best_Threshold.txt"
+      ]
     },
     {
       "id": "delivery_d3/Winning_Model.txt",
@@ -332,7 +335,10 @@
       "bytes": 7,
       "family": "delivery_d3",
       "role": "separate line-item model reference",
-      "status": "copied_and_hash_verified"
+      "status": "copied_and_hash_verified",
+      "source_aliases": [
+        "D:\\IBM Prac\\DATACO FINAL\\Winning_Model.txt"
+      ]
     },
     {
       "id": "delivery_d3/Late_Delivery_Feature_Importance.csv",
@@ -349,7 +355,10 @@
         "Importance"
       ],
       "missing_cells": 0,
-      "exact_duplicates": 0
+      "exact_duplicates": 0,
+      "source_aliases": [
+        "D:\\IBM Prac\\DATACO FINAL\\Late_Delivery_Feature_Importance.csv"
+      ]
     },
     {
       "id": "delivery_d3/Late_Delivery_Final_Summary.csv",
@@ -366,7 +375,10 @@
         "Value"
       ],
       "missing_cells": 0,
-      "exact_duplicates": 0
+      "exact_duplicates": 0,
+      "source_aliases": [
+        "D:\\IBM Prac\\DATACO FINAL\\Late_Delivery_Final_Summary.csv"
+      ]
     },
     {
       "id": "delivery_d3/Late_Delivery_Model_Comparison.csv",
@@ -390,7 +402,10 @@
         "MCC"
       ],
       "missing_cells": 0,
-      "exact_duplicates": 0
+      "exact_duplicates": 0,
+      "source_aliases": [
+        "D:\\IBM Prac\\DATACO FINAL\\Late_Delivery_Model_Comparison.csv"
+      ]
     },
     {
       "id": "delivery_d3/Late_Delivery_Scored_Orders.csv",
@@ -419,7 +434,10 @@
         "Delivery_Risk_Level"
       ],
       "missing_cells": 0,
-      "exact_duplicates": 1757
+      "exact_duplicates": 1757,
+      "source_aliases": [
+        "D:\\IBM Prac\\DATACO FINAL\\Late_Delivery_Scored_Orders.csv"
+      ]
     },
     {
       "id": "delivery_d3/Late_Delivery_Threshold_Analysis.csv",
@@ -441,7 +459,10 @@
         "MCC"
       ],
       "missing_cells": 0,
-      "exact_duplicates": 0
+      "exact_duplicates": 0,
+      "source_aliases": [
+        "D:\\IBM Prac\\DATACO FINAL\\Late_Delivery_Threshold_Analysis.csv"
+      ]
     },
     {
       "id": "delivery_d3/Late-Delviery-final",
@@ -462,7 +483,10 @@
       "bytes": 564421,
       "family": "delivery_d3",
       "role": "separate line-item model",
-      "status": "copied_and_hash_verified"
+      "status": "copied_and_hash_verified",
+      "source_aliases": [
+        "D:\\IBM Prac\\DATACO FINAL\\Final_Late_Delivery_Model.pkl"
+      ]
     },
     {
       "id": "delivery_d3/Welcome_To_Colab.ipynb",
@@ -502,10 +526,282 @@
       ],
       "missing_cells": 0,
       "exact_duplicates": 0
+    },
+    {
+      "id": "profitability/Best_Threshold.txt",
+      "path": "data/profitability/final/Best_Threshold.txt",
+      "source_path": "D:\\IBM Prac\\DATA CO PRROFITABILITY\\Best_Threshold.txt",
+      "sha256": "44896b09365746b5f7167ee4d64988a38f7f4628803cbf86224e74eeb7c69e9d",
+      "bytes": 3,
+      "family": "profitability",
+      "role": "training evaluation reference",
+      "status": "copied_and_hash_verified"
+    },
+    {
+      "id": "profitability/DataCo_Calibration_Check.csv",
+      "path": "data/profitability/final/DataCo_Calibration_Check.csv",
+      "source_path": "D:\\IBM Prac\\DATA CO PRROFITABILITY\\DataCo_Calibration_Check.csv",
+      "sha256": "bbac5d8bdc73f1888333325be3e803605e6fba5a84cd84a47635e81f4e334462",
+      "bytes": 266,
+      "family": "profitability",
+      "role": "training evaluation reference",
+      "status": "copied_and_hash_verified",
+      "rows": 5,
+      "columns": [
+        "Probability_Band",
+        "Records",
+        "Average_Predicted_Probability",
+        "Actual_Profitability"
+      ]
+    },
+    {
+      "id": "profitability/DataCo_CatBoost_Tuning.csv",
+      "path": "data/profitability/final/DataCo_CatBoost_Tuning.csv",
+      "source_path": "D:\\IBM Prac\\DATA CO PRROFITABILITY\\DataCo_CatBoost_Tuning.csv",
+      "sha256": "9022224b1ce9d82457ccf0dd902627131265de19fb12822a5a39c8aeca208bc2",
+      "bytes": 525,
+      "family": "profitability",
+      "role": "training evaluation reference",
+      "status": "copied_and_hash_verified",
+      "rows": 4,
+      "columns": [
+        "Candidate",
+        "Iterations",
+        "Depth",
+        "Learning_Rate",
+        "L2",
+        "Accuracy",
+        "Precision",
+        "Recall",
+        "F1",
+        "ROC_AUC",
+        "PR_AUC"
+      ]
+    },
+    {
+      "id": "profitability/DataCo_Category_Summary.csv",
+      "path": "data/profitability/final/DataCo_Category_Summary.csv",
+      "source_path": "D:\\IBM Prac\\DATA CO PRROFITABILITY\\DataCo_Category_Summary.csv",
+      "sha256": "0f693c34eb7a62f07491043a69ec33a088a13e46a1673c0e22c6a85c052a93ac",
+      "bytes": 2943,
+      "family": "profitability",
+      "role": "training evaluation reference",
+      "status": "copied_and_hash_verified",
+      "rows": 45,
+      "columns": [
+        "Category Name",
+        "Orders",
+        "Actual_Profitability",
+        "Average_Profit",
+        "Average_Prediction"
+      ]
+    },
+    {
+      "id": "profitability/DataCo_Feature_Importance.csv",
+      "path": "data/profitability/final/DataCo_Feature_Importance.csv",
+      "source_path": "D:\\IBM Prac\\DATA CO PRROFITABILITY\\DataCo_Feature_Importance.csv",
+      "sha256": "631d03d249c74798d68aa65a5224b19e5fc0b644127373cd22c87fbe35ddf14a",
+      "bytes": 11338,
+      "family": "profitability",
+      "role": "training evaluation reference",
+      "status": "copied_and_hash_verified",
+      "rows": 238,
+      "columns": [
+        "Feature",
+        "Importance"
+      ]
+    },
+    {
+      "id": "profitability/DataCo_Final_Project_Summary.csv",
+      "path": "data/profitability/final/DataCo_Final_Project_Summary.csv",
+      "source_path": "D:\\IBM Prac\\DATA CO PRROFITABILITY\\DataCo_Final_Project_Summary.csv",
+      "sha256": "fd603b9f26d9169c3a011b97189de2d4e54ae5bcddc9f7606e6992aed15aaa1d",
+      "bytes": 259,
+      "family": "profitability",
+      "role": "training evaluation reference",
+      "status": "copied_and_hash_verified",
+      "rows": 14,
+      "columns": [
+        "Property",
+        "Value"
+      ]
+    },
+    {
+      "id": "profitability/DataCo_Final_Scored_Orders.csv",
+      "path": "data/profitability/final/DataCo_Final_Scored_Orders.csv",
+      "source_path": "D:\\IBM Prac\\DATA CO PRROFITABILITY\\DataCo_Final_Scored_Orders.csv",
+      "sha256": "138412009caf6e34ca4b8bc8a513fb46fb5b54c426c14260edcf188576261478",
+      "bytes": 4816291,
+      "family": "profitability",
+      "role": "scored line items",
+      "status": "copied_and_hash_verified",
+      "rows": 27078,
+      "columns": [
+        "Order Id",
+        "Market",
+        "Order Region",
+        "Order Country",
+        "Category Name",
+        "Department Name",
+        "Customer Segment",
+        "Shipping Mode",
+        "Order Item Quantity",
+        "Order Item Discount Rate",
+        "Order Item Product Price",
+        "Order_Date",
+        "Order Profit Per Order",
+        "Actual_Profitable",
+        "Profitability_Probability",
+        "Predicted_Profitable",
+        "Correct_Prediction",
+        "Profitability_Risk"
+      ]
+    },
+    {
+      "id": "profitability/DataCo_Final_Trained_Model.pkl",
+      "path": "models/profitability/DataCo_Final_Trained_Model.pkl",
+      "source_path": "D:\\IBM Prac\\DATA CO PRROFITABILITY\\DataCo_Final_Trained_Model.pkl",
+      "sha256": "fa50c3bc4d13d731294e2d862408d007fe1ab9295889026cee00fd204cec323e",
+      "bytes": 1486850,
+      "family": "profitability",
+      "role": "trained model",
+      "status": "copied_and_hash_verified"
+    },
+    {
+      "id": "profitability/DataCo_High_Loss_Risk_Orders.csv",
+      "path": "data/profitability/final/DataCo_High_Loss_Risk_Orders.csv",
+      "source_path": "D:\\IBM Prac\\DATA CO PRROFITABILITY\\DataCo_High_Loss_Risk_Orders.csv",
+      "sha256": "4a6a9202f0d7685776f29d147cfd902a54ffc449e3359d494391e44d43d34f0e",
+      "bytes": 1099,
+      "family": "profitability",
+      "role": "training evaluation reference",
+      "status": "copied_and_hash_verified",
+      "rows": 5,
+      "columns": [
+        "Order Id",
+        "Market",
+        "Order Region",
+        "Order Country",
+        "Category Name",
+        "Department Name",
+        "Customer Segment",
+        "Shipping Mode",
+        "Order Item Quantity",
+        "Order Item Discount Rate",
+        "Order Item Product Price",
+        "Order_Date",
+        "Order Profit Per Order",
+        "Actual_Profitable",
+        "Profitability_Probability",
+        "Predicted_Profitable",
+        "Correct_Prediction",
+        "Profitability_Risk"
+      ]
+    },
+    {
+      "id": "profitability/DataCo_Market_Summary.csv",
+      "path": "data/profitability/final/DataCo_Market_Summary.csv",
+      "source_path": "D:\\IBM Prac\\DATA CO PRROFITABILITY\\DataCo_Market_Summary.csv",
+      "sha256": "247d916df5ea130a21aadcb2c342c0807357a3ceda84c281ad57ba8438e78772",
+      "bytes": 241,
+      "family": "profitability",
+      "role": "training evaluation reference",
+      "status": "copied_and_hash_verified",
+      "rows": 3,
+      "columns": [
+        "Market",
+        "Orders",
+        "Actual_Profitability",
+        "Average_Profit",
+        "Average_Prediction"
+      ]
+    },
+    {
+      "id": "profitability/DataCo_Model_Comparison.csv",
+      "path": "data/profitability/final/DataCo_Model_Comparison.csv",
+      "source_path": "D:\\IBM Prac\\DATA CO PRROFITABILITY\\DataCo_Model_Comparison.csv",
+      "sha256": "8451cd599309c6ac5e8f851bba82b9ac72b2012a81b0a7907506b12f76d1e806",
+      "bytes": 760,
+      "family": "profitability",
+      "role": "training evaluation reference",
+      "status": "copied_and_hash_verified",
+      "rows": 6,
+      "columns": [
+        "Model",
+        "Accuracy",
+        "Precision",
+        "Recall",
+        "F1",
+        "ROC_AUC",
+        "PR_AUC"
+      ]
+    },
+    {
+      "id": "profitability/DataCo_Shipping_Summary.csv",
+      "path": "data/profitability/final/DataCo_Shipping_Summary.csv",
+      "source_path": "D:\\IBM Prac\\DATA CO PRROFITABILITY\\DataCo_Shipping_Summary.csv",
+      "sha256": "1a7b67453080f77f6162a5a11bfbe31d0956f2ed6ebe5fa607f10ebc8304c8a6",
+      "bytes": 276,
+      "family": "profitability",
+      "role": "training evaluation reference",
+      "status": "copied_and_hash_verified",
+      "rows": 4,
+      "columns": [
+        "Shipping Mode",
+        "Orders",
+        "Actual_Profitability",
+        "Average_Profit"
+      ]
+    },
+    {
+      "id": "profitability/DataCo_Threshold_Analysis.csv",
+      "path": "data/profitability/final/DataCo_Threshold_Analysis.csv",
+      "source_path": "D:\\IBM Prac\\DATA CO PRROFITABILITY\\DataCo_Threshold_Analysis.csv",
+      "sha256": "2719093515e9555b5e955812241c9cbbab8604727f86a5e3717a65cb616f263a",
+      "bytes": 4648,
+      "family": "profitability",
+      "role": "training evaluation reference",
+      "status": "copied_and_hash_verified",
+      "rows": 62,
+      "columns": [
+        "Threshold",
+        "Accuracy",
+        "Precision",
+        "Recall",
+        "F1"
+      ]
+    },
+    {
+      "id": "profitability/DataCo_Train_Test_Drift.csv",
+      "path": "data/profitability/final/DataCo_Train_Test_Drift.csv",
+      "source_path": "D:\\IBM Prac\\DATA CO PRROFITABILITY\\DataCo_Train_Test_Drift.csv",
+      "sha256": "273d6f91957993f82d0c89e6a0e5d7bb2a49ce8e2c4a4bfb29304930b669d3d7",
+      "bytes": 1120,
+      "family": "profitability",
+      "role": "training evaluation reference",
+      "status": "copied_and_hash_verified",
+      "rows": 15,
+      "columns": [
+        "Feature",
+        "Train_Mean",
+        "Test_Mean",
+        "Relative_Change"
+      ]
+    },
+    {
+      "id": "profitability/Winning_Model.txt",
+      "path": "data/profitability/final/Winning_Model.txt",
+      "source_path": "D:\\IBM Prac\\DATA CO PRROFITABILITY\\Winning_Model.txt",
+      "sha256": "349ed5f46f2aaaefe6b34106785ec2144a2adc316609cedaf2424765579863e2",
+      "bytes": 13,
+      "family": "profitability",
+      "role": "training evaluation reference",
+      "status": "copied_and_hash_verified"
     }
   ],
   "excluded": [
     "Unconfirmed 506925.crdownload"
   ],
-  "policy": "Original sources are unchanged; prior destination conflicts are archived; model and notebook files are copied without execution."
+  "policy": "Original sources are unchanged; prior destination conflicts are archived; model and notebook files are copied without execution.",
+  "active_profitability_family": "profitability"
 }
