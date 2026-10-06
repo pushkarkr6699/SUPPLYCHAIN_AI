@@ -14,6 +14,7 @@ from services.provider import get_service
 def render(df):
     if df.attrs.get("verified_artifacts"):
         _render_verified(df)
+        visualization_entry()
         return
     m = summary(df)
     actions = st.columns([5, 1.3, 1.3, 1.3])
@@ -58,6 +59,13 @@ def render(df):
             insight_card(item, df, f"overview_{item['Category']}")
     section("System & Model Health", "Transparent status across connected capabilities")
     model_cards()
+    visualization_entry()
+
+
+def visualization_entry():
+    with st.container(border=True,key="overview_visualizations"):
+        section("Visualization Studio", "Explore all connected sources with 18 chart types, multiple graphs and independent dataset boards.")
+        nav_button("Open Visualization Studio", "visualizations", key="overview_visualizations_open", icon="bar_chart")
 
 
 def _render_verified(df):

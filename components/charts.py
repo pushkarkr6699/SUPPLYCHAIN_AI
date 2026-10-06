@@ -8,7 +8,7 @@ PALETTE = [BLUE, PURPLE, GREEN, AMBER, RED, "#7896b6"]
 RISK_COLORS = {"Low": GREEN, "Medium": AMBER, "Attention": AMBER, "High": "#e18445", "Critical": RED}
 
 
-def style(fig, height=290, *, legend_below=False, category_footer=False):
+def style(fig, height=290, *, legend_below=False, category_footer=False, preserve_axis_titles=False):
     dark = st.session_state.get("theme") == "Dark"
     text, grid = ("#d3dcec", "#293951") if dark else ("#52627a", "#edf0f6")
     move_legend = not legend_below and fig.layout.showlegend is not False and len(fig.data) > 1 and any(trace.showlegend is not False for trace in fig.data)
@@ -19,17 +19,24 @@ def style(fig, height=290, *, legend_below=False, category_footer=False):
         legend=dict(orientation="h", y=-.22 if move_legend else -.03 if legend_below else 1.14, x=.5 if legend_below else 0,
                     xanchor="center" if legend_below else "left", yanchor="top" if legend_below else "bottom", font=dict(size=12)),
         hoverlabel=dict(font_size=14), transition=dict(duration=0))
-    fig.update_xaxes(showgrid=False, zeroline=False, title=None)
-    fig.update_yaxes(showgrid=st.session_state.get("gridlines", True), gridcolor=grid, zeroline=False, title=None)
-    fig.add_annotation(text="Supplied data" if st.session_state.get("verified_context") else "Demo UI data", x=1,
-        y=0 if category_footer else -.53 if move_legend else -.37 if legend_below else -.17,
-        yshift=-150 if category_footer else 0, yanchor="top" if category_footer else "auto",
-        xref="paper", yref="paper", xanchor="right", showarrow=False, font=dict(size=12, color=text))
+    fig.update_xaxes(showgrid=False, zeroline=False, **({} if preserve_axis_titles else {"title":None}))
+    fig.update_yaxes(showgrid=st.session_state.get("gridlines", True), gridcolor=grid, zeroline=False, **({} if preserve_axis_titles else {"title":None}))
+    bounded_legend = preserve_axis_titles and fig.layout.showlegend is not False and any(trace.showlegend is not False for trace in fig.data)
+    if preserve_axis_titles:
+        fig.update_layout(margin_b=240 if bounded_legend else 110)
+        if bounded_legend:
+            if not move_legend:fig.update_layout(height=fig.layout.height+140)
+            fig.update_layout(legend=dict(xref="container",yref="container",x=.05,y=.07,xanchor="left",yanchor="bottom",orientation="h",maxheight=85))
+    if not preserve_axis_titles:
+        fig.add_annotation(text="Supplied data" if st.session_state.get("verified_context") else "Demo UI data", x=1,
+            y=0 if category_footer else -.53 if move_legend else -.37 if legend_below else -.17,
+            yshift=-150 if category_footer else 0, yanchor="top" if category_footer else "auto",
+            xref="paper", yref="paper", xanchor="right", showarrow=False, font=dict(size=12, color=text))
     return fig
 
 
-def show(fig, key=None, height=290, *, legend_below=False, category_footer=False):
-    st.plotly_chart(style(fig, height, legend_below=legend_below, category_footer=category_footer), width="stretch", theme=None, key=key,
+def show(fig, key=None, height=290, *, legend_below=False, category_footer=False, preserve_axis_titles=False):
+    st.plotly_chart(style(fig, height, legend_below=legend_below, category_footer=category_footer, preserve_axis_titles=preserve_axis_titles), width="stretch", theme=None, key=key,
         config={"displayModeBar": True, "displaylogo": False, "responsive": False,
                 "doubleClick": "reset+autosize", "modeBarButtonsToRemove": ["lasso2d", "select2d"],
                 "toImageButtonOptions": {"format": "png", "filename": "supplychain-chart", "scale": 2}})

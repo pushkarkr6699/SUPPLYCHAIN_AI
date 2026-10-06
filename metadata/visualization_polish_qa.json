@@ -1,0 +1,11 @@
+{
+  "passed": true,
+  "width": 320,
+  "theme": "Dark",
+  "checks": [
+    "bars source note clears axis title",
+    "line source note clears axis title",
+    "Pie legend has bounded scrollable height"
+  ],
+  "network_ai_requests": 0
+}

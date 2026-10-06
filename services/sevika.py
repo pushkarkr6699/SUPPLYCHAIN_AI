@@ -8,6 +8,7 @@ from services.copilot.intent import unsafe_request
 MAX_QUESTION = 1000
 MAX_TURNS = 6
 PAGE_HELP = {
+    'visualizations': 'Visualization Studio has 18 chart types. Select the primary dataset and workspace filters, then grouping fields, numeric measures and multiple charts; apply with Build visualizations. Optional extra datasets have independent periods and are never joined. Sevika follows the primary workspace dataset. Composition defaults to record counts; graphs are observational, not new model predictions.',
     'landing': 'Open platform enters the workspace directly with temporary demo access. Sign in opens the demo login page. There, supply any nonempty demo username and demo password, or choose demo access. No real password is verified, no email account is required, and no production identity provider or account registration is connected. Never enter real credentials.',
     'login': 'The login form accepts a nonempty demo username and demo password for temporary session access, or use its demo access control. No real password is verified and no email account or real identity provider is connected. Do not enter a real password; no timed session-expiry guarantee is implemented.',
     'overview': 'Overview summarizes the selected historical dataset. Workspace filters determine the records included.',
@@ -32,6 +33,7 @@ def suggestions(route, dataset, columns=()):
         'delivery_final': ['Explain final delivery scores and their limitations.', 'What does a late-delivery probability mean?'],
     }.get(dataset, ['Which delivery risks need attention?', 'Explain the delivery predictions and missing scores.'])
     page = {
+        'visualizations': 'Which charts should I use for these selected fields?',
         'comparison': 'How do I compare the selected fields?',
         'scenarios': 'How should I interpret a scenario prediction?',
         'quality': 'What data quality issues should I check?',

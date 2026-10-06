@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "checked_at": "2026-10-06T16:14:43.125113+00:00",
+  "checks": [
+    "All 18 chart types selected through actual controls and rendered in six-chart boards",
+    "Zoom in/out, pan, autoscale, reset, fullscreen and PNG download work",
+    "Complete analysis CSV and source-specific chart-settings JSON download",
+    "All four sources render together in independent boards with their own additional periods; no merged rows",
+    "Overview entry, sidebar navigation, and three default charts work",
+    "Primary source switching works for all four connected datasets and restores chart plans",
+    "Desktop and 390px/320px light/dark forms and charts fit the viewport"
+  ],
+  "javascript_errors": 0,
+  "network_ai_requests": 0,
+  "resumed_from": "2026-10-06T16:07:03.967049+00:00"
+}

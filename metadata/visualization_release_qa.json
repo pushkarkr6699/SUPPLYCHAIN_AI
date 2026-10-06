@@ -1,0 +1,113 @@
+{
+  "passed": true,
+  "automated_tests_passed": 240,
+  "failed_tests": 0,
+  "existing_warnings": 13,
+  "datasets": {
+    "delivery": {
+      "records": 65752,
+      "renderable": [
+        "Vertical bars",
+        "Horizontal bars",
+        "Line",
+        "Area",
+        "Scatter",
+        "Bubble",
+        "Histogram",
+        "Box plot",
+        "Violin plot",
+        "ECDF",
+        "Correlation heatmap",
+        "Density heatmap",
+        "Treemap",
+        "Sunburst",
+        "Pie",
+        "Donut",
+        "Scatter matrix",
+        "Grouped heatmap"
+      ],
+      "controlled_recovery": []
+    },
+    "demand": {
+      "records": 2280,
+      "renderable": [
+        "Vertical bars",
+        "Horizontal bars",
+        "Line",
+        "Area",
+        "Scatter",
+        "Bubble",
+        "Histogram",
+        "Box plot",
+        "Violin plot",
+        "ECDF",
+        "Correlation heatmap",
+        "Density heatmap",
+        "Grouped heatmap",
+        "Treemap",
+        "Sunburst",
+        "Pie",
+        "Donut",
+        "Scatter matrix"
+      ],
+      "controlled_recovery": []
+    },
+    "profitability": {
+      "records": 27078,
+      "renderable": [
+        "Vertical bars",
+        "Horizontal bars",
+        "Line",
+        "Area",
+        "Scatter",
+        "Bubble",
+        "Histogram",
+        "Box plot",
+        "Violin plot",
+        "ECDF",
+        "Correlation heatmap",
+        "Density heatmap",
+        "Grouped heatmap",
+        "Treemap",
+        "Sunburst",
+        "Pie",
+        "Donut",
+        "Scatter matrix"
+      ],
+      "controlled_recovery": []
+    },
+    "delivery_final": {
+      "records": 24369,
+      "renderable": [
+        "Vertical bars",
+        "Horizontal bars",
+        "Line",
+        "Area",
+        "Scatter",
+        "Bubble",
+        "Histogram",
+        "Box plot",
+        "Violin plot",
+        "ECDF",
+        "Correlation heatmap",
+        "Density heatmap",
+        "Grouped heatmap",
+        "Treemap",
+        "Sunburst",
+        "Pie",
+        "Donut",
+        "Scatter matrix"
+      ],
+      "controlled_recovery": []
+    }
+  },
+  "private_token_findings": 0,
+  "files_secret_scanned": 296,
+  "new_dependencies": false,
+  "source_artifacts_modified": false,
+  "external_requests": 0,
+  "all_sources_support_18_types_with_compatible_fields": true,
+  "browser_checks_passed": true,
+  "final_focused_tests_passed": 32,
+  "final_mobile_polish_passed": true
+}

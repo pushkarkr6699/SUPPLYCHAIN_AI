@@ -39,7 +39,7 @@ def dataset_for_route(route):
         return "demo"
     if route == "delivery" and st.session_state.get("delivery_final_experiment"):
         return "delivery_final"
-    if route in {"data", "quality", "downloads", "explorer", "comparison", "insights", "explainability", "threshold", "drift"}:
+    if route in {"data", "quality", "downloads", "explorer", "visualizations", "comparison", "insights", "explainability", "threshold", "drift"}:
         return st.session_state.get(f"{route}_dataset", "delivery")
     if route == "copilot":
         return st.session_state.get("copilot_dataset", "delivery")
@@ -100,13 +100,14 @@ def delete_view():
 
 
 def filters():
-    if st.session_state.route in {"comparison", "insights", "explainability", "threshold", "drift"}:
+    if st.session_state.route in {"comparison", "visualizations", "insights", "explainability", "threshold", "drift"}:
         route = st.session_state.route
         choices = ["delivery", "profitability"] if route in {"explainability", "threshold", "drift"} else ["delivery", "demand", "profitability"]
-        if route == "comparison" and not get_service().demo: choices.append("delivery_final")
-        if get_service().demo: choices = [name for name in choices if name != "profitability"]
+        if route in {"comparison","visualizations"} and not get_service().demo: choices.append("delivery_final")
+        if get_service().demo: choices = ["demo"] if route=="visualizations" else [name for name in choices if name != "profitability"]
+        if route=="visualizations" and st.session_state.get("visualizations_dataset") not in choices: st.session_state.visualizations_dataset=choices[0]
         if not get_service().demo and route == "drift" and "drift_dataset" not in st.session_state: st.session_state.drift_dataset = "profitability"
-        st.selectbox("Comparison dataset" if route == "comparison" else "Analysis dataset", choices, format_func=lambda name: {"delivery":"Delivery orders","demand":"Demand forecasts","profitability":"Profitability line items","delivery_final":"Final delivery line observations"}[name], key=route+"_dataset")
+        st.selectbox("Visualization dataset" if route == "visualizations" else "Comparison dataset" if route == "comparison" else "Analysis dataset", choices, format_func=lambda name: {"demo":"Demo workspace","delivery":"Delivery orders","demand":"Demand forecasts","profitability":"Profitability line items","delivery_final":"Final delivery line observations"}[name], key=route+"_dataset")
     service = get_service()
     dataset = dataset_for_route(st.session_state.route)
     st.session_state.setdefault("filters_by_dataset", {})
