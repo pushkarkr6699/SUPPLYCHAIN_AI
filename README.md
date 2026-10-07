@@ -2,7 +2,7 @@
 
 A local decision-intelligence platform using supplied historical delivery, demand, profitability and final-delivery data. The existing UI and clearly labelled demo are preserved.
 
-Preview: **http://localhost:8501**. Choose **Open platform**. The current local server is already running.
+Preview: **https://supplychain-ai-er9a.onrender.com/**. Choose **Open platform**. The current local server is already running.
 
 Read [FINAL_IMPLEMENTATION_REPORT.md](FINAL_IMPLEMENTATION_REPORT.md) for the final evidence, known limits and exact completion status. The [199-section requirement matrix](metadata/master_requirement_matrix.md) separates verified work from missing source-dependent capabilities. Earlier handoffs under `docs/` retain their original dates and test counts.
 
