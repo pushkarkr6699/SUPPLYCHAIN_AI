@@ -37,6 +37,21 @@ python -m venv .venv
 
 The supplied data and model binaries are local ignored assets. Cloning Git source alone does not include them. See [PROJECT_INVENTORY.md](PROJECT_INVENTORY.md), [data/README.md](data/README.md) and [DATA_LINEAGE.md](DATA_LINEAGE.md).
 
+## Deploy to Render
+
+Use the app's deployment config to run the Streamlit UI on Render:
+
+```yaml
+services:
+  - type: web
+    name: supplychain-ai
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: streamlit run app.py --server.address=0.0.0.0 --server.port=$PORT
+```
+
+This binds Streamlit to all interfaces and uses Render's provided `$PORT` so the app is reachable outside localhost.
+
 ## Configuration and access
 
 `SUPPLYCHAIN_PROVIDER=demo` preserves the synthetic UI demonstration. `SUPPLYCHAIN_PROVIDER=verified` uses the supplied registered historical files. This workspace's ignored `.env` selects the connected provider. Restart after changing settings.
