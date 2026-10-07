@@ -64,10 +64,10 @@ def render(df):
 
 def visualization_entry():
     with st.container(border=True,key="overview_visualizations"):
-        section("Visualization Studio", "Explore all connected sources with 18 chart types, multiple graphs and independent dataset boards.")
+        section("Visualization Studio", "Explore all connected sources with 25 chart types, multiple graphs and independent dataset boards.")
         nav_button("Open Visualization Studio", "visualizations", key="overview_visualizations_open", icon="bar_chart")
     with st.container(border=True,key='overview_uploads'):
-        section('Bring Your Data', 'Upload your own dataset for 18 visualizations, compatible trained-model predictions and consented Sevika insights.')
+        section('Bring Your Data', 'Upload your own dataset for 25 visualizations, compatible trained-model predictions and consented Sevika insights.')
         nav_button('Analyze your own dataset', 'uploads', key='overview_uploads_open', icon='upload_file')
 
 

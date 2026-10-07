@@ -14,6 +14,7 @@ from reportlab.graphics.shapes import Drawing, Line, String, PolyLine
 from services.analytics import summary, trend
 from services.provider import filter_description
 from services.decision_context import coverage_context, decision_summary
+from services.privacy import minimize
 
 _excel_cache = OrderedDict()
 _excel_lock = Lock()
@@ -21,10 +22,12 @@ _EXCEL_CACHE_BYTES = 32 * 1024 * 1024
 
 
 def safe_frame(df, source=None):
-    frame = df.copy()
+    frame = minimize(df)
     for col in frame.select_dtypes(include=["object", "string"]):
         frame[col] = frame[col].map(lambda value: "'" + value if isinstance(value, str) and value.lstrip(" \t\r\n").startswith(("=", "+", "-", "@")) else value)
     frame["Source"] = source or frame.attrs.get("data_source", "DEMO UI DATA")
+    # Spreadsheet applications can execute formulas in column headers as well.
+    frame.columns=["'"+str(c) if str(c).lstrip(" \t\r\n").startswith(("=","+","-","@")) else c for c in frame.columns]
     return frame
 
 
@@ -34,6 +37,10 @@ def csv_bytes(df, source=None):
 
 def excel_bytes(df, source=None):
     frame = safe_frame(df, source)
+    if df.attrs.get('uploaded'):
+        buffer = BytesIO()
+        frame.to_excel(buffer, index=False, sheet_name="SupplyChain Data")
+        return buffer.getvalue()
     # Hash every row, column, dtype and provenance; never sample a large frame.
     digest = sha256(pd.util.hash_pandas_object(frame, index=True, categorize=False).values.tobytes())
     digest.update(repr([(column, str(dtype)) for column, dtype in zip(frame.columns, frame.dtypes)]).encode("utf-8"))
@@ -58,6 +65,7 @@ def excel_bytes(df, source=None):
 
 def report_pdf(df, report_name, filters, sections):
     """Build a report for the supplied grain without inventing unavailable signals."""
+    df = minimize(df)
     if report_name not in {"Executive", "Delivery", "Demand", "Profitability", "Cross-Risk"}:
         raise ValueError("Report unavailable until verified model signals are connected.")
     profitability = "Profitability Probability" in df
@@ -218,4 +226,6 @@ def report_pdf(df, report_name, filters, sections):
     while flow and isinstance(flow[-1], Spacer):
         flow.pop()
     doc.build(flow, onFirstPage=footer, onLaterPages=footer)
+    from services.audit_log import record
+    record('report_generated',rows=len(df))
     return buffer.getvalue()

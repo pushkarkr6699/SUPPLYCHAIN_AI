@@ -9,6 +9,7 @@ APP_NAME = "SUPPLYCHAIN AI"
 # Load only path/provider integration settings from the ignored local .env file.
 # Credentials remain in environment/secret stores and are never parsed here.
 _LOCAL_KEYS = {
+    "SUPPLYCHAIN_AUTH_MODE",
     "SUPPLYCHAIN_PROVIDER", "DELIVERY_PRIMARY_URI", "DELIVERY_DATA_URI", "DEMAND_DATA_URI", "DELIVERY_THRESHOLD_URI",
     "DELIVERY_MODEL_COMPARISON_URI", "DELIVERY_FEATURE_IMPORTANCE_URI", "DELIVERY_FINAL_SUMMARY_URI",
     "DELIVERY_WINNING_MODEL_URI", "DELIVERY_BEST_THRESHOLD_URI", "DELIVERY_MODEL_URI",

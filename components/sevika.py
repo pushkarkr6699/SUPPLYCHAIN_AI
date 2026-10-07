@@ -1,4 +1,5 @@
 """Native floating chat panel; no credentials or dataset rows in browser JS."""
+from components.secure_actions import download_button
 import json
 import pandas as pd
 import streamlit as st
@@ -13,10 +14,12 @@ def render(frame=None, route='landing', dataset='public'):
     if not st.session_state.get('copilot_enabled',True):return
     public=route in {'landing','login'}
     if route == 'uploads':
-        frame = None
+        frame = st.session_state.get('upload_active_context')
+        dataset='uploaded'
     context=sevika.build_context(pd.DataFrame() if public or frame is None else frame,route,dataset,
         {} if public or route == 'uploads' else st.session_state.get('filters',{}),
         None if public or route == 'uploads' else st.session_state.get('selected_order'))
+    context['upload_consent']=bool(route=='uploads' and st.session_state.get('upload_ai_consent_'+st.session_state.get('upload_scope','unscoped'),False))
     panel(context)
 
 
@@ -37,7 +40,9 @@ def panel(context):
                         store.update(history=[],predictions=None);refresh()
                 st.caption('Your supply-chain assistant - '+context['page'].replace('_',' ').title())
                 state=ai_provider.status()
-                choices=['Local analysis','Live AI'] if state['available'] else ['Local analysis']
+                upload_context=context['frame'].attrs.get('uploaded',False)
+                permitted_live=not upload_context or context.get('upload_consent',False)
+                choices=['Local analysis','Live AI'] if state['available'] and permitted_live else ['Local analysis']
                 if st.session_state.get('sevika_engine') not in choices:
                     st.session_state.sevika_engine='Live AI' if state['available'] else 'Local analysis'
                 engine=st.radio('Answer mode',choices,key='sevika_engine',horizontal=True)
@@ -45,11 +50,12 @@ def panel(context):
                     st.caption('Hugging Face / '+state['routing']+' - your question is sent as written with anonymized aggregate evidence. Avoid private identifiers. Raw dataset rows stay local.')
                 else:st.caption('Local calculations and workflow help. No external request; this mode is not a generative model.')
                 if not state['available']:st.caption('Live AI is unavailable until HF_TOKEN is configured privately on the server.')
+                if upload_context and not permitted_live:st.caption('This uploaded selection is analyzed locally. Enable the file-specific consent checkbox in the inline insights panel to use live AI here.')
                 if not context['public']:
                     st.caption(f"{len(context['frame']):,} selected records - {context['dataset']} - filters follow the current page.")
                     if context['frame'].empty:st.info('No matching data. I can explain the workflow; broaden filters for analysis.')
                 prompts=history[-1]['answer']['follow_ups'] if history else context['suggestions']
-                fields=['Current page']+[c for c in ['Market','Region','Category','Shipping Mode','Customer Segment','Department','Risk Probability','Profitability Probability','Sales','Profit','Forecast Demand','Actual Demand','Absolute Error'] if c in context['frame']]
+                fields=['Current page']+list(context['frame'].columns) if upload_context else ['Current page']+[c for c in ['Market','Region','Category','Shipping Mode','Customer Segment','Department','Risk Probability','Profitability Probability','Sales','Profit','Forecast Demand','Actual Demand','Absolute Error'] if c in context['frame']]
                 if not context['public'] and len(fields)>1:
                     if st.session_state.get('sevika_field') not in fields:st.session_state.sevika_field='Current page'
                     focus=st.selectbox('Explore a field',fields,key='sevika_field')
@@ -61,8 +67,9 @@ def panel(context):
                     for index,prompt in enumerate(prompts):
                         if st.button(prompt,key=f'sevika_suggest_{index}',width='stretch'):question=prompt
                 if not context['public'] and context['frame'].attrs.get('verified_artifacts') and context['dataset'] in {'delivery','demand'} and not context['frame'].empty:
+                    from services.access_control import can
                     st.caption('Trained prediction: up to 50 selected delivery orders, or next-day web visits for selected products. Historical inputs; no new model training.')
-                    if st.button('Run trained prediction',key='sevika_predict',disabled=store['predictions'] is not None):
+                    if st.button('Run trained prediction',key='sevika_predict',disabled=store['predictions'] is not None or not can('predict')):
                         try:
                             with st.spinner('Running the registered model...'):store['predictions']=sevika.train(context)
                             refresh()
@@ -90,5 +97,5 @@ def panel(context):
                         refresh()
                     except (ai_provider.AIUnavailable,ValueError) as error:st.error(str(error))
                 if history:
-                    st.download_button('Download conversation',json.dumps({'assistant':'Sevika','page':context['page'],'dataset':context['dataset'],'turns':store['history']},default=str,indent=2).encode(),'sevika_conversation.json','application/json',key='sevika_download',on_click='ignore')
+                    download_button('Download conversation',json.dumps({'assistant':'Sevika','page':context['page'],'dataset':context['dataset'],'turns':store['history']},default=str,indent=2).encode(),'sevika_conversation.json','application/json',key='sevika_download',on_click='ignore', container=st)
                 st.caption('Historical evidence, not guarantees. Conversations stay in this session and clear on logout.')

@@ -1,3 +1,4 @@
+from components.secure_actions import download_button
 import streamlit as st
 import plotly.express as px
 from datetime import datetime
@@ -31,10 +32,10 @@ def render(df):
     if category == "Filtered Data":
         section("Filtered workspace data", f"{len(df):,} records · {source}")
         a, b = st.columns(2)
-        a.download_button("Filtered data · CSV", csv_bytes(df), f"{prefix}-{dataset}-filtered-data.csv", "text/csv", width="stretch", on_click="ignore")
+        download_button("Filtered data · CSV", csv_bytes(df), f"{prefix}-{dataset}-filtered-data.csv", "text/csv", width="stretch", on_click="ignore", container=a)
         with st.spinner("Preparing spreadsheet export…"):
             workbook = excel_bytes(df)
-        b.download_button("Filtered data · Excel", workbook, f"{prefix}-{dataset}-filtered-data.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", width="stretch", on_click="ignore")
+        download_button("Filtered data · Excel", workbook, f"{prefix}-{dataset}-filtered-data.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", width="stretch", on_click="ignore", container=b)
     elif category == "Predictions":
         for col, name in zip(st.columns(3 if not service.demo else 2), ["delivery", "demand", "profitability"] if not service.demo else ["delivery", "demand"]):
             with col, st.container(border=True):
@@ -45,7 +46,7 @@ def render(df):
                 if name == "delivery":
                     records = records.loc[records["Risk Probability"].notna()]
                     st.caption("Only rows with supplied prediction scores are exported.")
-                st.download_button("Download CSV", csv_bytes(records[[column for column in wanted if column in records]]), f"{prefix}-{name}-predictions.csv", "text/csv", key=f"dl_{name}", width="stretch", disabled=records.empty)
+                download_button("Download CSV", csv_bytes(records[[column for column in wanted if column in records]]), f"{prefix}-{name}-predictions.csv", "text/csv", key=f"dl_{name}", width="stretch", disabled=records.empty, container=st)
     elif category == "Model Metrics":
         if service.demo:
             comparison, curve = MODEL_COMPARISON, threshold_curve(df)
@@ -64,11 +65,11 @@ def render(df):
             comparison, curve = service.demand_model_comparison(), None
         a, b = st.columns(2)
         if comparison is not None and not comparison.empty:
-            a.download_button("Model Comparison · CSV", csv_bytes(comparison, None if service.demo else comparison.attrs.get("data_source", "Supplied model evaluation artifact")), f"{prefix}-{dataset}-model-comparison.csv", "text/csv", width="stretch")
+            download_button("Model Comparison · CSV", csv_bytes(comparison, None if service.demo else comparison.attrs.get("data_source", "Supplied model evaluation artifact")), f"{prefix}-{dataset}-model-comparison.csv", "text/csv", width="stretch", container=a)
         else:
             a.info("Model comparison is unavailable for this dataset.")
         if curve is not None:
-            b.download_button("Threshold Analysis · CSV", csv_bytes(curve), f"{prefix}-threshold-analysis.csv", "text/csv", width="stretch")
+            download_button("Threshold Analysis · CSV", csv_bytes(curve), f"{prefix}-threshold-analysis.csv", "text/csv", width="stretch", container=b)
             if not service.demo:
                 b.caption("Supplied profitability evaluation reference; independent of workspace filters." if dataset in {"profitability","delivery_final"} else "Recomputed on filtered delivery scores; not a new held-out evaluation.")
         elif not service.demo and dataset == "demand":
@@ -78,7 +79,7 @@ def render(df):
             with col, st.container(border=True):
                 records, report_filters = (df, active) if report == "Executive" else context(report.lower())
                 section(f"{report} PDF", records.attrs.get("data_source", "DEMO UI DATA"))
-                st.download_button("Download PDF", report_pdf(records, report, report_filters, ["KPIs", "Charts", "Insights"]), f"{prefix}-{report.lower()}.pdf", "application/pdf", key=f"dl_pdf_{report}", width="stretch", disabled=records.empty)
+                download_button("Download PDF", report_pdf(records, report, report_filters, ["KPIs", "Charts", "Insights"]), f"{prefix}-{report.lower()}.pdf", "application/pdf", key=f"dl_pdf_{report}", width="stretch", disabled=records.empty, container=st)
     else:
         section("Chart export · PNG", "Use the camera icon in the chart toolbar to save a PNG.")
         if dataset == "profitability" and not service.demo:

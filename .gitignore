@@ -2,6 +2,7 @@
 __pycache__/
 .pytest_cache/
 .streamlit/secrets.toml
+.streamlit/accounts.json
 .env
 .env.*
 !.env.example

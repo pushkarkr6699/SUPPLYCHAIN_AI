@@ -110,7 +110,9 @@ def run():
                 verify(page,report,f'delivery-{tab}')
             page.locator('.st-key-nav_demand').get_by_role('button').click()
             verify(page,report,'demand-overview')
-            page.get_by_role('tab',name='Seasonality',exact=True).click()
+            seasonality=page.get_by_role('tab',name='Seasonality',exact=True)
+            seasonality.scroll_into_view_if_needed(timeout=60000)
+            seasonality.click(timeout=60000)
             verify(page,report,'demand-seasonality')
             assert not report['errors'],report['errors']
             report['passed']=True

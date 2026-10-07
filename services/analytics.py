@@ -51,7 +51,7 @@ def trend(df):
 
 def product_errors(df):
     grouped = df.assign(**{"Absolute Error": (df["Forecast Demand"] - df["Actual Demand"]).abs()}).groupby("Product", as_index=False)[["Actual Demand", "Forecast Demand", "Absolute Error"]].sum()
-    grouped["WAPE"] = grouped["Absolute Error"] / grouped["Actual Demand"].clip(lower=1)
+    grouped["WAPE"] = grouped["Absolute Error"] / grouped["Actual Demand"].where(grouped["Actual Demand"].gt(0))
     return grouped.sort_values("Absolute Error", ascending=False)
 
 

@@ -1,3 +1,4 @@
+from components.secure_actions import download_button
 import streamlit as st
 from components.navigation import go
 from services.export_service import csv_bytes
@@ -45,7 +46,7 @@ def records_table(df, key="records", search=True, investigate=True):
                 st.session_state[column_key] = valid
         columns = st.multiselect("Visible columns", list(view.columns), default=None if column_key in st.session_state else preferred, key=column_key)
     prefix = "verified" if df.attrs.get("verified_artifacts") else "demo"
-    toolbar[3].download_button("Download", csv_bytes(view), f"{prefix}-{key}.csv", "text/csv", key=f"download_{key}", width="stretch", on_click=download_feedback, args=("CSV download",))
+    download_button("Download", csv_bytes(view), f"{prefix}-{key}.csv", "text/csv", key=f"download_{key}", width="stretch", on_click=download_feedback, args=("CSV download",), container=toolbar[3])
     if not view.empty and not columns:
         st.info("Choose at least one column to display.")
         return

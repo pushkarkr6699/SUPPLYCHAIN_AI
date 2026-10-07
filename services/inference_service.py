@@ -185,6 +185,8 @@ def _read_primary(digest: str) -> pd.DataFrame:
 
 
 def input_rows(order_ids=None) -> pd.DataFrame:
+    from services.access_control import require
+    require('project_data')
     """Return raw registered primary rows, optionally selected by order ID."""
     _, digest = _registered_path(PRIMARY_PATH)
     frame = _read_primary(digest)
@@ -206,6 +208,10 @@ def predict_delivery(frame: pd.DataFrame) -> pd.DataFrame:
 
 def score_delivery_orders(frame: pd.DataFrame) -> pd.DataFrame:
     """Run the validated model on order-level feature rows, retaining their index."""
+    from services.access_control import require
+    from services.privacy import minimize
+    require('predict')
+    frame=minimize(frame)
     features = validate_features(frame)
     digest, _ = _validated_context()
     probability = np.asarray(_load_model(digest).predict_proba(features))[:, 1]
@@ -220,6 +226,8 @@ def score_delivery_orders(frame: pd.DataFrame) -> pd.DataFrame:
     if "Order Id" in frame:
         result.insert(0, "Order Id", frame["Order Id"])
     result.attrs.update(data_source="Live registered Tuned XGBoost inference", model_sha256=digest)
+    from services.audit_log import record
+    record('model_predicted',model='delivery',rows=len(result))
     return result
 
 

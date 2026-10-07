@@ -1,4 +1,5 @@
 """Bring Your Data: session-local exploration, fixed trained inference and consented AI."""
+from components.secure_actions import download_button
 import json
 from hashlib import sha256
 from pathlib import PurePath
@@ -7,6 +8,7 @@ import streamlit as st
 from services import upload_service as uploads, parameter_comparison as analysis, ai_narration
 from services.export_service import csv_bytes
 from views.visualizations import board
+from services.data_profile import profile, recommendations
 
 
 def clear():
@@ -26,25 +28,45 @@ def _scope(scope):
 
 
 def _filter(frame):
+    rules=[]
     with st.expander('Filter uploaded records'):
         field = st.selectbox('Filter field', ['All records', *frame.columns], key='upload_filter_field')
-        if field != 'All records':
+        extra=st.multiselect('Additional filter fields',[c for c in frame if c!=field],max_selections=3,key='upload_filter_extra')
+        selected_fields=([field] if field!='All records' else [])+extra
+        if st.button('Clear uploaded filters',key='upload_filter_clear'):
+            for key in list(st.session_state):
+                if key.startswith(('upload_filter_','upload_values_','upload_min_','upload_max_','upload_period_')):del st.session_state[key]
+            st.rerun()
+        for field in selected_fields:
+            st.caption('Filter: '+field)
+            if pd.api.types.is_datetime64_any_dtype(frame[field]):
+                dates=frame[field].dropna()
+                if not dates.empty:
+                    period=st.date_input('Date range for '+field,value=(dates.min().date(),dates.max().date()),key='upload_period_'+field)
+                    if len(period)!=2:
+                        st.info('Choose both dates to apply this filter.');return frame.iloc[:0].copy()
+                    frame=frame[frame[field].ge(pd.Timestamp(period[0]))&frame[field].lt(pd.Timestamp(period[1])+pd.Timedelta(days=1))].copy()
+                    rules.append({'field':field,'date_bounds':[value.isoformat() for value in period]})
+                continue
             if pd.api.types.is_numeric_dtype(frame[field]):
                 values = pd.to_numeric(frame[field], errors='coerce').dropna()
                 if not values.empty:
                     a, b = st.columns(2)
-                    low = a.number_input('Minimum value', value=float(values.min()), key='upload_min_' + field)
-                    high = b.number_input('Maximum value', value=float(values.max()), key='upload_max_' + field)
+                    low = a.number_input('Minimum '+field, value=float(values.min()), key='upload_min_' + field)
+                    high = b.number_input('Maximum '+field, value=float(values.max()), key='upload_max_' + field)
                     if low > high:
                         st.warning('Minimum must be no greater than maximum.'); return frame.iloc[:0].copy()
                     frame = frame[frame[field].between(low, high)].copy()
+                    rules.append({'field':field,'numeric_bounds':[low,high]})
             else:
                 values = frame[field].dropna().astype(str).unique()
-                selected = st.multiselect('Include values (empty means all)', sorted(values[:200]), key='upload_values_' + field)
+                selected = st.multiselect('Include '+field+' values (empty means all)', sorted(values[:200]), key='upload_values_' + field)
                 if len(values) > 200:
                     st.caption('First 200 distinct values are selectable; an empty selection includes every value.')
                 if selected:
                     frame = frame[frame[field].astype(str).isin(selected)].copy()
+                    rules.append({'field':field,'values':selected})
+    frame.attrs['analysis_filters']=rules
     return frame
 
 
@@ -99,12 +121,19 @@ def _ai(frame, prefix):
                 st.write(item['observation']); st.write('Next step: '+item['next_step'])
                 for ref in item['evidence_ids']:
                     st.caption(ref+' - '+lookup[ref]['text'])
-            st.download_button('Download Sevika insight JSON', json.dumps(saved['result'], indent=2).encode(), 'upload_insights.json', 'application/json', key=prefix+'_ai_download', on_click='ignore')
+            download_button('Download Sevika insight JSON', json.dumps(saved['result'], indent=2).encode(), 'upload_insights.json', 'application/json', key=prefix+'_ai_download', on_click='ignore', container=st)
 
 
 def _models(frame):
+    st.session_state['upload_active_context']=frame
+    from services.access_control import can
+    if not can('predict'):st.info('Model execution requires an Analyst or Admin account. Raw exploration remains available.');return
     with st.container(key='upload_model_choice'):
         model = st.selectbox('Registered trained model', list(uploads.MODELS), format_func=uploads.MODELS.get, key='upload_model_'+st.session_state.get('upload_scope','unscoped'))
+    if st.session_state.get('upload_last_model')!=model:
+        from services.audit_log import record
+        record('model_selected',model=model)
+        st.session_state.upload_last_model=model
     try:
         contract = uploads.model_contract(model)
     except (OSError, ValueError, KeyError):
@@ -112,7 +141,7 @@ def _models(frame):
     st.caption(contract['note'])
     if model == 'profitability':
         st.warning('The profitability model has weak historical discrimination (ROC-AUC about 0.4978). These probabilities require careful validation on your own population.')
-    st.download_button('Download required-column CSV template', uploads.template(model), model+'_upload_template.csv', 'text/csv', key='upload_template_'+model, on_click='ignore')
+    download_button('Download required-column CSV template', uploads.template(model), model+'_upload_template.csv', 'text/csv', key='upload_template_'+model, on_click='ignore', container=st)
     st.caption('Populate every required column using its training definition. Templates contain headers only; no sample predictions or fabricated values. Mapping validates schema, not accuracy on a new population.')
     if contract['threshold'] is not None:
         st.caption('Fixed production classification threshold: '+str(contract['threshold'])+'. Risk bands and the classification threshold may differ.')
@@ -150,7 +179,7 @@ def _models(frame):
     if saved and saved['signature'] == signature:
         result = saved['frame']
         st.dataframe(result.head(500), hide_index=True, width='stretch')
-        st.download_button('Download uploaded predictions CSV', csv_bytes(result), 'uploaded_predictions.csv', 'text/csv', key='upload_prediction_download', on_click='ignore')
+        download_button('Download uploaded predictions CSV', csv_bytes(result), 'uploaded_predictions.csv', 'text/csv', key='upload_prediction_download', on_click='ignore', container=st)
         st.caption('Predictions are aligned to uploaded row order. Demand returns one next-day forecast per product. No uploaded data is joined to the built-in datasets.')
         date_field = st.selectbox('Prediction time field (optional)', ['[No time axis]', *result.columns], key='upload_prediction_date_'+model)
         date_order = st.selectbox('Prediction date format', ['ISO 8601', 'Day first', 'Month first'], key='upload_prediction_date_order_'+model)
@@ -159,18 +188,20 @@ def _models(frame):
             plotted.attrs.update(result.attrs)
         except (ValueError, TypeError) as error:
             st.warning(str(error)); return
+        st.session_state['upload_active_context']=plotted
         board(plotted, 'upload_predictions_'+model, True, 'Prediction visualizations')
         _ai(plotted, 'upload_predictions_'+model)
 
 
 def render(_df=None):
+    st.session_state.pop('upload_active_context',None)
     st.info('Bring Your Data works independently of the built-in demo and connected datasets. Files stay in this browser session on the server; they are not saved as project data.')
-    st.caption('CSV / TSV / XLSX / JSON flat records | 20 MB per file | 50,000 rows | 100 columns | predictions up to 5,000 rows. No uploaded models or executable files.')
+    st.caption('CSV / TSV / XLSX / JSON / Parquet | 20 MB per file | 50,000 rows | 100 columns | predictions up to 5,000 rows. Credentials and personal contact fields are excluded.')
     st.button('Clear uploaded data and results', on_click=clear, key='clear_uploads')
     with st.expander('Download model input templates before uploading'):
         selected_model = st.selectbox('Input template model', list(uploads.MODELS), format_func=uploads.MODELS.get, key='template_model_choice')
         try:
-            st.download_button('Download empty model-input template', uploads.template(selected_model), selected_model+'_input_template.csv', 'text/csv', key='input_template_download', on_click='ignore')
+            download_button('Download empty model-input template', uploads.template(selected_model), selected_model+'_input_template.csv', 'text/csv', key='input_template_download', on_click='ignore', container=st)
         except (ValueError, OSError, KeyError):
             st.info('This model template is unavailable until its registered artifacts are validated.')
     generation = st.session_state.get('upload_generation', 0)
@@ -181,7 +212,7 @@ def render(_df=None):
     with st.expander('Import options', expanded=False):
         a, b = st.columns(2)
         delimiter = a.selectbox('CSV delimiter', ['Auto', ',', ';', '\t', '|'], key='import_upload_delimiter')
-        encoding = b.selectbox('CSV encoding', ['utf-8-sig', 'cp1252'], key='import_upload_encoding')
+        encoding = b.selectbox('CSV encoding', ['utf-8-sig', 'cp1252', 'latin1'], key='import_upload_encoding')
         sheet = None
         if file.name.lower().endswith('.xlsx'):
             try:
@@ -195,17 +226,30 @@ def render(_df=None):
     try:
         if 'upload_raw' not in st.session_state:
             st.session_state.upload_raw = uploads.parse(data, file.name, delimiter, encoding, sheet)
+            from services.audit_log import record
+            record('upload_imported',rows=len(st.session_state.upload_raw),columns=len(st.session_state.upload_raw.columns))
         raw = st.session_state.upload_raw
     except (ValueError, TypeError, OSError) as error:
         st.warning('Import validation: '+str(error)[:700]); return
     st.success(f'Imported {len(raw):,} rows and {len(raw.columns)} columns. Built-in datasets and models are unchanged.')
+    st.caption('Format: '+raw.attrs.get('import_format','')+' | Encoding: '+raw.attrs.get('import_encoding','')+f' | File size: {len(data)/1024:.1f} KB')
     with st.expander('Preview and data quality', expanded=True):
         st.dataframe(raw.head(100), hide_index=True, width='stretch')
-        quality = pd.DataFrame({'Field':raw.columns, 'Missing':raw.isna().sum().to_numpy(), 'Distinct values':[raw[c].nunique() for c in raw], 'Type':[str(raw[c].dtype) for c in raw]})
-        st.dataframe(quality, hide_index=True, width='stretch')
+        details = profile(raw)
+        st.dataframe(details['fields'], hide_index=True, width='stretch')
+        st.caption(f"Parsed memory: {details['memory_bytes'] / 1024 / 1024:.2f} MB. " + details['outlier_rule'])
+        privacy = raw.attrs.get('privacy', {})
+        if privacy.get('removed_columns') or privacy.get('redacted_cells'):
+            st.warning(f"Privacy controls excluded {privacy.get('removed_columns', 0)} sensitive columns and redacted {privacy.get('redacted_cells', 0)} contact/token values before analysis. These values are not retained in analysis results.")
         st.caption(f'{int(raw.duplicated().sum()):,} duplicate rows. Empty cells remain missing; no values are imputed. CSV numeric-looking fields start as text to preserve identifiers.')
     with st.container(key='upload_workflow'):
         mode = st.radio('Choose an upload workflow', ['Raw data exploration', 'Trained-model predictions'], horizontal=True, key='upload_mode_'+scope)
+    with st.expander('Automatic trained-model compatibility'):
+        compatibility_key = 'upload_compatibility'
+        if compatibility_key not in st.session_state:
+            st.session_state[compatibility_key] = pd.DataFrame([uploads.compatibility(raw, model) for model in uploads.MODELS])
+        st.dataframe(st.session_state[compatibility_key], hide_index=True, width='stretch')
+        st.caption('Exact feature names are checked automatically. You can map differently named columns in the trained workflow. Partial schemas cannot predict; raw exploration is always available. Encoders use their original fitted preprocessing, without retraining.')
     if mode == 'Trained-model predictions':
         _models(_filter(raw)); return
     with st.form('upload_prepare'):
@@ -216,7 +260,7 @@ def render(_df=None):
         apply = st.form_submit_button('Apply field types', type='primary')
     if apply or 'upload_prepared' not in st.session_state:
         try:
-            st.session_state.upload_prepared = uploads.prepare(raw, numeric, None if date=='[No time axis]' else date, order)
+            st.session_state.upload_prepared = uploads.prepare(raw, numeric, None if date=='[No time axis]' else date, order, explicit_types=True)
             # Widget choices from the previous prepared schema cannot survive type changes.
             for key in list(st.session_state):
                 if key.startswith(('viz_upload_', 'upload_filter_', 'upload_values_', 'upload_min_', 'upload_max_', 'upload_raw_ai_')):
@@ -225,13 +269,19 @@ def render(_df=None):
         except (ValueError, TypeError) as error:
             st.warning(str(error)); return
     frame = _filter(st.session_state.upload_prepared)
+    st.session_state['upload_active_context']=frame
     st.caption(f'{len(frame):,} selected of {len(raw):,} uploaded rows. Charts use the applied field types above.')
     if frame.empty:
         st.info('No rows match. Broaden the uploaded-record filter.'); return
     if frame.attrs.get('generated_measure'):
         st.caption('No numeric measures were supplied. Generated record count = 1 per row supports category counts; it is not a model input.')
+    with st.expander('Recommended graphs for these fields'):
+        st.dataframe(recommendations(frame), hide_index=True, width='stretch')
     board(frame, 'upload_raw', True, 'Raw data visualizations')
-    st.download_button('Download selected upload CSV', csv_bytes(frame), 'uploaded_analysis.csv', 'text/csv', key='upload_data_csv', on_click='ignore')
+    from views.data_tools import questions, joins
+    questions(frame,'upload_raw')
+    joins(frame,'upload_raw')
+    download_button('Download selected upload CSV', csv_bytes(frame), 'uploaded_analysis.csv', 'text/csv', key='upload_data_csv', on_click='ignore', container=st)
     if len(frame)<=5000:
-        st.download_button('Download selected upload Excel', uploads.excel_download(frame), 'uploaded_analysis.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', key='upload_data_excel', on_click='ignore')
+        download_button('Download selected upload Excel', uploads.excel_download(frame), 'uploaded_analysis.xlsx', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', key='upload_data_excel', on_click='ignore', container=st)
     _ai(frame, 'upload_raw')

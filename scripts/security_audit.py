@@ -25,7 +25,7 @@ for path in source:
         if name.endswith("execute") and path.name=="query_engine.py" and (not node.args or not isinstance(node.args[0],ast.Constant)):
             findings.append({"check":"nonconstant SQL","path":path.relative_to(ROOT).as_posix(),"line":node.lineno})
 
-tracked=subprocess.run(["git","-c","safe.directory=D:/SUPPLYCHAIN_AI","ls-files","-z"],cwd=ROOT,capture_output=True,check=True).stdout.decode().split("\0")
+tracked=subprocess.run(["git","-c","safe.directory=D:/SUPPLYCHAIN_AI","ls-files","--cached","--others","--exclude-standard","-z"],cwd=ROOT,capture_output=True,check=True).stdout.decode().split("\0")
 secret_patterns=[r"hf_[A-Za-z0-9]{24,}",r"sk-[A-Za-z0-9_-]{24,}",r"gh[pousr]_[A-Za-z0-9]{30,}",r"AKIA[A-Z0-9]{16}",r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----"]
 scanned=0
 for name in tracked:
@@ -38,8 +38,8 @@ for name in tracked:
     scanned+=1
     if any(re.search(pattern,text) for pattern in secret_patterns):
         findings.append({"check":"credential-shaped value","path":name,"value":"redacted"})
-ignored=subprocess.run(["git","-c","safe.directory=D:/SUPPLYCHAIN_AI","check-ignore",".env",".streamlit/secrets.toml"],cwd=ROOT,capture_output=True,text=True).stdout.splitlines()
-assert set(ignored)=={".env",".streamlit/secrets.toml"}
+ignored=subprocess.run(["git","-c","safe.directory=D:/SUPPLYCHAIN_AI","check-ignore",".env",".streamlit/secrets.toml",".streamlit/accounts.json"],cwd=ROOT,capture_output=True,text=True).stdout.splitlines()
+assert set(ignored)=={".env",".streamlit/secrets.toml",".streamlit/accounts.json"}
 import tomllib
 config=tomllib.loads((ROOT/".streamlit/config.toml").read_text())
 assert config["server"]["address"]=="127.0.0.1"
@@ -66,7 +66,7 @@ report={"status":"passed" if not findings else "failed","executed_at_utc":dateti
         "runtime_python_files_checked":len(source),"tracked_files_secret_scanned":scanned,"findings":findings,
         "trusted_internal_deserializers":deserializers,"secret_stores_ignored":True,"loopback_binding":True,
         "model_path_traversal":"rejected","duckdb_external_access":"blocked","unsafe_copilot_requests":"refused",
-        "limitations":["Session access is not production authentication","No multi-user authorization or persistent storage","Private source data/model assets require controlled local access","Regex secret scan cannot prove absence of every possible credential"]}
+        "limitations":["Current preview uses explicitly labelled session-only demo access; optional private hashed accounts and server-side roles are implemented separately","No enterprise identity provider, durable audit log or production deployment review","Private source data/model assets require controlled local access","Regex secret scan cannot prove absence of every possible credential"]}
 (ROOT/"metadata/security_audit.json").write_text(json.dumps(report,indent=2)+"\n",encoding="utf-8")
 print(json.dumps({key:value for key,value in report.items() if key!="trusted_internal_deserializers"},indent=2))
 raise SystemExit(1 if findings else 0)

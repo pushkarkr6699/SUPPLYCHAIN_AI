@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "checked_at": "2026-10-07T07:59:30.558256+00:00",
+  "checks": [
+    "Observed Sales anomaly reference rendered in the connected overview",
+    "Typed local table command renders bounded connected results",
+    "Validated command applies an available Market filter",
+    "Clear-filter command restores the broader source context",
+    "Actual four-source executive PDF downloaded, parsed and every page rendered"
+  ],
+  "browser_errors": [],
+  "pdf_pages": 4,
+  "pdf_visual_inspection": "passed",
+  "elapsed_seconds": 61.31,
+  "scope": "Isolated local Chrome session; current connected data; no provider request or private-account creation",
+  "pdf_visual_inspection_notes": "All four final pages inspected: one source per page, readable headings, wrapped text, no clipping or overlap."
+}

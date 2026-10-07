@@ -1,6 +1,6 @@
 {
   "status": "validated",
-  "validated_at_utc": "2026-10-05T04:59:42.215636+00:00",
+  "validated_at_utc": "2026-10-07T05:36:25.971516+00:00",
   "model_path": "models/delivery/DataCo_Tuned_XGBoost.pkl",
   "features": [
     "Type",

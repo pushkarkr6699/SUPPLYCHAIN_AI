@@ -111,6 +111,8 @@ def status():
 
 
 def predict_next_day(history):
+    from services.access_control import require
+    require('predict')
     digest, hashes, _ = context()
     frame = historical_inputs(history).groupby("Product", sort=False).tail(1)
     probability = np.maximum(load_model(digest, hashes).predict(frame[FEATURES]), 0)
@@ -120,6 +122,8 @@ def predict_next_day(history):
     output["Forecast Date"] = output["Base Date"] + pd.Timedelta(days=1)
     output["Predicted Visits"] = probability
     output.attrs.update(live_inference=True, verified_artifacts=True, data_source="Live registered XGBoost web-visit inference", model="XGBoost", units="web visits", model_sha256=digest)
+    from services.audit_log import record
+    record('model_predicted',model='demand',rows=len(output))
     return output.reset_index(drop=True)
 
 

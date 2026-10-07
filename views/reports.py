@@ -1,3 +1,4 @@
+from components.secure_actions import download_button
 import pandas as pd
 import plotly.express as px
 import streamlit as st
@@ -15,6 +16,21 @@ from components.feedback import download_feedback
 def render(df):
     service = get_service()
     prefix = "demo" if service.demo else "supplied"
+    if not service.demo:
+        with st.expander('Connected executive briefing across all four sources'):
+            st.caption('Each source uses its own saved workspace filters. Order, line-observation and product/day totals remain separate. Includes six management questions, KPI evidence, changes, coverage, model limits and investigation priorities.')
+            from services.access_control import can
+            if st.button('Generate connected executive briefing',key='connected_brief_generate',disabled=not can('export')):
+                try:
+                    from services.executive_brief import build,pdf,FAMILIES
+                    scopes={family:st.session_state.get('filters',{}) if st.session_state.get('active_filter_dataset')==family else st.session_state.get('filters_by_dataset',{}).get(family,{}) for family in FAMILIES}
+                    with st.spinner('Preparing evidence from the four registered source families...'):
+                        frames={family:service.records(scopes[family],dataset=family) for family in FAMILIES}
+                        result=build(frames,scopes)
+                        download_button('Download connected executive briefing',pdf(result),'connected_executive_briefing.pdf','application/pdf',key='connected_brief_download',on_click='ignore',container=st)
+                    st.success('Connected briefing ready. Sources and their filter periods are stated separately.')
+                except (ValueError,OSError,RuntimeError,KeyError):
+                    st.warning('A registered source could not be validated. Check Model Health, then retry. Individual source reports remain available.')
     cols = st.columns(5)
     for col, name in zip(cols, ["Executive", "Delivery", "Demand", "Profitability", "Cross-Risk"]):
         with col:
@@ -55,7 +71,7 @@ def render(df):
         generated = st.session_state.get("generated_report")
         if generated and generated[0] == signature:
             st.success("Your current report is ready. Change its configuration to generate a new version.")
-            st.download_button("Download PDF", generated[1], f"{prefix}-{report.lower()}-report.pdf", "application/pdf", width="stretch", on_click=download_feedback, args=("PDF download",))
+            download_button("Download PDF", generated[1], f"{prefix}-{report.lower()}-report.pdf", "application/pdf", width="stretch", on_click=download_feedback, args=("PDF download",), container=st)
         elif generated:
             st.caption("Report settings changed. Generate again to download an up-to-date PDF.")
     with right:

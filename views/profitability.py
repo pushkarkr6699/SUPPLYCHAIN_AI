@@ -1,4 +1,5 @@
-﻿"""Profitability UI: source-grain analytics, model diagnostics and gated trained inputs."""
+"""Profitability UI: source-grain analytics, model diagnostics and gated trained inputs."""
+from components.secure_actions import download_button
 from hashlib import sha256
 import pandas as pd
 import numpy as np
@@ -16,7 +17,7 @@ def feature_view(key):
     section('Profitability feature importance','Supplied global ranking of 238 transformed features; this is not SHAP or a causal explanation.')
     show(px.bar(features.head(20).sort_values('Importance'),x='Importance',y='Feature',orientation='h'),key+'_importance',height=540)
     st.dataframe(features,hide_index=True,width='stretch')
-    st.download_button('Download profitability feature importance',csv_bytes(features),'profitability_importance.csv','text/csv',key=key+'_importance_csv')
+    download_button('Download profitability feature importance',csv_bytes(features),'profitability_importance.csv','text/csv',key=key+'_importance_csv', container=st)
 
 
 def drift_view(key):
@@ -26,7 +27,7 @@ def drift_view(key):
     shown=drift.dropna(subset=['Relative_Change']).sort_values('Relative_Change',ascending=False)
     show(px.bar(shown,x='Relative_Change',y='Feature',orientation='h'),key+'_drift',height=440)
     st.dataframe(drift,hide_index=True,width='stretch')
-    st.download_button('Download profitability drift reference',csv_bytes(drift),'profitability_train_test_drift.csv','text/csv',key=key+'_drift_csv')
+    download_button('Download profitability drift reference',csv_bytes(drift),'profitability_train_test_drift.csv','text/csv',key=key+'_drift_csv', container=st)
 
 
 def threshold_view(df,key):
@@ -65,29 +66,30 @@ def model_diagnostics(df,key):
 
 
 def prediction_view(df,key):
+    from services.access_control import can
+    if not can('predict'):st.info('Model execution requires an Analyst or Admin account.');return
     state=inference.status()
     st.caption(state['reason'])
     st.info('The scored dataset does not contain all 23 trained inputs. Existing records use their supplied scores. To run new trained predictions, provide complete feature rows using the template below.')
     if not state['available']:return
     with st.expander('Required trained feature columns'):st.write(state['features'])
-    st.download_button('Download profitability input template',pd.DataFrame(columns=state['features']).to_csv(index=False).encode(),'profitability_input_template.csv','text/csv',key=key+'_template')
-    uploaded=st.file_uploader('Profitability feature CSV',type=['csv'],key=key+'_upload')
+    download_button('Download profitability input template',pd.DataFrame(columns=state['features']).to_csv(index=False).encode(),'profitability_input_template.csv','text/csv',key=key+'_template', container=st)
+    uploaded=st.file_uploader('Profitability feature CSV',type=['csv'],key=key+'_upload',max_upload_size=20)
     if uploaded is None:return
     raw=uploaded.getvalue();token=sha256(raw).hexdigest();saved=st.session_state.get(key+'_result')
     current=bool(saved and saved['token']==token)
     if len(raw)>20*1024*1024:st.error('Use a CSV smaller than 20 MB.');return
     if st.button('Run profitability trained model',type='primary',key=key+'_run',disabled=current):
         try:
-            from io import BytesIO
-            inputs=pd.read_csv(BytesIO(raw))
-            if len(inputs)>50000:raise ValueError('Limit each request to 50,000 rows.')
-            with st.spinner('Validating inputs and running the registered profitability model…'):result=inference.predict(inputs)
+            from services import upload_service as uploads
+            inputs=uploads.parse(raw,uploaded.name)
+            with st.spinner('Validating inputs and running the registered profitability model…'):result=uploads.predict(inputs,'profitability',{c:c for c in state['features']})
             saved={'token':token,'data':result};st.session_state[key+'_result']=saved;current=True
         except (ValueError,OSError,KeyError) as exc:st.error(str(exc))
     if current:
         result=saved['data'];st.success(f'{len(result):,} trained profitability predictions generated.')
         st.dataframe(result,hide_index=True,width='stretch')
-        st.download_button('Download trained profitability predictions',csv_bytes(result),'profitability_predictions.csv','text/csv',key=key+'_prediction_csv')
+        download_button('Download trained profitability predictions',csv_bytes(result),'profitability_predictions.csv','text/csv',key=key+'_prediction_csv', container=st)
     elif saved:st.caption('Input file changed. Generate predictions for this file.')
 
 
@@ -125,6 +127,6 @@ def render(df):
         choice=st.selectbox('Inspect a profitability row',df['Profitability Row'].tolist(),key='profitability_row')
         selected=df[df['Profitability Row'].eq(choice)].iloc[0]
         st.dataframe(pd.DataFrame({'Field':selected.index,'Value':[str(v) for v in selected.values]}),hide_index=True,width='stretch')
-        st.download_button('Download selected profitability data',csv_bytes(df),'profitability_selected.csv','text/csv',key='profitability_selected_csv')
+        download_button('Download selected profitability data',csv_bytes(df),'profitability_selected.csv','text/csv',key='profitability_selected_csv', container=st)
         with st.expander('Supplied high-loss shortlist · five source rows'):
             st.dataframe(data.artifact('DataCo_High_Loss_Risk_Orders.csv'),hide_index=True,width='stretch')

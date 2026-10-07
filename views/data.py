@@ -1,3 +1,4 @@
+from components.secure_actions import download_button
 import streamlit as st
 from components.tables import records_table
 from components.section_header import section
@@ -35,7 +36,7 @@ def render(df):
     section("Data grid", f"{len(view):,} rows · {len(columns)} selected columns · {source}")
     records_table(view, f"data_grid_{dataset}", investigate=False)
     prefix = "demo" if service.demo else "supplied"
-    st.download_button("Download Excel", excel_bytes(view), f"{prefix}-{dataset}-filtered-data.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
+    download_button("Download Excel", excel_bytes(view), f"{prefix}-{dataset}-filtered-data.xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", container=st)
     with st.expander("Advanced · schema, types, missing values and statistics"):
         st.dataframe(quality(view), hide_index=True, width="stretch")
         st.dataframe(view.describe(include="all").astype(str), width="stretch")

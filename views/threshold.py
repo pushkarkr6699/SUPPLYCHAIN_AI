@@ -1,3 +1,4 @@
+from components.secure_actions import download_button
 import plotly.express as px
 import streamlit as st
 from components.kpi_cards import kpis
@@ -27,7 +28,7 @@ def render(df):
         value = st.slider("Analysis threshold", 0., 1., active_threshold, .01, key="analysis_threshold" if demo else "analysis_threshold_verified")
         st.caption(f"This slider affects analysis only and never changes the recorded {active_threshold:.2f} threshold.")
         curve_export = threshold_curve(df)
-        st.download_button("Download curve", csv_bytes(curve_export), "demo-threshold-analysis.csv" if demo else "threshold-analysis.csv", "text/csv", width="stretch")
+        download_button("Download curve", csv_bytes(curve_export), "demo-threshold-analysis.csv" if demo else "threshold-analysis.csv", "text/csv", width="stretch", container=st)
     with analysis:
         m = classification(df, value)
         kpis([

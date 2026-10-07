@@ -45,6 +45,20 @@ def render(df):
     kpis([{"label": r.Metric, "value": r["Absolute change"], "kind": "decimal", "caption": "Observed period difference", "delta": r.Direction, "tone": "purple"} for _, r in changes.head(5).iterrows()])
     st.dataframe(changes, hide_index=True, width="stretch", column_config={"Percentage change": st.column_config.NumberColumn(format="percent")})
     st.caption("Percentage-point change applies only to rates. Relative changes are undefined when the comparison value is zero. Overlapping/custom periods may have unequal exposure.")
+    if 'Sales' in source and 'Market' in source:
+        from services.comparison_service import additive_contributions
+        import plotly.graph_objects as go
+        section('Sales change contributions','Additive observed sales differences by market, in source monetary units; associations only.')
+        try:
+            contributions=additive_contributions(current_df,previous_df,'Market','Sales')
+            previous_total=float(previous_df.Sales.sum());current_total=float(current_df.Sales.sum())
+            labels=['Previous period',*contributions.Market.astype(str),'Current period']
+            values=[previous_total,*contributions.Contribution.tolist(),current_total]
+            figure=go.Figure(go.Waterfall(x=labels,y=values,measure=['absolute',*['relative']*len(contributions),'total']))
+            show(figure,'changes_sales_waterfall',preserve_axis_titles=True)
+            st.caption('Contributions sum exactly to current sales minus previous sales. An absent segment contributes zero; unknown observed amounts are never imputed.')
+            st.dataframe(contributions,hide_index=True,width='stretch')
+        except ValueError as error:st.info(str(error))
     section("Drivers of Observed Change", "Largest contributing segments in the selected periods · associations only")
     dimensions = [name for name in ["Market", "Region", "Category", "Shipping Mode"] if name in source][:3]
     for col, dimension in zip(st.columns(max(1, len(dimensions))), dimensions):

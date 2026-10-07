@@ -1,0 +1,12 @@
+{
+  "checked_utc": "2026-10-07T09:05:08.743185+00:00",
+  "tests": 348,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "seconds": 87.443,
+  "passed": true,
+  "warnings": 18,
+  "warning_details": "15 joblib/NumPy deprecations; 3 intentional invalid-date fixture parsing warnings",
+  "command": ".venv\\Scripts\\python.exe -m pytest -q --junitxml=tmp/master_regression_final.xml"
+}

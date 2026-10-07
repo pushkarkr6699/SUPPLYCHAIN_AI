@@ -1,3 +1,4 @@
+from components.secure_actions import download_button
 from html import escape
 import pandas as pd
 import streamlit as st
@@ -116,4 +117,4 @@ def render(df):
                 go("geography")
                 st.rerun()
         with cols[2]: nav_button("Explain prediction", "explainability", key="order_explain")
-        cols[3].download_button("Download record", csv_bytes(df[df.Order.eq(order)]), f'{"order" if verified else "demo"}-{order}.csv', "text/csv", width="stretch", on_click=download_feedback, args=("Order download",))
+        download_button("Download record", csv_bytes(df[df.Order.eq(order)]), f'{"order" if verified else "demo"}-{order}.csv', "text/csv", width="stretch", on_click=download_feedback, args=("Order download",), container=cols[3])

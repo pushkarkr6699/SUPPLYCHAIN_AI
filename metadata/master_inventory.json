@@ -1,0 +1,2608 @@
+{
+  "generated_utc": "2026-10-06T17:48:53.974802+00:00",
+  "assets": [
+    {
+      "path": ".streamlit/config.toml",
+      "bytes": 240,
+      "kind": "toml"
+    },
+    {
+      "path": "app.py",
+      "bytes": 797,
+      "kind": "py"
+    },
+    {
+      "path": "components/__init__.py",
+      "bytes": 41,
+      "kind": "py"
+    },
+    {
+      "path": "components/alerts.py",
+      "bytes": 1076,
+      "kind": "py"
+    },
+    {
+      "path": "components/app_shell.py",
+      "bytes": 6805,
+      "kind": "py"
+    },
+    {
+      "path": "components/auth_components.py",
+      "bytes": 2297,
+      "kind": "py"
+    },
+    {
+      "path": "components/brand.py",
+      "bytes": 174,
+      "kind": "py"
+    },
+    {
+      "path": "components/breadcrumbs.py",
+      "bytes": 213,
+      "kind": "py"
+    },
+    {
+      "path": "components/charts.py",
+      "bytes": 6578,
+      "kind": "py"
+    },
+    {
+      "path": "components/copilot_ui.py",
+      "bytes": 4245,
+      "kind": "py"
+    },
+    {
+      "path": "components/decision_context.py",
+      "bytes": 882,
+      "kind": "py"
+    },
+    {
+      "path": "components/demo_guide.py",
+      "bytes": 2899,
+      "kind": "py"
+    },
+    {
+      "path": "components/empty_states.py",
+      "bytes": 743,
+      "kind": "py"
+    },
+    {
+      "path": "components/error_states.py",
+      "bytes": 861,
+      "kind": "py"
+    },
+    {
+      "path": "components/evidence.py",
+      "bytes": 482,
+      "kind": "py"
+    },
+    {
+      "path": "components/feedback.py",
+      "bytes": 170,
+      "kind": "py"
+    },
+    {
+      "path": "components/filter_chips.py",
+      "bytes": 1367,
+      "kind": "py"
+    },
+    {
+      "path": "components/filters.py",
+      "bytes": 13563,
+      "kind": "py"
+    },
+    {
+      "path": "components/header.py",
+      "bytes": 2080,
+      "kind": "py"
+    },
+    {
+      "path": "components/insights.py",
+      "bytes": 1679,
+      "kind": "py"
+    },
+    {
+      "path": "components/kpi_cards.py",
+      "bytes": 2360,
+      "kind": "py"
+    },
+    {
+      "path": "components/landing_components.py",
+      "bytes": 10717,
+      "kind": "py"
+    },
+    {
+      "path": "components/live_ai.py",
+      "bytes": 2542,
+      "kind": "py"
+    },
+    {
+      "path": "components/loading_states.py",
+      "bytes": 285,
+      "kind": "py"
+    },
+    {
+      "path": "components/model_cards.py",
+      "bytes": 1017,
+      "kind": "py"
+    },
+    {
+      "path": "components/navigation.py",
+      "bytes": 2197,
+      "kind": "py"
+    },
+    {
+      "path": "components/presentation.py",
+      "bytes": 311,
+      "kind": "py"
+    },
+    {
+      "path": "components/search_bar.py",
+      "bytes": 450,
+      "kind": "py"
+    },
+    {
+      "path": "components/section_header.py",
+      "bytes": 606,
+      "kind": "py"
+    },
+    {
+      "path": "components/sevika.py",
+      "bytes": 7427,
+      "kind": "py"
+    },
+    {
+      "path": "components/sidebar.py",
+      "bytes": 3718,
+      "kind": "py"
+    },
+    {
+      "path": "components/status.py",
+      "bytes": 632,
+      "kind": "py"
+    },
+    {
+      "path": "components/tables.py",
+      "bytes": 5840,
+      "kind": "py"
+    },
+    {
+      "path": "config.py",
+      "bytes": 2945,
+      "kind": "py"
+    },
+    {
+      "path": "data/cache/final_delivery_conversion_probe.csv",
+      "bytes": 14762,
+      "kind": "csv",
+      "sha256": "fba371a35e6a5209f127e144afc9dd4f868c86e400bd1ca0c731f7fa54b84b42",
+      "rows": 32,
+      "columns": [
+        "Days for shipment (scheduled)",
+        "Category Id",
+        "Department Id",
+        "Order Item Discount",
+        "Order Item Discount Rate",
+        "Order Item Quantity",
+        "Order Item Product Price",
+        "Product Category Id",
+        "Product Price",
+        "Sales",
+        "Sales per customer",
+        "Order Item Total",
+        "Order_Year",
+        "Order_Month",
+        "Order_Quarter",
+        "Order_DayOfWeek",
+        "Weekend",
+        "Type",
+        "Category Name",
+        "Customer Segment",
+        "Department Name",
+        "Market",
+        "Order Country",
+        "Order Region",
+        "Shipping Mode",
+        "Product Name",
+        "Product Card Id",
+        "Order State",
+        "Order City",
+        "Customer Country",
+        "Customer State",
+        "Expected Probability"
+      ],
+      "dtypes": {
+        "Days for shipment (scheduled)": "float64",
+        "Category Id": "float64",
+        "Department Id": "float64",
+        "Order Item Discount": "float64",
+        "Order Item Discount Rate": "float64",
+        "Order Item Quantity": "float64",
+        "Order Item Product Price": "float64",
+        "Product Category Id": "float64",
+        "Product Price": "float64",
+        "Sales": "float64",
+        "Sales per customer": "float64",
+        "Order Item Total": "float64",
+        "Order_Year": "float64",
+        "Order_Month": "float64",
+        "Order_Quarter": "float64",
+        "Order_DayOfWeek": "float64",
+        "Weekend": "float64",
+        "Type": "str",
+        "Category Name": "str",
+        "Customer Segment": "str",
+        "Department Name": "str",
+        "Market": "str",
+        "Order Country": "str",
+        "Order Region": "str",
+        "Shipping Mode": "str",
+        "Product Name": "str",
+        "Product Card Id": "int64",
+        "Order State": "str",
+        "Order City": "str",
+        "Customer Country": "str",
+        "Customer State": "str",
+        "Expected Probability": "float64"
+      },
+      "missing_cells": 0,
+      "duplicate_rows": 0,
+      "encoding": "utf-8-sig"
+    },
+    {
+      "path": "data/cache/profitability_conversion_probe.csv",
+      "bytes": 11063,
+      "kind": "csv",
+      "sha256": "3feab5330e2afe993ea64bf7979948c0fe882d33f1800590bcfbf36b8e8e0824",
+      "rows": 32,
+      "columns": [
+        "Days for shipment (scheduled)",
+        "Category Id",
+        "Department Id",
+        "Order Item Discount",
+        "Order Item Discount Rate",
+        "Order Item Quantity",
+        "Order Item Product Price",
+        "Product Category Id",
+        "Product Price",
+        "Product Status",
+        "Order_Year",
+        "Order_Month",
+        "Order_Quarter",
+        "Order_DayOfWeek",
+        "Weekend",
+        "Type",
+        "Category Name",
+        "Customer Segment",
+        "Department Name",
+        "Market",
+        "Order Country",
+        "Order Region",
+        "Shipping Mode",
+        "Expected Probability"
+      ],
+      "dtypes": {
+        "Days for shipment (scheduled)": "float64",
+        "Category Id": "float64",
+        "Department Id": "float64",
+        "Order Item Discount": "float64",
+        "Order Item Discount Rate": "float64",
+        "Order Item Quantity": "float64",
+        "Order Item Product Price": "float64",
+        "Product Category Id": "float64",
+        "Product Price": "float64",
+        "Product Status": "float64",
+        "Order_Year": "float64",
+        "Order_Month": "float64",
+        "Order_Quarter": "float64",
+        "Order_DayOfWeek": "float64",
+        "Weekend": "float64",
+        "Type": "str",
+        "Category Name": "str",
+        "Customer Segment": "str",
+        "Department Name": "str",
+        "Market": "str",
+        "Order Country": "str",
+        "Order Region": "str",
+        "Shipping Mode": "str",
+        "Expected Probability": "float64"
+      },
+      "missing_cells": 0,
+      "duplicate_rows": 0,
+      "encoding": "utf-8-sig"
+    },
+    {
+      "path": "data/delivery/final/DataCo_Feature_Importance.csv",
+      "bytes": 172379,
+      "kind": "csv",
+      "sha256": "831ff107fc95035ad66d0ebab1b8d752191da30f4cbee349d18a7137916ca575",
+      "rows": 4349,
+      "columns": [
+        "Feature",
+        "Importance"
+      ],
+      "dtypes": {
+        "Feature": "str",
+        "Importance": "float64"
+      },
+      "missing_cells": 0,
+      "duplicate_rows": 0,
+      "encoding": "utf-8-sig"
+    },
+    {
+      "path": "data/delivery/final/DataCo_Final_Order_Level_Dataset.csv",
+      "bytes": 16448000,
+      "kind": "csv",
+      "sha256": "5492d5050b9eb64b24948104b1262556a5a39c2149bf15950a2c24cafabd5d40",
+      "family": "delivery_d1",
+      "role": "primary order-level analytical dataset",
+      "registered_hash_matches": true,
+      "rows": 65752,
+      "columns": [
+        "Order Id",
+        "Late_delivery_risk",
+        "Type",
+        "Customer Segment",
+        "Customer Country",
+        "Customer State",
+        "Market",
+        "Order Country",
+        "Order Region",
+        "Shipping Mode",
+        "Order Item Quantity",
+        "Sales",
+        "Order Item Discount",
+        "Order Item Discount Rate",
+        "Order Profit Per Order",
+        "Order Item Profit Ratio",
+        "Order_Year",
+        "Order_Month",
+        "Order_DayOfWeek",
+        "Order_Hour",
+        "Order_Weekend",
+        "Number_of_Items",
+        "Number_of_Products",
+        "Number_of_Categories",
+        "Order_Date",
+        "Average_Sales_Per_Item",
+        "Average_Quantity_Per_Item",
+        "Discount_to_Sales_Ratio",
+        "Profit_Margin",
+        "Order_Complexity"
+      ],
+      "dtypes": {
+        "Order Id": "int64",
+        "Late_delivery_risk": "int64",
+        "Type": "str",
+        "Customer Segment": "str",
+        "Customer Country": "str",
+        "Customer State": "str",
+        "Market": "str",
+        "Order Country": "str",
+        "Order Region": "str",
+        "Shipping Mode": "str",
+        "Order Item Quantity": "int64",
+        "Sales": "float64",
+        "Order Item Discount": "float64",
+        "Order Item Discount Rate": "float64",
+        "Order Profit Per Order": "float64",
+        "Order Item Profit Ratio": "float64",
+        "Order_Year": "int64",
+        "Order_Month": "int64",
+        "Order_DayOfWeek": "int64",
+        "Order_Hour": "int64",
+        "Order_Weekend": "int64",
+        "Number_of_Items": "int64",
+        "Number_of_Products": "int64",
+        "Number_of_Categories": "int64",
+        "Order_Date": "str",
+        "Average_Sales_Per_Item": "float64",
+        "Average_Quantity_Per_Item": "float64",
+        "Discount_to_Sales_Ratio": "float64",
+        "Profit_Margin": "float64",
+        "Order_Complexity": "int64"
+      },
+      "missing_cells": 0,
+      "duplicate_rows": 0,
+      "encoding": "utf-8-sig"
+    },
+    {
+      "path": "data/delivery/final/DataCo_Final_Scored_Orders.csv",
+      "bytes": 344347,
+      "kind": "csv",
+      "sha256": "84e2a530d640df85fc8866df1f91746cb21ee19dd29f7cbfd9728c169899464d",
+      "family": "delivery_d1",
+      "role": "Tuned XGBoost scored test orders",
+      "registered_hash_matches": true,
+      "rows": 2123,
+      "columns": [
+        "Order Id",
+        "Order_Date",
+        "Type",
+        "Customer Segment",
+        "Market",
+        "Order Country",
+        "Order Region",
+        "Shipping Mode",
+        "Sales",
+        "Order Profit Per Order",
+        "Number_of_Items",
+        "Number_of_Products",
+        "Number_of_Categories",
+        "Late_delivery_risk",
+        "Predicted_Late_Delivery",
+        "Late_Delivery_Probability",
+        "Risk_Level",
+        "Prediction_Model",
+        "Decision_Threshold"
+      ],
+      "dtypes": {
+        "Order Id": "int64",
+        "Order_Date": "str",
+        "Type": "str",
+        "Customer Segment": "str",
+        "Market": "str",
+        "Order Country": "str",
+        "Order Region": "str",
+        "Shipping Mode": "str",
+        "Sales": "float64",
+        "Order Profit Per Order": "float64",
+        "Number_of_Items": "int64",
+        "Number_of_Products": "int64",
+        "Number_of_Categories": "int64",
+        "Late_delivery_risk": "int64",
+        "Predicted_Late_Delivery": "int64",
+        "Late_Delivery_Probability": "float64",
+        "Risk_Level": "str",
+        "Prediction_Model": "str",
+        "Decision_Threshold": "float64"
+      },
+      "missing_cells": 0,
+      "duplicate_rows": 0,
+      "encoding": "utf-8-sig"
+    },
+    {
+      "path": "data/delivery/final/DataCo_Late_Delivery_Predictions.csv",
+      "bytes": 167922,
+      "kind": "csv",
+      "sha256": "e68bc8806120f04d964fa1a9b2bd87088ee792d3abaa59ee4e691c43dfe1e73b",
+      "family": "delivery_d1",
+      "role": "earlier Random Forest prediction reference",
+      "registered_hash_matches": true,
+      "rows": 2123,
+      "columns": [
+        "Order Id",
+        "Market",
+        "Order Region",
+        "Shipping Mode",
+        "Late_delivery_risk",
+        "Predicted_Late_Risk",
+        "Late_Risk_Probability",
+        "Risk_Level"
+      ],
+      "dtypes": {
+        "Order Id": "int64",
+        "Market": "str",
+        "Order Region": "str",
+        "Shipping Mode": "str",
+        "Late_delivery_risk": "int64",
+        "Predicted_Late_Risk": "int64",
+        "Late_Risk_Probability": "float64",
+        "Risk_Level": "str"
+      },
+      "missing_cells": 0,
+      "duplicate_rows": 0,
+      "encoding": "utf-8-sig"
+    },
+    {
+      "path": "data/delivery/final/DataCo_Model_Comparison.csv",
+      "bytes": 734,
+      "kind": "csv",
+      "sha256": "421e5f1b4ecd2ca47b2f6cb652d4abcb0c682ce6960afd8544de1a8da54ff73e",
+      "rows": 4,
+      "columns": [
+        "Model",
+        "Accuracy",
+        "Balanced_Accuracy",
+        "Precision",
+        "Recall",
+        "F1",
+        "ROC_AUC",
+        "PR_AUC",
+        "MCC"
+      ],
+      "dtypes": {
+        "Model": "str",
+        "Accuracy": "float64",
+        "Balanced_Accuracy": "float64",
+        "Precision": "float64",
+        "Recall": "float64",
+        "F1": "float64",
+        "ROC_AUC": "float64",
+        "PR_AUC": "float64",
+        "MCC": "float64"
+      },
+      "missing_cells": 0,
+      "duplicate_rows": 0,
+      "encoding": "utf-8-sig"
+    },
+    {
+      "path": "data/delivery/final/DataCo_Risk_Level_Summary.csv",
+      "bytes": 184,
+      "kind": "csv",
+      "sha256": "5b745c55ade797edbf9e6dee8b77ae38580e885e8fd7bba2370e666aa5257bf1",
+      "family": "delivery_d1",
+      "role": "scored risk aggregation reference",
+      "registered_hash_matches": true,
+      "rows": 3,
+      "columns": [
+        "Risk_Level",
+        "Orders",
+        "Average_Predicted_Risk",
+        "Actual_Late_Rate"
+      ],
+      "dtypes": {
+        "Risk_Level": "str",
+        "Orders": "int64",
+        "Average_Predicted_Risk": "float64",
+        "Actual_Late_Rate": "float64"
+      },
+      "missing_cells": 0,
+      "duplicate_rows": 0,
+      "encoding": "utf-8-sig"
+    },
+    {
+      "path": "data/delivery/final/DataCo_Threshold_Analysis.csv",
+      "bytes": 7266,
+      "kind": "csv",
+      "sha256": "334ec531590147cc96e1d527898284e930c8306ee059960847aea29fb2740feb",
+      "rows": 62,
+      "columns": [
+        "Threshold",
+        "Accuracy",
+        "Balanced_Accuracy",
+        "Precision",
+        "Recall",
+        "F1",
+        "MCC"
+      ],
+      "dtypes": {
+        "Threshold": "float64",
+        "Accuracy": "float64",
+        "Balanced_Accuracy": "float64",
+        "Precision": "float64",
+        "Recall": "float64",
+        "F1": "float64",
+        "MCC": "float64"
+      },
+      "missing_cells": 0,
+      "duplicate_rows": 0,
+      "encoding": "utf-8-sig"
+    },
+    {
+      "path": "data/delivery/final/evaluation/DataCo_Feature_Importance.csv",
+      "bytes": 10789,
+      "kind": "csv",
+      "sha256": "3da466d2fb3f2f5c933e8f8edea75fa60c76481b22c04599e2b30c07f6d8445b",
+      "family": "delivery_d1",
+      "role": "Random Forest importance",
+      "registered_hash_matches": true,
+      "rows": 264,
+      "columns": [
+        "Feature",
+        "Importance"
+      ],
+      "dtypes": {
+        "Feature": "str",
+        "Importance": "float64"
+      },
+      "missing_cells": 0,
+      "duplicate_rows": 0,
+      "encoding": "utf-8-sig"
+    },
+    {
+      "path": "data/delivery/final/evaluation/DataCo_Final_Model_Comparison.csv",
+      "bytes": 497,
+      "kind": "csv",
+      "sha256": "09c8f5997b10ea500b893f75497460c4d058919e072fa4e4a436c05467a6758a",
+      "family": "delivery_d1",
+      "role": "model evaluation reference",
+      "registered_hash_matches": true,
+      "rows": 3,
+      "columns": [
+        "Model",
+        "Accuracy",
+        "Precision",
+        "Recall",
+        "F1",
+        "ROC_AUC",
+        "PR_AUC",
+        "Brier_Score"
+      ],
+      "dtypes": {
+        "Model": "str",
+        "Accuracy": "float64",
+        "Precision": "float64",
+        "Recall": "float64",
+        "F1": "float64",
+        "ROC_AUC": "float64",
+        "PR_AUC": "float64",
+        "Brier_Score": "float64"
+      },
+      "missing_cells": 0,
+      "duplicate_rows": 0,
+      "encoding": "utf-8-sig"
+    },
+    {
+      "path": "data/delivery/final/evaluation/DataCo_Model_Comparison (1).csv",
+      "bytes": 477,
+      "kind": "csv",
+      "sha256": "ebd43e06dd4d67d717a8d41825d5e5fb4a36b3d8e80d72adb3bc49324054c0e4",
+      "family": "delivery_d1",
+      "role": "model evaluation reference",
+      "registered_hash_matches": true,
+      "rows": 4,
+      "columns": [
+        "Model",
+        "Accuracy",
+        "Precision",
+        "Recall",
+        "F1 Score",
+        "ROC AUC"
+      ],
+      "dtypes": {
+        "Model": "str",
+        "Accuracy": "float64",
+        "Precision": "float64",
+        "Recall": "float64",
+        "F1 Score": "float64",
+        "ROC AUC": "float64"
+      },
+      "missing_cells": 0,
+      "duplicate_rows": 0,
+      "encoding": "utf-8-sig"
+    },
+    {
+      "path": "data/delivery/final/evaluation/DataCo_Model_Comparison.csv",
+      "bytes": 477,
+      "kind": "csv",
+      "sha256": "ebd43e06dd4d67d717a8d41825d5e5fb4a36b3d8e80d72adb3bc49324054c0e4",
+      "family": "delivery_d1",
+      "role": "model evaluation reference",
+      "registered_hash_matches": true,
+      "rows": 4,
+      "columns": [
+        "Model",
+        "Accuracy",
+        "Precision",
+        "Recall",
+        "F1 Score",
+        "ROC AUC"
+      ],
+      "dtypes": {
+        "Model": "str",
+        "Accuracy": "float64",
+        "Precision": "float64",
+        "Recall": "float64",
+        "F1 Score": "float64",
+        "ROC AUC": "float64"
+      },
+      "missing_cells": 0,
+      "duplicate_rows": 0,
+      "encoding": "utf-8-sig"
+    },
+    {
+      "path": "data/delivery/legacy/d3/Late_Delivery_Feature_Importance.csv",
+      "bytes": 172379,
+      "kind": "csv",
+      "sha256": "831ff107fc95035ad66d0ebab1b8d752191da30f4cbee349d18a7137916ca575",
+      "family": "delivery_d3",
+      "role": "separate line-item model reference",
+      "registered_hash_matches": true,
+      "rows": 4349,
+      "columns": [
+        "Feature",
+        "Importance"
+      ],
+      "dtypes": {
+        "Feature": "str",
+        "Importance": "float64"
+      },
+      "missing_cells": 0,
+      "duplicate_rows": 0,
+      "encoding": "utf-8-sig"
+    },
+    {
+      "path": "data/delivery/legacy/d3/Late_Delivery_Final_Summary.csv",
+      "bytes": 307,
+      "kind": "csv",
+      "sha256": "5aedde122d323de51a7f700e8bf4561683a63f3125511b0f01a088045d14700a",
+      "family": "delivery_d3",
+      "role": "separate line-item model reference",
+      "registered_hash_matches": true,
+      "rows": 15,
+      "columns": [
+        "Property",
+        "Value"
+      ],
+      "dtypes": {
+        "Property": "str",
+        "Value": "str"
+      },
+      "missing_cells": 0,
+      "duplicate_rows": 0,
+      "encoding": "utf-8-sig"
+    },
+    {
+      "path": "data/delivery/legacy/d3/Late_Delivery_Model_Comparison.csv",
+      "bytes": 734,
+      "kind": "csv",
+      "sha256": "421e5f1b4ecd2ca47b2f6cb652d4abcb0c682ce6960afd8544de1a8da54ff73e",
+      "family": "delivery_d3",
+      "role": "separate line-item model reference",
+      "registered_hash_matches": true,
+      "rows": 4,
+      "columns": [
+        "Model",
+        "Accuracy",
+        "Balanced_Accuracy",
+        "Precision",
+        "Recall",
+        "F1",
+        "ROC_AUC",
+        "PR_AUC",
+        "MCC"
+      ],
+      "dtypes": {
+        "Model": "str",
+        "Accuracy": "float64",
+        "Balanced_Accuracy": "float64",
+        "Precision": "float64",
+        "Recall": "float64",
+        "F1": "float64",
+        "ROC_AUC": "float64",
+        "PR_AUC": "float64",
+        "MCC": "float64"
+      },
+      "missing_cells": 0,
+      "duplicate_rows": 0,
+      "encoding": "utf-8-sig"
+    },
+    {
+      "path": "data/delivery/legacy/d3/Late_Delivery_Scored_Orders.csv",
+      "bytes": 3154402,
+      "kind": "csv",
+      "sha256": "d7a2a33d1cf5f903b90eabe3c8715a386fb55d1ffc113f675a5f8e08fbd414c0",
+      "family": "delivery_d3",
+      "role": "separate line-item model reference",
+      "registered_hash_matches": true,
+      "rows": 24369,
+      "columns": [
+        "Order Id",
+        "Market",
+        "Order Region",
+        "Order Country",
+        "Category Name",
+        "Department Name",
+        "Customer Segment",
+        "Shipping Mode",
+        "Order_Date",
+        "Actual_Late_Delivery",
+        "Late_Delivery_Probability",
+        "Predicted_Late_Delivery",
+        "Correct_Prediction",
+        "Delivery_Risk_Level"
+      ],
+      "dtypes": {
+        "Order Id": "int64",
+        "Market": "str",
+        "Order Region": "str",
+        "Order Country": "str",
+        "Category Name": "str",
+        "Department Name": "str",
+        "Customer Segment": "str",
+        "Shipping Mode": "str",
+        "Order_Date": "str",
+        "Actual_Late_Delivery": "int64",
+        "Late_Delivery_Probability": "float64",
+        "Predicted_Late_Delivery": "int64",
+        "Correct_Prediction": "int64",
+        "Delivery_Risk_Level": "str"
+      },
+      "missing_cells": 0,
+      "duplicate_rows": 1757,
+      "encoding": "utf-8-sig"
+    },
+    {
+      "path": "data/delivery/legacy/d3/Late_Delivery_Threshold_Analysis.csv",
+      "bytes": 7266,
+      "kind": "csv",
+      "sha256": "334ec531590147cc96e1d527898284e930c8306ee059960847aea29fb2740feb",
+      "family": "delivery_d3",
+      "role": "separate line-item model reference",
+      "registered_hash_matches": true,
+      "rows": 62,
+      "columns": [
+        "Threshold",
+        "Accuracy",
+        "Balanced_Accuracy",
+        "Precision",
+        "Recall",
+        "F1",
+        "MCC"
+      ],
+      "dtypes": {
+        "Threshold": "float64",
+        "Accuracy": "float64",
+        "Balanced_Accuracy": "float64",
+        "Precision": "float64",
+        "Recall": "float64",
+        "F1": "float64",
+        "MCC": "float64"
+      },
+      "missing_cells": 0,
+      "duplicate_rows": 0,
+      "encoding": "utf-8-sig"
+    },
+    {
+      "path": "data/delivery/legacy/previous_integration/DataCo_Final_Scored_Orders_d7a2a33d1cf5.csv",
+      "bytes": 3154402,
+      "kind": "csv",
+      "sha256": "d7a2a33d1cf5f903b90eabe3c8715a386fb55d1ffc113f675a5f8e08fbd414c0",
+      "rows": 24369,
+      "columns": [
+        "Order Id",
+        "Market",
+        "Order Region",
+        "Order Country",
+        "Category Name",
+        "Department Name",
+        "Customer Segment",
+        "Shipping Mode",
+        "Order_Date",
+        "Actual_Late_Delivery",
+        "Late_Delivery_Probability",
+        "Predicted_Late_Delivery",
+        "Correct_Prediction",
+        "Delivery_Risk_Level"
+      ],
+      "dtypes": {
+        "Order Id": "int64",
+        "Market": "str",
+        "Order Region": "str",
+        "Order Country": "str",
+        "Category Name": "str",
+        "Department Name": "str",
+        "Customer Segment": "str",
+        "Shipping Mode": "str",
+        "Order_Date": "str",
+        "Actual_Late_Delivery": "int64",
+        "Late_Delivery_Probability": "float64",
+        "Predicted_Late_Delivery": "int64",
+        "Correct_Prediction": "int64",
+        "Delivery_Risk_Level": "str"
+      },
+      "missing_cells": 0,
+      "duplicate_rows": 1757,
+      "encoding": "utf-8-sig"
+    },
+    {
+      "path": "data/delivery/legacy/previous_integration/DataCo_Risk_Level_Summary_5aedde122d32.csv",
+      "bytes": 307,
+      "kind": "csv",
+      "sha256": "5aedde122d323de51a7f700e8bf4561683a63f3125511b0f01a088045d14700a",
+      "rows": 15,
+      "columns": [
+        "Property",
+        "Value"
+      ],
+      "dtypes": {
+        "Property": "str",
+        "Value": "str"
+      },
+      "missing_cells": 0,
+      "duplicate_rows": 0,
+      "encoding": "utf-8-sig"
+    },
+    {
+      "path": "data/demand/final/AccessLogs_Final_Advanced_Forecast.csv",
+      "bytes": 373431,
+      "kind": "csv",
+      "sha256": "593b58deeb3d7ec1fac4858b513f230c9bd5268ce1d763867075db2c9110800a",
+      "family": "demand_d2",
+      "role": "forecast output",
+      "registered_hash_matches": true,
+      "rows": 2280,
+      "columns": [
+        "DateOnly",
+        "Product",
+        "Category",
+        "Department",
+        "Visits",
+        "Next_Day_Visits",
+        "Predicted_Next_Day_Visits",
+        "Error",
+        "Absolute_Error",
+        "Prediction_Lower_90",
+        "Prediction_Upper_90",
+        "Demand_Level",
+        "Stock_Attention_Flag"
+      ],
+      "dtypes": {
+        "DateOnly": "str",
+        "Product": "str",
+        "Category": "str",
+        "Department": "str",
+        "Visits": "int64",
+        "Next_Day_Visits": "float64",
+        "Predicted_Next_Day_Visits": "float64",
+        "Error": "float64",
+        "Absolute_Error": "float64",
+        "Prediction_Lower_90": "float64",
+        "Prediction_Upper_90": "float64",
+        "Demand_Level": "str",
+        "Stock_Attention_Flag": "str"
+      },
+      "missing_cells": 0,
+      "duplicate_rows": 0,
+      "encoding": "utf-8-sig"
+    },
+    {
+      "path": "data/demand/final/AccessLogs_Final_Model_Comparison.csv",
+      "bytes": 486,
+      "kind": "csv",
+      "sha256": "7c44c7fe1680d92b876014744094e39c681155bf6874635ba45b073547aede02",
+      "family": "demand_d2",
+      "role": "mixed comparison reference",
+      "registered_hash_matches": true,
+      "rows": 3,
+      "columns": [
+        "Model",
+        "MAE",
+        "RMSE",
+        "R2",
+        "WAPE_%",
+        "SMAPE_%",
+        "Accuracy",
+        "Precision",
+        "Recall",
+        "F1",
+        "ROC_AUC",
+        "PR_AUC",
+        "Brier_Score"
+      ],
+      "dtypes": {
+        "Model": "str",
+        "MAE": "float64",
+        "RMSE": "float64",
+        "R2": "float64",
+        "WAPE_%": "float64",
+        "SMAPE_%": "float64",
+        "Accuracy": "float64",
+        "Precision": "float64",
+        "Recall": "float64",
+        "F1": "float64",
+        "ROC_AUC": "float64",
+        "PR_AUC": "float64",
+        "Brier_Score": "float64"
+      },
+      "missing_cells": 19,
+      "duplicate_rows": 0,
+      "encoding": "utf-8-sig"
+    },
+    {
+      "path": "data/demand/final/AccessLogs_Model_Comparison.csv",
+      "bytes": 486,
+      "kind": "csv",
+      "sha256": "7c44c7fe1680d92b876014744094e39c681155bf6874635ba45b073547aede02",
+      "rows": 3,
+      "columns": [
+        "Model",
+        "MAE",
+        "RMSE",
+        "R2",
+        "WAPE_%",
+        "SMAPE_%",
+        "Accuracy",
+        "Precision",
+        "Recall",
+        "F1",
+        "ROC_AUC",
+        "PR_AUC",
+        "Brier_Score"
+      ],
+      "dtypes": {
+        "Model": "str",
+        "MAE": "float64",
+        "RMSE": "float64",
+        "R2": "float64",
+        "WAPE_%": "float64",
+        "SMAPE_%": "float64",
+        "Accuracy": "float64",
+        "Precision": "float64",
+        "Recall": "float64",
+        "F1": "float64",
+        "ROC_AUC": "float64",
+        "PR_AUC": "float64",
+        "Brier_Score": "float64"
+      },
+      "missing_cells": 19,
+      "duplicate_rows": 0,
+      "encoding": "utf-8-sig"
+    },
+    {
+      "path": "data/demand/legacy/d3/AccessLogs_Final_Advanced_Forecast.csv",
+      "bytes": 373431,
+      "kind": "csv",
+      "sha256": "593b58deeb3d7ec1fac4858b513f230c9bd5268ce1d763867075db2c9110800a",
+      "family": "demand_d3",
+      "role": "duplicate forecast reference",
+      "registered_hash_matches": true,
+      "rows": 2280,
+      "columns": [
+        "DateOnly",
+        "Product",
+        "Category",
+        "Department",
+        "Visits",
+        "Next_Day_Visits",
+        "Predicted_Next_Day_Visits",
+        "Error",
+        "Absolute_Error",
+        "Prediction_Lower_90",
+        "Prediction_Upper_90",
+        "Demand_Level",
+        "Stock_Attention_Flag"
+      ],
+      "dtypes": {
+        "DateOnly": "str",
+        "Product": "str",
+        "Category": "str",
+        "Department": "str",
+        "Visits": "int64",
+        "Next_Day_Visits": "float64",
+        "Predicted_Next_Day_Visits": "float64",
+        "Error": "float64",
+        "Absolute_Error": "float64",
+        "Prediction_Lower_90": "float64",
+        "Prediction_Upper_90": "float64",
+        "Demand_Level": "str",
+        "Stock_Attention_Flag": "str"
+      },
+      "missing_cells": 0,
+      "duplicate_rows": 0,
+      "encoding": "utf-8-sig"
+    },
+    {
+      "path": "data/profitability/final/DataCo_Calibration_Check.csv",
+      "bytes": 266,
+      "kind": "csv",
+      "sha256": "bbac5d8bdc73f1888333325be3e803605e6fba5a84cd84a47635e81f4e334462",
+      "family": "profitability",
+      "role": "training evaluation reference",
+      "registered_hash_matches": true,
+      "rows": 5,
+      "columns": [
+        "Probability_Band",
+        "Records",
+        "Average_Predicted_Probability",
+        "Actual_Profitability"
+      ],
+      "dtypes": {
+        "Probability_Band": "str",
+        "Records": "int64",
+        "Average_Predicted_Probability": "float64",
+        "Actual_Profitability": "float64"
+      },
+      "missing_cells": 2,
+      "duplicate_rows": 0,
+      "encoding": "utf-8-sig"
+    },
+    {
+      "path": "data/profitability/final/DataCo_CatBoost_Tuning.csv",
+      "bytes": 525,
+      "kind": "csv",
+      "sha256": "9022224b1ce9d82457ccf0dd902627131265de19fb12822a5a39c8aeca208bc2",
+      "family": "profitability",
+      "role": "training evaluation reference",
+      "registered_hash_matches": true,
+      "rows": 4,
+      "columns": [
+        "Candidate",
+        "Iterations",
+        "Depth",
+        "Learning_Rate",
+        "L2",
+        "Accuracy",
+        "Precision",
+        "Recall",
+        "F1",
+        "ROC_AUC",
+        "PR_AUC"
+      ],
+      "dtypes": {
+        "Candidate": "int64",
+        "Iterations": "int64",
+        "Depth": "int64",
+        "Learning_Rate": "float64",
+        "L2": "int64",
+        "Accuracy": "float64",
+        "Precision": "float64",
+        "Recall": "float64",
+        "F1": "float64",
+        "ROC_AUC": "float64",
+        "PR_AUC": "float64"
+      },
+      "missing_cells": 0,
+      "duplicate_rows": 0,
+      "encoding": "utf-8-sig"
+    },
+    {
+      "path": "data/profitability/final/DataCo_Category_Summary.csv",
+      "bytes": 2943,
+      "kind": "csv",
+      "sha256": "0f693c34eb7a62f07491043a69ec33a088a13e46a1673c0e22c6a85c052a93ac",
+      "family": "profitability",
+      "role": "training evaluation reference",
+      "registered_hash_matches": true,
+      "rows": 45,
+      "columns": [
+        "Category Name",
+        "Orders",
+        "Actual_Profitability",
+        "Average_Profit",
+        "Average_Prediction"
+      ],
+      "dtypes": {
+        "Category Name": "str",
+        "Orders": "int64",
+        "Actual_Profitability": "float64",
+        "Average_Profit": "float64",
+        "Average_Prediction": "float64"
+      },
+      "missing_cells": 0,
+      "duplicate_rows": 0,
+      "encoding": "utf-8-sig"
+    },
+    {
+      "path": "data/profitability/final/DataCo_Feature_Importance.csv",
+      "bytes": 11338,
+      "kind": "csv",
+      "sha256": "631d03d249c74798d68aa65a5224b19e5fc0b644127373cd22c87fbe35ddf14a",
+      "family": "profitability",
+      "role": "training evaluation reference",
+      "registered_hash_matches": true,
+      "rows": 238,
+      "columns": [
+        "Feature",
+        "Importance"
+      ],
+      "dtypes": {
+        "Feature": "str",
+        "Importance": "float64"
+      },
+      "missing_cells": 0,
+      "duplicate_rows": 0,
+      "encoding": "utf-8-sig"
+    },
+    {
+      "path": "data/profitability/final/DataCo_Final_Project_Summary.csv",
+      "bytes": 259,
+      "kind": "csv",
+      "sha256": "fd603b9f26d9169c3a011b97189de2d4e54ae5bcddc9f7606e6992aed15aaa1d",
+      "family": "profitability",
+      "role": "training evaluation reference",
+      "registered_hash_matches": true,
+      "rows": 14,
+      "columns": [
+        "Property",
+        "Value"
+      ],
+      "dtypes": {
+        "Property": "str",
+        "Value": "str"
+      },
+      "missing_cells": 0,
+      "duplicate_rows": 0,
+      "encoding": "utf-8-sig"
+    },
+    {
+      "path": "data/profitability/final/DataCo_Final_Scored_Orders.csv",
+      "bytes": 4816291,
+      "kind": "csv",
+      "sha256": "138412009caf6e34ca4b8bc8a513fb46fb5b54c426c14260edcf188576261478",
+      "family": "profitability",
+      "role": "scored line items",
+      "registered_hash_matches": true,
+      "rows": 27078,
+      "columns": [
+        "Order Id",
+        "Market",
+        "Order Region",
+        "Order Country",
+        "Category Name",
+        "Department Name",
+        "Customer Segment",
+        "Shipping Mode",
+        "Order Item Quantity",
+        "Order Item Discount Rate",
+        "Order Item Product Price",
+        "Order_Date",
+        "Order Profit Per Order",
+        "Actual_Profitable",
+        "Profitability_Probability",
+        "Predicted_Profitable",
+        "Correct_Prediction",
+        "Profitability_Risk"
+      ],
+      "dtypes": {
+        "Order Id": "int64",
+        "Market": "str",
+        "Order Region": "str",
+        "Order Country": "str",
+        "Category Name": "str",
+        "Department Name": "str",
+        "Customer Segment": "str",
+        "Shipping Mode": "str",
+        "Order Item Quantity": "int64",
+        "Order Item Discount Rate": "float64",
+        "Order Item Product Price": "float64",
+        "Order_Date": "str",
+        "Order Profit Per Order": "float64",
+        "Actual_Profitable": "int64",
+        "Profitability_Probability": "float64",
+        "Predicted_Profitable": "int64",
+        "Correct_Prediction": "int64",
+        "Profitability_Risk": "str"
+      },
+      "missing_cells": 0,
+      "duplicate_rows": 0,
+      "encoding": "utf-8-sig"
+    },
+    {
+      "path": "data/profitability/final/DataCo_High_Loss_Risk_Orders.csv",
+      "bytes": 1099,
+      "kind": "csv",
+      "sha256": "4a6a9202f0d7685776f29d147cfd902a54ffc449e3359d494391e44d43d34f0e",
+      "family": "profitability",
+      "role": "training evaluation reference",
+      "registered_hash_matches": true,
+      "rows": 5,
+      "columns": [
+        "Order Id",
+        "Market",
+        "Order Region",
+        "Order Country",
+        "Category Name",
+        "Department Name",
+        "Customer Segment",
+        "Shipping Mode",
+        "Order Item Quantity",
+        "Order Item Discount Rate",
+        "Order Item Product Price",
+        "Order_Date",
+        "Order Profit Per Order",
+        "Actual_Profitable",
+        "Profitability_Probability",
+        "Predicted_Profitable",
+        "Correct_Prediction",
+        "Profitability_Risk"
+      ],
+      "dtypes": {
+        "Order Id": "int64",
+        "Market": "str",
+        "Order Region": "str",
+        "Order Country": "str",
+        "Category Name": "str",
+        "Department Name": "str",
+        "Customer Segment": "str",
+        "Shipping Mode": "str",
+        "Order Item Quantity": "int64",
+        "Order Item Discount Rate": "float64",
+        "Order Item Product Price": "float64",
+        "Order_Date": "str",
+        "Order Profit Per Order": "float64",
+        "Actual_Profitable": "int64",
+        "Profitability_Probability": "float64",
+        "Predicted_Profitable": "int64",
+        "Correct_Prediction": "int64",
+        "Profitability_Risk": "str"
+      },
+      "missing_cells": 0,
+      "duplicate_rows": 0,
+      "encoding": "utf-8-sig"
+    },
+    {
+      "path": "data/profitability/final/DataCo_Market_Summary.csv",
+      "bytes": 241,
+      "kind": "csv",
+      "sha256": "247d916df5ea130a21aadcb2c342c0807357a3ceda84c281ad57ba8438e78772",
+      "family": "profitability",
+      "role": "training evaluation reference",
+      "registered_hash_matches": true,
+      "rows": 3,
+      "columns": [
+        "Market",
+        "Orders",
+        "Actual_Profitability",
+        "Average_Profit",
+        "Average_Prediction"
+      ],
+      "dtypes": {
+        "Market": "str",
+        "Orders": "int64",
+        "Actual_Profitability": "float64",
+        "Average_Profit": "float64",
+        "Average_Prediction": "float64"
+      },
+      "missing_cells": 0,
+      "duplicate_rows": 0,
+      "encoding": "utf-8-sig"
+    },
+    {
+      "path": "data/profitability/final/DataCo_Model_Comparison.csv",
+      "bytes": 760,
+      "kind": "csv",
+      "sha256": "8451cd599309c6ac5e8f851bba82b9ac72b2012a81b0a7907506b12f76d1e806",
+      "family": "profitability",
+      "role": "training evaluation reference",
+      "registered_hash_matches": true,
+      "rows": 6,
+      "columns": [
+        "Model",
+        "Accuracy",
+        "Precision",
+        "Recall",
+        "F1",
+        "ROC_AUC",
+        "PR_AUC"
+      ],
+      "dtypes": {
+        "Model": "str",
+        "Accuracy": "float64",
+        "Precision": "float64",
+        "Recall": "float64",
+        "F1": "float64",
+        "ROC_AUC": "float64",
+        "PR_AUC": "float64"
+      },
+      "missing_cells": 0,
+      "duplicate_rows": 0,
+      "encoding": "utf-8-sig"
+    },
+    {
+      "path": "data/profitability/final/DataCo_Shipping_Summary.csv",
+      "bytes": 276,
+      "kind": "csv",
+      "sha256": "1a7b67453080f77f6162a5a11bfbe31d0956f2ed6ebe5fa607f10ebc8304c8a6",
+      "family": "profitability",
+      "role": "training evaluation reference",
+      "registered_hash_matches": true,
+      "rows": 4,
+      "columns": [
+        "Shipping Mode",
+        "Orders",
+        "Actual_Profitability",
+        "Average_Profit"
+      ],
+      "dtypes": {
+        "Shipping Mode": "str",
+        "Orders": "int64",
+        "Actual_Profitability": "float64",
+        "Average_Profit": "float64"
+      },
+      "missing_cells": 0,
+      "duplicate_rows": 0,
+      "encoding": "utf-8-sig"
+    },
+    {
+      "path": "data/profitability/final/DataCo_Threshold_Analysis.csv",
+      "bytes": 4648,
+      "kind": "csv",
+      "sha256": "2719093515e9555b5e955812241c9cbbab8604727f86a5e3717a65cb616f263a",
+      "family": "profitability",
+      "role": "training evaluation reference",
+      "registered_hash_matches": true,
+      "rows": 62,
+      "columns": [
+        "Threshold",
+        "Accuracy",
+        "Precision",
+        "Recall",
+        "F1"
+      ],
+      "dtypes": {
+        "Threshold": "float64",
+        "Accuracy": "float64",
+        "Precision": "float64",
+        "Recall": "float64",
+        "F1": "float64"
+      },
+      "missing_cells": 0,
+      "duplicate_rows": 0,
+      "encoding": "utf-8-sig"
+    },
+    {
+      "path": "data/profitability/final/DataCo_Train_Test_Drift.csv",
+      "bytes": 1120,
+      "kind": "csv",
+      "sha256": "273d6f91957993f82d0c89e6a0e5d7bb2a49ce8e2c4a4bfb29304930b669d3d7",
+      "family": "profitability",
+      "role": "training evaluation reference",
+      "registered_hash_matches": true,
+      "rows": 15,
+      "columns": [
+        "Feature",
+        "Train_Mean",
+        "Test_Mean",
+        "Relative_Change"
+      ],
+      "dtypes": {
+        "Feature": "str",
+        "Train_Mean": "float64",
+        "Test_Mean": "float64",
+        "Relative_Change": "float64"
+      },
+      "missing_cells": 1,
+      "duplicate_rows": 0,
+      "encoding": "utf-8-sig"
+    },
+    {
+      "path": "metadata/ai_repository_audit.json",
+      "bytes": 39298,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/backup_manifest.json",
+      "bytes": 243,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/browser_qa.json",
+      "bytes": 467,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/capability_matrix.json",
+      "bytes": 4051,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/chart_controls_qa.json",
+      "bytes": 241755,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/comparison_browser_qa.json",
+      "bytes": 772,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/comparison_chart_qa.json",
+      "bytes": 248,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/comparison_functional_qa.json",
+      "bytes": 624,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/data_registry.json",
+      "bytes": 28588,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/dataset_audit.json",
+      "bytes": 15500,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/delivery_usability_qa.json",
+      "bytes": 12318,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/demand_inference_validation.json",
+      "bytes": 1295,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/dependency_audit.json",
+      "bytes": 4673,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/final_delivery_data_validation.json",
+      "bytes": 2901,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/final_delivery_functional_qa.json",
+      "bytes": 141,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/final_delivery_inference_validation.json",
+      "bytes": 1960,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/final_polish_performance.json",
+      "bytes": 318,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/final_polish_qa.json",
+      "bytes": 4301,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/final_qa.json",
+      "bytes": 699,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/hf_browser_qa.json",
+      "bytes": 271,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/hf_demo_live_qa.json",
+      "bytes": 244,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/hf_dependency_audit.json",
+      "bytes": 5246,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/hf_integration_verification.json",
+      "bytes": 2080,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/hf_security_qa.json",
+      "bytes": 402,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/hf_ui_qa.json",
+      "bytes": 2218,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/inference_validation.json",
+      "bytes": 1876,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/integration_qa.json",
+      "bytes": 670,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/model_registry.json",
+      "bytes": 5380,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/performance_qa.json",
+      "bytes": 368,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/portable_demand_registry.json",
+      "bytes": 907,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/portable_final_delivery_registry.json",
+      "bytes": 2333,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/portable_model_registry.json",
+      "bytes": 924,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/portable_profitability_registry.json",
+      "bytes": 2003,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/profitability_browser_qa.json",
+      "bytes": 678,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/profitability_data_validation.json",
+      "bytes": 1760,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/profitability_functional_qa.json",
+      "bytes": 1194,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/profitability_inference_validation.json",
+      "bytes": 1785,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/project_schema.json",
+      "bytes": 1834,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/public_usability_qa.json",
+      "bytes": 11557,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/release_acceptance.json",
+      "bytes": 38033,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/release_acceptance_history.json",
+      "bytes": 118767,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/release_backup_manifest.json",
+      "bytes": 297,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/release_status.json",
+      "bytes": 558,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/release_validation.json",
+      "bytes": 599,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/security_audit.json",
+      "bytes": 1240,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/sevika_browser_qa.json",
+      "bytes": 679,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/sevika_contrast_qa.json",
+      "bytes": 813,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/sevika_dataset_live_qa.json",
+      "bytes": 724,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/sevika_live_dataset_browser_qa.json",
+      "bytes": 382,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/sevika_live_qa.json",
+      "bytes": 174,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/sevika_payload_qa.json",
+      "bytes": 706,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/sevika_release_qa.json",
+      "bytes": 562,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/sevika_security_qa.json",
+      "bytes": 230,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/showcase_qa.json",
+      "bytes": 6194,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/showcase_qa_history.json",
+      "bytes": 36209,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/unified_experience_qa.json",
+      "bytes": 5658,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/uploads_browser_qa.json",
+      "bytes": 1292,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/uploads_live_ai_qa.json",
+      "bytes": 571,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/uploads_models_browser_qa.json",
+      "bytes": 740,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/uploads_release_qa.json",
+      "bytes": 1379,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/visualization_browser_qa.json",
+      "bytes": 817,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/visualization_polish_qa.json",
+      "bytes": 245,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/visualization_release_qa.json",
+      "bytes": 2544,
+      "kind": "json"
+    },
+    {
+      "path": "metadata/workspace_usability_qa.json",
+      "bytes": 18204,
+      "kind": "json"
+    },
+    {
+      "path": "models/delivery/d3/DataCo_Final_Delivery.json",
+      "bytes": 547328,
+      "kind": "json",
+      "sha256": "bd14d563831d33902114c6dcdff1bd0bf9a136477b5ef53b7a2fd29db14dfc76"
+    },
+    {
+      "path": "models/delivery/d3/DataCo_Final_Delivery_Preprocessor.joblib",
+      "bytes": 110605,
+      "kind": "joblib",
+      "sha256": "112ed4d75cd41d960d24f0c8d3ad29fd864cd5292be4695a2346f0d2205955a0"
+    },
+    {
+      "path": "models/delivery/d3/Final_Late_Delivery_Model.pkl",
+      "bytes": 564421,
+      "kind": "pkl",
+      "sha256": "843a282a7af22f72ea893d272e0515478bed9b523f68bcd64c406bc48e5fe4d3",
+      "family": "delivery_d3",
+      "role": "separate line-item model",
+      "registered_hash_matches": true
+    },
+    {
+      "path": "models/delivery/DataCo_Late_Delivery_Model.pkl",
+      "bytes": 7031579,
+      "kind": "pkl",
+      "sha256": "d9fa727362bc6ca54217022c387e4261379bd7a6fd3afe94b17628fda37b7b3b",
+      "family": "delivery_d1",
+      "role": "serialized model; not executed by importer",
+      "registered_hash_matches": true
+    },
+    {
+      "path": "models/delivery/DataCo_Tuned_XGBoost.json",
+      "bytes": 819876,
+      "kind": "json",
+      "sha256": "33a44cdc33a09c69c0d2b6244d980caca5a78e3e861a0770e95e6d413b8864c2"
+    },
+    {
+      "path": "models/delivery/DataCo_Tuned_XGBoost.pkl",
+      "bytes": 599153,
+      "kind": "pkl",
+      "sha256": "7ae1cb8cbe5d16aebb49bbaae18604bc5f7d0d6ea7633a6094470e4a2ddadaaa",
+      "family": "delivery_d1",
+      "role": "serialized model; not executed by importer",
+      "registered_hash_matches": true
+    },
+    {
+      "path": "models/delivery/DataCo_Tuned_XGBoost_Preprocessor.joblib",
+      "bytes": 9937,
+      "kind": "joblib",
+      "sha256": "93af3276107cdaecb906ab46fb2a023e247b39e420eeacf8fc57a96f5f520402"
+    },
+    {
+      "path": "models/demand/AccessLogs_Final_XGBoost_Demand_Model.json",
+      "bytes": 819433,
+      "kind": "json",
+      "sha256": "5c20adf15e8b42a904ff07f06f2c5b5a093bb8d85e3dcde15d52df6bd1dc6909"
+    },
+    {
+      "path": "models/demand/AccessLogs_Final_XGBoost_Demand_Model.pkl",
+      "bytes": 666138,
+      "kind": "pkl",
+      "sha256": "187e9c65c17f19dcff4a2d96098a3f3a9fcc649db21b9e72fb23ace3740e59fa",
+      "family": "demand_d2",
+      "role": "serialized demand model",
+      "registered_hash_matches": true
+    },
+    {
+      "path": "models/demand/AccessLogs_Final_XGBoost_Demand_Preprocessor.joblib",
+      "bytes": 7809,
+      "kind": "joblib",
+      "sha256": "7a487b9a3406ebe6875def2d18cb08cf5cb92093db53e5b12a52f63c6641889d"
+    },
+    {
+      "path": "models/profitability/DataCo_Final_Trained_Model.pkl",
+      "bytes": 1486850,
+      "kind": "pkl",
+      "sha256": "fa50c3bc4d13d731294e2d862408d007fe1ab9295889026cee00fd204cec323e",
+      "family": "profitability",
+      "role": "trained model",
+      "registered_hash_matches": true
+    },
+    {
+      "path": "models/profitability/DataCo_Profitability.json",
+      "bytes": 2197224,
+      "kind": "json",
+      "sha256": "408e890242d971d6e254bdfa8b6561e710cfa8f623b2767c0688f362db49fe85"
+    },
+    {
+      "path": "models/profitability/DataCo_Profitability_Preprocessor.joblib",
+      "bytes": 10630,
+      "kind": "joblib",
+      "sha256": "e3a2bdb5af2989e4da7ef791d446373a95dfc2a5da1deb40d4cc9bcdd3ccbe01"
+    },
+    {
+      "path": "notebooks/delivery/d3/Welcome_To_Colab.ipynb",
+      "bytes": 1633988,
+      "kind": "ipynb",
+      "sha256": "ba6295a88b85dd197eca82068761d4f5875a7c388d5ef70f65555537d16735d2",
+      "family": "delivery_d3",
+      "role": "training provenance",
+      "registered_hash_matches": true,
+      "cells": 79,
+      "code_cells": 79
+    },
+    {
+      "path": "notebooks/delivery/Welcome_To_Colab (2).ipynb",
+      "bytes": 2064886,
+      "kind": "ipynb",
+      "sha256": "d65ace8d161410f2e82fa4081c66afdcc6554833825fc09de29a01d43eeb0aa4",
+      "family": "delivery_d1",
+      "role": "training provenance",
+      "registered_hash_matches": true,
+      "cells": 239,
+      "code_cells": 238
+    },
+    {
+      "path": "notebooks/demand/Welcome_To_Colab (1).ipynb",
+      "bytes": 1179386,
+      "kind": "ipynb",
+      "sha256": "380ad19bd06d388fb688260fc515fd40ee627396d9df2aa811f3a9e3a509f245",
+      "family": "demand_d2",
+      "role": "training provenance",
+      "registered_hash_matches": true,
+      "cells": 97,
+      "code_cells": 97
+    },
+    {
+      "path": "scripts/audit_datasets.py",
+      "bytes": 4105,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/audit_final_delivery.py",
+      "bytes": 3273,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/audit_profitability.py",
+      "bytes": 6444,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/backup_artifacts.py",
+      "bytes": 1335,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/build_qa_report.py",
+      "bytes": 18180,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/chart_controls_qa.py",
+      "bytes": 8531,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/comparison_browser_qa.py",
+      "bytes": 5848,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/comparison_chart_qa.py",
+      "bytes": 2772,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/comparison_functional_qa.py",
+      "bytes": 2768,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/delivery_usability_qa.py",
+      "bytes": 5473,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/export_portable_delivery.py",
+      "bytes": 2626,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/export_portable_demand.py",
+      "bytes": 1732,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/export_portable_final_delivery.py",
+      "bytes": 2300,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/export_portable_profitability.py",
+      "bytes": 2290,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/final_polish_artifacts.py",
+      "bytes": 2156,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/final_polish_qa.py",
+      "bytes": 5987,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/final_release_smoke.py",
+      "bytes": 3027,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/hf_browser_qa.py",
+      "bytes": 4665,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/hf_live_dataset_qa.py",
+      "bytes": 4543,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/hf_ui_qa.py",
+      "bytes": 5148,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/import_artifacts.py",
+      "bytes": 5906,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/landing_login_qa.py",
+      "bytes": 4119,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/master_inventory.py",
+      "bytes": 5917,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/performance_qa.py",
+      "bytes": 1798,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/profitability_browser_qa.py",
+      "bytes": 5997,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/profitability_functional_qa.py",
+      "bytes": 3457,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/public_usability_qa.py",
+      "bytes": 12542,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/refresh_capabilities.py",
+      "bytes": 5019,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/release_acceptance.py",
+      "bytes": 25839,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/security_audit.py",
+      "bytes": 4913,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/sevika_browser_qa.py",
+      "bytes": 8157,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/sevika_live_browser_qa.py",
+      "bytes": 3452,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/showcase_qa.py",
+      "bytes": 14991,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/unified_experience_qa.py",
+      "bytes": 10190,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/uploads_browser_qa.py",
+      "bytes": 9813,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/verified_browser_qa.py",
+      "bytes": 3116,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/verify_integration.py",
+      "bytes": 4079,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/verify_pdf.py",
+      "bytes": 986,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/visual_qa.py",
+      "bytes": 3030,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/visualization_browser_qa.py",
+      "bytes": 7963,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/visualization_polish_qa.py",
+      "bytes": 3467,
+      "kind": "py"
+    },
+    {
+      "path": "scripts/workspace_usability_qa.py",
+      "bytes": 19734,
+      "kind": "py"
+    },
+    {
+      "path": "services/__init__.py",
+      "bytes": 79,
+      "kind": "py"
+    },
+    {
+      "path": "services/ai_narration.py",
+      "bytes": 3678,
+      "kind": "py"
+    },
+    {
+      "path": "services/ai_provider.py",
+      "bytes": 6759,
+      "kind": "py"
+    },
+    {
+      "path": "services/analytics.py",
+      "bytes": 8525,
+      "kind": "py"
+    },
+    {
+      "path": "services/auth_service.py",
+      "bytes": 1346,
+      "kind": "py"
+    },
+    {
+      "path": "services/comparison_service.py",
+      "bytes": 1177,
+      "kind": "py"
+    },
+    {
+      "path": "services/contracts.py",
+      "bytes": 712,
+      "kind": "py"
+    },
+    {
+      "path": "services/copilot/__init__.py",
+      "bytes": 63,
+      "kind": "py"
+    },
+    {
+      "path": "services/copilot/actions.py",
+      "bytes": 544,
+      "kind": "py"
+    },
+    {
+      "path": "services/copilot/context.py",
+      "bytes": 902,
+      "kind": "py"
+    },
+    {
+      "path": "services/copilot/intent.py",
+      "bytes": 1578,
+      "kind": "py"
+    },
+    {
+      "path": "services/copilot/orchestrator.py",
+      "bytes": 903,
+      "kind": "py"
+    },
+    {
+      "path": "services/copilot/prompts.py",
+      "bytes": 499,
+      "kind": "py"
+    },
+    {
+      "path": "services/copilot/response.py",
+      "bytes": 5766,
+      "kind": "py"
+    },
+    {
+      "path": "services/copilot/tools.py",
+      "bytes": 3949,
+      "kind": "py"
+    },
+    {
+      "path": "services/copilot/validation.py",
+      "bytes": 970,
+      "kind": "py"
+    },
+    {
+      "path": "services/copilot_service.py",
+      "bytes": 155,
+      "kind": "py"
+    },
+    {
+      "path": "services/decision_context.py",
+      "bytes": 3629,
+      "kind": "py"
+    },
+    {
+      "path": "services/demand_inference.py",
+      "bytes": 8398,
+      "kind": "py"
+    },
+    {
+      "path": "services/export_service.py",
+      "bytes": 15427,
+      "kind": "py"
+    },
+    {
+      "path": "services/final_delivery_data.py",
+      "bytes": 4017,
+      "kind": "py"
+    },
+    {
+      "path": "services/final_delivery_inference.py",
+      "bytes": 6669,
+      "kind": "py"
+    },
+    {
+      "path": "services/health_service.py",
+      "bytes": 3366,
+      "kind": "py"
+    },
+    {
+      "path": "services/inference_service.py",
+      "bytes": 14338,
+      "kind": "py"
+    },
+    {
+      "path": "services/live_insights.py",
+      "bytes": 2189,
+      "kind": "py"
+    },
+    {
+      "path": "services/mock_data.py",
+      "bytes": 7054,
+      "kind": "py"
+    },
+    {
+      "path": "services/parameter_comparison.py",
+      "bytes": 9048,
+      "kind": "py"
+    },
+    {
+      "path": "services/profitability_data.py",
+      "bytes": 8438,
+      "kind": "py"
+    },
+    {
+      "path": "services/profitability_inference.py",
+      "bytes": 6227,
+      "kind": "py"
+    },
+    {
+      "path": "services/provider.py",
+      "bytes": 12585,
+      "kind": "py"
+    },
+    {
+      "path": "services/query_engine.py",
+      "bytes": 723,
+      "kind": "py"
+    },
+    {
+      "path": "services/scenario_service.py",
+      "bytes": 398,
+      "kind": "py"
+    },
+    {
+      "path": "services/sevika.py",
+      "bytes": 17038,
+      "kind": "py"
+    },
+    {
+      "path": "services/upload_service.py",
+      "bytes": 19733,
+      "kind": "py"
+    },
+    {
+      "path": "services/verified_data.py",
+      "bytes": 14282,
+      "kind": "py"
+    },
+    {
+      "path": "services/visualization_service.py",
+      "bytes": 11921,
+      "kind": "py"
+    },
+    {
+      "path": "styles/auth.css",
+      "bytes": 10540,
+      "kind": "css"
+    },
+    {
+      "path": "styles/components.css",
+      "bytes": 5676,
+      "kind": "css"
+    },
+    {
+      "path": "styles/dashboard.css",
+      "bytes": 6267,
+      "kind": "css"
+    },
+    {
+      "path": "styles/experience.css",
+      "bytes": 6694,
+      "kind": "css"
+    },
+    {
+      "path": "styles/landing.css",
+      "bytes": 32484,
+      "kind": "css"
+    },
+    {
+      "path": "styles/layout.css",
+      "bytes": 5884,
+      "kind": "css"
+    },
+    {
+      "path": "styles/premium.css",
+      "bytes": 6360,
+      "kind": "css"
+    },
+    {
+      "path": "styles/presentation.css",
+      "bytes": 443,
+      "kind": "css"
+    },
+    {
+      "path": "styles/sevika.css",
+      "bytes": 3636,
+      "kind": "css"
+    },
+    {
+      "path": "styles/theme.css",
+      "bytes": 3119,
+      "kind": "css"
+    },
+    {
+      "path": "styles/workspace_audit.css",
+      "bytes": 19280,
+      "kind": "css"
+    },
+    {
+      "path": "tests/conftest.py",
+      "bytes": 162,
+      "kind": "py"
+    },
+    {
+      "path": "tests/test_ai_provider.py",
+      "bytes": 6499,
+      "kind": "py"
+    },
+    {
+      "path": "tests/test_app.py",
+      "bytes": 7272,
+      "kind": "py"
+    },
+    {
+      "path": "tests/test_delivery_integration.py",
+      "bytes": 2501,
+      "kind": "py"
+    },
+    {
+      "path": "tests/test_delivery_usability.py",
+      "bytes": 846,
+      "kind": "py"
+    },
+    {
+      "path": "tests/test_demand_inference.py",
+      "bytes": 1284,
+      "kind": "py"
+    },
+    {
+      "path": "tests/test_final_delivery.py",
+      "bytes": 1874,
+      "kind": "py"
+    },
+    {
+      "path": "tests/test_final_polish.py",
+      "bytes": 3459,
+      "kind": "py"
+    },
+    {
+      "path": "tests/test_inference_service.py",
+      "bytes": 3166,
+      "kind": "py"
+    },
+    {
+      "path": "tests/test_parameter_comparison.py",
+      "bytes": 5576,
+      "kind": "py"
+    },
+    {
+      "path": "tests/test_profitability.py",
+      "bytes": 5606,
+      "kind": "py"
+    },
+    {
+      "path": "tests/test_release_edges.py",
+      "bytes": 6397,
+      "kind": "py"
+    },
+    {
+      "path": "tests/test_release_security.py",
+      "bytes": 1153,
+      "kind": "py"
+    },
+    {
+      "path": "tests/test_services.py",
+      "bytes": 7457,
+      "kind": "py"
+    },
+    {
+      "path": "tests/test_sevika.py",
+      "bytes": 7123,
+      "kind": "py"
+    },
+    {
+      "path": "tests/test_uploads.py",
+      "bytes": 12538,
+      "kind": "py"
+    },
+    {
+      "path": "tests/test_verified_exports_views.py",
+      "bytes": 3752,
+      "kind": "py"
+    },
+    {
+      "path": "tests/test_visualizations.py",
+      "bytes": 6260,
+      "kind": "py"
+    },
+    {
+      "path": "views/__init__.py",
+      "bytes": 35,
+      "kind": "py"
+    },
+    {
+      "path": "views/alerts.py",
+      "bytes": 5027,
+      "kind": "py"
+    },
+    {
+      "path": "views/changes.py",
+      "bytes": 4813,
+      "kind": "py"
+    },
+    {
+      "path": "views/comparison.py",
+      "bytes": 19165,
+      "kind": "py"
+    },
+    {
+      "path": "views/copilot.py",
+      "bytes": 3909,
+      "kind": "py"
+    },
+    {
+      "path": "views/cross_risk.py",
+      "bytes": 1725,
+      "kind": "py"
+    },
+    {
+      "path": "views/data.py",
+      "bytes": 3357,
+      "kind": "py"
+    },
+    {
+      "path": "views/delivery.py",
+      "bytes": 10155,
+      "kind": "py"
+    },
+    {
+      "path": "views/demand.py",
+      "bytes": 10561,
+      "kind": "py"
+    },
+    {
+      "path": "views/diagnostics.py",
+      "bytes": 3252,
+      "kind": "py"
+    },
+    {
+      "path": "views/downloads.py",
+      "bytes": 7286,
+      "kind": "py"
+    },
+    {
+      "path": "views/drift.py",
+      "bytes": 2410,
+      "kind": "py"
+    },
+    {
+      "path": "views/explainability.py",
+      "bytes": 3949,
+      "kind": "py"
+    },
+    {
+      "path": "views/explorer.py",
+      "bytes": 10518,
+      "kind": "py"
+    },
+    {
+      "path": "views/final_delivery.py",
+      "bytes": 6890,
+      "kind": "py"
+    },
+    {
+      "path": "views/geography.py",
+      "bytes": 4355,
+      "kind": "py"
+    },
+    {
+      "path": "views/health.py",
+      "bytes": 1912,
+      "kind": "py"
+    },
+    {
+      "path": "views/insights.py",
+      "bytes": 1791,
+      "kind": "py"
+    },
+    {
+      "path": "views/landing.py",
+      "bytes": 10768,
+      "kind": "py"
+    },
+    {
+      "path": "views/lineage.py",
+      "bytes": 5675,
+      "kind": "py"
+    },
+    {
+      "path": "views/login.py",
+      "bytes": 1710,
+      "kind": "py"
+    },
+    {
+      "path": "views/models.py",
+      "bytes": 8192,
+      "kind": "py"
+    },
+    {
+      "path": "views/orders.py",
+      "bytes": 10083,
+      "kind": "py"
+    },
+    {
+      "path": "views/overview.py",
+      "bytes": 7186,
+      "kind": "py"
+    },
+    {
+      "path": "views/profitability.py",
+      "bytes": 10672,
+      "kind": "py"
+    },
+    {
+      "path": "views/quality.py",
+      "bytes": 4434,
+      "kind": "py"
+    },
+    {
+      "path": "views/registry.py",
+      "bytes": 4314,
+      "kind": "py"
+    },
+    {
+      "path": "views/reports.py",
+      "bytes": 7667,
+      "kind": "py"
+    },
+    {
+      "path": "views/scenarios.py",
+      "bytes": 8370,
+      "kind": "py"
+    },
+    {
+      "path": "views/settings.py",
+      "bytes": 4100,
+      "kind": "py"
+    },
+    {
+      "path": "views/threshold.py",
+      "bytes": 3576,
+      "kind": "py"
+    },
+    {
+      "path": "views/unavailable.py",
+      "bytes": 3408,
+      "kind": "py"
+    },
+    {
+      "path": "views/uploads.py",
+      "bytes": 16920,
+      "kind": "py"
+    },
+    {
+      "path": "views/visualizations.py",
+      "bytes": 8299,
+      "kind": "py"
+    }
+  ],
+  "missing_requested_sources": [
+    "DataCoSupplyChainDataset.csv",
+    "DescriptionDataCoSupplyChain.csv",
+    "tokenized_access_logs.csv"
+  ],
+  "private_settings": "Existence/configuration only; contents excluded. No models deserialized by this inventory."
+}

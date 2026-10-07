@@ -1,4 +1,5 @@
 """Explicit live narration requests backed by local aggregate evidence."""
+from components.secure_actions import download_button
 import json
 import streamlit as st
 from services import ai_narration,live_insights
@@ -27,7 +28,7 @@ def render(frame,key,question='Explain the key findings, model limitations and u
             for ref in item['evidence_ids']:st.caption(ref+' · '+lookup[ref]['text'])
         st.caption('Hugging Face interpretation · '+saved['model']+' · Check the cited evidence before acting.')
         brief={'model':saved['model'],'answer':saved['answer'],'source':frame.attrs.get('data_source'),'question':question,'evidence':facts}
-        st.download_button('Download AI insight brief',json.dumps(brief,indent=2,default=str).encode(),'ai_insights.json','application/json',key=store+'_download',on_click='ignore')
+        download_button('Download AI insight brief',json.dumps(brief,indent=2,default=str).encode(),'ai_insights.json','application/json',key=store+'_download',on_click='ignore', container=st)
     elif saved:st.caption('Filters or the question changed. Generate a new answer for this selection.')
     with st.expander('Local evidence available without an API key'):
         for fact in facts:st.write(f"**{fact['id']} · {fact['title']}** — {fact['text']}")

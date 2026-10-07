@@ -1,0 +1,7 @@
+{
+  "checked_utc": "2026-10-07T04:36:20.365489+00:00",
+  "dependency_count": 92,
+  "known_vulnerabilities": 0,
+  "pip_check": "No broken requirements found",
+  "scope": "Installed local environment; point-in-time package database, not a penetration test"
+}

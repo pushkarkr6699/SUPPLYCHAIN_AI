@@ -28,6 +28,17 @@
       schedule(chart);
     });
   };
-  new MutationObserver(discover).observe(document.body, {childList:true, subtree:true});
+  // Plotly mutates thousands of SVG nodes while drawing or hovering. Only a
+  // newly mounted/removed chart needs discovery; size changes have their own
+  // ResizeObserver. Observing every SVG mutation repeatedly scanned all charts.
+  let discoveryQueued = false;
+  new MutationObserver(records => {
+    const relevant = records.some(record => [...record.addedNodes, ...record.removedNodes].some(node =>
+      node.nodeType === 1 && node.namespaceURI !== 'http://www.w3.org/2000/svg' &&
+      (node.matches('[data-testid="stPlotlyChart"],.js-plotly-plot') || node.querySelector('[data-testid="stPlotlyChart"],.js-plotly-plot'))));
+    if (!relevant || discoveryQueued) return;
+    discoveryQueued = true;
+    requestAnimationFrame(() => { discoveryQueued = false; discover(); });
+  }).observe(document.body, {childList:true, subtree:true});
   discover();
 })();

@@ -1,4 +1,5 @@
 """Source-grain views for the separately trained final delivery experiment."""
+from components.secure_actions import download_button
 import numpy as np
 import pandas as pd
 import plotly.express as px
@@ -53,15 +54,17 @@ def render(filters=None,key='final_delivery'):
         live_ai(frame,key)
     with exports:
         st.dataframe(frame,hide_index=True,width='stretch')
-        st.download_button('Download final delivery observations',csv_bytes(frame),'final_delivery_line_observations.csv','text/csv',key=key+'_csv')
+        download_button('Download final delivery observations',csv_bytes(frame),'final_delivery_line_observations.csv','text/csv',key=key+'_csv', container=st)
         from services.export_service import report_pdf
-        st.download_button('Download final delivery report',report_pdf(frame,'Delivery',filters or {},['KPIs','Charts','Insights','Records']),'final_delivery_report.pdf','application/pdf',key=key+'_pdf')
+        download_button('Download final delivery report',report_pdf(frame,'Delivery',filters or {},['KPIs','Charts','Insights','Records']),'final_delivery_report.pdf','application/pdf',key=key+'_pdf', container=st)
         for name in sorted(data.FILES):
             path,_=data.registered(name)
-            st.download_button('Download '+name,path.read_bytes(),name,'text/csv' if name.endswith('.csv') else 'text/plain',key=key+'_'+name)
+            download_button('Download '+name,path.read_bytes(),name,'text/csv' if name.endswith('.csv') else 'text/plain',key=key+'_'+name, container=st)
 
 
 def prediction_view(df,key):
+    from services.access_control import can
+    if not can('predict'):st.info('Model execution requires an Analyst or Admin account.');return
     from services import final_delivery_inference as inference
     from hashlib import sha256
     state=inference.status()
@@ -69,22 +72,21 @@ def prediction_view(df,key):
     st.info('The scored dataset does not contain all 31 trained inputs. Existing records use their supplied scores. To run new trained predictions, provide complete feature rows using the template below.')
     if not state['available']:return
     with st.expander('Required trained feature columns'):st.write(state['features'])
-    st.download_button('Download final delivery input template',pd.DataFrame(columns=state['features']).to_csv(index=False).encode(),'final_delivery_input_template.csv','text/csv',key=key+'_template')
-    uploaded=st.file_uploader('Final delivery feature CSV',type=['csv'],key=key+'_upload')
+    download_button('Download final delivery input template',pd.DataFrame(columns=state['features']).to_csv(index=False).encode(),'final_delivery_input_template.csv','text/csv',key=key+'_template', container=st)
+    uploaded=st.file_uploader('Final delivery feature CSV',type=['csv'],key=key+'_upload',max_upload_size=20)
     if uploaded is None:return
     raw=uploaded.getvalue();token=sha256(raw).hexdigest();saved=st.session_state.get(key+'_result')
     current=bool(saved and saved['token']==token)
     if len(raw)>20*1024*1024:st.error('Use a CSV smaller than 20 MB.');return
     if st.button('Run final delivery trained model',type='primary',key=key+'_run',disabled=current):
         try:
-            from io import BytesIO
-            inputs=pd.read_csv(BytesIO(raw))
-            if len(inputs)>50000:raise ValueError('Limit each request to 50,000 rows.')
-            with st.spinner('Validating inputs and running the registered final delivery model…'):result=inference.predict(inputs)
+            from services import upload_service as uploads
+            inputs=uploads.parse(raw,uploaded.name)
+            with st.spinner('Validating inputs and running the registered final delivery model…'):result=uploads.predict(inputs,'delivery_final',{c:c for c in state['features']})
             saved={'token':token,'data':result};st.session_state[key+'_result']=saved;current=True
         except (ValueError,OSError,KeyError) as exc:st.error(str(exc))
     if current:
         result=saved['data'];st.success(f'{len(result):,} trained final delivery predictions generated.')
         st.dataframe(result,hide_index=True,width='stretch')
-        st.download_button('Download trained final delivery predictions',csv_bytes(result),'final_delivery_predictions.csv','text/csv',key=key+'_prediction_csv')
+        download_button('Download trained final delivery predictions',csv_bytes(result),'final_delivery_predictions.csv','text/csv',key=key+'_prediction_csv', container=st)
     elif saved:st.caption('Input file changed. Generate predictions for this file.')

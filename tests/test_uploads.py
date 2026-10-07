@@ -21,13 +21,16 @@ def test_csv_preserves_identifiers_and_explicit_types():
     assert prepared.Amount.sum() == 36 and prepared.Date.min() == pd.Timestamp('2026-01-01')
     assert raw.Amount.tolist() == ['12','24']
     for kind in viz.CHART_TYPES:
-        groups=['Segment','Customer ID'] if kind=='Grouped heatmap' else ['Segment']
+        groups=['Segment','Customer ID'] if kind in {'Grouped heatmap','Grouped bars','Stacked bars'} else ['Segment']
         metrics=['Amount','Quantity','Amount2'] if kind=='Bubble' else ['Amount','Quantity']
         data=prepared.assign(Amount2=[1.,2.])
         if kind=='Correlation heatmap':
             # Correlation requires three usable records.
             data=pd.concat([data,data],ignore_index=True)
-        assert viz.build(data,kind,groups,metrics)['figure'].data
+        if kind in {'Moving average','Coordinate map','Ordered funnel'}:
+            with pytest.raises(ValueError):viz.build(data,kind,groups,metrics)
+        else:
+            assert viz.build(data,kind,groups,metrics,'Sum' if kind=='Stacked bars' else 'Mean')['figure'].data
 
 
 @pytest.mark.parametrize('content,name,options', [
@@ -185,7 +188,7 @@ def test_row_limits_are_enforced_before_large_frames_are_created(monkeypatch):
         with pytest.raises(ValueError):upload.parse(data,name)
 
 
-def test_upload_route_renders_without_built_in_filters_or_upload_data_in_global_chat(monkeypatch):
+def test_upload_route_renders_without_built_in_filters_and_explains_local_chat_consent(monkeypatch):
     from services import provider,sevika
     monkeypatch.setattr(provider,'SUPPLYCHAIN_PROVIDER','verified')
     app=AppTest.from_file(str(ROOT/'app.py'), default_timeout=30)
@@ -195,7 +198,7 @@ def test_upload_route_renders_without_built_in_filters_or_upload_data_in_global_
     assert any('Bring Your Data' in str(x.value) for x in app.get('html'))
     assert not any(x.key=='global_filters' for x in app.get('container'))
     context=sevika.build_context(pd.DataFrame(),'uploads','uploads',{},None)
-    assert context['frame'].empty and 'never sent to this floating chat' in context['guide']
+    assert context['frame'].empty and 'file-specific consent checkbox' in context['guide']
 
 
 def test_import_scope_revokes_consent_and_discards_stale_results():

@@ -1,3 +1,13 @@
+# SupplyChain AI current QA
+
+<!-- master-release-2026-10-07 -->
+
+Latest executed release: **348 passed**, zero failures/errors, 18 warnings. Actual data/model reconciliation, uploaded-data browser workflows, native chart controls, safe exports, security and dependency checks passed. This is a local demonstration release with explicit remaining scope, not blanket master-specification completion.
+
+See [FINAL_IMPLEMENTATION_REPORT.md](FINAL_IMPLEMENTATION_REPORT.md) and the [199-section matrix](metadata/master_requirement_matrix.md) for current evidence and limitations. Earlier entries below are historical and retain their original dates/test counts.
+
+---
+
 # SUPPLYCHAIN AI — Final release QA
 
 **Overall: READY WITH DOCUMENTED LIMITATIONS.**

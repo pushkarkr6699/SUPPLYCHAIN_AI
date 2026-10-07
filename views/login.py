@@ -13,5 +13,7 @@ def render():
     with right, st.container(key="auth_form_panel"):
         login_card()
 
-    st.html('<div class="auth-mobile-capabilities"><span>↗ Delivery Risk</span><span>⌁ Demand Forecast</span><span>✧ AI Copilot</span></div><footer class="auth-footer">DEMO AUTHENTICATION · UI PREVIEW · SESSION-ONLY ACCESS</footer>')
+    from services.access_control import mode
+    footer='PRIVATE LOCAL ACCOUNTS · ROLE CONTROLLED ACCESS' if mode()=='accounts' else 'DEMO AUTHENTICATION · UI PREVIEW · SESSION-ONLY ACCESS'
+    st.html('<div class="auth-mobile-capabilities"><span>↗ Delivery Risk</span><span>⌁ Demand Forecast</span><span>✧ AI Copilot</span></div><footer class="auth-footer">'+footer+'</footer>')
 

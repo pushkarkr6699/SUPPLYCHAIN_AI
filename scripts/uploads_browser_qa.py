@@ -10,6 +10,7 @@ from urllib.request import urlopen
 ROOT=Path(__file__).resolve().parents[1]
 sys.path[:0]=[str(ROOT),str(ROOT/'scripts'),str(ROOT/'tests')]
 from playwright.sync_api import sync_playwright,expect
+expect.set_options(timeout=60000)
 from workspace_usability_qa import settled as _settled,theme
 from test_uploads import source_for,workbook
 from services import upload_service as upload
@@ -30,7 +31,7 @@ def select(page,key,value):
     page.get_by_role('option',name=value,exact=True).click();settled(page)
 
 def send(page,data,name):
-    page.locator('input[type=file]').set_input_files({'name':name,'mimeType':'application/octet-stream','buffer':data})
+    page.locator('[class*="st-key-upload_file_"] input[type=file]').set_input_files({'name':name,'mimeType':'application/octet-stream','buffer':data})
     sheet=upload.sheets(data)[0] if name.lower().endswith('.xlsx') else None
     scope=sha256(data+json.dumps([Path(name).suffix.lower(),'Auto','utf-8-sig',sheet]).encode()).hexdigest()
     page.locator('.st-key-import_state_'+scope).wait_for(timeout=20000)

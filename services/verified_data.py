@@ -28,7 +28,13 @@ FEATURE_COLUMNS = {"Feature", "Importance"}
 
 @lru_cache(maxsize=8)
 def _read_csv(path_text, modified_ns, size):
-    return pd.read_csv(path_text)
+    for encoding in ('utf-8-sig','utf-8','latin1'):
+        try:
+            frame=pd.read_csv(path_text,encoding=encoding)
+            frame.attrs['import_encoding']=encoding
+            return frame
+        except UnicodeError:
+            continue
 
 
 def _read(path, required, name):

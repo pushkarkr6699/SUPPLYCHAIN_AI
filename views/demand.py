@@ -1,3 +1,4 @@
+from components.secure_actions import download_button
 import pandas as pd
 import plotly.express as px
 import streamlit as st
@@ -107,6 +108,8 @@ def render(df):
 
 
 def _prediction_lab():
+    from services.access_control import can
+    if not can('predict'):st.info('Model execution requires an Analyst or Admin account.');return
     from services.demand_inference import status, registered, SOURCE, predict_next_day
     availability = status()
     with st.expander("Run trained next-day web-visit forecast"):
@@ -115,19 +118,21 @@ def _prediction_lab():
             st.warning(availability["reason"])
             return
         history = pd.read_csv(registered(SOURCE)[0])
-        uploaded = st.file_uploader("Optional daily visits history CSV", type=["csv"], key="demand_history_upload", help="Columns: DateOnly, Product, Category, Department, Visits. Include zero-visit days and at least 15 consecutive days per product.")
+        uploaded = st.file_uploader("Optional daily visits history CSV", type=["csv"], key="demand_history_upload",max_upload_size=20, help="Columns: DateOnly, Product, Category, Department, Visits. Include zero-visit days and at least 15 consecutive days per product.")
         if uploaded is not None:
             try:
-                history = pd.read_csv(uploaded)
-            except Exception as exc:
-                st.error(f"Cannot read visits history: {exc}")
+                from services import upload_service as uploads
+                history=uploads.parse(uploaded.getvalue(),uploaded.name)
+                if len(history)>uploads.MAX_PREDICTION_ROWS:raise ValueError('Upload prediction batch limit exceeded.')
+            except Exception:
+                st.error('Cannot read visits history. Check the format, required columns and 5,000-row upload prediction limit.')
                 return
         if st.button("Run trained demand model", key="run_demand_model"):
             try:
                 result = predict_next_day(history)
                 st.dataframe(result, hide_index=True, width="stretch")
                 from services.export_service import csv_bytes
-                st.download_button("Download trained forecasts", csv_bytes(result), "trained_web_visit_forecasts.csv", "text/csv")
+                download_button("Download trained forecasts", csv_bytes(result), "trained_web_visit_forecasts.csv", "text/csv", container=st)
                 st.caption(f"{len(result):,} products · original trained XGBoost model · point forecasts in web visits. Prediction intervals are not generated for new history.")
-            except Exception as exc:
-                st.error(f"Forecast inputs could not be validated: {exc}")
+            except Exception:
+                st.error('Forecast inputs could not be validated. Check complete, nonnegative daily visits and at least 15 consecutive days per product.')

@@ -16,7 +16,11 @@ def frame(rows=24):
 @pytest.mark.parametrize('kind',viz.CHART_TYPES)
 def test_chart_types_build_serializable_figures_without_mutating_sources(kind):
     data=frame();before=data.copy(deep=True)
-    result=viz.build(data,kind,['Market','Category'],['Sales','Profit','Risk Probability'])
+    if kind in {'Coordinate map','Ordered funnel'}:
+        with pytest.raises(ValueError):viz.build(data,kind,['Market','Category'],['Sales'])
+        pd.testing.assert_frame_equal(data,before)
+        return
+    result=viz.build(data,kind,['Market','Category'],['Sales','Profit'] if kind=='Stacked bars' else ['Sales','Profit','Risk Probability'],'Sum' if kind=='Stacked bars' else 'Mean')
     assert result['figure'].data and json.loads(result['figure'].to_json())['data']
     assert result['table'].Records.sum()==len(data) and result['note']
     pd.testing.assert_frame_equal(data,before)
@@ -92,6 +96,23 @@ def test_visualization_ui_applies_chart_choices_and_additional_datasets(monkeypa
     assert len(app.get('plotly_chart'))==5
     app.selectbox(key='visualizations_dataset').select('profitability').run()
     assert not app.exception and app.multiselect(key='viz_profitability_metrics')
+
+
+def test_analysis_pdf_survives_rerender_and_hides_when_choices_change(monkeypatch):
+    import services.provider as provider
+    monkeypatch.setattr(provider,'SUPPLYCHAIN_PROVIDER','verified')
+    app=AppTest.from_file(str(ROOT/'app.py'),default_timeout=45)
+    app.session_state['route']='visualizations';app.session_state['authenticated']=True
+    app.run();assert not app.exception
+    app.button(key='viz_delivery_pdf_create').click().run()
+    assert not app.exception and app.session_state['viz_delivery_pdf']['content'].startswith(b'%PDF')
+    app.run()
+    labels=[entry.proto.label for entry in app.get('download_button')]
+    assert 'Download analysis PDF' in labels and app.button(key='viz_delivery_pdf_create').disabled
+    app.multiselect(key='viz_delivery_charts').set_value(['Donut'])
+    next(b for b in app.button if b.label=='Build visualizations').click().run()
+    assert not app.exception and not app.button(key='viz_delivery_pdf_create').disabled
+    assert 'Download analysis PDF' not in [entry.proto.label for entry in app.get('download_button')]
 
 
 def test_demand_units_use_registered_artifact_and_bounds():

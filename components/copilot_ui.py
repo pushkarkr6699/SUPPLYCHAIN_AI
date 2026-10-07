@@ -1,3 +1,4 @@
+from components.secure_actions import download_button
 from html import escape
 import streamlit as st
 import plotly.express as px
@@ -29,6 +30,20 @@ def context_drawer(df=None, filters=None):
 def response_card(response, provenance, key):
     st.markdown(f'**{response["title"]}**')
     st.write(response["narrative"])
+    if response.get('command_figure') is not None:show(response['command_figure'],f'copilot_command_chart_{key}',380)
+    command=response.get('command')
+    if command and command['type'] in {'OPEN_PAGE','OPEN_REPORT','APPLY_FILTER','CLEAR_FILTER','SELECT_RECORD','SELECT_SEGMENT','RUN_SCENARIO'}:
+        from services.access_control import can
+        if st.button('Run requested action',key=f'copilot_command_{key}',disabled=command['type']=='RUN_SCENARIO' and not can('predict')):
+            try:
+                from services.copilot.ui_commands import apply
+                context=get_service().records(st.session_state.get('filters',{}),dataset=st.session_state.get('active_filter_dataset','delivery'))
+                result=apply(command,context)
+                if result is not None:
+                    st.dataframe([result],hide_index=True)
+                    st.caption('Registered model input comparison; not a measured causal effect. Source records and the fixed threshold remain unchanged.')
+                else:st.rerun()
+            except (ValueError,RuntimeError,OSError,KeyError):st.warning('The command no longer matches this selection or permission. Review the active context and ask again.')
     if response["intent"] != "unsupported":
         m = response["summary"]
         verified = response.get("evidence_context", {}).get("verified_artifacts", False)
@@ -60,5 +75,5 @@ def response_card(response, provenance, key):
     if orders is not None and len(orders):
         with cols[2]: nav_button("Open record", "orders", key=f"copilot_record_{key}", selected_order=orders.iloc[0])
     prefix = "supplied" if response.get("evidence_context", {}).get("verified_artifacts") else "demo"
-    cols[3].download_button("Download result", csv_bytes(response["table"]), f"{prefix}-copilot-result.csv", "text/csv", key=f"copilot_download_{key}", disabled=response["table"].empty, width="stretch")
+    download_button("Download result", csv_bytes(response["table"]), f"{prefix}-copilot-result.csv", "text/csv", key=f"copilot_download_{key}", disabled=response["table"].empty, width="stretch", container=cols[3])
 

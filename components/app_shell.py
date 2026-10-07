@@ -73,6 +73,14 @@ def render():
         st.session_state.route = route
     title, description, view = PAGES[route]
     page_title(title, description)
+    from services.access_control import can
+    from services.audit_log import record
+    permission='admin' if route=='diagnostics' else 'export' if route in {'reports','downloads'} else 'view'
+    if not can(permission):
+        st.warning('Your session role does not allow this section. Choose a viewing workspace or sign in with an authorized account.')
+        return None,route,'unavailable'
+    if st.session_state.get('audited_route')!=route:
+        record('page_viewed',route=route);st.session_state['audited_route']=route
     if route == 'uploads':
         with st.container(key='dashboard'):
             view(None)
@@ -90,6 +98,11 @@ def render():
         service_error(error)
         return None,route,'unavailable'
     st.session_state.last_query_ms = round((perf_counter() - query_start) * 1000, 2)
+    import json
+    from hashlib import sha256
+    filter_signature=sha256(json.dumps(st.session_state.get('filters',{}),sort_keys=True,default=str).encode()).hexdigest()
+    if st.session_state.get('audited_filter_signature')!=filter_signature:
+        record('filters_changed',rows=len(df));st.session_state['audited_filter_signature']=filter_signature
     service = get_service()
     dataset = dataset_for_route(route)
     st.session_state.verified_context = bool(df.attrs.get("verified_artifacts"))
@@ -100,7 +113,7 @@ def render():
     if route not in {"settings", "diagnostics", "lineage"}:
         coverage_strip(df)
         guide(df)
-    if route in {"overview", "delivery", "demand"}:
+    if route in {"overview", "delivery", "demand", "profitability"}:
         decision_brief(df)
     no_data_ok = {"profitability", "cross_risk", "settings", "diagnostics", "lineage", "drift", "health", "changes", "reports", "comparison", "visualizations"}
     if df.empty and route not in no_data_ok:

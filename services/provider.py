@@ -97,6 +97,9 @@ class VerifiedArtifactsService(MockAnalyticsService):
         attrs = dict(df.attrs)
         result = df.reset_index(drop=True).copy()
         result.attrs.update(attrs)
+        result.attrs['analysis_filters']=[{'field':key,'values':[value.isoformat() if hasattr(value,'isoformat') else value for value in values]} for key,values in (filters or {}).items() if key in {'Date',*FILTER_COLUMNS} and values]
+        from services.audit_log import record
+        record('dataset_accessed',model='delivery' if dataset=='demo' else dataset,rows=len(result))
         return result
 
     def options(self, dataset="demo"):
@@ -210,6 +213,10 @@ class VerifiedArtifactsService(MockAnalyticsService):
 
 
 def get_service() -> AnalyticsService:
+    from services.access_control import mode,can
+    from streamlit.runtime.scriptrunner import get_script_run_ctx
+    if mode()!='demo' and get_script_run_ctx(suppress_warning=True) is not None and not can('project_data'):
+        return MockAnalyticsService()
     if SUPPLYCHAIN_PROVIDER == "verified":
         return VerifiedArtifactsService()
     if SUPPLYCHAIN_PROVIDER != "demo":

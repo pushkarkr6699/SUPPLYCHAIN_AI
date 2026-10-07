@@ -42,10 +42,10 @@ def render(df):
         st.caption("Order counts, sales, and recorded profit use primary analytical records. Delivery-risk averages use only orders with supplied predictions.")
     left, right = st.columns([1.6, 1])
     with left, st.container(border=True):
-        section("Country comparison", "A ranked chart keeps this preview independent of map tiles and geocoding")
+        section("Country comparison", "Actual supplied country rankings; map geometry and geocoding are not required")
         bar(chart_df, "Country", actual_metric, "geo_country", horizontal=True)
-        with st.expander("Country-level choropleth · integration preview"):
-            st.info("Map geometry is not connected. Verified country identifiers and a supported boundary source are required; no coordinates have been invented.")
+        with st.expander("Geographic map availability"):
+            st.info("Not available from current dataset: validated coordinates or country-boundary mapping were not supplied. Country rankings use actual observations. Uploaded latitude/longitude pairs can be mapped in Bring Your Data; shipment routes require actual endpoints.")
     with right, st.container(border=True):
         section("Selected geography", "Inspect the context behind a geographic signal")
         country = st.selectbox("Country detail", sorted(chart_df.Country.dropna().unique()))

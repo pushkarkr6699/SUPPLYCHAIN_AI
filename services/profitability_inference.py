@@ -71,10 +71,15 @@ def _probabilities(frame,data):
 
 
 def predict(frame):
+    from services.access_control import require
+    from services.privacy import minimize
+    require('predict');frame=minimize(frame)
     data=validated();features=validate_features(frame,data);prob=_probabilities(features,data)
     if not np.isfinite(prob).all() or not ((prob>=0)&(prob<=1)).all():raise ValueError('Profitability model returned invalid probabilities.')
     result=frame.copy();result['Profitability Probability']=prob;result['Loss Probability']=1-prob;result['Predicted Profitable']=prob>=THRESHOLD
     result['Profitability Risk']=risk_bands(result['Profitability Probability'])
+    from services.audit_log import record
+    record('model_predicted',model='profitability',rows=len(result))
     result.attrs.update(verified_artifacts=True,live_inference=True,dataset='profitability',data_source='Registered trained profitability inference on supplied complete feature rows',production_threshold=THRESHOLD,model_name='Tuned XGBoost profitability',evaluation_note='Portable conversion fidelity validated. Supplied-score parity not available; historical test ROC-AUC approximately 0.4978.')
     return result
 

@@ -2,11 +2,29 @@
 import numpy as np
 import pandas as pd
 import plotly.express as px
+import plotly.graph_objects as go
 from services import parameter_comparison as analysis
 
-CHART_TYPES = ['Vertical bars','Horizontal bars','Line','Area','Scatter','Bubble','Histogram','Box plot','Violin plot','ECDF','Correlation heatmap','Density heatmap','Grouped heatmap','Treemap','Sunburst','Pie','Donut','Scatter matrix']
+CHART_TYPES = ['Vertical bars','Horizontal bars','Line','Area','Scatter','Bubble','Histogram','Box plot','Violin plot','ECDF','Correlation heatmap','Density heatmap','Grouped heatmap','Treemap','Sunburst','Pie','Donut','Scatter matrix','Grouped bars','Stacked bars','Pareto','Moving average','Coordinate map','KPI indicators','Ordered funnel']
 SAMPLE_LIMIT = 3000
 COMPOSITION = {'Treemap','Sunburst','Pie','Donut'}
+
+
+def availability(frame,groups,metrics,operation):
+    """Explain chart prerequisites without rendering 24 prospective figures."""
+    result=[]
+    for kind in CHART_TYPES:
+        reason=''
+        if kind in {'Line','Area','Moving average'} and ('Date' not in frame or not pd.api.types.is_datetime64_any_dtype(frame['Date'])):reason='Select an actual date field.'
+        elif kind in {'Grouped bars','Stacked bars','Grouped heatmap'} and len(groups)!=2:reason='Choose two grouping fields.'
+        elif kind=='Stacked bars' and operation!='Sum':reason='Use additive Sum measures.'
+        elif kind in {'Scatter','Density heatmap','Scatter matrix','Correlation heatmap'} and len(metrics)<2:reason='Choose at least two numeric measures.'
+        elif kind=='Bubble' and len(metrics)<3:reason='Choose X, Y and size measures.'
+        elif kind in COMPOSITION|{'Pareto'} and not groups:reason='Choose a category grouping field.'
+        elif kind=='Coordinate map' and (not any(c.lower() in {'latitude','lat'} for c in frame) or not any(c.lower() in {'longitude','lon','lng'} for c in frame)):reason='Actual coordinate pairs are required; no automatic geocoding.'
+        elif kind=='Ordered funnel' and (not {'Stage','Stage Order'}.issubset(frame) or operation!='Sum'):reason='Requires actual Stage and Stage Order fields and additive Sum; stage order is supplied by you.'
+        result.append({'Visualization':kind,'Status':'Available' if not reason else 'Needs fields/settings','Requirement':reason})
+    return pd.DataFrame(result)
 
 
 def units(field, frame):
@@ -57,14 +75,65 @@ def composition_table(table, groups, metrics, operation, size, limit):
     return data,column,note
 
 
-def build(frame, kind, groups, metrics, operation='Mean', period='Day', limit=20, size='Record count'):
+def build(frame, kind, groups, metrics, operation='Mean', period='Day', limit=20, size='Record count', sort_by='Records', ascending=False):
     if kind not in CHART_TYPES:raise ValueError('Choose an available chart type.')
     table=summary(frame,groups,metrics,operation,period,limit)
+    if sort_by not in ['Records', *metrics]:raise ValueError('Sort by record count or a selected measure.')
     sampled=frame.sample(min(SAMPLE_LIMIT,len(frame)),random_state=42)
     clean=analysis.clean_numeric(sampled,metrics)
     axes={c:c+' ('+units(c,frame)+')' for c in metrics}
     note=''
-    if kind in COMPOSITION:
+    if kind == 'Ordered funnel':
+        if not {'Stage','Stage Order'}.issubset(frame) or operation!='Sum' or metrics[0]=='Stage Order':raise ValueError('Funnel requires actual Stage and Stage Order fields and an additive Sum measure. Meaningful stage order must be supplied, not inferred from labels.')
+        data=frame[['Stage','Stage Order',metrics[0]]].copy()
+        data['Stage Order']=pd.to_numeric(data['Stage Order'],errors='coerce')
+        if data[['Stage','Stage Order',metrics[0]]].isna().any().any() or not np.isfinite(data['Stage Order']).all() or data[metrics[0]].lt(0).any():raise ValueError('Stage names, finite stage order and nonnegative amounts must be complete.')
+        if data.groupby('Stage',observed=True)['Stage Order'].nunique().gt(1).any():raise ValueError('Each stage requires one unambiguous supplied position.')
+        positions=data[['Stage','Stage Order']].drop_duplicates()
+        if positions['Stage Order'].duplicated().any() or len(positions)<2 or len(positions)>50:raise ValueError('Provide 2-50 stages with distinct supplied positions.')
+        shown=data.groupby(['Stage','Stage Order'],observed=True,as_index=False)[metrics[0]].sum(min_count=1).sort_values('Stage Order')
+        fig=go.Figure(go.Funnel(y=shown.Stage,x=shown[metrics[0]],textinfo='value'))
+        note='User-defined ordered stage totals in source units. No stages or missing amounts are fabricated. This does not establish a shared cohort, conversion rate or causal pipeline.'
+    elif kind == 'Coordinate map':
+        lat = next((c for c in frame if c.lower() in {'latitude', 'lat'}), None)
+        lon = next((c for c in frame if c.lower() in {'longitude', 'lon', 'lng'}), None)
+        if not lat or not lon:raise ValueError('Not available from current dataset: a map requires actual latitude and longitude fields. Country rankings remain available.')
+        coordinates = frame[[lat, lon]].apply(pd.to_numeric, errors='coerce')
+        valid = coordinates[lat].between(-90, 90) & coordinates[lon].between(-180, 180)
+        data = coordinates.loc[valid].sample(min(SAMPLE_LIMIT, int(valid.sum())), random_state=42)
+        if data.empty:raise ValueError('No valid coordinate pairs are available. Coordinates are never fabricated or geocoded automatically.')
+        fig = px.scatter_geo(data, lat=lat, lon=lon, projection='natural earth')
+        note = f'Actual coordinate pairs only: {valid.sum():,} valid / {len(frame):,} selected; {len(data):,} displayed. Points do not represent verified shipment routes.'
+        shown = data
+    elif kind == 'KPI indicators':
+        totals = analysis.comparison(frame, [], metrics, operation)
+        fig = go.Figure()
+        for i, metric in enumerate(metrics):
+            value = totals[metric].iloc[0]
+            if pd.notna(value):fig.add_trace(go.Indicator(mode='number', value=float(value), title={'text':metric}, domain={'x':[i/len(metrics), (i+1)/len(metrics)],'y':[0,1]}))
+        if not fig.data:raise ValueError('No finite KPI values are available.')
+        note = operation + ' over all selected records; valid-value counts are included in the analysis table. Units: ' + '; '.join(c + ' = ' + units(c, frame) for c in metrics)
+        shown = totals
+    elif kind in {'Grouped bars', 'Stacked bars'}:
+        if len(groups) != 2:raise ValueError('Choose exactly two grouping fields for grouped or stacked bars.')
+        if kind == 'Stacked bars' and operation != 'Sum':raise ValueError('Stacked bars require additive Sum measures. Means and probabilities must not be stacked.')
+        data = table.sort_values(sort_by, ascending=ascending, kind='stable').head(limit).copy()
+        for c in groups:data[c] = data[c].astype('string').fillna('(Missing)')
+        long = data.melt(id_vars=[*groups, 'Records'], value_vars=metrics, var_name='Measure', value_name='Value').dropna(subset=['Value'])
+        if long.empty:raise ValueError('No finite values are available.')
+        fig = px.bar(long, x=groups[0], y='Value', color=groups[1], barmode='stack' if kind == 'Stacked bars' else 'group', facet_col='Measure', facet_col_wrap=1, hover_data=['Records'])
+        fig.update_yaxes(matches=None)
+        note = f'{operation}; first {len(data)} grouped cells sorted by {sort_by}. Measures retain separate panels and source units.'
+        shown = data
+    elif kind == 'Pareto':
+        data, column, note = composition_table(table, groups, metrics, operation, size, limit)
+        data = data.sort_values(column, ascending=False, kind='stable')
+        cumulative = data[column].cumsum() / data[column].sum() * 100
+        fig = go.Figure([go.Bar(x=data.Segment, y=data[column], name=column), go.Scatter(x=data.Segment, y=cumulative, yaxis='y2', mode='lines+markers', name='Cumulative %')])
+        fig.update_layout(yaxis={'title':column}, yaxis2={'title':'Cumulative %', 'overlaying':'y', 'side':'right', 'range':[0,100]})
+        note += ' Descending contributions; cumulative percentage totals 100%. [Other groups] preserves omitted contributions.'
+        shown = data
+    elif kind in COMPOSITION:
         data,column,note=composition_table(table,groups,metrics,operation,size,limit)
         if kind in {'Pie','Donut'}:
             fig=px.pie(data,names='Segment',values=column,hole=.55 if kind=='Donut' else 0)
@@ -73,16 +142,16 @@ def build(frame, kind, groups, metrics, operation='Mean', period='Day', limit=20
             fig=(px.treemap if kind=='Treemap' else px.sunburst)(data,path=groups,values=column)
         shown=data
     elif kind in {'Vertical bars','Horizontal bars'}:
-        data=table.sort_values('Records',ascending=False,kind='stable').head(limit).copy()
+        data=table.sort_values(sort_by,ascending=ascending,kind='stable').head(limit).copy()
         data['Segment']=analysis.segment_labels(data,groups)
         long=data.melt(id_vars=['Segment','Records'],value_vars=metrics,var_name='Measure',value_name='Value').dropna(subset=['Value'])
         if long.empty:raise ValueError('No finite values for these measures. Missing scores are not plotted as zeros.')
         horizontal=kind=='Horizontal bars'
         fig=px.bar(long,x='Value' if horizontal else 'Segment',y='Segment' if horizontal else 'Value',orientation='h' if horizontal else 'v',facet_col='Measure',facet_col_wrap=1,hover_data=['Records'])
         fig.update_xaxes(matches=None);fig.update_yaxes(matches=None)
-        note=f'{operation} in original field units, in separate measure panels. Largest {len(data):,} of {len(table):,} groups by record count.'
+        note=f'{operation} in original field units, in separate measure panels. First {len(data):,} of {len(table):,} groups sorted by {sort_by}.'
         shown=data
-    elif kind in {'Line','Area'}:
+    elif kind in {'Line','Area','Moving average'}:
         if 'Date' not in frame or not pd.api.types.is_datetime64_any_dtype(frame['Date']):raise ValueError('Time charts require a valid date field. Select a time field when preparing uploaded data.')
         dims=[c for c in groups if c!='Date']
         data=analysis.comparison(frame,['Date',*dims],metrics,operation,period)
@@ -91,11 +160,16 @@ def build(frame, kind, groups, metrics, operation='Mean', period='Day', limit=20
         dates=sorted(data.Date.dropna().unique())[-180:]
         data=data[data.Series.isin(series) & data.Date.isin(dates)].sort_values('Date',kind='stable')
         long=data.melt(id_vars=['Date','Series','Records'],value_vars=metrics,var_name='Measure',value_name='Value').dropna(subset=['Value'])
+        if kind == 'Moving average':
+            long = long.sort_values('Date', kind='stable').copy()
+            long['Value'] = long.groupby(['Series', 'Measure'], observed=True)['Value'].transform(lambda s: s.rolling(3, min_periods=3).mean())
+            long = long.dropna(subset=['Value'])
         if long.empty:raise ValueError('No measured time-series values in this period.')
         fig=px.line(long,x='Date',y='Value',color='Series',facet_col='Measure',facet_col_wrap=1,markers=True,hover_data=['Records'])
         if kind=='Area':fig.update_traces(fill='tozeroy',opacity=.45)
         fig.update_yaxes(matches=None)
         note=f'{operation} per {period.lower()}, separate measure panels; at most 12 series and the latest 180 time bins. Areas overlap without stacking means.'
+        if kind == 'Moving average':note += ' Three observed consecutive bins required per rolling point; missing bins are not imputed. Historical smoothing, not a future forecast.'
         shown=data
     elif kind in {'Histogram','Box plot','Violin plot','ECDF'}:
         long=clean.melt(var_name='Measure',value_name='Value').dropna()
@@ -148,5 +222,5 @@ def build(frame, kind, groups, metrics, operation='Mean', period='Day', limit=20
         shown=data
     for annotation in fig.layout.annotations:
         if '=' in annotation.text:annotation.text=annotation.text.split('=',1)[1]
-    fig.update_layout(showlegend=(kind in {'Line','Area'} and shown.Series.nunique()>1) or kind in {'Pie','Donut'})
+    fig.update_layout(showlegend=(kind in {'Line','Area','Moving average'} and shown.Series.nunique()>1) or kind in {'Pie','Donut','Grouped bars','Stacked bars','Pareto'})
     return {'figure':fig,'note':note,'table':table,'shown':shown}

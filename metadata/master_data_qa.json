@@ -1,0 +1,78 @@
+{
+  "passed": true,
+  "checked_at": "2026-10-07T05:36:29.423828+00:00",
+  "checks": [
+    "Primary order count, unique keys, sales and scored/unscored coverage independently reconciled",
+    "Filtered aggregation and CSV agree with independent source totals",
+    "Actual primary/scored join coverage, output count and additive sales reconciled",
+    "Ten simultaneous chart constructions and repeated real-source filters",
+    "Privacy-safe analysis PDF parsed and every page rendered for visual inspection",
+    "All four original registered model adapters revalidated; real-row parity distinguished from conversion probes"
+  ],
+  "rows": 65752,
+  "scored": 2123,
+  "join": {
+    "left_rows": 65752,
+    "right_rows": 2123,
+    "left_null_keys": 0,
+    "right_null_keys": 0,
+    "left_unique_keys": 65752,
+    "right_unique_keys": 2123,
+    "left_duplicate_key_rows": 0,
+    "right_duplicate_key_rows": 0,
+    "shared_keys": 2123,
+    "left_matched_records": 2123,
+    "right_matched_records": 2123,
+    "left_unmatched_records": 63629,
+    "right_unmatched_records": 0,
+    "expected_inner_rows": 2123,
+    "cardinality": "one-to-one",
+    "safe_direct_join": true,
+    "policy": "Null keys never match. Direct materialization requires one-to-one; aggregate child observations explicitly first to avoid duplicated parent measures."
+  },
+  "performance": {
+    "cold_source_seconds": 0.8097,
+    "warm_source_seconds": 0.0136,
+    "ten_chart_build_seconds": 1.3163,
+    "repeated_filter_seconds": [
+      0.0101,
+      0.0093,
+      0.0091,
+      0.0099,
+      0.0086
+    ],
+    "source_frame_MB": 20.38,
+    "scope": "Single local process, actual supplied sources; no multi-user load or production SLA claimed"
+  },
+  "models": {
+    "delivery": {
+      "status": "validated",
+      "seconds": 2.8632,
+      "rows": 2123,
+      "supplied_score_parity": true,
+      "probability_difference": null
+    },
+    "demand": {
+      "status": "validated",
+      "seconds": 0.2835,
+      "rows": 1216,
+      "supplied_score_parity": true,
+      "probability_difference": null
+    },
+    "profitability": {
+      "status": "validated",
+      "seconds": 0.1968,
+      "rows": 32,
+      "supplied_score_parity": false,
+      "probability_difference": 2.6729583768592136e-08
+    },
+    "delivery_final": {
+      "status": "validated",
+      "seconds": 0.1087,
+      "rows": 32,
+      "supplied_score_parity": false,
+      "probability_difference": 2.6251220752726567e-08
+    }
+  },
+  "pdf_pages": 1
+}

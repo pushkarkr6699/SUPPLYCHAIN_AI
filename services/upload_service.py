@@ -15,6 +15,7 @@ import numpy as np
 import pandas as pd
 from config import ROOT
 from services import parameter_comparison as analysis
+from services.privacy import minimize
 
 MAX_BYTES = 20 * 1024 * 1024
 MAX_ROWS = 50000
@@ -23,7 +24,7 @@ MAX_CELL = 4096
 MAX_PREDICTION_ROWS = 5000
 MODELS = {'delivery': 'Delivery order risk', 'demand': 'Next-day web visits',
           'profitability': 'Profitability line items', 'delivery_final': 'Final delivery line items'}
-FORMATS = ['csv', 'tsv', 'xlsx', 'json']
+FORMATS = ['csv', 'tsv', 'xlsx', 'json', 'parquet']
 
 
 def _headers(names):
@@ -92,8 +93,8 @@ def parse(data, filename, delimiter='Auto', encoding='utf-8-sig', sheet=None):
         raise ValueError('Choose a nonempty file no larger than 20 MB.')
     extension = PurePath(filename).suffix.lower().lstrip('.')
     if extension not in FORMATS:
-        raise ValueError('Use CSV, TSV, XLSX or a JSON array of flat records. Model and executable uploads are not accepted.')
-    if encoding not in {'utf-8-sig', 'cp1252'} or delimiter not in {'Auto', ',', ';', '\t', '|'}:
+        raise ValueError('Use CSV, TSV, XLSX, Parquet or JSON flat records. Model and executable uploads are not accepted.')
+    if encoding not in {'utf-8-sig', 'cp1252', 'latin1'} or delimiter not in {'Auto', ',', ';', '\t', '|'}:
         raise ValueError('Choose a supported encoding and delimiter.')
     try:
         if extension in {'csv', 'tsv'}:
@@ -130,6 +131,25 @@ def parse(data, filename, delimiter='Auto', encoding='utf-8-sig', sheet=None):
             names = list(dict.fromkeys(k for r in records for k in r))
             headers = _headers(names)
             frame = pd.DataFrame(records).rename(columns=dict(zip(names, headers)))
+        elif extension == 'parquet':
+            try:
+                import pyarrow.parquet as pq
+                import pyarrow as pa
+                reader = pq.ParquetFile(io.BytesIO(data))
+                metadata = reader.metadata
+                if metadata.num_rows > MAX_ROWS or metadata.num_columns > MAX_COLUMNS:
+                    raise ValueError('Parquet exceeds 50,000 rows or 100 columns.')
+                if sum(metadata.row_group(i).total_byte_size for i in range(metadata.num_row_groups)) > 80 * 1024 * 1024:
+                    raise ValueError('Parquet expands beyond the 80 MB session limit.')
+                _headers(reader.schema_arrow.names)
+                if any(pa.types.is_nested(f.type) or pa.types.is_binary(f.type) or pa.types.is_large_binary(f.type) for f in reader.schema_arrow):
+                    raise ValueError('Parquet must contain flat scalar fields, without nested or binary values.')
+                frame = reader.read().to_pandas()
+                frame.columns = _headers(list(frame.columns))
+            except ValueError:
+                raise
+            except Exception:
+                raise ValueError('This Parquet file could not be read as a bounded scalar table.') from None
         else:
             book = _xlsx(data)
             try:
@@ -175,6 +195,11 @@ def parse(data, filename, delimiter='Auto', encoding='utf-8-sig', sheet=None):
     if frame.memory_usage(deep=True).sum() > 80 * 1024 * 1024:
         raise ValueError('The parsed data exceeds the 80 MB session limit. Import fewer rows or columns.')
     frame.attrs.update(upload_digest=sha256(data).hexdigest(), data_source='Session upload', dataset='uploaded', uploaded=True)
+    frame.attrs['import_encoding']=encoding if extension in {'csv','tsv'} else 'Not applicable'
+    frame.attrs['import_format']=extension
+    frame = minimize(frame)
+    if not len(frame.columns):
+        raise ValueError('No analytical columns remain after excluding credentials and personal contact fields.')
     return frame
 
 
@@ -194,7 +219,7 @@ def numeric_candidates(frame):
     return result
 
 
-def prepare(frame, numeric, date_field=None, date_order='ISO 8601'):
+def prepare(frame, numeric, date_field=None, date_order='ISO 8601', explicit_types=False):
     result = frame.copy()
     if len(set(numeric)) != len(numeric) or any(c not in frame for c in numeric) or date_field in numeric:
         raise ValueError('Choose distinct existing numeric fields, separate from the date field.')
@@ -204,6 +229,10 @@ def prepare(frame, numeric, date_field=None, date_order='ISO 8601'):
         if (present & values.isna()).any() or np.isinf(values.astype(float)).any():
             raise ValueError('A selected numeric field has invalid or infinite values. Keep it as text or correct the source: ' + column)
         result[column] = values.astype(float)
+    if explicit_types:
+        for column in result:
+            if column not in numeric and column!=date_field and pd.api.types.is_numeric_dtype(result[column]):
+                result[column]=result[column].astype('string')
     if date_field:
         if date_field not in result:
             raise ValueError('Choose an available date field.')
@@ -258,7 +287,7 @@ def map_features(frame, model, mapping):
     return pd.DataFrame({feature: frame[source] for feature, source in mapping.items()}, index=frame.index)
 
 
-def predict(frame, model, mapping):
+def validated_inputs(frame, model, mapping):
     if frame.empty or len(frame) > MAX_PREDICTION_ROWS:
         raise ValueError('Run predictions on 1-5,000 rows. Split larger uploads or filter the selected data.')
     inputs = map_features(frame, model, mapping)
@@ -274,6 +303,44 @@ def predict(frame, model, mapping):
     for column in ['Order Item Quantity','Order Item Product Price','Product Price','Days for shipment (scheduled)','Number_of_Items','Number_of_Products','Number_of_Categories']:
         if column in inputs and not inputs[column].ge(0).all():
             raise ValueError(column + ' cannot be negative.')
+    if model == 'delivery':
+        from services.inference_service import validate_features
+        return validate_features(inputs)
+    if model == 'demand':
+        from services.demand_inference import historical_inputs
+        historical_inputs(inputs)
+        return inputs
+    from services import profitability_inference, final_delivery_inference
+    service = profitability_inference if model == 'profitability' else final_delivery_inference
+    return service.validate_features(inputs, service.contract())
+
+
+def compatibility(frame, model):
+    """Preflight only. A compatible schema does not prove accuracy on a new population."""
+    try:
+        contract = model_contract(model)
+        missing = [c for c in contract['features'] if c not in frame]
+        present = len(contract['features']) - len(missing)
+        state = 'UNKNOWN' if not present else 'PARTIAL' if missing else 'COMPATIBLE'
+        reason = 'No exact feature names detected; use explicit mapping.' if not present else 'Missing required features; prediction disabled until mapped.' if missing else 'Complete features validated; model accuracy on your population is unverified.'
+        if not missing:
+            try:
+                validated_inputs(frame, model, {c: c for c in contract['features']})
+            except (ValueError, TypeError):
+                state, reason = 'INCOMPATIBLE', 'Invalid feature types, ranges, missing values or required daily history. Review mapping and the model contract.'
+        if not contract['status']['available']:
+            state, reason = 'INCOMPATIBLE', 'Registered model is unavailable. Raw analysis remains available.'
+        return {'Model': MODELS[model], 'Compatibility': state, 'Missing features': ', '.join(missing), 'Explanation': reason,
+                'Required inputs': len(contract['features']), 'Matched inputs': present}
+    except (OSError, ValueError, KeyError):
+        return {'Model': MODELS[model], 'Compatibility': 'UNKNOWN', 'Missing features': '', 'Explanation': 'Contract could not be validated; use raw analysis.'}
+
+
+def predict(frame, model, mapping):
+    from services.access_control import require
+    require('predict')
+    inputs = validated_inputs(frame, model, mapping)
+    contract = model_contract(model)
     if model == 'delivery':
         from services.inference_service import predict_delivery
         output = predict_delivery(inputs)

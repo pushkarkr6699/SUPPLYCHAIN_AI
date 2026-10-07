@@ -25,3 +25,11 @@ def render(df):
         st.caption(f"Last checked: {data['Last Check'].iloc[0] if len(data) else 'Unavailable'}")
     if st.button("Refresh checks", icon=":material/refresh:"):
         st.rerun()
+    from services.access_control import mode,can
+    with st.expander('Access controls and session audit'):
+        st.caption('Authentication: '+('Private hashed local accounts' if mode()=='accounts' else 'Labelled session-only demo access; production authentication is not enabled.'))
+        st.caption('Audit events are held only in this session, bounded to 100 entries, and cleared at logout. No raw records, question text or credentials are logged. This is not a durable compliance audit.')
+        if can('audit'):
+            import pandas as pd
+            st.dataframe(pd.DataFrame(st.session_state.get('audit_events',[])),hide_index=True,width='stretch')
+        else:st.info('Only an Admin account can inspect audit events.')

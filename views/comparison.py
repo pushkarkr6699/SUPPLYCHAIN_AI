@@ -1,4 +1,5 @@
 """Comparison Studio: dataset fields -> charts -> evidence -> trained predictions."""
+from components.secure_actions import download_button
 from html import escape
 import json
 import pandas as pd
@@ -78,6 +79,8 @@ def explanation(parameters, rows, groups):
 
 
 def predictions(frame, dataset, dimensions, metrics, token):
+    from services.access_control import can
+    if not can('predict'):st.info('Model execution requires an Analyst or Admin account.');return
     st.caption('Your field choices control comparison and display. Trained models use their validated training features from the registered source; arbitrary field choices do not retrain a model.')
     if not frame.attrs.get('verified_artifacts'):
         st.info('Demo mode displays synthetic data. Switch to the verified provider to run the connected trained models.');return
@@ -112,7 +115,7 @@ def predictions(frame, dataset, dimensions, metrics, token):
         graph(result,grouped,dims,[metric],'Comparison bars','Mean','Original units',20,False,'comparison_prediction_graph')
         columns=list(dict.fromkeys([c for c in ['Order','Product','Base Date','Forecast Date']+dims+metrics+[metric,'Predicted Late','Risk'] if c in result]))
         st.dataframe(result[columns],hide_index=True,width='stretch')
-        st.download_button('Download trained predictions',csv_bytes(result[columns],result.attrs.get('data_source')),'comparison_predictions.csv','text/csv',key='comparison_prediction_export',on_click='ignore')
+        download_button('Download trained predictions',csv_bytes(result[columns],result.attrs.get('data_source')),'comparison_predictions.csv','text/csv',key='comparison_prediction_export',on_click='ignore', container=st)
         st.success(f'{len(result):,} trained-model outputs · '+('Tuned XGBoost delivery probabilities' if dataset=='delivery' else 'XGBoost point forecasts in web visits'))
         st.caption('Historical inference on registered observations. These outputs are not a refreshed operational feed; retrospective training/test limitations still apply.')
     elif saved:
@@ -228,11 +231,11 @@ def render(df):
     with export:
         section('Complete comparison','All groups are included here; chart display limits do not change the analysis.')
         st.dataframe(table,hide_index=True,width='stretch')
-        st.download_button('Download comparison CSV',csv_bytes(table,frame.attrs.get('data_source')),'parameter_comparison.csv','text/csv',key='comparison_csv',on_click='ignore')
+        download_button('Download comparison CSV',csv_bytes(table,frame.attrs.get('data_source')),'parameter_comparison.csv','text/csv',key='comparison_csv',on_click='ignore', container=st)
         manifest={'parameters':parameters,'records':len(frame),'groups':len(table),'source':frame.attrs.get('data_source','Synthetic demo data'),'workspace_filters':st.session_state.get('filters',{}),'evidence':facts,'note':'Historical observations; association is not causation. No delivery-to-demand join.'}
         saved_narration=st.session_state.get('comparison_narration')
         if saved_narration and saved_narration['token']==ai_token:
             manifest['ai_narration']={'model':saved_narration['model'],'answer':saved_narration['answer']}
-        st.download_button('Download evidence brief',json.dumps(manifest,default=str,indent=2).encode(),'comparison_evidence.json','application/json',key='comparison_brief',on_click='ignore')
+        download_button('Download evidence brief',json.dumps(manifest,default=str,indent=2).encode(),'comparison_evidence.json','application/json',key='comparison_brief',on_click='ignore', container=st)
         st.dataframe(pd.DataFrame(facts)[['id','title','text']],hide_index=True,width='stretch')
         if 'Risk Probability' in metrics:st.caption('Unscored delivery orders keep missing probabilities; they are excluded from probability statistics and retained in row coverage.')

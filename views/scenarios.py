@@ -1,3 +1,4 @@
+from components.secure_actions import download_button
 import streamlit as st
 from components.section_header import section
 from components.kpi_cards import kpis
@@ -62,6 +63,8 @@ def render(df):
         saved = st.session_state.get("saved_scenarios", [])
         saved.extend(scenario_summaries)
         st.session_state.saved_scenarios = saved[-10:]
+        from services.audit_log import record
+        record('scenario_executed',model='demo')
         st.toast("Scenario saved for this session.")
     with actions[2]: nav_button("Ask Copilot", "copilot", key="scenario_copilot")
     if st.session_state.get("saved_scenarios"):
@@ -70,6 +73,8 @@ def render(df):
 
 
 def _render_verified(df):
+    from services.access_control import can
+    if not can('predict'):st.info('Model execution requires an Analyst or Admin account.');return
     with st.expander("Profitability trained prediction inputs"):
         from views.profitability import prediction_view
         prediction_view(df,"scenario_profitability")
@@ -98,6 +103,8 @@ def _render_verified(df):
                 changed = predict_delivery(alternative).iloc[0]
             result = {"Order": order, "Shipping Mode": shipping, "Baseline Risk": float(original["Risk Probability"]), "Scenario Risk": float(changed["Risk Probability"])}
             st.session_state.verified_prediction_result = result
+            from services.audit_log import record
+            record('scenario_executed',model='delivery',rows=len(baseline))
             st.success("Trained prediction complete. Source records remain unchanged.")
         except (ValueError, RuntimeError, OSError) as error:
             st.error(str(error))
@@ -113,14 +120,16 @@ def _render_verified(df):
         from services.inference_service import FEATURES
         st.caption("Provide the trained order-level features with their original column names. These estimates are separate from supplied historical scores.")
         st.code(", ".join(FEATURES), language="text")
-        uploaded = st.file_uploader("Order features CSV", type=["csv"], key="delivery_features_upload")
+        uploaded = st.file_uploader("Order features CSV", type=["csv"], key="delivery_features_upload",max_upload_size=20)
         if uploaded is not None and st.button("Score uploaded orders", disabled=not availability.get("available")):
             try:
                 import pandas as pd
                 from services.export_service import csv_bytes
-                scored = predict_delivery(pd.read_csv(uploaded))
+                from services import upload_service as uploads
+                inputs=uploads.parse(uploaded.getvalue(),uploaded.name)
+                scored = uploads.predict(inputs,'delivery',{c:c for c in FEATURES})
                 st.dataframe(scored, hide_index=True, width="stretch")
-                st.download_button("Download trained order predictions", csv_bytes(scored), "trained_order_predictions.csv", "text/csv")
-            except Exception as exc:
-                st.error(f"Order inputs could not be validated: {exc}")
+                download_button("Download trained order predictions", csv_bytes(scored), "trained_order_predictions.csv", "text/csv", container=st)
+            except Exception:
+                st.error('Order inputs could not be validated. Check required fields, types and limits, then retry.')
     st.caption("Open Demand Intelligence to run next-day web-visit predictions from daily history.")

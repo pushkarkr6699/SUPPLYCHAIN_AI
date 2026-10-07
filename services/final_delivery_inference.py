@@ -77,10 +77,15 @@ def _probabilities(frame,data):
 
 
 def predict(frame):
+    from services.access_control import require
+    from services.privacy import minimize
+    require('predict');frame=minimize(frame)
     data=validated();features=validate_features(frame,data);prob=_probabilities(features,data)
     if not np.isfinite(prob).all() or not ((prob>=0)&(prob<=1)).all():raise ValueError('Final delivery model returned invalid probabilities.')
     result=frame.copy();result['Risk Probability']=prob;result['Predicted Late']=prob>=THRESHOLD
     result['Risk']=np.select([prob<=.41,prob<=.71],['Low','Medium'],default='High')
+    from services.audit_log import record
+    record('model_predicted',model='delivery_final',rows=len(result))
     result.attrs.update(verified_artifacts=True,live_inference=True,dataset='delivery_final',data_source='Registered trained final_delivery inference on supplied complete feature rows',production_threshold=THRESHOLD,model_name='Final XGBoost delivery',evaluation_note='Portable conversion fidelity validated. Supplied-score parity not available; Separate line-item experiment; full training inputs required.')
     return result
 
