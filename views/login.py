@@ -14,6 +14,7 @@ def render():
         login_card()
 
     from services.access_control import mode
-    footer='PRIVATE LOCAL ACCOUNTS · ROLE CONTROLLED ACCESS' if mode()=='accounts' else 'DEMO AUTHENTICATION · UI PREVIEW · SESSION-ONLY ACCESS'
+    from services.provider import get_service
+    footer='PRIVATE LOCAL ACCOUNTS · ROLE CONTROLLED ACCESS' if mode()=='accounts' else 'DEMO AUTHENTICATION · UI PREVIEW · SESSION-ONLY ACCESS' if get_service().demo else 'SESSION-ONLY ACCESS · IDENTITY PROVIDER NOT CONFIGURED'
     st.html('<div class="auth-mobile-capabilities"><span>↗ Delivery Risk</span><span>⌁ Demand Forecast</span><span>✧ AI Copilot</span></div><footer class="auth-footer">'+footer+'</footer>')
 

@@ -26,13 +26,15 @@ def checks(df):
         from services.ai_narration import status as ai_status
         delivery, demand = delivery_status(), demand_status()
         profit, ai = profit_status(), ai_status()
+        from services.workspace_status import connected_sources
+        sources = connected_sources(service)
         values = [
             ("Application", "Operational", "UI runtime is active", "overview"),
-            ("Delivery data", "Connected CSV", "Primary unique orders and partial January 2018 scores; test-selected threshold", "delivery"),
-            ("Demand data", "Connected CSV", "Precomputed product/day forecasts connected; interval coverage is below the source nominal label", "demand"),
+            ("Delivery data", sources['delivery']['status'], sources['delivery']['source'], "delivery"),
+            ("Demand data", sources['demand']['status'], sources['demand']['source'], "demand"),
             ("Delivery model", "Validated" if delivery["available"] else "Unavailable", delivery["reason"], "scenarios"),
             ("Demand model", "Validated" if demand["available"] else "Unavailable", demand["reason"], "demand"),
-            ("Profitability scores", "Connected CSV", "Registered line-item test scores and evaluation references", "profitability"),
+            ("Profitability scores", sources['profitability']['status'], sources['profitability']['source'], "profitability"),
             ("Profitability inference", "Validated" if profit["available"] else "Unavailable", profit["reason"], "profitability"),
             ("Final delivery inference", "Validated" if final_status()["available"] else "Unavailable", final_status()["reason"], "delivery"),
             ("Live AI", "Configured" if ai["available"] else "Not Connected", ai["reason"], "settings"),

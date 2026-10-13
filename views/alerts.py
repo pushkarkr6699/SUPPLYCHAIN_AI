@@ -13,7 +13,7 @@ def render(df):
     label = "supplied" if verified else "demo"
     st.session_state.setdefault("alert_statuses", {})
     if verified:
-        scope = "delivery" if "Risk Probability" in df else "demand"
+        scope = "profitability" if "Profitability Probability" in df else "delivery" if "Risk Probability" in df else "demand"
         statuses = st.session_state.setdefault("artifact_alert_statuses", {}).setdefault(scope, {})
     else:
         statuses = st.session_state.alert_statuses
@@ -72,6 +72,8 @@ def render(df):
             st.write("**Metric / threshold**", f"Supplied delivery risk band · classification threshold {threshold:.2f}" if verified else "Delivery risk band · production threshold 0.56 (configured metadata)")
         elif item["Category"] == "Demand":
             st.write("**Metric / threshold**", "Supplied stock-attention flag · inventory availability is not supplied" if verified else "Illustrative stock-attention rule · not an inventory service alert")
+        elif item['Category'] == 'Profitability':
+            st.write('**Metric / threshold**', 'Recorded nonpositive profit or supplied profitability probability below 0.40. Saved classification threshold remains 0.20; probability bands are separate.')
         else:
             st.write("**Metric / threshold**", "Informational observation · no production rule configured")
         st.metric(f"Affected {label} records", f"{item['Records']:,}")

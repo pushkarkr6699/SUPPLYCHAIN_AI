@@ -6,10 +6,12 @@ from services.audit_log import record
 
 
 class DemoAuthService:
-    def sign_in(self, username="Demo Analyst", remember_me=False):
+    def sign_in(self, username=None, remember_me=False):
+        from services.provider import get_service
+        default_name = 'Demo Analyst' if get_service().demo else 'Analyst'
         return {
             "authenticated": True,
-            "user_name": username.strip() or "Demo Analyst",
+            "user_name": (username or '').strip() or default_name,
             "remember_me": bool(remember_me),
             "route": "overview",
             "auth_kind": "demo", "user_role": "Analyst",
@@ -42,7 +44,8 @@ def sign_in_form():
         st.session_state.pop('login_error',None);st.session_state['login_attempts']=0
         st.session_state.update(account);record('login_success',role=account['user_role']);return
     if not username or not password:
-        st.session_state["login_error"] = "Enter a demo username and password, or continue in Demo Mode."
+        from services.provider import get_service
+        st.session_state["login_error"] = "Enter a demo username and password, or continue in Demo Mode." if get_service().demo else 'Enter a display name and sample password, or continue to the workspace without credentials.'
         return
     st.session_state.pop("login_error", None)
     st.session_state.update(DemoAuthService().sign_in(username, st.session_state.get("remember_me", False)))

@@ -145,7 +145,7 @@ def run():
         expect(page.get_by_role('textbox',name='Password',exact=True)).to_have_value('')
         page.get_by_role('textbox',name='Email or username').fill('Demo input')
         page.get_by_role('textbox',name='Password',exact=True).fill('sample-only')
-        page.get_by_role('button',name='Continue in Demo Mode',exact=True).click()
+        page.get_by_role('button',name='Continue to workspace',exact=True).click()
         page.get_by_role('heading',name='Executive Command Center',exact=True).wait_for()
         expect(page.locator('.st-key-auth_header')).to_have_count(0,timeout=30000)
         page.locator('.st-key-sidebar_logout').get_by_role('button').click()

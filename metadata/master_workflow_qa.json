@@ -1,6 +1,6 @@
 {
   "passed": true,
-  "checked_at": "2026-10-13T16:56:46.394712+00:00",
+  "checked_at": "2026-10-13T18:27:03.895649+00:00",
   "checks": [
     "Observed Sales anomaly reference rendered in the connected overview",
     "Typed local table command renders bounded connected results",
@@ -11,7 +11,7 @@
   "browser_errors": [],
   "pdf_pages": 4,
   "pdf_visual_inspection": "passed",
-  "elapsed_seconds": 36.89,
+  "elapsed_seconds": 34.28,
   "scope": "Isolated local Chrome session; current connected data; no provider request or private-account creation",
-  "visual_inspection_notes": "All four current executive PDF pages visually inspected on 2026-10-13: source sections, evidence, limitations and footers are readable, with no clipping or overlap."
+  "visual_inspection_notes": "All four current executive PDF pages visually inspected on 2026-10-13: readable source sections, evidence, limitations and footers, no clipping/overlap. Profitability now shows mean recorded Profit with explicit nonadditive line-grain explanation, rather than an unsupported total."
 }

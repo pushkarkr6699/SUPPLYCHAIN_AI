@@ -82,7 +82,7 @@ def run(finish_only=False):
             expect(page.locator('.st-key-auth_header .brand-network')).to_have_count(1)
             assert page.locator('.auth-brand h1').evaluate('e=>getComputedStyle(e).animationName')=='sc-enter'
             page.locator('.st-key-login_submit button').click();ready(page)
-            expect(page.get_by_text('Enter a demo username and password, or continue in Demo Mode.')).to_be_visible()
+            expect(page.get_by_text('Enter a display name and sample password, or continue to the workspace without credentials.')).to_be_visible()
             page.locator('.st-key-forgot_password button').click();ready(page)
             expect(page.get_by_text('Password recovery will be available when an authentication provider is connected.')).to_be_visible()
             page.screenshot(path=str(OUTPUT/'login.png'))

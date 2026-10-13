@@ -1,13 +1,13 @@
 {
-  "generated_utc": "2026-10-13T17:17:06.732709+00:00",
+  "generated_utc": "2026-10-13T18:36:52.977172+00:00",
   "backend": {
-    "started_at": "2026-10-13T17:14:35.219274+00:00",
+    "started_at": "2026-10-13T18:24:43.114273+00:00",
     "group": "backend",
     "passed": true,
     "steps": [
       {
         "name": "regression",
-        "started_at": "2026-10-13T17:14:35.219309+00:00",
+        "started_at": "2026-10-13T18:24:43.114288+00:00",
         "command": [
           "-m",
           "pytest",
@@ -16,34 +16,34 @@
         ],
         "status": "passed",
         "exit_code": 0,
-        "finished_at": "2026-10-13T17:16:02.788218+00:00",
-        "seconds": 87.57
+        "finished_at": "2026-10-13T18:26:06.950305+00:00",
+        "seconds": 83.84
       },
       {
         "name": "data_models",
-        "started_at": "2026-10-13T17:16:02.791333+00:00",
+        "started_at": "2026-10-13T18:26:06.950878+00:00",
         "command": [
           "scripts/master_data_qa.py"
         ],
         "status": "passed",
         "exit_code": 0,
-        "finished_at": "2026-10-13T17:16:10.361894+00:00",
-        "seconds": 7.57
+        "finished_at": "2026-10-13T18:26:14.877898+00:00",
+        "seconds": 7.93
       },
       {
         "name": "security",
-        "started_at": "2026-10-13T17:16:10.377371+00:00",
+        "started_at": "2026-10-13T18:26:14.878329+00:00",
         "command": [
           "scripts/security_audit.py"
         ],
         "status": "passed",
         "exit_code": 0,
-        "finished_at": "2026-10-13T17:16:13.651517+00:00",
-        "seconds": 3.27
+        "finished_at": "2026-10-13T18:26:18.017117+00:00",
+        "seconds": 3.14
       },
       {
         "name": "requirements",
-        "started_at": "2026-10-13T17:16:13.654606+00:00",
+        "started_at": "2026-10-13T18:26:18.017567+00:00",
         "command": [
           "-m",
           "pip",
@@ -51,12 +51,12 @@
         ],
         "status": "passed",
         "exit_code": 0,
-        "finished_at": "2026-10-13T17:16:14.534785+00:00",
-        "seconds": 0.88
+        "finished_at": "2026-10-13T18:26:18.892115+00:00",
+        "seconds": 0.87
       },
       {
         "name": "dependencies",
-        "started_at": "2026-10-13T17:16:14.537847+00:00",
+        "started_at": "2026-10-13T18:26:18.892565+00:00",
         "command": [
           "-m",
           "pip_audit",
@@ -68,121 +68,118 @@
         ],
         "status": "passed",
         "exit_code": 0,
-        "finished_at": "2026-10-13T17:16:17.433446+00:00",
-        "seconds": 2.89
+        "finished_at": "2026-10-13T18:26:33.682516+00:00",
+        "seconds": 14.79
       }
     ],
-    "finished_at": "2026-10-13T17:16:17.436495+00:00",
+    "finished_at": "2026-10-13T18:26:33.683126+00:00",
     "local_checks_passed": true,
     "blocked_steps": [],
     "completed": true
   },
   "browser": {
-    "started_at": "2026-10-13T16:44:16.387699+00:00",
+    "started_at": "2026-10-13T17:45:23.940905+00:00",
     "group": "browser",
     "passed": false,
     "steps": [
       {
         "name": "workspace",
-        "started_at": "2026-10-13T16:44:16.387715+00:00",
+        "started_at": "2026-10-13T17:58:48.101241+00:00",
         "command": [
           "scripts/master_browser_qa.py"
         ],
         "status": "passed",
         "exit_code": 0,
-        "finished_at": "2026-10-13T16:50:40.535334+00:00",
-        "seconds": 384.15
+        "finished_at": "2026-10-13T18:04:01.932517+00:00",
+        "seconds": 313.83
       },
       {
         "name": "uploads",
-        "started_at": "2026-10-13T16:50:40.540452+00:00",
+        "started_at": "2026-10-13T18:04:01.935551+00:00",
         "command": [
           "scripts/uploads_browser_qa.py",
           "--skip-live"
         ],
         "status": "passed",
         "exit_code": 0,
-        "finished_at": "2026-10-13T16:54:30.697142+00:00",
-        "seconds": 230.16
+        "finished_at": "2026-10-13T18:06:38.934339+00:00",
+        "seconds": 157.0
       },
       {
         "name": "chart_controls",
-        "started_at": "2026-10-13T16:54:30.702575+00:00",
+        "started_at": "2026-10-13T18:06:38.937458+00:00",
         "command": [
           "scripts/chart_controls_qa.py"
         ],
         "status": "passed",
         "exit_code": 0,
-        "finished_at": "2026-10-13T16:56:04.807745+00:00",
-        "seconds": 94.1
-      },
-      {
-        "name": "connected_reports",
-        "started_at": "2026-10-13T16:56:04.812212+00:00",
-        "command": [
-          "scripts/master_workflow_qa.py"
-        ],
-        "status": "passed",
-        "exit_code": 0,
-        "finished_at": "2026-10-13T16:56:46.870838+00:00",
-        "seconds": 42.06
-      },
-      {
-        "name": "comparison",
-        "started_at": "2026-10-13T16:56:46.875021+00:00",
-        "command": [
-          "scripts/comparison_browser_qa.py"
-        ],
-        "status": "passed",
-        "exit_code": 0,
-        "finished_at": "2026-10-13T16:58:01.166020+00:00",
-        "seconds": 74.29
+        "finished_at": "2026-10-13T18:07:53.401747+00:00",
+        "seconds": 74.46
       },
       {
         "name": "comparison_controls",
-        "started_at": "2026-10-13T16:58:01.170570+00:00",
+        "started_at": "2026-10-13T18:09:35.601123+00:00",
         "command": [
           "scripts/comparison_chart_qa.py"
         ],
         "status": "passed",
         "exit_code": 0,
-        "finished_at": "2026-10-13T16:58:32.917555+00:00",
-        "seconds": 31.75
+        "finished_at": "2026-10-13T18:09:57.603743+00:00",
+        "seconds": 22.0
+      },
+      {
+        "name": "connected_reports",
+        "started_at": "2026-10-13T18:26:26.392398+00:00",
+        "command": [
+          "scripts/master_workflow_qa.py"
+        ],
+        "status": "passed",
+        "exit_code": 0,
+        "finished_at": "2026-10-13T18:27:04.249482+00:00",
+        "seconds": 37.86
+      },
+      {
+        "name": "comparison",
+        "started_at": "2026-10-13T18:27:04.252715+00:00",
+        "command": [
+          "scripts/comparison_browser_qa.py"
+        ],
+        "status": "passed",
+        "exit_code": 0,
+        "finished_at": "2026-10-13T18:28:05.726327+00:00",
+        "seconds": 61.47
       },
       {
         "name": "sevika_local",
-        "started_at": "2026-10-13T16:58:32.920543+00:00",
+        "started_at": "2026-10-13T18:28:05.729477+00:00",
         "command": [
           "scripts/sevika_browser_qa.py",
           "--local-only"
         ],
         "status": "passed",
         "exit_code": 0,
-        "finished_at": "2026-10-13T17:00:24.658909+00:00",
-        "seconds": 111.74
+        "finished_at": "2026-10-13T18:30:00.176938+00:00",
+        "seconds": 114.45
       },
       {
         "name": "public_login",
-        "started_at": "2026-10-13T17:03:49.509419+00:00",
+        "started_at": "2026-10-13T18:31:32.511868+00:00",
         "command": [
           "scripts/landing_login_qa.py"
         ],
         "status": "passed",
         "exit_code": 0,
-        "finished_at": "2026-10-13T17:03:58.895986+00:00",
-        "seconds": 9.39
+        "finished_at": "2026-10-13T18:31:40.740153+00:00",
+        "seconds": 8.23
       },
       {
         "name": "live_insights",
-        "started_at": "2026-10-13T17:00:24.662367+00:00",
         "command": [
           "scripts/hf_live_dataset_qa.py",
           "--execute"
         ],
+        "seconds": 0,
         "status": "blocked",
-        "exit_code": 1,
-        "finished_at": "2026-10-13T17:00:34.660936+00:00",
-        "seconds": 10.0,
         "reason": "Actual Hugging Face request rejected: inference credits exhausted. No repeated provider calls."
       },
       {
@@ -196,17 +193,17 @@
       },
       {
         "name": "themes_sidebar_motion",
-        "started_at": "2026-10-13T17:07:01.692216+00:00",
+        "started_at": "2026-10-13T18:32:24.413012+00:00",
         "command": [
           "scripts/unified_experience_qa.py"
         ],
         "status": "passed",
         "exit_code": 0,
-        "finished_at": "2026-10-13T17:09:33.222272+00:00",
-        "seconds": 151.53
+        "finished_at": "2026-10-13T18:35:04.729186+00:00",
+        "seconds": 160.32
       }
     ],
-    "finished_at": "2026-10-13T17:09:33.225395+00:00",
+    "finished_at": "2026-10-13T18:35:04.744370+00:00",
     "local_checks_passed": true,
     "blocked_steps": [
       "live_insights",

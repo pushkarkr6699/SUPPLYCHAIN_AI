@@ -207,7 +207,7 @@ The OpenAI-compatible SDK describes the API interface; the configured live servi
 
 Recorded final verification includes:
 
-- The latest verification passed **352 automated tests**, with zero failures, errors or skips. Full evidence and remaining limits are in FINAL_IMPLEMENTATION_REPORT.md.
+- The latest verification passed **368 automated tests**, with zero failures, errors or skips. Full evidence and remaining limits are in FINAL_IMPLEMENTATION_REPORT.md.
 - **36 final browser checks**, covering navigation, ten real-data chart cards, Parquet uploads, local questions, settings, PDF downloads, mobile layouts and logout.
 - Additional evidence covers 13 upload-browser checks, 14 chart layouts and five connected-workflow checks.
 - Local Sevika and conversation workflows were verified. Earlier live answers were successful, but the latest live request on 13 October was rejected because Hugging Face credits are exhausted. Live AI requires restored credits before presentation.

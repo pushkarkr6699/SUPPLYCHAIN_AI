@@ -42,6 +42,8 @@ def cohorts(frame, field, left, right):
 
 def comparison(frame, dimensions, metrics, operation='Mean', period='Day'):
     if operation not in OPERATIONS: raise ValueError('Choose a supported aggregation.')
+    if operation=='Sum' and set(metrics).intersection(frame.attrs.get('nonadditive_measures',[])):
+        raise ValueError('This source records order amounts on line observations. Their additive grain is not validated; choose Mean, Median, Minimum or Maximum.')
     if len(set(dimensions+metrics))!=len(dimensions+metrics): raise ValueError('Use each field once; a grouping field cannot also be a measure.')
     if not metrics or len(metrics)>8 or len(dimensions)>3: raise ValueError('Select 1–8 measures and up to 3 grouping fields.')
     if any(c not in frame for c in dimensions+metrics): raise ValueError('A selected field is unavailable in this dataset.')

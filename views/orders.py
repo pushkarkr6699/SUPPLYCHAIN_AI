@@ -61,13 +61,17 @@ def render(df):
             if "Profit" in record and pd.notna(record["Profit"]):
                 _signal_card("RECORDED PROFIT", f'{record["Profit"]:,.2f}', "Recorded order profit; this is not a model prediction.", "neutral")
             else:
-                _signal_card("PROFITABILITY SIGNAL", "Demo unavailable", "Use the verified provider for supplied profitability scores.", "neutral")
+                _signal_card("PROFITABILITY SIGNAL", "Unavailable" if verified else "Demo unavailable", "No recorded profit was supplied for this order." if verified else "Use the verified provider for supplied profitability scores.", "neutral")
         if verified:
-            from services.profitability_data import records as profit_records
-            profit_lines=profit_records()
-            profit_lines=profit_lines[profit_lines.Order.eq(str(record["Order"]))]
+            from services.profitability_data import order_lines
+            try:
+                profit_lines=order_lines(record)
+            except (OSError,ValueError):
+                profit_lines=None
             with st.expander("Profitability line-item evidence"):
-                if len(profit_lines):
+                if profit_lines is None:
+                    st.info('Profitability evidence is unavailable: the registered source or order identity could not be validated.')
+                elif len(profit_lines):
                     mean_probability=profit_lines['Profitability Probability'].mean()
                     st.caption(f"{len(profit_lines):,} supplied line items; mean profitability probability {mean_probability:.1%}. This is not an order-level probability.")
                     st.dataframe(profit_lines,hide_index=True,width="stretch")

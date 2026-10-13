@@ -1,10 +1,10 @@
 {
-  "checked_utc": "2026-10-13T17:17:06.732709+00:00",
-  "tests": 352,
+  "checked_utc": "2026-10-13T18:36:52.977172+00:00",
+  "tests": 368,
   "failures": 0,
   "errors": 0,
   "skipped": 0,
-  "seconds": 85.93,
+  "seconds": 82.321,
   "passed": true,
   "warnings": 18,
   "warning_details": "15 joblib/NumPy deprecations; 3 intentional invalid-date fixture parsing warnings",

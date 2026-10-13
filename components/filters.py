@@ -39,7 +39,7 @@ def dataset_for_route(route):
         return "demo"
     if route == "delivery" and st.session_state.get("delivery_final_experiment"):
         return "delivery_final"
-    if route in {"data", "quality", "downloads", "explorer", "visualizations", "comparison", "insights", "explainability", "threshold", "drift"}:
+    if route in {"data", "quality", "downloads", "explorer", "visualizations", "comparison", "insights", "alerts", "explainability", "threshold", "drift"}:
         return st.session_state.get(f"{route}_dataset", "delivery")
     if route == "copilot":
         return st.session_state.get("copilot_dataset", "delivery")
@@ -100,7 +100,7 @@ def delete_view():
 
 
 def filters():
-    if st.session_state.route in {"comparison", "visualizations", "insights", "explainability", "threshold", "drift"}:
+    if st.session_state.route in {"comparison", "visualizations", "insights", "alerts", "explainability", "threshold", "drift"}:
         route = st.session_state.route
         choices = ["delivery", "profitability"] if route in {"explainability", "threshold", "drift"} else ["delivery", "demand", "profitability"]
         if route in {"comparison","visualizations"} and not get_service().demo: choices.append("delivery_final")

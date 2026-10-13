@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-10-13T17:17:06.732709+00:00",
+  "generated_utc": "2026-10-13T18:36:52.977172+00:00",
   "scope": "Section-level traceability with explicitly bounded PASS scopes; not one test per sentence or a completion percentage",
   "local_demo_gates": {
     "regression": true,
@@ -13,7 +13,9 @@
     "all_registered_sources": true,
     "all_25_chart_types": true,
     "full_recheck_commands": true,
-    "hosted_preview_ui": true
+    "hosted_preview_ui": true,
+    "connected_profitability_sections": true,
+    "private_deployment_bundle": true
   },
   "external_blockers": {
     "live_ai": "Actual Hugging Face request rejected: inference credits exhausted.",

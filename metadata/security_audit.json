@@ -1,9 +1,9 @@
 {
   "status": "passed",
-  "executed_at_utc": "2026-10-13T17:16:49.411049+00:00",
+  "executed_at_utc": "2026-10-13T18:37:06.579258+00:00",
   "scope": "Practical static/dynamic checks for loopback-only classroom showcase; not an independent penetration test",
-  "runtime_python_files_checked": 117,
-  "tracked_files_secret_scanned": 340,
+  "runtime_python_files_checked": 120,
+  "tracked_files_secret_scanned": 352,
   "findings": [],
   "trusted_internal_deserializers": [
     {
@@ -33,7 +33,7 @@
   "duckdb_external_access": "blocked",
   "unsafe_copilot_requests": "refused",
   "limitations": [
-    "Current preview uses explicitly labelled session-only demo access; optional private hashed accounts and server-side roles are implemented separately",
+    "Connected preview uses session-only workspace access; optional private hashed accounts and server-side roles are implemented separately",
     "No enterprise identity provider, durable audit log or production deployment review",
     "Private source data/model assets require controlled local access",
     "Regex secret scan cannot prove absence of every possible credential",

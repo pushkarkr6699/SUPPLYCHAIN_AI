@@ -195,7 +195,7 @@ def _models(frame):
 
 def render(_df=None):
     st.session_state.pop('upload_active_context',None)
-    st.info('Bring Your Data works independently of the built-in demo and connected datasets. Files stay in this browser session on the server; they are not saved as project data.')
+    st.info('Bring Your Data works independently of built-in project datasets. Files stay in this browser session on the server; they are not saved as project data.')
     st.caption('CSV / TSV / XLSX / JSON / Parquet | 20 MB per file | 50,000 rows | 100 columns | predictions up to 5,000 rows. Credentials and personal contact fields are excluded.')
     st.button('Clear uploaded data and results', on_click=clear, key='clear_uploads')
     with st.expander('Download model input templates before uploading'):

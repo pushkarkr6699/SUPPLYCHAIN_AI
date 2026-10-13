@@ -85,8 +85,20 @@ def alerts(df):
             items.append({"Severity": "Information", "Category": "Data", "Title": "Prediction coverage", "Description": "Orders without supplied scores remain unscored; risk metrics exclude missing probabilities.", "Records": int(df["Risk Probability"].notna().sum()), "Route": "quality"})
         if "Stock Attention" in df:
             items.append({"Severity": "Attention", "Category": "Demand", "Title": "Stock review", "Description": "Product/day rows flagged by the supplied forecast output; inventory availability is not provided.", "Records": int(df["Stock Attention"].sum()), "Route": "demand"})
+        if 'Profitability Probability' in df:
+            losing = int((~df['Actual Profitable']).sum())
+            high_loss = int(df['Profitability Probability'].lt(.40).sum())
+            items.extend([
+                {'Severity': 'Attention' if losing else 'Information', 'Category': 'Profitability',
+                 'Title': 'Observed losing line items', 'Description': 'Recorded profit is zero or negative in these supplied line observations. These are historical outcomes, not predicted monetary losses.',
+                 'Records': losing, 'Route': 'profitability'},
+                {'Severity': 'Attention' if high_loss else 'Information', 'Category': 'Profitability',
+                 'Title': 'High loss probability band', 'Description': 'Supplied profitability probability is below 0.40. This descriptive band is separate from the saved 0.20 classification threshold.',
+                 'Records': high_loss, 'Route': 'profitability'},
+            ])
         items.append({"Severity": "Information", "Category": "Trend", "Title": "Period comparison available", "Description": "Compare observed records within the supplied historical dataset.", "Records": len(df), "Route": "changes"})
-        items.append({"Severity": "Information", "Category": "Model", "Title": "Profitability reliability review", "Description": "Profitability line-item scores are connected. Review the weak test discrimination and all-profitable saved-threshold predictions.", "Records": 0, "Route": "profitability"})
+        if 'Profitability Probability' in df:
+            items.append({"Severity": "Information", "Category": "Model", "Title": "Profitability reliability review", "Description": "Review the supplied weak test discrimination and all-profitable saved-threshold predictions. Working inference does not establish business reliability.", "Records": len(df), "Route": "profitability"})
         for item in items:
             item.update(Timestamp=f"{df.Date.max():%Y-%m-%d}" if len(df) else "No records", Source=df.attrs.get("data_source", "Supplied artifacts"), Evidence=f'{item["Records"]:,} records in the active dataset context')
         return items

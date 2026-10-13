@@ -42,6 +42,8 @@ def main():
     backend_run = read('tmp/recheck/backend-status.json') if (ROOT / 'tmp/recheck/backend-status.json').exists() else None
     browser_run = read('tmp/recheck/browser-status.json') if (ROOT / 'tmp/recheck/browser-status.json').exists() else None
     live_views = read('metadata/hf_live_dataset_qa.json') if browser_run else None
+    profitability_browser = read('metadata/profitability_connected_browser_qa.json') if (ROOT/'metadata/profitability_connected_browser_qa.json').exists() else None
+    deployment_bundle = read('metadata/deployment_bundle_qa.json') if (ROOT/'metadata/deployment_bundle_qa.json').exists() else None
     if live_views and live_views.get('passed'):
         ai = {'passed': True, 'checked_at': live_views['checked_at'],
               'actual_requests': live_views['actual_requests'], 'raw_rows': 0,
@@ -74,6 +76,10 @@ def main():
         gates['live_insight_views'] = bool(live_views and live_views.get('passed'))
     if hosted:
         gates['hosted_preview_ui'] = hosted['passed']
+    if profitability_browser:
+        gates['connected_profitability_sections'] = profitability_browser['passed'] and not profitability_browser['browser_errors']
+    if deployment_bundle:
+        gates['private_deployment_bundle'] = deployment_bundle['passed']
     external_blockers = {k: ai.get('reason', 'Provider unavailable') for k, v in gates.items()
                          if not v and k in {'live_ai', 'live_sevika', 'live_insight_views'} and ai.get('status') == 'blocked'}
     failed_local = [k for k, v in gates.items() if not v and k not in external_blockers]
@@ -283,7 +289,7 @@ The current visual review found crowded KPI values at 320px. KPI indicators now 
 
 Final local security audit passed: {security['runtime_python_files_checked']} runtime Python files, {security['tracked_files_secret_scanned']} source files scanned, zero findings. Credentials/contact fields are minimized before preview/export/AI; spreadsheet formula cells and headers escaped; bounded safe parsing rejects executable, macro, formula and oversized/nested data; uploaded objects are never deserialized; DuckDB external access is disabled. Native downloads require export permission; inference requires prediction permission. Secret files and private account hashes remain ignored.
 
-Optional accounts use salted PBKDF2-SHA256 hashes and server-side Admin/Analyst/Executive/Viewer roles. The current preview remains explicitly labelled demo/session access. Login throttling and audit retention are session-local, not distributed controls. This is not an independent penetration test or enterprise identity system.
+Optional accounts use salted PBKDF2-SHA256 hashes and server-side Admin/Analyst/Executive/Viewer roles. The connected preview uses session-only workspace access, independently of dataset selection. Login throttling and audit retention are session-local, not distributed controls. This is not an independent penetration test or enterprise identity system.
 
 Three published training notebooks now retain training code but contain no captured outputs. Their original bytes and registry hashes are preserved in ignored private backups; three regression cases verify this. Sensitive output headers were found during the audit and removed from the current published copies. Earlier Git commits still retain the original notebook outputs; this cleanup does not rewrite repository history. See metadata/notebook_publication_qa.json.
 
@@ -333,7 +339,7 @@ Preview: **http://localhost:8501**. Choose **Open platform**, then Visualization
 
 ## 17. Configuration and secrets
 
-Defaults preserve demo/session access. The existing ignored `.env` privately configures the Hugging Face/Groq provider. The current actual live request was rejected because Hugging Face inference credits are exhausted; restoring credits requires private account billing access. No successful live response occurred in this recheck. Never paste credentials into chat or commit `.env`. Every newly uploaded file needs separate numerical-summary consent before live AI. Local insights work without provider access.
+Connected analytics is the default; explicit synthetic demonstration remains labelled and available. Session-only access is independent of dataset mode. The existing ignored `.env` privately configures the Hugging Face/Groq provider. The current actual live request was rejected because Hugging Face inference credits are exhausted; restoring credits requires private account billing access. No successful live response occurred in this recheck. Never paste credentials into chat or commit `.env`. Every newly uploaded file needs separate numerical-summary consent before live AI. Local insights work without provider access.
 
 For optional private accounts, run `.\\.venv\\Scripts\\python.exe scripts/create_local_account.py` interactively, set `SUPPLYCHAIN_AUTH_MODE=accounts` privately in `.env`, and restart. No account/password was fabricated or created during this release. See `.env.example` for non-secret names and defaults.
 
@@ -376,9 +382,19 @@ The final gallery checks per-chart toolbar geometry, supported controls, fullscr
 
 The actual approved live request was rejected for exhausted inference credits: **zero successful live requests** in this recheck. Further live insight/Sevika calls were left blocked rather than repeatedly calling the exhausted provider. Uploaded-file consent tests make no external upload-data transfer in this recheck.
 
-Hosted preview: {hosted['url']} responded HTTP {hosted['http_status']}; landing and dashboard rendered {hosted['rendered_charts']} charts. It currently shows **labelled demo data**, not the local registered connected datasets. The Render build now includes requirements-inference.txt. Registered assets and private AI configuration still require controlled hosting provisioning; a Git push does not publish them. Hosted UI checks are not connected-model or production deployment certification.
+Earlier hosted preview evidence: {hosted['url']} responded HTTP {hosted['http_status']}; landing and dashboard rendered {hosted['rendered_charts']} charts using labelled demonstration data. This predates the current connected-default release. The Render build includes requirements-inference.txt and a validated private-asset launcher. Registered assets and private AI configuration still require controlled hosting provisioning; a Git push does not publish them. The new hosted connected release has not been verified. Hosted UI checks are not connected-model or production deployment certification.
 
 Additional evidence: metadata/registered_sources_qa.json, metadata/all_chart_types_browser_qa.json, metadata/hosted_preview_qa.json, metadata/hf_live_dataset_qa.json.
+'''
+    if profitability_browser and deployment_bundle:
+        report += f'''
+## 21. Connected-data completion and profitability
+
+Connected analytics is now the default. Landing aggregates, login wording, workspace coverage, walkthroughs and source status distinguish real datasets from explicitly selected synthetic demonstration. Missing files produce unavailable states. Profitability is included in Overview, all model cards, analytical insights, actionable alerts, comparison, visualization, local Copilot/Sevika context, explorers, governance and exports. Order-detail links validate source identity and preserve line grain. Final PDF review also removed an unsupported sum of order-profit amounts across line observations: shared analysis and momentum reject that sum, and the report uses a labelled mean. A real-source regression verifies the financial grain guard.
+
+The focused real-source browser run passed **{len(profitability_browser['checks'])} checks**, including profitability routes, CSV export, losing-line filter actions and mobile layout, with no browser errors. The PDF test now waits for report generation before starting its download timer; an isolated real-record PDF download also passed.
+
+A private bundle of 48 registered assets was prepared and hash-validated locally. It is excluded from Git. The server launcher checks archive/member hashes, sizes, exact allowed contents and all four fixed adapters. Render still needs account-owner private storage/environment configuration before hosted connected analytics can be verified. See [CONNECTED_DEPLOYMENT.md](docs/CONNECTED_DEPLOYMENT.md). No missing historical model inputs or weak profitability quality have been concealed.
 '''
     write('FINAL_IMPLEMENTATION_REPORT.md', report)
     qa_path = ROOT / 'QA_REPORT.md'
@@ -391,7 +407,7 @@ Additional evidence: metadata/registered_sources_qa.json, metadata/all_chart_typ
 
 {marker}
 
-Latest executed release ({timestamp[:10]}): **{regression['tests']} passed**, zero failures/errors, {warnings} warnings. All 25 chart types, 41 registered artifacts and 28 CSV tables checked. Actual data/model reconciliation, uploaded-data browser workflows, native chart controls, safe exports, security and dependency checks passed. Live AI is blocked by exhausted Hugging Face credits; local assistance passed. The hosted preview shows labelled demo data. Current notebook copies are output-free; earlier Git history retains original outputs. This is a local demonstration release with explicit remaining scope, not blanket master-specification completion.
+Latest executed release ({timestamp[:10]}): **{regression['tests']} passed**, zero failures/errors, {warnings} warnings. All 25 chart types, 41 registered artifacts and 28 CSV tables checked. Actual data/model reconciliation, uploaded-data browser workflows, native chart controls, safe exports, security and dependency checks passed. Connected data is now the default; focused profitability browser checks passed. Live AI is blocked by exhausted Hugging Face credits; local assistance passed. Hosted connected assets still require private provisioning and a new deployment check. Current notebook copies are output-free; earlier Git history retains original outputs. This is a local demonstration release with explicit remaining scope, not blanket master-specification completion.
 
 See [FINAL_IMPLEMENTATION_REPORT.md](FINAL_IMPLEMENTATION_REPORT.md) and the [199-section matrix](metadata/master_requirement_matrix.md) for current evidence and limitations. Earlier entries below are historical and retain their original dates/test counts.
 

@@ -29,7 +29,8 @@ def build(frames,filters):
             if metric in frame:
                 values=pd.to_numeric(frame[metric],errors='coerce').replace([np.inf,-np.inf],np.nan)
                 fact(metric+' valid observations',values.notna().sum(),'records')
-                fact('Total '+metric,values.sum(min_count=1),'web visits' if 'Demand' in metric else 'source financial units')
+                nonadditive=metric in frame.attrs.get('nonadditive_measures',[])
+                fact('Mean recorded '+metric if nonadditive else 'Total '+metric,values.mean() if nonadditive else values.sum(min_count=1),'source financial units per observation; order amounts are not summed across lines' if nonadditive else 'web visits' if 'Demand' in metric else 'source financial units')
         if 'Risk Probability' in frame:
             values=pd.to_numeric(frame['Risk Probability'],errors='coerce').replace([np.inf,-np.inf],np.nan)
             fact('Scored observations',values.count(),'records');fact('Unscored observations',len(frame)-values.count(),'records')
@@ -42,7 +43,7 @@ def build(frames,filters):
         signal=next((c for c in ['Risk Probability','Forecast Demand','Profit','Sales'] if c in frame),None)
         if signal:
             try:
-                value=momentum(frame,signal,'Mean' if 'Probability' in signal else 'Sum','Month')
+                value=momentum(frame,signal,'Mean' if 'Probability' in signal or signal in frame.attrs.get('nonadditive_measures',[]) else 'Sum','Month')
                 change={k:v for k,v in value.items() if k!='series'}
             except ValueError:pass
         dimension=next((c for c in ['Market','Category','Region','Product'] if c in frame),None)

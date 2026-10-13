@@ -1,6 +1,6 @@
 {
   "passed": true,
-  "checked_at": "2026-10-13T16:50:39.941498+00:00",
+  "checked_at": "2026-10-13T18:04:01.574481+00:00",
   "checks": [
     "Navigation and rendered page: overview",
     "Navigation and rendered page: delivery",
@@ -43,5 +43,5 @@
   "screenshots": "tmp\\screenshots\\master",
   "analysis_pdf_pages": 1,
   "analysis_pdf_visual_inspection": "passed",
-  "visual_inspection_notes": "Current analysis PDF and Light 390px/Dark 320px screenshots visually inspected on 2026-10-13: readable, no clipping or horizontal document overflow."
+  "visual_inspection_notes": "Current one-page analysis PDF visually inspected on 2026-10-13: source/date selection, headings, selected chart list, table, limitations and footer readable without clipping or overlap."
 }

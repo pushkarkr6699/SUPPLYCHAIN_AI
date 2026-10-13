@@ -20,6 +20,7 @@ def settled(page):
     page.wait_for_timeout(250);_settled(page);page.wait_for_timeout(100)
     expect(page.get_by_test_id('stException')).to_have_count(0)
     assert not page.get_by_text('This page could not be displayed',exact=False).count()
+    assert not page.get_by_text('This page could not be rendered',exact=False).count()
 
 
 def navigate(page,route):
@@ -135,9 +136,13 @@ def main():
         question.press('Enter');settled(page)
         expect(page.get_by_text('Computed method: top-N',exact=True)).to_be_visible()
         checks.append('Local Sevika question computes an actual uploaded-field ranking')
+        click(page.locator('.st-key-viz_upload_raw_pdf_create button'))
+        pdf_button=page.locator('.st-key-viz_upload_raw_pdf_download button')
+        expect(pdf_button).to_be_visible(timeout=120000)
+        expect(page.get_by_text('Report ready: current selection, source version, measures and limitations included.',exact=True)).to_be_visible(timeout=120000)
+        settled(page);expose(pdf_button)
         with page.expect_download() as dl:
-            click(page.locator('.st-key-viz_upload_raw_pdf_create button'));settled(page)
-            click(page.locator('.st-key-viz_upload_raw_pdf_download button'))
+            pdf_button.click()
         assert dl.value.suggested_filename=='analysis_brief.pdf'
         import pymupdf
         folder=ROOT/'tmp/pdfs/master-lab';folder.mkdir(parents=True,exist_ok=True)
@@ -165,7 +170,7 @@ def main():
                 expect(page.get_by_test_id('stSidebar')).to_have_attribute('aria-expanded','true')
         checks.append('Light/dark 390px/320px layouts and reduced motion')
         page.locator('.st-key-sidebar_logout button').click();settled(page)
-        expect(page.get_by_role('button',name='Continue in Demo Mode',exact=True)).to_be_visible()
+        expect(page.get_by_role('button',name='Continue to workspace',exact=True)).to_be_visible()
         checks.append('Logout returns to login and clears the workspace session')
         assert not errors,errors
         browser.close()

@@ -7,6 +7,10 @@ from services.mock_data import LANDING_DEMO
 
 
 def render():
+    from services.provider import get_service
+    synthetic = get_service().demo
+    from components.connected_preview import snapshot, preview as connected_preview, answer_preview
+    public_snapshot = None if synthetic else snapshot()
     with st.container(key="public_header"):
         brand, links, signin, launch = st.columns([1.48, 3.55, .85, 1.38], vertical_alignment="center")
         with brand:
@@ -21,41 +25,46 @@ def render():
     st.html('<div id="top"></div>')
     hero, preview = st.columns([1.02, .98], gap="large", vertical_alignment="center")
     with hero:
-        st.html('<div class="hero"><div class="hero-kicker"><span class="hero-kicker-mark">✳</span> AI-powered supply chain decision intelligence</div><h1>Predict risk.<br>Forecast demand.<br><span>Act with intelligence.</span></h1><p class="hero-copy">Bring delivery-risk signals, next-day demand forecasts and operational investigations into one traceable decision-intelligence workspace.</p><p class="hero-supporting">Turn verified model outputs into clearer operational context and confident next steps.</p></div>')
+        st.html('<div class="hero"><div class="hero-kicker"><span class="hero-kicker-mark">✳</span> AI-powered supply chain decision intelligence</div><h1>Predict risk.<br>Forecast demand.<br><span>Act with intelligence.</span></h1><p class="hero-copy">Bring delivery-risk signals, web-visit forecasts, profitability scores and operational investigations into one traceable decision-intelligence workspace.</p><p class="hero-supporting">Turn verified model outputs into clearer operational context and confident next steps.</p></div>')
         primary, secondary = st.columns([1.06, 1], gap="small")
         primary.button("Explore the workspace", key="hero_open_platform", type="secondary", icon=":material/arrow_outward:", on_click=enter_demo, width="stretch")
         secondary.link_button("Explore capabilities", "#platform", width="stretch")
         st.html('<div class="hero-proof"><span>Delivery intelligence</span><i></i><span>Demand forecasting</span><i></i><span>Inspectable ML</span><i></i><span>AI Copilot</span></div>')
     with preview:
-        hero_preview()
-    st.html('<div class="demo-disclaimer"><span class="demo-dot" aria-hidden="true"></span> Read-only examples · Synthetic values · Open the platform to use the connected workspace</div>')
+        hero_preview() if synthetic else connected_preview(public_snapshot)
+    source_note = 'Read-only examples · Synthetic values · Explicit demonstration provider' if synthetic else 'Registered historical sources · Real dataset summaries · Interactive analysis inside the workspace'
+    st.html('<div class="demo-disclaimer"><span class="demo-dot" aria-hidden="true"></span>'+source_note+'</div>')
 
     st.html('<div class="capability-strip" aria-label="Platform capabilities"><span class="strip-label">ONE WORKSPACE</span><span><i>↗</i> Delivery prediction</span><span><i>⌁</i> Demand forecasting</span><span><i>≋</i> Explainability</span><span><i>⌘</i> Scenario analysis</span><span><i>◈</i> ML governance</span><span><i>✧</i> AI Copilot</span></div>')
 
     landing_heading("platform", "Why SupplyChain AI", "One platform for prediction, investigation and decision support.", "Designed to help operational teams move from a signal to a focused investigation, while keeping model and data context in view.")
     problem_cards = [
         ("01", "Delivery risk intelligence", "See which delivery records may need attention, then investigate the segments and thresholds behind the signal.", ["Risk probabilities", "Risk bands and markets", "Critical-order review", "Threshold and explanation views"]),
-        ("02", "Demand intelligence", "Review next-day product forecasts alongside historical demand, forecast error and illustrative uncertainty ranges.", ["Actual vs forecast", "Demand bands", "Forecast error and trends", "Stock-attention indicators"]),
+        ("02", "Demand intelligence", "Review supplied next-day product web-visit forecasts alongside actual visits, errors and source-provided bounds.", ["Actual vs forecast", "Demand bands", "Forecast error and trends", "Stock-attention indicators"]),
         ("03", "AI-assisted investigation", "Move from dashboard context to a conversational analytical preview, with evidence attached to the question.", ["Ask focused questions", "Compare segments", "Apply workspace filters", "Inspect evidence and reports"]),
     ]
-    for col, (number, title, copy, features) in zip(st.columns(3), problem_cards):
+    problem_cards.append(('04', 'Profitability intelligence', 'Inspect supplied line-item profitability scores, recorded outcomes and model reliability.', ['Line-item probability bands', 'Observed profitable and losing lines', 'Model diagnostics and thresholds', 'Compatible trained predictions']))
+    for col, (number, title, copy, features) in zip(st.columns(4), problem_cards):
         bullets = ''.join(f'<li><span>✓</span>{item}</li>' for item in features)
         with col:
             st.html(f'<article class="problem-panel"><span class="problem-number">{number} &nbsp; / &nbsp; INTELLIGENCE</span><h3>{title}</h3><p>{copy}</p><ul>{bullets}</ul></article>')
 
-    landing_heading("intelligence", "Inside the workspace", "A control tower you can inspect.", "Read-only examples of dashboard analysis, using synthetic data. Navigation and tools are available inside the platform.")
-    dashboard_preview()
+    landing_heading("intelligence", "Inside the workspace", "A control tower you can inspect.", "Source coverage and separate-grain analytics. Navigation and tools are available inside the platform.")
+    dashboard_preview() if synthetic else connected_preview(public_snapshot, detailed=True)
 
     landing_heading("architecture", "How it works", "From source data to a decision-ready view.", "A clear path keeps operational records, model outputs and analyst actions connected.")
     flow(["Operational Data", "Feature Engineering", "Trained ML", "Scored Outputs", "Analytics", "AI Copilot", "Decision Support"])
-    st.html('<div class="architecture-note"><span>◈</span><p>SupplyChain AI is designed to operationalize verified model outputs inside a traceable decision-intelligence experience. This public preview uses synthetic interface data; model artifacts are not loaded.</p></div>')
+    st.html('<div class="architecture-note"><span>◈</span><p>SupplyChain AI is designed to operationalize verified model outputs inside a traceable decision-intelligence experience. '+ ('This public preview uses explicitly labelled synthetic interface data.' if synthetic else 'Registered sources supply the summaries above; absent files remain unavailable. Trained models run only on supported inputs inside the workspace.') +'</p></div>')
 
     with st.container(key="landing_copilot_section"):
         left, right = st.columns([.88, 1.12], gap="large", vertical_alignment="center")
         with left:
-            st.html('<section class="copilot-copy" id="copilot"><span class="dark-eyebrow">SupplyChain AI Copilot</span><h2>Ask your supply chain questions in natural language.</h2><p>Explore operational risk, compare markets, review forecast error and find the evidence behind a model signal—all in the context of your current workspace.</p><div class="prompt-chips"><span>“What changed?”</span><span>“Show high-risk orders.”</span><span>“Compare Europe and LATAM.”</span><span>“Explain this prediction.”</span><span>“Which products have the largest forecast error?”</span></div><small>Example shown below. Inside the platform, use local analytics or optional live OpenAI insights with your configured API key.</small></section>')
+            st.html('<section class="copilot-copy" id="copilot"><span class="dark-eyebrow">SupplyChain AI Copilot</span><h2>Ask your supply chain questions in natural language.</h2><p>Explore operational risk, compare markets, review forecast error and find the evidence behind a model signal—all in the context of your current workspace.</p><div class="prompt-chips"><span>“What changed?”</span><span>“Show high-risk orders.”</span><span>“Compare Europe and LATAM.”</span><span>“Explain this prediction.”</span><span>“Which products have the largest forecast error?”</span></div><small>Example shown below. Inside the platform, use local analytics or optional live insights with your privately configured provider.</small></section>')
         with right:
-            st.html(f'''<section class="copilot-preview" role="figure" aria-label="Read-only Copilot answer example"><div class="copilot-preview-head"><div class="copilot-avatar">✧</div><div><b>SupplyChain Copilot</b><small>Read-only answer example</small></div><span class="demo-pill">DEMO</span></div><div class="preview-bubble user-bubble"><span>Example question</span><p>“{LANDING_DEMO['copilot_question']}”</p></div><div class="preview-answer"><span>SupplyChain AI · Demo response</span><p>{LANDING_DEMO['copilot_answer']}</p><div class="response-metric"><div><small>{LANDING_DEMO['copilot_metric_label']}</small><b>{LANDING_DEMO['delivery_risk']}</b></div><span>{LANDING_DEMO['copilot_preview_badge']}</span></div><div class="evidence-preview"><span>▤</span><div><b>Evidence &amp; context</b><small>{LANDING_DEMO['evidence']}</small></div><span class="evidence-check">✓</span></div><p class="preview-summary">Read-only answer example. Investigate records and apply filters inside the platform.</p></div></section>''')
+            if synthetic:
+                st.html(f'''<section class="copilot-preview" role="figure" aria-label="Read-only Copilot answer example"><div class="copilot-preview-head"><div class="copilot-avatar">✧</div><div><b>SupplyChain Copilot</b><small>Read-only answer example</small></div><span class="demo-pill">DEMO</span></div><div class="preview-bubble user-bubble"><span>Example question</span><p>“{LANDING_DEMO['copilot_question']}”</p></div><div class="preview-answer"><span>SupplyChain AI · Demo response</span><p>{LANDING_DEMO['copilot_answer']}</p><div class="response-metric"><div><small>{LANDING_DEMO['copilot_metric_label']}</small><b>{LANDING_DEMO['delivery_risk']}</b></div><span>{LANDING_DEMO['copilot_preview_badge']}</span></div><div class="evidence-preview"><span>▤</span><div><b>Evidence &amp; context</b><small>{LANDING_DEMO['evidence']}</small></div><span class="evidence-check">✓</span></div><p class="preview-summary">Read-only answer example. Investigate records and apply filters inside the platform.</p></div></section>''')
+            else:
+                answer_preview(public_snapshot)
             action, section_link = st.columns([1.15, 1], gap="small")
             action.link_button("See analysis examples", "#intelligence", width="stretch")
             section_link.link_button("Explore Copilot", "#capabilities", width="stretch")
@@ -85,4 +94,4 @@ def render():
         final_open.button("Start an analysis", key="final_launch", type="secondary", icon=":material/arrow_outward:", on_click=enter_demo, width="stretch")
         final_signin.button("Sign in", key="final_signin", on_click=go, args=("login",), width="stretch")
 
-    st.html('<footer class="public-footer"><a class="footer-brand" href="#top"><span class="brand-symbol">' + MARK + '</span><span>SUPPLYCHAIN AI<small>Decision Intelligence Platform</small></span></a><div class="footer-group"><b>PLATFORM</b><a href="#platform">Executive Overview</a><a href="#intelligence">Delivery Intelligence</a><a href="#intelligence">Demand Intelligence</a><a href="#copilot">Copilot</a></div><div class="footer-group"><b>GOVERNANCE</b><a href="#governance">Models</a><a href="#governance">Explainability</a><a href="#governance">Data Quality</a><a href="#governance">Model Health</a></div><div class="footer-group"><b>PROJECT</b><a href="#architecture">Architecture</a><a href="#capabilities">Documentation</a><a href="#top">About</a></div></footer><div class="footer-bottom"><span>Academic / Portfolio Decision Intelligence Platform</span><span>DEMO UI · No operational data · No external AI provider</span></div>')
+    st.html('<footer class="public-footer"><a class="footer-brand" href="#top"><span class="brand-symbol">' + MARK + '</span><span>SUPPLYCHAIN AI<small>Decision Intelligence Platform</small></span></a><div class="footer-group"><b>PLATFORM</b><a href="#platform">Executive Overview</a><a href="#intelligence">Delivery Intelligence</a><a href="#intelligence">Demand Intelligence</a><a href="#copilot">Copilot</a></div><div class="footer-group"><b>GOVERNANCE</b><a href="#governance">Models</a><a href="#governance">Explainability</a><a href="#governance">Data Quality</a><a href="#governance">Model Health</a></div><div class="footer-group"><b>PROJECT</b><a href="#architecture">Architecture</a><a href="#capabilities">Documentation</a><a href="#top">About</a></div></footer><div class="footer-bottom"><span>Academic / Portfolio Decision Intelligence Platform</span><span>'+ ('DEMO UI - Synthetic interface data' if synthetic else 'REGISTERED DATA - Historical analytics - Optional live AI') +'</span></div>')

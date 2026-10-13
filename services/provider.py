@@ -11,7 +11,7 @@ from services.contracts import AnalyticsService
 from services.verified_data import (delivery_records, order_delivery_records, demand_records, threshold_records,
     tabular_artifact, summary_artifact, text_artifact, DELIVERY_MODEL_COLUMNS, FEATURE_COLUMNS)
 
-FILTER_COLUMNS = ["Market", "Region", "Country", "Category", "Department", "Shipping Mode", "Customer Segment", "Type", "Risk", "Product"]
+FILTER_COLUMNS = ["Market", "Region", "Country", "Category", "Department", "Shipping Mode", "Customer Segment", "Type", "Risk", "Product", "Profitability Risk", "Actual Profitable"]
 
 
 def filter_description(filters, empty_label="All demo records"):
@@ -201,12 +201,14 @@ class VerifiedArtifactsService(MockAnalyticsService):
         from services.profitability_inference import status as profit_status
         from services.final_delivery_inference import status as final_status
         delivery, demand = delivery_status(), demand_status()
+        from services.workspace_status import connected_sources
+        sources = connected_sources(self)
         return [
-            {"Capability": "Delivery scored outputs", "Status": "Connected CSV", "Source": Path(DELIVERY_DATA_URI).name if DELIVERY_DATA_URI else "Not configured"},
+            {"Capability": "Delivery scored outputs", "Status": sources['delivery']['status'], "Source": sources['delivery']['source']},
             {"Capability": "Delivery model artifact / inference", "Status": "Validated · available" if delivery["available"] else delivery["reason"]},
-            {"Capability": "Demand precomputed forecasts", "Status": "Connected CSV", "Source": Path(DEMAND_DATA_URI).name if DEMAND_DATA_URI else "Not configured"},
+            {"Capability": "Demand precomputed forecasts", "Status": sources['demand']['status'], "Source": sources['demand']['source']},
             {"Capability": "Demand model inference", "Status": "Validated · available" if demand["available"] else demand["reason"]},
-            {"Capability": "Profitability scored outputs", "Status": "Connected CSV - line-item grain"},
+            {"Capability": "Profitability scored outputs", "Status": sources['profitability']['status'], "Source": sources['profitability']['source']},
             {"Capability": "Profitability trained inference", "Status": profit_status()["reason"]},
             {"Capability": "Final delivery trained inference", "Status": final_status()["reason"]},
         ]

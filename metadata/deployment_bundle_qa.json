@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "assets": 48,
+  "bytes": 10101998,
+  "bundle_sha256": "8c93f85254720112433b36c281e2d0e3f9d80c0bd072c14d753304a7f0736671",
+  "scope": "Private local bundle validated against fixed repository hashes; existing assets unchanged. No remote transfer or hosted deployment occurred."
+}

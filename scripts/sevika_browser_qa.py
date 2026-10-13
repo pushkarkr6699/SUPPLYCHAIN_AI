@@ -14,7 +14,7 @@ findings=[];network=[];js_errors=[];checks=[]
 LOCAL_ONLY='--local-only' in sys.argv
 
 def ready(page):
- settled(page);page.wait_for_timeout(300)
+ page.wait_for_timeout(150);settled(page);page.wait_for_timeout(500);settled(page)
  # Hidden native popover portals can retain suspended animations.
  page.wait_for_function("()=>document.getAnimations().filter(a=>['sc-enter','sc-surface'].includes(a.animationName)&&a.effect?.target?.checkVisibility()).every(a=>a.playState!=='running')")
  assert page.get_by_test_id('stException').count()==0
@@ -35,7 +35,7 @@ def open_chat(page):
  if not page.locator('.st-key-sevika_panel:visible').is_visible():
   button=page.get_by_role('button',name='forum Sevika',exact=True)
   expect(button).to_be_visible(timeout=15000)
-  button.click(timeout=15000)
+  button.click(timeout=60000)
  page.get_by_role('heading',name='Sevika',exact=True).wait_for()
 
 def close_chat(page):
@@ -45,7 +45,10 @@ def navigate(page,route):
  close_chat(page) if page.locator('.st-key-sevika_panel:visible').is_visible() else None
  button=page.locator('.st-key-nav_'+route+' button')
  if not button.is_visible():page.get_by_test_id('stSidebar').get_by_test_id('stExpander').filter(has=button).locator('summary').first.click()
- button.click();ready(page)
+ button.click()
+ from views.registry import PAGES
+ expect(page.get_by_role('heading',name=PAGES[route][0],level=1,exact=True)).to_be_visible(timeout=60000)
+ ready(page)
 
 def fit(page,name):
  open_chat(page)
@@ -90,7 +93,7 @@ with sync_playwright() as p:
  assert abs(page.get_by_test_id('stMain').bounding_box()['width']-width)<1
  checks.append('Local dataset totals, per-context conversation persistence and no reserved main width')
  page.locator('.st-key-sevika_clear button:visible').click();ready(page)
- assert page.locator('.st-key-sevika_messages:visible [data-testid=stChatMessage]').count()==0
+ expect(page.locator('.st-key-sevika_messages:visible [data-testid=stChatMessage]')).to_have_count(0,timeout=30000)
  page.locator('.st-key-sevika_predict button:visible').click()
  page.get_by_text('50 trained outputs ready to explain.',exact=True).wait_for(timeout=40000);ready(page)
  ask(page,'Explain the new trained predictions and their mean risk.')

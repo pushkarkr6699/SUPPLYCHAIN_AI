@@ -2,7 +2,7 @@
 
 <!-- master-release-2026-10-13 -->
 
-Latest executed release (2026-10-13): **352 passed**, zero failures/errors, 18 warnings. All 25 chart types, 41 registered artifacts and 28 CSV tables checked. Actual data/model reconciliation, uploaded-data browser workflows, native chart controls, safe exports, security and dependency checks passed. Live AI is blocked by exhausted Hugging Face credits; local assistance passed. The hosted preview shows labelled demo data. Current notebook copies are output-free; earlier Git history retains original outputs. This is a local demonstration release with explicit remaining scope, not blanket master-specification completion.
+Latest executed release (2026-10-13): **368 passed**, zero failures/errors, 18 warnings. All 25 chart types, 41 registered artifacts and 28 CSV tables checked. Actual data/model reconciliation, uploaded-data browser workflows, native chart controls, safe exports, security and dependency checks passed. Connected data is now the default; focused profitability browser checks passed. Live AI is blocked by exhausted Hugging Face credits; local assistance passed. Hosted connected assets still require private provisioning and a new deployment check. Current notebook copies are output-free; earlier Git history retains original outputs. This is a local demonstration release with explicit remaining scope, not blanket master-specification completion.
 
 See [FINAL_IMPLEMENTATION_REPORT.md](FINAL_IMPLEMENTATION_REPORT.md) and the [199-section matrix](metadata/master_requirement_matrix.md) for current evidence and limitations. Earlier entries below are historical and retain their original dates/test counts.
 

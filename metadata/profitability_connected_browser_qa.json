@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "checked_at": "2026-10-13T17:49:21.957134+00:00",
+  "scope": "Actual registered profitability; independent filters and grain; no external AI request",
+  "checks": [
+    "Landing uses real aggregate summaries without individual records or synthetic previews",
+    "Overview includes independent profitability metrics and full model status",
+    "Registered profitability renders in profitability",
+    "Registered profitability renders in insights",
+    "Registered profitability renders in alerts",
+    "Registered profitability renders in comparison",
+    "Registered profitability renders in visualizations",
+    "Registered profitability renders in copilot",
+    "Registered profitability renders in explorer",
+    "Registered profitability renders in quality",
+    "Registered profitability renders in data",
+    "Registered profitability renders in downloads",
+    "Profitability CSV download has actual scored lines and safe fields",
+    "Registered profitability renders in explainability",
+    "Registered profitability renders in threshold",
+    "Registered profitability renders in drift",
+    "Losing-line insight applies the real Boolean outcome filter to Profitability",
+    "Filtered profitability mobile layout has no horizontal document overflow"
+  ],
+  "browser_errors": []
+}

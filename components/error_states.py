@@ -5,6 +5,12 @@ import streamlit as st
 def service_error(error):
     logging.getLogger(__name__).error("Service failure: %s", type(error).__name__)
     st.error("The data service is unavailable. Your view settings have been preserved. Retry or open Model Health.")
+    from services.provider import get_service
+    service = get_service()
+    if not service.demo:
+        st.info('Connected mode uses registered source files. This environment has missing or invalid assets; synthetic demonstration records have not been substituted. Hosted installations require the private dataset/model bundle.')
+        from components.navigation import nav_button
+        nav_button('Analyze your own dataset', 'uploads', key='missing_sources_uploads', icon='upload_file')
     if st.button("Retry data service"):
         st.rerun()
 

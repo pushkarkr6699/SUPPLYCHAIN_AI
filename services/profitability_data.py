@@ -70,7 +70,9 @@ def _records(path,digest):
 def records():
     path,digest=registered(SCORED)
     if float(registered('Best_Threshold.txt')[0].read_text().strip())!=THRESHOLD:raise ValueError('Profitability threshold metadata mismatch.')
-    return _records(str(path),digest).copy()
+    frame=_records(str(path),digest).copy()
+    frame.attrs['nonadditive_measures']=['Profit']
+    return frame
 
 
 def artifact(name):
@@ -85,6 +87,25 @@ def evaluation(frame,threshold=THRESHOLD):
     if frame.empty:return {}
     y=frame['Actual Profitable'].astype(int);p=frame['Profitability Probability'];pred=p.ge(threshold).astype(int)
     return {'Accuracy':accuracy_score(y,pred),'Balanced accuracy':balanced_accuracy_score(y,pred),'Precision':precision_score(y,pred,zero_division=0),'Recall':recall_score(y,pred,zero_division=0),'F1':f1_score(y,pred,zero_division=0),'ROC-AUC':roc_auc_score(y,p) if y.nunique()==2 else None,'PR-AUC':average_precision_score(y,p) if y.nunique()==2 else None,'Brier score':brier_score_loss(y,p),'Actual profitable rate':float(y.mean()),'Predicted profitable rate':float(pred.mean())}
+
+
+def selection_summary(frame):
+    """Describe supplied lines without adding potentially repeated order amounts."""
+    return {'lines': len(frame), 'orders': int(frame.Order.nunique()),
+            'profit_probability': float(frame['Profitability Probability'].mean()) if len(frame) else None,
+            'losing_lines': int((~frame['Actual Profitable']).sum()),
+            'high_loss_lines': int(frame['Profitability Probability'].lt(.40).sum()),
+            'mean_recorded_profit': float(frame.Profit.mean()) if len(frame) else None}
+
+
+def order_lines(order):
+    """Return supplied lines only after validating the selected order identity."""
+    frame=records()
+    selected=frame.loc[frame.Order.eq(str(order['Order']))].copy()
+    for field in ('Date','Market','Country'):
+        if field not in order or not selected[field].eq(order[field]).all():
+            raise ValueError('Profitability order identity could not be reconciled.')
+    return selected
 
 
 def cross_risk(delivery,profitability=None):

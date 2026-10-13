@@ -73,7 +73,7 @@ report={"status":"passed" if not findings else "failed","executed_at_utc":dateti
         "runtime_python_files_checked":len(source),"tracked_files_secret_scanned":scanned,"findings":findings,
         "trusted_internal_deserializers":deserializers,"secret_stores_ignored":True,"loopback_binding":True,
         "model_path_traversal":"rejected","duckdb_external_access":"blocked","unsafe_copilot_requests":"refused",
-        "limitations":["Current preview uses explicitly labelled session-only demo access; optional private hashed accounts and server-side roles are implemented separately","No enterprise identity provider, durable audit log or production deployment review","Private source data/model assets require controlled local access","Regex secret scan cannot prove absence of every possible credential","Current source scan does not remove earlier notebook outputs from Git history"]}
+        "limitations":["Connected preview uses session-only workspace access; optional private hashed accounts and server-side roles are implemented separately","No enterprise identity provider, durable audit log or production deployment review","Private source data/model assets require controlled local access","Regex secret scan cannot prove absence of every possible credential","Current source scan does not remove earlier notebook outputs from Git history"]}
 (ROOT/"metadata/security_audit.json").write_text(json.dumps(report,indent=2)+"\n",encoding="utf-8")
 print(json.dumps({key:value for key,value in report.items() if key!="trusted_internal_deserializers"},indent=2))
 raise SystemExit(1 if findings else 0)

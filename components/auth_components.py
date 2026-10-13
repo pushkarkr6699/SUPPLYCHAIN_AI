@@ -10,17 +10,20 @@ def show_recovery_copy():
 
 
 def login_card():
+    from services.provider import get_service
+    synthetic = get_service().demo
     with st.container(key="login_card"):
-        st.html('<div class="login-eyebrow">WELCOME BACK</div><h2>Sign in to continue.</h2><p class="login-intro">Enter the workspace for a guided demo session.</p>')
+        st.html('<div class="login-eyebrow">WELCOME BACK</div><h2>Sign in to continue.</h2><p class="login-intro">Enter your supply-chain analysis workspace.</p>')
         if mode()=='accounts':
             st.info('Private local accounts are enabled. Use an administrator-created account. Demo access cannot read connected project files.')
         else:
-            st.html('<div class="demo-auth-note"><span aria-hidden="true">i</span><p><b>Demo authentication is enabled for this preview.</b><br>Credentials are not verified by an identity provider. Password input is cleared after submit. Use sample values or continue without credentials.</p></div>')
+            title = 'Demo authentication is enabled for this preview.' if synthetic else 'Session-only workspace access.'
+            st.html('<div class="demo-auth-note"><span aria-hidden="true">i</span><p><b>'+title+'</b><br>Credentials are not verified by an identity provider. Password input is cleared after submit. Use sample values or continue without credentials.</p></div>')
 
-        st.text_input("Email or username", key="login_username", placeholder="Your name or demo email", autocomplete="off")
+        st.text_input("Email or username", key="login_username", placeholder="Your display name", autocomplete="off")
         st.text_input("Password", key="login_password", type="password", placeholder="Sample value only", autocomplete="off")
 
-        st.checkbox("Remember me for this session", key="remember_me", help="Stores only a demo display preference until logout")
+        st.checkbox("Remember me for this session", key="remember_me", help="Stores only a display preference until logout")
         if st.session_state.get("login_error"):
             st.error(st.session_state.login_error, icon=":material/info:")
         if st.session_state.get("recovery_notice"):
@@ -34,7 +37,7 @@ def login_card():
             st.html('<div class="login-or">OR</div>')
         with right:
             st.html('<div class="login-divider"></div>')
-        st.button("Continue in Demo Mode", key="login_demo", on_click=enter_demo, width="stretch")
+        st.button("Continue in Demo Mode" if synthetic or mode()=='accounts' else "Continue to workspace", key="login_demo", on_click=enter_demo, width="stretch")
         st.button("Forgot password?", key="forgot_password", on_click=show_recovery_copy, type="tertiary")
         st.caption('Private hashed local accounts; no enterprise identity provider.' if mode()=='accounts' else 'This UI preview has no connected identity provider.')
         st.button("← Return to website", key="login_back", on_click=go, args=("landing",), type="tertiary")

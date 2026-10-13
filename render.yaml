@@ -4,5 +4,8 @@ services:
     env: python
     plan: free
     buildCommand: pip install -r requirements.txt -r requirements-inference.txt
-    startCommand: streamlit run app.py --server.address=0.0.0.0 --server.port=$PORT
+    startCommand: python scripts/launch_hosted.py
+    envVars:
+      - key: SUPPLYCHAIN_PROVIDER
+        value: verified
     healthCheckPath: /

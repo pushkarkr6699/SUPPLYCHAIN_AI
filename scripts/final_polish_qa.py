@@ -32,7 +32,7 @@ def run():
             expect(page.locator('.st-key-nav_scenarios')).to_be_visible()
             disclosure.press("Enter")
             report["functional"].append("Secondary sidebar tools expand with the keyboard; core routes remain visible")
-            page.locator('.st-key-demo_guide').get_by_role('button', name="Guided demo").click()
+            page.locator('.st-key-demo_guide').get_by_role('button', name="Guided walkthrough").click()
             page.locator('.st-key-guide_start').get_by_role('button').click()
             settled(page)
             audit(page, "guide-overview", report)

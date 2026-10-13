@@ -14,6 +14,12 @@ def apply_insight_filter(item):
         st.session_state.active_filter_dataset = dataset
         st.session_state.pop("filter_Risk", None)
         st.session_state.pop("filter_Risk_delivery", None)
+    elif item.get('Category') == 'Profitability':
+        field, values = ('Actual Profitable', [False]) if item['Title'] == 'Observed losing line items' else ('Profitability Risk', ['High Loss Risk'])
+        st.session_state.filters[field] = values
+        st.session_state.setdefault('filters_by_dataset', {})['profitability'] = dict(st.session_state.filters)
+        st.session_state.active_filter_dataset = 'profitability'
+        st.session_state.pop(f'filter_{field}_profitability', None)
     go(item["Route"])
 
 
@@ -26,7 +32,7 @@ def insight_card(item, df, key, show_evidence=False, show_actions=False):
     if show_actions:
         cols = st.columns(3)
         with cols[0]: nav_button("Investigate", item["Route"], key=f"insight_{key}")
-        with cols[1]: nav_button("Ask Copilot", "copilot", key=f"insight_copilot_{key}")
+        with cols[1]: nav_button("Ask Copilot", "copilot", key=f"insight_copilot_{key}", copilot_dataset=df.attrs.get('dataset', 'demo' if get_service().demo else 'delivery'))
         cols[2].button("Apply Filter", key=f"insight_filter_{key}", on_click=apply_insight_filter, args=(item,), width="stretch")
     else:
         nav_button("Investigate", item["Route"], key=f"insight_{key}")

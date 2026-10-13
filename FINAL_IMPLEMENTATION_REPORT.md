@@ -1,6 +1,6 @@
 # SupplyChain AI final implementation and audit
 
-Generated UTC: 2026-10-13T17:17:06.732709+00:00.
+Generated UTC: 2026-10-13T18:36:52.977172+00:00.
 
 ## 1. Project status
 
@@ -30,7 +30,7 @@ All 199 numbered master sections are mapped in [the human-readable matrix](metad
 
 ## 7. Tests
 
-**352 passed, zero failures/errors/skips**, 85.93s. Eighteen warnings: 15 joblib/NumPy deprecations and three intentional invalid-date fixture warnings. Current full regression covers routes, calculations, privacy, uploads, trained inference, safe tools, exports, sessions and role boundaries. Dependencies: no broken requirements; 92 checked packages, no known vulnerabilities at this scan.
+**368 passed, zero failures/errors/skips**, 82.32s. Eighteen warnings: 15 joblib/NumPy deprecations and three intentional invalid-date fixture warnings. Current full regression covers routes, calculations, privacy, uploads, trained inference, safe tools, exports, sessions and role boundaries. Dependencies: no broken requirements; 92 checked packages, no known vulnerabilities at this scan.
 
 ## 8. Failures and fixes
 
@@ -40,9 +40,9 @@ The current visual review found crowded KPI values at 320px. KPI indicators now 
 
 ## 9. Security
 
-Final local security audit passed: 117 runtime Python files, 340 source files scanned, zero findings. Credentials/contact fields are minimized before preview/export/AI; spreadsheet formula cells and headers escaped; bounded safe parsing rejects executable, macro, formula and oversized/nested data; uploaded objects are never deserialized; DuckDB external access is disabled. Native downloads require export permission; inference requires prediction permission. Secret files and private account hashes remain ignored.
+Final local security audit passed: 120 runtime Python files, 352 source files scanned, zero findings. Credentials/contact fields are minimized before preview/export/AI; spreadsheet formula cells and headers escaped; bounded safe parsing rejects executable, macro, formula and oversized/nested data; uploaded objects are never deserialized; DuckDB external access is disabled. Native downloads require export permission; inference requires prediction permission. Secret files and private account hashes remain ignored.
 
-Optional accounts use salted PBKDF2-SHA256 hashes and server-side Admin/Analyst/Executive/Viewer roles. The current preview remains explicitly labelled demo/session access. Login throttling and audit retention are session-local, not distributed controls. This is not an independent penetration test or enterprise identity system.
+Optional accounts use salted PBKDF2-SHA256 hashes and server-side Admin/Analyst/Executive/Viewer roles. The connected preview uses session-only workspace access, independently of dataset selection. Login throttling and audit retention are session-local, not distributed controls. This is not an independent penetration test or enterprise identity system.
 
 Three published training notebooks now retain training code but contain no captured outputs. Their original bytes and registry hashes are preserved in ignored private backups; three regression cases verify this. Sensitive output headers were found during the audit and removed from the current published copies. Earlier Git commits still retain the original notebook outputs; this cleanup does not rewrite repository history. See metadata/notebook_publication_qa.json.
 
@@ -56,7 +56,7 @@ Delivery real-score parity: 2,123 rows. Demand real parity: 1,216 rows. Profitab
 
 ## 12. Performance
 
-Single-process local measurements: cold source 0.4813s; cached source 0.0084s; ten chart constructions 0.9292s; repeated source filters 0.0082-0.0097s; source frame 20.38MB. These are service timings, not complete browser/page timings or a multi-user SLA. Large multi-chart DOMs and long pages can still take longer to render.
+Single-process local measurements: cold source 0.4805s; cached source 0.0083s; ten chart constructions 0.9872s; repeated source filters 0.0084-0.0098s; source frame 20.38MB. These are service timings, not complete browser/page timings or a multi-user SLA. Large multi-chart DOMs and long pages can still take longer to render.
 
 ## 13. UI/UX
 
@@ -93,7 +93,7 @@ Preview: **http://localhost:8501**. Choose **Open platform**, then Visualization
 
 ## 17. Configuration and secrets
 
-Defaults preserve demo/session access. The existing ignored `.env` privately configures the Hugging Face/Groq provider. The current actual live request was rejected because Hugging Face inference credits are exhausted; restoring credits requires private account billing access. No successful live response occurred in this recheck. Never paste credentials into chat or commit `.env`. Every newly uploaded file needs separate numerical-summary consent before live AI. Local insights work without provider access.
+Connected analytics is the default; explicit synthetic demonstration remains labelled and available. Session-only access is independent of dataset mode. The existing ignored `.env` privately configures the Hugging Face/Groq provider. The current actual live request was rejected because Hugging Face inference credits are exhausted; restoring credits requires private account billing access. No successful live response occurred in this recheck. Never paste credentials into chat or commit `.env`. Every newly uploaded file needs separate numerical-summary consent before live AI. Local insights work without provider access.
 
 For optional private accounts, run `.\.venv\Scripts\python.exe scripts/create_local_account.py` interactively, set `SUPPLYCHAIN_AUTH_MODE=accounts` privately in `.env`, and restart. No account/password was fabricated or created during this release. See `.env.example` for non-secret names and defaults.
 
@@ -129,14 +129,18 @@ Evidence: [regression](metadata/master_regression_qa.json), [data/models/perform
 
 Rechecked on 2026-10-13. Every registered artifact was hash/byte verified: **41 artifacts**, and **28 registered CSV tables** safely loaded with reconciled row counts. All **25 chart types** passed the isolated browser gallery using the actual shared chart builder, theme and controls. Synthetic coordinates/stages exist only in its test fixture; no invented business data was registered.
 
-The final gallery checks per-chart toolbar geometry, supported controls, fullscreen entry/exit, valid PNG export, exact table record counts, Light desktop and Dark 320px layouts, and records zero JavaScript exceptions. The broader browser group covers all workspace routes, uploads/models, reports, comparison, local/live Sevika, public login, sidebar resizing, themes and animations. Its sequential executed commands took 19.0 minutes, excluding review/fix time and the separately run chart gallery.
+The final gallery checks per-chart toolbar geometry, supported controls, fullscreen entry/exit, valid PNG export, exact table record counts, Light desktop and Dark 320px layouts, and records zero JavaScript exceptions. The broader browser group covers all workspace routes, uploads/models, reports, comparison, local/live Sevika, public login, sidebar resizing, themes and animations. Its sequential executed commands took 15.8 minutes, excluding review/fix time and the separately run chart gallery.
 
 The actual approved live request was rejected for exhausted inference credits: **zero successful live requests** in this recheck. Further live insight/Sevika calls were left blocked rather than repeatedly calling the exhausted provider. Uploaded-file consent tests make no external upload-data transfer in this recheck.
 
-Hosted preview: https://supplychain-ai-er9a.onrender.com/ responded HTTP 200; landing and dashboard rendered 4 charts. It currently shows **labelled demo data**, not the local registered connected datasets. The Render build now includes requirements-inference.txt. Registered assets and private AI configuration still require controlled hosting provisioning; a Git push does not publish them. Hosted UI checks are not connected-model or production deployment certification.
+Earlier hosted preview evidence: https://supplychain-ai-er9a.onrender.com/ responded HTTP 200; landing and dashboard rendered 4 charts using labelled demonstration data. This predates the current connected-default release. The Render build includes requirements-inference.txt and a validated private-asset launcher. Registered assets and private AI configuration still require controlled hosting provisioning; a Git push does not publish them. The new hosted connected release has not been verified. Hosted UI checks are not connected-model or production deployment certification.
 
 Additional evidence: metadata/registered_sources_qa.json, metadata/all_chart_types_browser_qa.json, metadata/hosted_preview_qa.json, metadata/hf_live_dataset_qa.json.
 
-## 21. Release push verification
+## 21. Connected-data completion and profitability
 
-Release adbd5b8 was pushed to main and its remote hash matched the local commit. Local Streamlit health returned HTTP 200. The post-push hosted HTTP request timed out after 30 seconds; availability of the newly deployed hosted release is not confirmed. Earlier hosted browser evidence applies to the labelled demo preview before this push. See metadata/release_push_qa.json.
+Connected analytics is now the default. Landing aggregates, login wording, workspace coverage, walkthroughs and source status distinguish real datasets from explicitly selected synthetic demonstration. Missing files produce unavailable states. Profitability is included in Overview, all model cards, analytical insights, actionable alerts, comparison, visualization, local Copilot/Sevika context, explorers, governance and exports. Order-detail links validate source identity and preserve line grain. Final PDF review also removed an unsupported sum of order-profit amounts across line observations: shared analysis and momentum reject that sum, and the report uses a labelled mean. A real-source regression verifies the financial grain guard.
+
+The focused real-source browser run passed **18 checks**, including profitability routes, CSV export, losing-line filter actions and mobile layout, with no browser errors. The PDF test now waits for report generation before starting its download timer; an isolated real-record PDF download also passed.
+
+A private bundle of 48 registered assets was prepared and hash-validated locally. It is excluded from Git. The server launcher checks archive/member hashes, sizes, exact allowed contents and all four fixed adapters. Render still needs account-owner private storage/environment configuration before hosted connected analytics can be verified. See [CONNECTED_DEPLOYMENT.md](docs/CONNECTED_DEPLOYMENT.md). No missing historical model inputs or weak profitability quality have been concealed.

@@ -2,7 +2,7 @@
 
 All 199 numbered sections (0-198) are mapped below. PASS is limited to the stated scope. BLOCKED includes partial implementations as well as missing sources. N/A is conditional on absent supporting evidence. Counts are section statuses, not feature completion percentages.
 
-Generated UTC: 2026-10-13T17:17:06.732709+00:00. Section counts: {'PASS': 188, 'BLOCKED': 4, 'N/A': 7}.
+Generated UTC: 2026-10-13T18:36:52.977172+00:00. Section counts: {'PASS': 188, 'BLOCKED': 4, 'N/A': 7}.
 
 | Section | Requirement | Status | Verified scope / limitation | Implementation | Evidence |
 | --- | --- | --- | --- | --- | --- |

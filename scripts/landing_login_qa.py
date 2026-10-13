@@ -19,8 +19,9 @@ with sync_playwright() as playwright:
     page.on("pageerror", lambda error: ERRORS.append(str(error)))
     page.goto("http://127.0.0.1:8501", wait_until="networkidle")
     page.locator(".hero h1").wait_for()
-    page.get_by_role("heading", name="Operations at a glance").wait_for()
-    assert page.get_by_text("DEMO UI DATA").count() >= 2
+    expect(page.locator('[aria-label="Registered dataset overview"]')).to_have_count(2)
+    assert page.get_by_text("DEMO UI DATA",exact=True).count() == 0
+    expect(page.get_by_text('REGISTERED SOURCES',exact=True).first).to_be_visible()
     check_horizontal_overflow(page, "wide landing")
 
     page.locator(".public-links a[href='#platform']").click()
@@ -39,7 +40,7 @@ with sync_playwright() as playwright:
     page.set_viewport_size({"width": 1512, "height": 1060})
     page.locator(".st-key-public_header").get_by_role("button", name="Sign in", exact=True).click()
     page.get_by_role("heading", name="Sign in to continue.").wait_for()
-    page.get_by_text("Demo authentication is enabled for this preview.").wait_for()
+    page.get_by_text("Session-only workspace access.").wait_for()
     page.get_by_role("heading", name="Your supply chain intelligence workspace.").wait_for()
     for width, height, name in [(1512, 1060, "login-wide"), (1366, 900, "login-laptop"), (820, 980, "login-tablet"), (390, 844, "login-mobile")]:
         page.set_viewport_size({"width": width, "height": height})
@@ -54,12 +55,12 @@ with sync_playwright() as playwright:
     page.get_by_role("button", name="Hide password", exact=True).click()
     expect(page.get_by_role("textbox", name="Password")).to_have_attribute("type", "password")
     page.locator(".st-key-login_submit").get_by_role("button").click()
-    page.get_by_text("Enter a demo username and password, or continue in Demo Mode.").wait_for()
+    page.get_by_text("Enter a display name and sample password, or continue to the workspace without credentials.").wait_for()
     page.get_by_role("button", name="Forgot password?").click()
     page.get_by_text("Password recovery will be available when an authentication provider is connected.").wait_for()
-    page.get_by_role("button", name="Continue in Demo Mode").click()
+    page.get_by_role("button", name="Continue to workspace").click()
     page.get_by_role("heading", name="Executive Command Center").wait_for()
     assert not ERRORS, f"Browser JavaScript errors: {ERRORS}"
-    print("Public QA passed: landing/login at 1512, 1366, 820 and 390 px; sticky navigation, overflow, password visibility, validation, recovery and demo entry.")
+    print("Public QA passed: connected landing/login at 1512, 1366, 820 and 390 px; real aggregate previews, sticky navigation, overflow, password visibility, validation, recovery and session-only entry.")
     print(f"Screenshots: {OUTPUT.resolve()}")
     browser.close()

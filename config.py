@@ -23,15 +23,26 @@ if _ENV_FILE.is_file():
         if _sep and _key in _LOCAL_KEYS:
             os.environ.setdefault(_key, _value)
 
+_REGISTERED_DEFAULTS = {
+    'DELIVERY_PRIMARY_URI': 'data/delivery/final/DataCo_Final_Order_Level_Dataset.csv',
+    'DELIVERY_DATA_URI': 'data/delivery/final/DataCo_Final_Scored_Orders.csv',
+    'DEMAND_DATA_URI': 'data/demand/final/AccessLogs_Final_Advanced_Forecast.csv',
+    'DELIVERY_MODEL_COMPARISON_URI': 'data/delivery/final/evaluation/DataCo_Final_Model_Comparison.csv',
+    'DELIVERY_FEATURE_IMPORTANCE_URI': 'data/delivery/final/evaluation/DataCo_Feature_Importance.csv',
+    'DELIVERY_MODEL_URI': 'models/delivery/DataCo_Tuned_XGBoost.pkl',
+    'DEMAND_MODEL_COMPARISON_URI': 'data/demand/final/AccessLogs_Final_Model_Comparison.csv',
+}
+
+
 def _artifact_path(key):
-    value = os.getenv(key, "").strip()
+    value = os.getenv(key, _REGISTERED_DEFAULTS.get(key, '')).strip()
     if not value:
         return ""
     path = Path(value).expanduser()
     return str(path if path.is_absolute() else (ROOT / path).resolve())
 
 
-SUPPLYCHAIN_PROVIDER = os.getenv("SUPPLYCHAIN_PROVIDER", "demo").strip().lower()
+SUPPLYCHAIN_PROVIDER = os.getenv("SUPPLYCHAIN_PROVIDER", "verified").strip().lower()
 DELIVERY_DATA_URI = _artifact_path("DELIVERY_DATA_URI")
 DELIVERY_PRIMARY_URI = _artifact_path("DELIVERY_PRIMARY_URI")
 DEMAND_DATA_URI = _artifact_path("DEMAND_DATA_URI")

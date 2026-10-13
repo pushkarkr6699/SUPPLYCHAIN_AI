@@ -90,7 +90,7 @@ def render():
     if route == "overview":
         hour = datetime.now().astimezone().hour
         greeting = "Good morning" if hour < 12 else "Good afternoon" if hour < 17 else "Good evening"
-        st.html(f'<div class="workspace-greeting"><h2>{greeting}. Here’s what changed.</h2><p>Review delivery and demand signals in the selected datasets. Filters below set the context for this analysis.</p></div>')
+        st.html(f'<div class="workspace-greeting"><h2>{greeting}. Here’s what changed.</h2><p>Review delivery, web-visit forecasts and profitability in their selected datasets. Filters below set the context for this analysis.</p></div>')
     query_start = perf_counter()
     try:
         df = filters()

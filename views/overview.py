@@ -1,4 +1,5 @@
 import streamlit as st
+from html import escape
 from components.section_header import section
 from components.kpi_cards import kpis
 from components.charts import forecast_chart, risk_donut, bar
@@ -73,14 +74,21 @@ def visualization_entry():
 
 def _render_verified(df):
     service = get_service()
-    demand_filters = st.session_state.get("filters_by_dataset", {}).get("demand", {})
-    demand = service.records(demand_filters, dataset="demand")
+    from services.workspace_status import connected_sources
+    sources = connected_sources(service, st.session_state.get('filters_by_dataset', {}))
+    demand = sources['demand']['frame']
+    if demand is None:
+        # Delivery remains useful when an independent demand source is absent.
+        import pandas as pd
+        demand = pd.DataFrame()
     m, forecast = summary(df), summary(demand)
     scored = int(df["Risk Probability"].notna().sum())
     actions = st.columns([5, 1.3, 1.3, 1.3])
     with actions[1]: nav_button("Generate Brief", "reports", key="overview_brief", icon="description")
     with actions[2]: st.button("Presentation Mode", key="overview_presentation", icon=":material/fullscreen:", on_click=toggle_presentation, width="stretch")
     with actions[3]: nav_button("Ask Copilot", "copilot", key="overview_ask", icon="auto_awesome")
+    strip = ''.join('<div class="status-item">'+escape(item['label'].upper())+'<strong>'+escape(item['status'])+'</strong></div>' for item in sources.values())
+    st.html('<div class="status-strip">'+strip+'<div class="status-item">SOURCE TYPE<strong>Historical snapshot</strong></div></div>')
     kpis([
         ("Total Orders", len(df), "number", "Primary analytical dataset in view"),
         ("Scored Orders", scored, "number", "Supplied January 2018 predictions"),
@@ -89,7 +97,30 @@ def _render_verified(df):
         ("Forecast Demand", forecast["forecast"], "number", "Separate product/day dataset", "purple"),
         ("Stock Attention", forecast["stock"], "number", "Supplied forecast review flags"),
     ])
-    st.caption("Delivery and demand use separate datasets and filter contexts. Demand figures use the current Demand page filters; the datasets are not joined.")
+    st.caption("Delivery, demand and profitability retain separate grains and filter contexts. Each source uses its own saved page filters; no unvalidated combined totals are created.")
+    with st.expander('Connected source coverage'):
+        for item in sources.values():
+            st.write(f"**{item['label']}** · {item['status']} · {item['rows'] if item['rows'] is not None else 'Unavailable'} records · {item['period']}")
+    profit = sources['profitability']['frame']
+    section('Profitability Overview', 'Supplied profitability line items in the independent Profitability page context')
+    if profit is None:
+        st.info('The registered profitability source is unavailable in this environment. Install its registered files to enable this section.')
+    else:
+        from services.profitability_data import selection_summary
+        p = selection_summary(profit)
+        kpis([('Profitability line items', p['lines'], 'number', 'Source observations, not unique orders'),
+              ('Profitability unique orders', p['orders'], 'number', 'Orders represented by the supplied lines'),
+              ('Mean profitability probability', p['profit_probability'], 'percent', 'Supplied scores; saved threshold 0.20'),
+              ('Observed losing lines', p['losing_lines'], 'number', 'Recorded profit is zero or negative')])
+        st.caption(sources['profitability']['period']+' · Supplied test scores; weak ROC-AUC ≈ 0.4978. These probabilities do not establish future business reliability.')
+        nav_button('Open Profitability Intelligence', 'profitability', key='overview_profitability_open', icon='account_balance_wallet')
+        if len(profit):
+            grouped = profit.groupby('Market', dropna=False)['Profitability Probability'].mean().reset_index()
+            from components.charts import show
+            import plotly.express as px
+            show(px.bar(grouped, x='Market', y='Profitability Probability', labels={'Profitability Probability':'Mean supplied profitability probability'}), 'overview_profitability_market', height=300)
+        else:
+            st.info('No profitability rows match its page filters. Broaden the Profitability date range or reset those filters.')
     left, right = st.columns([1.65, 1])
     with left, st.container(border=True):
         section("Demand Outlook", f'{len(demand):,} product/day rows · supplied forecasts and bounds')
@@ -108,8 +139,10 @@ def _render_verified(df):
     section("High-Risk Orders", "Supplied Tuned XGBoost predictions")
     records_table(df[df.Risk.eq("High").fillna(False)], "overview")
     section("Executive Insights", "Measured from the connected datasets")
-    items = alerts(df)[:2] + alerts(demand)[:1]
-    for col, item in zip(st.columns(3), items):
-        with col: insight_card(item, df if item["Category"] != "Demand" else demand, f"overview_{item['Category']}")
+    items = [(item, df) for item in alerts(df)[:2]]
+    if len(demand): items.extend((item, demand) for item in alerts(demand)[:1])
+    if profit is not None: items.extend((item, profit) for item in alerts(profit)[:1])
+    for col, (item, source_frame) in zip(st.columns(min(4, len(items))), items):
+        with col: insight_card(item, source_frame, f"overview_{item['Category']}")
     section("System & Model Health", "Registered artifacts and current inference availability")
     model_cards()

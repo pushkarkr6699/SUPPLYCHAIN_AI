@@ -1,6 +1,6 @@
 # SUPPLYCHAIN AI
 
-A local decision-intelligence platform using supplied historical delivery, demand, profitability and final-delivery data. The existing UI and clearly labelled demo are preserved.
+A local decision-intelligence platform using supplied historical delivery, demand, profitability and final-delivery data. The existing UI and explicitly selected demonstration mode are preserved. Connected registered analytics is the default. Missing assets never fall back to synthetic business rows; session-only login is separate from dataset mode.
 
 Hosted preview: **https://supplychain-ai-er9a.onrender.com/**. Local preview: **http://localhost:8501**. Choose **Open platform**. The hosted environment and the local connected-data environment have separate data, model and secret configuration.
 
@@ -47,12 +47,12 @@ services:
     name: supplychain-ai
     env: python
     buildCommand: pip install -r requirements.txt -r requirements-inference.txt
-    startCommand: streamlit run app.py --server.address=0.0.0.0 --server.port=$PORT
+    startCommand: python scripts/launch_hosted.py
 ```
 
 This binds Streamlit to all interfaces and uses Render's provided `$PORT` so the app is reachable outside localhost.
 
-The build installs the inference runtime as well as the UI dependencies. Registered dataset/model binaries and private configuration are ignored by Git; pushing source code does not provision those assets or an AI credential on Render. Without an explicitly configured connected provider and its registered files, the hosted app uses its labelled demo. Verify the hosted source badges and model health before presenting it as the connected platform. Keep credentials and source assets in controlled hosting storage rather than adding them to the public repository.
+The build installs the inference runtime as well as the UI dependencies. Private dataset/model binaries and configuration are ignored by Git. Missing assets show unavailable states. A private 48-asset bundle and hash-checked startup installer are prepared; see [connected deployment instructions](docs/CONNECTED_DEPLOYMENT.md). The account owner must configure private storage/environment access before hosted connected analytics can work. Verify hosted sources and inference separately.
 
 ## Configuration and access
 

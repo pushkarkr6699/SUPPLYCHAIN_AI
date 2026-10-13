@@ -27,7 +27,7 @@ def render(df):
         st.rerun()
     from services.access_control import mode,can
     with st.expander('Access controls and session audit'):
-        st.caption('Authentication: '+('Private hashed local accounts' if mode()=='accounts' else 'Labelled session-only demo access; production authentication is not enabled.'))
+        st.caption('Authentication: '+('Private hashed local accounts' if mode()=='accounts' else 'Session-only workspace access; production authentication is not enabled.'))
         st.caption('Audit events are held only in this session, bounded to 100 entries, and cleared at logout. No raw records, question text or credentials are logged. This is not a durable compliance audit.')
         if can('audit'):
             import pandas as pd

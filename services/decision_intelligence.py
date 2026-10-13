@@ -6,6 +6,7 @@ import pandas as pd
 def momentum(frame,measure,operation='Mean',period='Day'):
     if 'Date' not in frame or not pd.api.types.is_datetime64_any_dtype(frame.Date) or measure not in frame:raise ValueError('Momentum requires an actual date and numeric measure.')
     if operation not in {'Mean','Sum'} or period not in {'Day','Week','Month'}:raise ValueError('Choose a supported aggregation and period.')
+    if operation=='Sum' and measure in frame.attrs.get('nonadditive_measures',[]):raise ValueError('Order amounts on line observations are not validated as additive; choose Mean.')
     data=frame[['Date',measure]].copy();data[measure]=pd.to_numeric(data[measure],errors='coerce').replace([np.inf,-np.inf],np.nan)
     dates=data.Date.dt.floor('D') if period=='Day' else data.Date.dt.to_period('W-SUN' if period=='Week' else 'M').dt.start_time
     grouped=data.assign(Period=dates).groupby('Period',observed=True)[measure]
@@ -50,6 +51,7 @@ def priorities(frame,dimension):
 
 def opportunities(frame,dimension):
     if not {dimension,'Sales','Profit'}.issubset(frame):raise ValueError('Observed opportunities require actual sales and profit fields at the same grain.')
+    if {'Sales','Profit'}.intersection(frame.attrs.get('nonadditive_measures',[])):raise ValueError('Observed margin requires validated additive financial measures.')
     table=frame.groupby(dimension,dropna=False,observed=True)[['Sales','Profit']].sum(min_count=1).reset_index()
     table['Observed margin']=table.Profit/table.Sales.where(table.Sales.ne(0))
     return table[table.Profit.gt(0)&table.Sales.gt(0)].sort_values('Profit',ascending=False,kind='stable')
