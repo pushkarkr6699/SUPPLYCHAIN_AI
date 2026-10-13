@@ -1,0 +1,7 @@
+{
+  "passed": false,
+  "checks": [],
+  "actual_successful_requests": 0,
+  "safe_error": "Hugging Face inference credits are exhausted. Check your account before retrying.",
+  "checked_at": "2026-10-13T17:00:34.129043+00:00"
+}

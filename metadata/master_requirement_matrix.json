@@ -1,5 +1,5 @@
 {
-  "generated_utc": "2026-10-07T09:05:08.743185+00:00",
+  "generated_utc": "2026-10-13T17:17:06.732709+00:00",
   "scope": "Section-level traceability with explicitly bounded PASS scopes; not one test per sentence or a completion percentage",
   "local_demo_gates": {
     "regression": true,
@@ -9,9 +9,16 @@
     "chart_controls": true,
     "uploads": true,
     "security": true,
-    "live_ai": true,
-    "live_sevika": true,
-    "dependencies": true
+    "dependencies": true,
+    "all_registered_sources": true,
+    "all_25_chart_types": true,
+    "full_recheck_commands": true,
+    "hosted_preview_ui": true
+  },
+  "external_blockers": {
+    "live_ai": "Actual Hugging Face request rejected: inference credits exhausted.",
+    "live_sevika": "Actual Hugging Face request rejected: inference credits exhausted.",
+    "live_insight_views": "Actual Hugging Face request rejected: inference credits exhausted."
   },
   "full_specification_complete": false,
   "section_status_counts": {
@@ -446,7 +453,7 @@
       "feature": "Controlled Copilot and Sevika",
       "status": "PASS",
       "implemented_and_verified_scope": "Twelve validated command types, allowlisted analytical tools and local questions, evidence references, safe refusals; optional live HF/Groq uses approved anonymous numerical summaries; uploads require individual consent.",
-      "limitation": "",
+      "limitation": "Local analytical tools passed. Current live AI is blocked by exhausted Hugging Face credits; earlier live successes are historical only.",
       "implementation": "services/copilot/; services/copilot/ui_commands.py; services/sevika.py; services/data_questions.py; services/ai_provider.py; components/sevika.py; views/data_tools.py",
       "evidence": "tests/test_copilot_commands.py; tests/test_sevika.py; tests/test_ai_provider.py; tests/test_parameter_comparison.py; tests/test_master_features.py; metadata/master_live_ai_qa.json; metadata/master_workflow_qa.json"
     },
@@ -456,7 +463,7 @@
       "feature": "Controlled Copilot and Sevika",
       "status": "PASS",
       "implemented_and_verified_scope": "Twelve validated command types, allowlisted analytical tools and local questions, evidence references, safe refusals; optional live HF/Groq uses approved anonymous numerical summaries; uploads require individual consent.",
-      "limitation": "",
+      "limitation": "Local analytical tools passed. Current live AI is blocked by exhausted Hugging Face credits; earlier live successes are historical only.",
       "implementation": "services/copilot/; services/copilot/ui_commands.py; services/sevika.py; services/data_questions.py; services/ai_provider.py; components/sevika.py; views/data_tools.py",
       "evidence": "tests/test_copilot_commands.py; tests/test_sevika.py; tests/test_ai_provider.py; tests/test_parameter_comparison.py; tests/test_master_features.py; metadata/master_live_ai_qa.json; metadata/master_workflow_qa.json"
     },
@@ -466,7 +473,7 @@
       "feature": "Controlled Copilot and Sevika",
       "status": "PASS",
       "implemented_and_verified_scope": "Twelve validated command types, allowlisted analytical tools and local questions, evidence references, safe refusals; optional live HF/Groq uses approved anonymous numerical summaries; uploads require individual consent.",
-      "limitation": "",
+      "limitation": "Local analytical tools passed. Current live AI is blocked by exhausted Hugging Face credits; earlier live successes are historical only.",
       "implementation": "services/copilot/; services/copilot/ui_commands.py; services/sevika.py; services/data_questions.py; services/ai_provider.py; components/sevika.py; views/data_tools.py",
       "evidence": "tests/test_copilot_commands.py; tests/test_sevika.py; tests/test_ai_provider.py; tests/test_parameter_comparison.py; tests/test_master_features.py; metadata/master_live_ai_qa.json; metadata/master_workflow_qa.json"
     },
@@ -476,7 +483,7 @@
       "feature": "Controlled Copilot and Sevika",
       "status": "PASS",
       "implemented_and_verified_scope": "Twelve validated command types, allowlisted analytical tools and local questions, evidence references, safe refusals; optional live HF/Groq uses approved anonymous numerical summaries; uploads require individual consent.",
-      "limitation": "",
+      "limitation": "Local analytical tools passed. Current live AI is blocked by exhausted Hugging Face credits; earlier live successes are historical only.",
       "implementation": "services/copilot/; services/copilot/ui_commands.py; services/sevika.py; services/data_questions.py; services/ai_provider.py; components/sevika.py; views/data_tools.py",
       "evidence": "tests/test_copilot_commands.py; tests/test_sevika.py; tests/test_ai_provider.py; tests/test_parameter_comparison.py; tests/test_master_features.py; metadata/master_live_ai_qa.json; metadata/master_workflow_qa.json"
     },
@@ -486,7 +493,7 @@
       "feature": "Controlled Copilot and Sevika",
       "status": "PASS",
       "implemented_and_verified_scope": "Twelve validated command types, allowlisted analytical tools and local questions, evidence references, safe refusals; optional live HF/Groq uses approved anonymous numerical summaries; uploads require individual consent.",
-      "limitation": "",
+      "limitation": "Local analytical tools passed. Current live AI is blocked by exhausted Hugging Face credits; earlier live successes are historical only.",
       "implementation": "services/copilot/; services/copilot/ui_commands.py; services/sevika.py; services/data_questions.py; services/ai_provider.py; components/sevika.py; views/data_tools.py",
       "evidence": "tests/test_copilot_commands.py; tests/test_sevika.py; tests/test_ai_provider.py; tests/test_parameter_comparison.py; tests/test_master_features.py; metadata/master_live_ai_qa.json; metadata/master_workflow_qa.json"
     },
@@ -496,7 +503,7 @@
       "feature": "Controlled Copilot and Sevika",
       "status": "PASS",
       "implemented_and_verified_scope": "Twelve validated command types, allowlisted analytical tools and local questions, evidence references, safe refusals; optional live HF/Groq uses approved anonymous numerical summaries; uploads require individual consent.",
-      "limitation": "",
+      "limitation": "Local analytical tools passed. Current live AI is blocked by exhausted Hugging Face credits; earlier live successes are historical only.",
       "implementation": "services/copilot/; services/copilot/ui_commands.py; services/sevika.py; services/data_questions.py; services/ai_provider.py; components/sevika.py; views/data_tools.py",
       "evidence": "tests/test_copilot_commands.py; tests/test_sevika.py; tests/test_ai_provider.py; tests/test_parameter_comparison.py; tests/test_master_features.py; metadata/master_live_ai_qa.json; metadata/master_workflow_qa.json"
     },
@@ -1106,7 +1113,7 @@
       "feature": "Controlled Copilot and Sevika",
       "status": "PASS",
       "implemented_and_verified_scope": "Twelve validated command types, allowlisted analytical tools and local questions, evidence references, safe refusals; optional live HF/Groq uses approved anonymous numerical summaries; uploads require individual consent.",
-      "limitation": "",
+      "limitation": "Local analytical tools passed. Current live AI is blocked by exhausted Hugging Face credits; earlier live successes are historical only.",
       "implementation": "services/copilot/; services/copilot/ui_commands.py; services/sevika.py; services/data_questions.py; services/ai_provider.py; components/sevika.py; views/data_tools.py",
       "evidence": "tests/test_copilot_commands.py; tests/test_sevika.py; tests/test_ai_provider.py; tests/test_parameter_comparison.py; tests/test_master_features.py; metadata/master_live_ai_qa.json; metadata/master_workflow_qa.json"
     },
@@ -1116,7 +1123,7 @@
       "feature": "Controlled Copilot and Sevika",
       "status": "PASS",
       "implemented_and_verified_scope": "Twelve validated command types, allowlisted analytical tools and local questions, evidence references, safe refusals; optional live HF/Groq uses approved anonymous numerical summaries; uploads require individual consent.",
-      "limitation": "",
+      "limitation": "Local analytical tools passed. Current live AI is blocked by exhausted Hugging Face credits; earlier live successes are historical only.",
       "implementation": "services/copilot/; services/copilot/ui_commands.py; services/sevika.py; services/data_questions.py; services/ai_provider.py; components/sevika.py; views/data_tools.py",
       "evidence": "tests/test_copilot_commands.py; tests/test_sevika.py; tests/test_ai_provider.py; tests/test_parameter_comparison.py; tests/test_master_features.py; metadata/master_live_ai_qa.json; metadata/master_workflow_qa.json"
     },
@@ -1126,7 +1133,7 @@
       "feature": "Controlled Copilot and Sevika",
       "status": "PASS",
       "implemented_and_verified_scope": "Twelve validated command types, allowlisted analytical tools and local questions, evidence references, safe refusals; optional live HF/Groq uses approved anonymous numerical summaries; uploads require individual consent.",
-      "limitation": "",
+      "limitation": "Local analytical tools passed. Current live AI is blocked by exhausted Hugging Face credits; earlier live successes are historical only.",
       "implementation": "services/copilot/; services/copilot/ui_commands.py; services/sevika.py; services/data_questions.py; services/ai_provider.py; components/sevika.py; views/data_tools.py",
       "evidence": "tests/test_copilot_commands.py; tests/test_sevika.py; tests/test_ai_provider.py; tests/test_parameter_comparison.py; tests/test_master_features.py; metadata/master_live_ai_qa.json; metadata/master_workflow_qa.json"
     },
@@ -1136,7 +1143,7 @@
       "feature": "Controlled Copilot and Sevika",
       "status": "PASS",
       "implemented_and_verified_scope": "Twelve validated command types, allowlisted analytical tools and local questions, evidence references, safe refusals; optional live HF/Groq uses approved anonymous numerical summaries; uploads require individual consent.",
-      "limitation": "",
+      "limitation": "Local analytical tools passed. Current live AI is blocked by exhausted Hugging Face credits; earlier live successes are historical only.",
       "implementation": "services/copilot/; services/copilot/ui_commands.py; services/sevika.py; services/data_questions.py; services/ai_provider.py; components/sevika.py; views/data_tools.py",
       "evidence": "tests/test_copilot_commands.py; tests/test_sevika.py; tests/test_ai_provider.py; tests/test_parameter_comparison.py; tests/test_master_features.py; metadata/master_live_ai_qa.json; metadata/master_workflow_qa.json"
     },
@@ -1146,7 +1153,7 @@
       "feature": "Controlled Copilot and Sevika",
       "status": "PASS",
       "implemented_and_verified_scope": "Twelve validated command types, allowlisted analytical tools and local questions, evidence references, safe refusals; optional live HF/Groq uses approved anonymous numerical summaries; uploads require individual consent.",
-      "limitation": "",
+      "limitation": "Local analytical tools passed. Current live AI is blocked by exhausted Hugging Face credits; earlier live successes are historical only.",
       "implementation": "services/copilot/; services/copilot/ui_commands.py; services/sevika.py; services/data_questions.py; services/ai_provider.py; components/sevika.py; views/data_tools.py",
       "evidence": "tests/test_copilot_commands.py; tests/test_sevika.py; tests/test_ai_provider.py; tests/test_parameter_comparison.py; tests/test_master_features.py; metadata/master_live_ai_qa.json; metadata/master_workflow_qa.json"
     },
@@ -1156,7 +1163,7 @@
       "feature": "Controlled Copilot and Sevika",
       "status": "PASS",
       "implemented_and_verified_scope": "Twelve validated command types, allowlisted analytical tools and local questions, evidence references, safe refusals; optional live HF/Groq uses approved anonymous numerical summaries; uploads require individual consent.",
-      "limitation": "",
+      "limitation": "Local analytical tools passed. Current live AI is blocked by exhausted Hugging Face credits; earlier live successes are historical only.",
       "implementation": "services/copilot/; services/copilot/ui_commands.py; services/sevika.py; services/data_questions.py; services/ai_provider.py; components/sevika.py; views/data_tools.py",
       "evidence": "tests/test_copilot_commands.py; tests/test_sevika.py; tests/test_ai_provider.py; tests/test_parameter_comparison.py; tests/test_master_features.py; metadata/master_live_ai_qa.json; metadata/master_workflow_qa.json"
     },
@@ -1166,7 +1173,7 @@
       "feature": "Controlled Copilot and Sevika",
       "status": "PASS",
       "implemented_and_verified_scope": "Twelve validated command types, allowlisted analytical tools and local questions, evidence references, safe refusals; optional live HF/Groq uses approved anonymous numerical summaries; uploads require individual consent.",
-      "limitation": "",
+      "limitation": "Local analytical tools passed. Current live AI is blocked by exhausted Hugging Face credits; earlier live successes are historical only.",
       "implementation": "services/copilot/; services/copilot/ui_commands.py; services/sevika.py; services/data_questions.py; services/ai_provider.py; components/sevika.py; views/data_tools.py",
       "evidence": "tests/test_copilot_commands.py; tests/test_sevika.py; tests/test_ai_provider.py; tests/test_parameter_comparison.py; tests/test_master_features.py; metadata/master_live_ai_qa.json; metadata/master_workflow_qa.json"
     },
@@ -1176,7 +1183,7 @@
       "feature": "Controlled Copilot and Sevika",
       "status": "PASS",
       "implemented_and_verified_scope": "Twelve validated command types, allowlisted analytical tools and local questions, evidence references, safe refusals; optional live HF/Groq uses approved anonymous numerical summaries; uploads require individual consent.",
-      "limitation": "",
+      "limitation": "Local analytical tools passed. Current live AI is blocked by exhausted Hugging Face credits; earlier live successes are historical only.",
       "implementation": "services/copilot/; services/copilot/ui_commands.py; services/sevika.py; services/data_questions.py; services/ai_provider.py; components/sevika.py; views/data_tools.py",
       "evidence": "tests/test_copilot_commands.py; tests/test_sevika.py; tests/test_ai_provider.py; tests/test_parameter_comparison.py; tests/test_master_features.py; metadata/master_live_ai_qa.json; metadata/master_workflow_qa.json"
     },
@@ -1186,7 +1193,7 @@
       "feature": "Controlled Copilot and Sevika",
       "status": "PASS",
       "implemented_and_verified_scope": "Twelve validated command types, allowlisted analytical tools and local questions, evidence references, safe refusals; optional live HF/Groq uses approved anonymous numerical summaries; uploads require individual consent.",
-      "limitation": "",
+      "limitation": "Local analytical tools passed. Current live AI is blocked by exhausted Hugging Face credits; earlier live successes are historical only.",
       "implementation": "services/copilot/; services/copilot/ui_commands.py; services/sevika.py; services/data_questions.py; services/ai_provider.py; components/sevika.py; views/data_tools.py",
       "evidence": "tests/test_copilot_commands.py; tests/test_sevika.py; tests/test_ai_provider.py; tests/test_parameter_comparison.py; tests/test_master_features.py; metadata/master_live_ai_qa.json; metadata/master_workflow_qa.json"
     },
@@ -1506,7 +1513,7 @@
       "feature": "Controlled Copilot and Sevika",
       "status": "PASS",
       "implemented_and_verified_scope": "Twelve validated command types, allowlisted analytical tools and local questions, evidence references, safe refusals; optional live HF/Groq uses approved anonymous numerical summaries; uploads require individual consent.",
-      "limitation": "",
+      "limitation": "Local analytical tools passed. Current live AI is blocked by exhausted Hugging Face credits; earlier live successes are historical only.",
       "implementation": "services/copilot/; services/copilot/ui_commands.py; services/sevika.py; services/data_questions.py; services/ai_provider.py; components/sevika.py; views/data_tools.py",
       "evidence": "tests/test_copilot_commands.py; tests/test_sevika.py; tests/test_ai_provider.py; tests/test_parameter_comparison.py; tests/test_master_features.py; metadata/master_live_ai_qa.json; metadata/master_workflow_qa.json"
     },
@@ -1786,7 +1793,7 @@
       "feature": "Controlled Copilot and Sevika",
       "status": "PASS",
       "implemented_and_verified_scope": "Twelve validated command types, allowlisted analytical tools and local questions, evidence references, safe refusals; optional live HF/Groq uses approved anonymous numerical summaries; uploads require individual consent.",
-      "limitation": "",
+      "limitation": "Local analytical tools passed. Current live AI is blocked by exhausted Hugging Face credits; earlier live successes are historical only.",
       "implementation": "services/copilot/; services/copilot/ui_commands.py; services/sevika.py; services/data_questions.py; services/ai_provider.py; components/sevika.py; views/data_tools.py",
       "evidence": "tests/test_copilot_commands.py; tests/test_sevika.py; tests/test_ai_provider.py; tests/test_parameter_comparison.py; tests/test_master_features.py; metadata/master_live_ai_qa.json; metadata/master_workflow_qa.json"
     },
@@ -1906,7 +1913,7 @@
       "feature": "Controlled Copilot and Sevika",
       "status": "PASS",
       "implemented_and_verified_scope": "Twelve validated command types, allowlisted analytical tools and local questions, evidence references, safe refusals; optional live HF/Groq uses approved anonymous numerical summaries; uploads require individual consent.",
-      "limitation": "",
+      "limitation": "Local analytical tools passed. Current live AI is blocked by exhausted Hugging Face credits; earlier live successes are historical only.",
       "implementation": "services/copilot/; services/copilot/ui_commands.py; services/sevika.py; services/data_questions.py; services/ai_provider.py; components/sevika.py; views/data_tools.py",
       "evidence": "tests/test_copilot_commands.py; tests/test_sevika.py; tests/test_ai_provider.py; tests/test_parameter_comparison.py; tests/test_master_features.py; metadata/master_live_ai_qa.json; metadata/master_workflow_qa.json"
     },

@@ -1,0 +1,223 @@
+{
+  "generated_utc": "2026-10-13T17:17:06.732709+00:00",
+  "backend": {
+    "started_at": "2026-10-13T17:14:35.219274+00:00",
+    "group": "backend",
+    "passed": true,
+    "steps": [
+      {
+        "name": "regression",
+        "started_at": "2026-10-13T17:14:35.219309+00:00",
+        "command": [
+          "-m",
+          "pytest",
+          "-q",
+          "--junitxml=tmp/master_regression_final.xml"
+        ],
+        "status": "passed",
+        "exit_code": 0,
+        "finished_at": "2026-10-13T17:16:02.788218+00:00",
+        "seconds": 87.57
+      },
+      {
+        "name": "data_models",
+        "started_at": "2026-10-13T17:16:02.791333+00:00",
+        "command": [
+          "scripts/master_data_qa.py"
+        ],
+        "status": "passed",
+        "exit_code": 0,
+        "finished_at": "2026-10-13T17:16:10.361894+00:00",
+        "seconds": 7.57
+      },
+      {
+        "name": "security",
+        "started_at": "2026-10-13T17:16:10.377371+00:00",
+        "command": [
+          "scripts/security_audit.py"
+        ],
+        "status": "passed",
+        "exit_code": 0,
+        "finished_at": "2026-10-13T17:16:13.651517+00:00",
+        "seconds": 3.27
+      },
+      {
+        "name": "requirements",
+        "started_at": "2026-10-13T17:16:13.654606+00:00",
+        "command": [
+          "-m",
+          "pip",
+          "check"
+        ],
+        "status": "passed",
+        "exit_code": 0,
+        "finished_at": "2026-10-13T17:16:14.534785+00:00",
+        "seconds": 0.88
+      },
+      {
+        "name": "dependencies",
+        "started_at": "2026-10-13T17:16:14.537847+00:00",
+        "command": [
+          "-m",
+          "pip_audit",
+          "--local",
+          "--format",
+          "json",
+          "--output",
+          "tmp/dependency_audit.json"
+        ],
+        "status": "passed",
+        "exit_code": 0,
+        "finished_at": "2026-10-13T17:16:17.433446+00:00",
+        "seconds": 2.89
+      }
+    ],
+    "finished_at": "2026-10-13T17:16:17.436495+00:00",
+    "local_checks_passed": true,
+    "blocked_steps": [],
+    "completed": true
+  },
+  "browser": {
+    "started_at": "2026-10-13T16:44:16.387699+00:00",
+    "group": "browser",
+    "passed": false,
+    "steps": [
+      {
+        "name": "workspace",
+        "started_at": "2026-10-13T16:44:16.387715+00:00",
+        "command": [
+          "scripts/master_browser_qa.py"
+        ],
+        "status": "passed",
+        "exit_code": 0,
+        "finished_at": "2026-10-13T16:50:40.535334+00:00",
+        "seconds": 384.15
+      },
+      {
+        "name": "uploads",
+        "started_at": "2026-10-13T16:50:40.540452+00:00",
+        "command": [
+          "scripts/uploads_browser_qa.py",
+          "--skip-live"
+        ],
+        "status": "passed",
+        "exit_code": 0,
+        "finished_at": "2026-10-13T16:54:30.697142+00:00",
+        "seconds": 230.16
+      },
+      {
+        "name": "chart_controls",
+        "started_at": "2026-10-13T16:54:30.702575+00:00",
+        "command": [
+          "scripts/chart_controls_qa.py"
+        ],
+        "status": "passed",
+        "exit_code": 0,
+        "finished_at": "2026-10-13T16:56:04.807745+00:00",
+        "seconds": 94.1
+      },
+      {
+        "name": "connected_reports",
+        "started_at": "2026-10-13T16:56:04.812212+00:00",
+        "command": [
+          "scripts/master_workflow_qa.py"
+        ],
+        "status": "passed",
+        "exit_code": 0,
+        "finished_at": "2026-10-13T16:56:46.870838+00:00",
+        "seconds": 42.06
+      },
+      {
+        "name": "comparison",
+        "started_at": "2026-10-13T16:56:46.875021+00:00",
+        "command": [
+          "scripts/comparison_browser_qa.py"
+        ],
+        "status": "passed",
+        "exit_code": 0,
+        "finished_at": "2026-10-13T16:58:01.166020+00:00",
+        "seconds": 74.29
+      },
+      {
+        "name": "comparison_controls",
+        "started_at": "2026-10-13T16:58:01.170570+00:00",
+        "command": [
+          "scripts/comparison_chart_qa.py"
+        ],
+        "status": "passed",
+        "exit_code": 0,
+        "finished_at": "2026-10-13T16:58:32.917555+00:00",
+        "seconds": 31.75
+      },
+      {
+        "name": "sevika_local",
+        "started_at": "2026-10-13T16:58:32.920543+00:00",
+        "command": [
+          "scripts/sevika_browser_qa.py",
+          "--local-only"
+        ],
+        "status": "passed",
+        "exit_code": 0,
+        "finished_at": "2026-10-13T17:00:24.658909+00:00",
+        "seconds": 111.74
+      },
+      {
+        "name": "public_login",
+        "started_at": "2026-10-13T17:03:49.509419+00:00",
+        "command": [
+          "scripts/landing_login_qa.py"
+        ],
+        "status": "passed",
+        "exit_code": 0,
+        "finished_at": "2026-10-13T17:03:58.895986+00:00",
+        "seconds": 9.39
+      },
+      {
+        "name": "live_insights",
+        "started_at": "2026-10-13T17:00:24.662367+00:00",
+        "command": [
+          "scripts/hf_live_dataset_qa.py",
+          "--execute"
+        ],
+        "status": "blocked",
+        "exit_code": 1,
+        "finished_at": "2026-10-13T17:00:34.660936+00:00",
+        "seconds": 10.0,
+        "reason": "Actual Hugging Face request rejected: inference credits exhausted. No repeated provider calls."
+      },
+      {
+        "name": "sevika_live",
+        "command": [
+          "scripts/sevika_live_browser_qa.py"
+        ],
+        "seconds": 0,
+        "status": "blocked",
+        "reason": "Actual Hugging Face request rejected: inference credits exhausted. No repeated provider calls."
+      },
+      {
+        "name": "themes_sidebar_motion",
+        "started_at": "2026-10-13T17:07:01.692216+00:00",
+        "command": [
+          "scripts/unified_experience_qa.py"
+        ],
+        "status": "passed",
+        "exit_code": 0,
+        "finished_at": "2026-10-13T17:09:33.222272+00:00",
+        "seconds": 151.53
+      }
+    ],
+    "finished_at": "2026-10-13T17:09:33.225395+00:00",
+    "local_checks_passed": true,
+    "blocked_steps": [
+      "live_insights",
+      "sevika_live"
+    ],
+    "completed": true
+  },
+  "local_checks_passed": true,
+  "external_blockers": {
+    "live_ai": "Actual Hugging Face request rejected: inference credits exhausted.",
+    "live_sevika": "Actual Hugging Face request rejected: inference credits exhausted.",
+    "live_insight_views": "Actual Hugging Face request rejected: inference credits exhausted."
+  }
+}

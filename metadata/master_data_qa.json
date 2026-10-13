@@ -1,6 +1,6 @@
 {
   "passed": true,
-  "checked_at": "2026-10-07T05:36:29.423828+00:00",
+  "checked_at": "2026-10-13T17:16:09.953087+00:00",
   "checks": [
     "Primary order count, unique keys, sales and scored/unscored coverage independently reconciled",
     "Filtered aggregation and CSV agree with independent source totals",
@@ -31,15 +31,15 @@
     "policy": "Null keys never match. Direct materialization requires one-to-one; aggregate child observations explicitly first to avoid duplicated parent measures."
   },
   "performance": {
-    "cold_source_seconds": 0.8097,
-    "warm_source_seconds": 0.0136,
-    "ten_chart_build_seconds": 1.3163,
+    "cold_source_seconds": 0.4813,
+    "warm_source_seconds": 0.0084,
+    "ten_chart_build_seconds": 0.9292,
     "repeated_filter_seconds": [
-      0.0101,
-      0.0093,
-      0.0091,
-      0.0099,
-      0.0086
+      0.0097,
+      0.009,
+      0.0088,
+      0.009,
+      0.0082
     ],
     "source_frame_MB": 20.38,
     "scope": "Single local process, actual supplied sources; no multi-user load or production SLA claimed"
@@ -47,28 +47,28 @@
   "models": {
     "delivery": {
       "status": "validated",
-      "seconds": 2.8632,
+      "seconds": 1.7768,
       "rows": 2123,
       "supplied_score_parity": true,
       "probability_difference": null
     },
     "demand": {
       "status": "validated",
-      "seconds": 0.2835,
+      "seconds": 0.2733,
       "rows": 1216,
       "supplied_score_parity": true,
       "probability_difference": null
     },
     "profitability": {
       "status": "validated",
-      "seconds": 0.1968,
+      "seconds": 0.202,
       "rows": 32,
       "supplied_score_parity": false,
       "probability_difference": 2.6729583768592136e-08
     },
     "delivery_final": {
       "status": "validated",
-      "seconds": 0.1087,
+      "seconds": 0.1064,
       "rows": 32,
       "supplied_score_parity": false,
       "probability_difference": 2.6251220752726567e-08

@@ -10,9 +10,13 @@ OUTPUT = ROOT / 'tmp/screenshots/unified-experience'
 
 
 def ready(page):
+    # A click may initiate its websocket rerun after the previous idle flag.
+    page.wait_for_timeout(150)
     settled(page)
     page.wait_for_timeout(500)
+    settled(page)
     page.wait_for_function("()=>document.getAnimations().filter(a=>['sc-enter','sc-surface'].includes(a.animationName)).every(a=>a.playState!=='running')")
+    settled(page)
     assert page.locator('[data-testid="stException"]').count() == 0
 
 
@@ -102,10 +106,14 @@ def run(finish_only=False):
                     summary.focus();page.mouse.move(1000,20);contrast(page)
                     summary.click();page.wait_for_timeout(220);contrast(page)
                 summaries.first.click();ready(page)
-                page.locator('.st-key-nav_cross_risk button').click();ready(page);contrast(page)
+                page.locator('.st-key-nav_cross_risk button').click()
+                expect(page.get_by_role('heading',name='Cross-Risk Command Center',exact=True)).to_be_visible()
+                ready(page);contrast(page)
                 expect(page.locator('.st-key-nav_cross_risk button')).to_have_attribute('data-testid','stBaseButton-primary')
                 page.screenshot(path=str(OUTPUT/f'sidebar-{choice.lower()}.png'))
-                page.locator('.st-key-nav_overview button').click();ready(page)
+                page.locator('.st-key-nav_overview button').click()
+                expect(page.get_by_role('heading',name='Executive Command Center',exact=True)).to_be_visible()
+                ready(page)
             report['checks'].append('All seven sidebar groups: expanded, hover, keyboard focus, collapsed and selected child contrast in Light/Dark/System')
             theme(page,'Light');page.emulate_media(color_scheme='light');ready(page)
             for width in [1512,1366,820,390,320]:

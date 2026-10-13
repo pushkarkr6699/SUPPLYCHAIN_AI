@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "checked_at": "2026-10-13T17:03:44.896928+00:00",
+  "checks": [
+    {
+      "id": "delivery_d1/Welcome_To_Colab (2).ipynb",
+      "original_hash_preserved": true,
+      "published_outputs": 0,
+      "original_outputs_archived": 155
+    },
+    {
+      "id": "demand_d2/Welcome_To_Colab (1).ipynb",
+      "original_hash_preserved": true,
+      "published_outputs": 0,
+      "original_outputs_archived": 55
+    },
+    {
+      "id": "delivery_d3/Welcome_To_Colab.ipynb",
+      "original_hash_preserved": true,
+      "published_outputs": 0,
+      "original_outputs_archived": 140
+    }
+  ],
+  "originals_preserved_privately": true,
+  "scope": "Current published notebook files only; prior Git history is unchanged."
+}

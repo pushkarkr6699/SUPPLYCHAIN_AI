@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "checked_at": "2026-10-13T16:51:04.167149+00:00",
+  "url": "https://supplychain-ai-er9a.onrender.com/",
+  "checks": [
+    "Hosted landing rendered",
+    "Hosted Open platform enters dashboard"
+  ],
+  "browser_errors": [],
+  "scope": "Read-only public landing, demo entry and visible status; no uploads, credentials or provider calls.",
+  "http_status": 200,
+  "demo_data_visible": true,
+  "verified_data_visible": false,
+  "unavailable_visible": true,
+  "rendered_charts": 4
+}

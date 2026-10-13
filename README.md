@@ -2,7 +2,7 @@
 
 A local decision-intelligence platform using supplied historical delivery, demand, profitability and final-delivery data. The existing UI and clearly labelled demo are preserved.
 
-Preview: **https://supplychain-ai-er9a.onrender.com/**. Choose **Open platform**. The current local server is already running.
+Hosted preview: **https://supplychain-ai-er9a.onrender.com/**. Local preview: **http://localhost:8501**. Choose **Open platform**. The hosted environment and the local connected-data environment have separate data, model and secret configuration.
 
 Read [FINAL_IMPLEMENTATION_REPORT.md](FINAL_IMPLEMENTATION_REPORT.md) for the final evidence, known limits and exact completion status. The [199-section requirement matrix](metadata/master_requirement_matrix.md) separates verified work from missing source-dependent capabilities. Earlier handoffs under `docs/` retain their original dates and test counts.
 
@@ -46,11 +46,13 @@ services:
   - type: web
     name: supplychain-ai
     env: python
-    buildCommand: pip install -r requirements.txt
+    buildCommand: pip install -r requirements.txt -r requirements-inference.txt
     startCommand: streamlit run app.py --server.address=0.0.0.0 --server.port=$PORT
 ```
 
 This binds Streamlit to all interfaces and uses Render's provided `$PORT` so the app is reachable outside localhost.
+
+The build installs the inference runtime as well as the UI dependencies. Registered dataset/model binaries and private configuration are ignored by Git; pushing source code does not provision those assets or an AI credential on Render. Without an explicitly configured connected provider and its registered files, the hosted app uses its labelled demo. Verify the hosted source badges and model health before presenting it as the connected platform. Keep credentials and source assets in controlled hosting storage rather than adding them to the public repository.
 
 ## Configuration and access
 
@@ -115,6 +117,10 @@ With the local server running and QA dependencies installed:
 ```
 
 Browser tests use isolated headless Chrome profiles. Rendered screenshots/PDFs go to ignored `tmp/`; compact executed results are under `metadata/master_*`, `metadata/chart_controls_qa.json` and `metadata/uploads_browser_qa.json`. See [QA_REPORT.md](QA_REPORT.md) for current evidence and historical results.
+
+To repeat the comprehensive local checks, run `scripts/full_platform_recheck.py --group backend`, then `scripts/full_platform_recheck.py --group browser --skip-live` with the same Python environment. Run `scripts/all_chart_types_browser_qa.py` for all 25 chart types and `scripts/registered_sources_qa.py` for all registered files. Live checks require available provider credits and approved summary transfer; the latest actual request was rejected for exhausted Hugging Face credits.
+
+Published notebooks contain training code without captured outputs. Original notebook bytes and hashes remain in ignored `backups/private_provenance/`; the registry distinguishes private originals and published copies. Earlier Git commits retain old outputs; no history rewrite was performed.
 
 ## Project structure
 

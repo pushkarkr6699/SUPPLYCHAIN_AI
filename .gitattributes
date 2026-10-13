@@ -1,0 +1,2 @@
+# Published notebook hashes must remain stable across Windows checkouts.
+*.ipynb text eol=lf

@@ -110,7 +110,12 @@ def build(frame, kind, groups, metrics, operation='Mean', period='Day', limit=20
         fig = go.Figure()
         for i, metric in enumerate(metrics):
             value = totals[metric].iloc[0]
-            if pd.notna(value):fig.add_trace(go.Indicator(mode='number', value=float(value), title={'text':metric}, domain={'x':[i/len(metrics), (i+1)/len(metrics)],'y':[0,1]}))
+            if pd.notna(value):
+                # Full-width rows keep selected values distinct on narrow screens.
+                fig.add_trace(go.Indicator(mode='number', value=float(value),
+                    number={'font': {'size': 28}, 'valueformat': '.4~s'},
+                    title={'text': metric, 'font': {'size': 14}},
+                    domain={'x': [0, 1], 'y': [1-(i+1)/len(metrics)+.03, 1-i/len(metrics)-.03]}))
         if not fig.data:raise ValueError('No finite KPI values are available.')
         note = operation + ' over all selected records; valid-value counts are included in the analysis table. Units: ' + '; '.join(c + ' = ' + units(c, frame) for c in metrics)
         shown = totals

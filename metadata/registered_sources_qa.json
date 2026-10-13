@@ -1,0 +1,380 @@
+{
+  "passed": true,
+  "checked_at": "2026-10-13T17:14:49.806649+00:00",
+  "artifacts": 41,
+  "csv_tables": 28,
+  "checks": [
+    {
+      "id": "delivery_d1/DataCo_Final_Order_Level_Dataset.csv",
+      "role": "primary order-level analytical dataset",
+      "hash_verified": true,
+      "bytes": 16448000,
+      "table_loaded": true,
+      "rows": 65752,
+      "columns": 31,
+      "date_available": true
+    },
+    {
+      "id": "delivery_d1/DataCo_Final_Scored_Orders.csv",
+      "role": "Tuned XGBoost scored test orders",
+      "hash_verified": true,
+      "bytes": 344347,
+      "table_loaded": true,
+      "rows": 2123,
+      "columns": 20,
+      "date_available": true
+    },
+    {
+      "id": "delivery_d1/DataCo_Late_Delivery_Predictions.csv",
+      "role": "earlier Random Forest prediction reference",
+      "hash_verified": true,
+      "bytes": 167922,
+      "table_loaded": true,
+      "rows": 2123,
+      "columns": 8,
+      "date_available": false
+    },
+    {
+      "id": "delivery_d1/DataCo_Risk_Level_Summary.csv",
+      "role": "scored risk aggregation reference",
+      "hash_verified": true,
+      "bytes": 184,
+      "table_loaded": true,
+      "rows": 3,
+      "columns": 4,
+      "date_available": false
+    },
+    {
+      "id": "delivery_d1/DataCo_Feature_Importance.csv",
+      "role": "Random Forest importance",
+      "hash_verified": true,
+      "bytes": 10789,
+      "table_loaded": true,
+      "rows": 264,
+      "columns": 2,
+      "date_available": false
+    },
+    {
+      "id": "delivery_d1/DataCo_Final_Model_Comparison.csv",
+      "role": "model evaluation reference",
+      "hash_verified": true,
+      "bytes": 497,
+      "table_loaded": true,
+      "rows": 3,
+      "columns": 8,
+      "date_available": false
+    },
+    {
+      "id": "delivery_d1/DataCo_Model_Comparison.csv",
+      "role": "model evaluation reference",
+      "hash_verified": true,
+      "bytes": 477,
+      "table_loaded": true,
+      "rows": 4,
+      "columns": 6,
+      "date_available": false
+    },
+    {
+      "id": "delivery_d1/DataCo_Model_Comparison (1).csv",
+      "role": "model evaluation reference",
+      "hash_verified": true,
+      "bytes": 477,
+      "table_loaded": true,
+      "rows": 4,
+      "columns": 6,
+      "date_available": false
+    },
+    {
+      "id": "delivery_d1/DataCo_Late_Delivery_Model.pkl",
+      "role": "serialized model; not executed by importer",
+      "hash_verified": true,
+      "bytes": 7031579,
+      "table_loaded": false
+    },
+    {
+      "id": "delivery_d1/DataCo_Tuned_XGBoost.pkl",
+      "role": "serialized model; not executed by importer",
+      "hash_verified": true,
+      "bytes": 599153,
+      "table_loaded": false
+    },
+    {
+      "id": "delivery_d1/Welcome_To_Colab (2).ipynb",
+      "role": "training provenance",
+      "hash_verified": true,
+      "bytes": 2064886,
+      "table_loaded": false
+    },
+    {
+      "id": "demand_d2/AccessLogs_Final_Advanced_Forecast.csv",
+      "role": "forecast output",
+      "hash_verified": true,
+      "bytes": 373431,
+      "table_loaded": true,
+      "rows": 2280,
+      "columns": 14,
+      "date_available": true
+    },
+    {
+      "id": "demand_d2/AccessLogs_Final_Model_Comparison.csv",
+      "role": "mixed comparison reference",
+      "hash_verified": true,
+      "bytes": 486,
+      "table_loaded": true,
+      "rows": 3,
+      "columns": 13,
+      "date_available": false
+    },
+    {
+      "id": "demand_d2/AccessLogs_Final_XGBoost_Demand_Model.pkl",
+      "role": "serialized demand model",
+      "hash_verified": true,
+      "bytes": 666138,
+      "table_loaded": false
+    },
+    {
+      "id": "demand_d2/Welcome_To_Colab (1).ipynb",
+      "role": "training provenance",
+      "hash_verified": true,
+      "bytes": 1179386,
+      "table_loaded": false
+    },
+    {
+      "id": "delivery_d3/Best_Threshold.txt",
+      "role": "separate line-item model reference",
+      "hash_verified": true,
+      "bytes": 4,
+      "table_loaded": false
+    },
+    {
+      "id": "delivery_d3/Winning_Model.txt",
+      "role": "separate line-item model reference",
+      "hash_verified": true,
+      "bytes": 7,
+      "table_loaded": false
+    },
+    {
+      "id": "delivery_d3/Late_Delivery_Feature_Importance.csv",
+      "role": "separate line-item model reference",
+      "hash_verified": true,
+      "bytes": 172379,
+      "table_loaded": true,
+      "rows": 4349,
+      "columns": 2,
+      "date_available": false
+    },
+    {
+      "id": "delivery_d3/Late_Delivery_Final_Summary.csv",
+      "role": "separate line-item model reference",
+      "hash_verified": true,
+      "bytes": 307,
+      "table_loaded": true,
+      "rows": 15,
+      "columns": 2,
+      "date_available": false
+    },
+    {
+      "id": "delivery_d3/Late_Delivery_Model_Comparison.csv",
+      "role": "separate line-item model reference",
+      "hash_verified": true,
+      "bytes": 734,
+      "table_loaded": true,
+      "rows": 4,
+      "columns": 9,
+      "date_available": false
+    },
+    {
+      "id": "delivery_d3/Late_Delivery_Scored_Orders.csv",
+      "role": "separate line-item model reference",
+      "hash_verified": true,
+      "bytes": 3154402,
+      "table_loaded": true,
+      "rows": 24369,
+      "columns": 15,
+      "date_available": true
+    },
+    {
+      "id": "delivery_d3/Late_Delivery_Threshold_Analysis.csv",
+      "role": "separate line-item model reference",
+      "hash_verified": true,
+      "bytes": 7266,
+      "table_loaded": true,
+      "rows": 62,
+      "columns": 7,
+      "date_available": false
+    },
+    {
+      "id": "delivery_d3/Late-Delviery-final",
+      "role": "separate line-item model reference",
+      "hash_verified": true,
+      "bytes": 307,
+      "table_loaded": false
+    },
+    {
+      "id": "delivery_d3/Final_Late_Delivery_Model.pkl",
+      "role": "separate line-item model",
+      "hash_verified": true,
+      "bytes": 564421,
+      "table_loaded": false
+    },
+    {
+      "id": "delivery_d3/Welcome_To_Colab.ipynb",
+      "role": "training provenance",
+      "hash_verified": true,
+      "bytes": 1633988,
+      "table_loaded": false
+    },
+    {
+      "id": "demand_d3/AccessLogs_Final_Advanced_Forecast.csv",
+      "role": "duplicate forecast reference",
+      "hash_verified": true,
+      "bytes": 373431,
+      "table_loaded": true,
+      "rows": 2280,
+      "columns": 14,
+      "date_available": true
+    },
+    {
+      "id": "profitability/Best_Threshold.txt",
+      "role": "training evaluation reference",
+      "hash_verified": true,
+      "bytes": 3,
+      "table_loaded": false
+    },
+    {
+      "id": "profitability/DataCo_Calibration_Check.csv",
+      "role": "training evaluation reference",
+      "hash_verified": true,
+      "bytes": 266,
+      "table_loaded": true,
+      "rows": 5,
+      "columns": 4,
+      "date_available": false
+    },
+    {
+      "id": "profitability/DataCo_CatBoost_Tuning.csv",
+      "role": "training evaluation reference",
+      "hash_verified": true,
+      "bytes": 525,
+      "table_loaded": true,
+      "rows": 4,
+      "columns": 11,
+      "date_available": false
+    },
+    {
+      "id": "profitability/DataCo_Category_Summary.csv",
+      "role": "training evaluation reference",
+      "hash_verified": true,
+      "bytes": 2943,
+      "table_loaded": true,
+      "rows": 45,
+      "columns": 5,
+      "date_available": false
+    },
+    {
+      "id": "profitability/DataCo_Feature_Importance.csv",
+      "role": "training evaluation reference",
+      "hash_verified": true,
+      "bytes": 11338,
+      "table_loaded": true,
+      "rows": 238,
+      "columns": 2,
+      "date_available": false
+    },
+    {
+      "id": "profitability/DataCo_Final_Project_Summary.csv",
+      "role": "training evaluation reference",
+      "hash_verified": true,
+      "bytes": 259,
+      "table_loaded": true,
+      "rows": 14,
+      "columns": 2,
+      "date_available": false
+    },
+    {
+      "id": "profitability/DataCo_Final_Scored_Orders.csv",
+      "role": "scored line items",
+      "hash_verified": true,
+      "bytes": 4816291,
+      "table_loaded": true,
+      "rows": 27078,
+      "columns": 19,
+      "date_available": true
+    },
+    {
+      "id": "profitability/DataCo_Final_Trained_Model.pkl",
+      "role": "trained model",
+      "hash_verified": true,
+      "bytes": 1486850,
+      "table_loaded": false
+    },
+    {
+      "id": "profitability/DataCo_High_Loss_Risk_Orders.csv",
+      "role": "training evaluation reference",
+      "hash_verified": true,
+      "bytes": 1099,
+      "table_loaded": true,
+      "rows": 5,
+      "columns": 19,
+      "date_available": true
+    },
+    {
+      "id": "profitability/DataCo_Market_Summary.csv",
+      "role": "training evaluation reference",
+      "hash_verified": true,
+      "bytes": 241,
+      "table_loaded": true,
+      "rows": 3,
+      "columns": 5,
+      "date_available": false
+    },
+    {
+      "id": "profitability/DataCo_Model_Comparison.csv",
+      "role": "training evaluation reference",
+      "hash_verified": true,
+      "bytes": 760,
+      "table_loaded": true,
+      "rows": 6,
+      "columns": 7,
+      "date_available": false
+    },
+    {
+      "id": "profitability/DataCo_Shipping_Summary.csv",
+      "role": "training evaluation reference",
+      "hash_verified": true,
+      "bytes": 276,
+      "table_loaded": true,
+      "rows": 4,
+      "columns": 4,
+      "date_available": false
+    },
+    {
+      "id": "profitability/DataCo_Threshold_Analysis.csv",
+      "role": "training evaluation reference",
+      "hash_verified": true,
+      "bytes": 4648,
+      "table_loaded": true,
+      "rows": 62,
+      "columns": 5,
+      "date_available": false
+    },
+    {
+      "id": "profitability/DataCo_Train_Test_Drift.csv",
+      "role": "training evaluation reference",
+      "hash_verified": true,
+      "bytes": 1120,
+      "table_loaded": true,
+      "rows": 15,
+      "columns": 4,
+      "date_available": false
+    },
+    {
+      "id": "profitability/Winning_Model.txt",
+      "role": "training evaluation reference",
+      "hash_verified": true,
+      "bytes": 13,
+      "table_loaded": false
+    }
+  ],
+  "scope": "All registered artifact hashes and byte counts; safe registered CSV loads and row counts. No raw records, model deserialization or notebook execution."
+}

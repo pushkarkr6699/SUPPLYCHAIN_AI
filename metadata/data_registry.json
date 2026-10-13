@@ -230,13 +230,17 @@
     },
     {
       "id": "delivery_d1/Welcome_To_Colab (2).ipynb",
-      "path": "notebooks/delivery/Welcome_To_Colab (2).ipynb",
+      "path": "backups/private_provenance/notebooks/delivery/Welcome_To_Colab (2).ipynb",
       "source_path": "D:\\IBM Prac\\d1\\Welcome_To_Colab (2).ipynb",
       "sha256": "d65ace8d161410f2e82fa4081c66afdcc6554833825fc09de29a01d43eeb0aa4",
       "bytes": 2064886,
       "family": "delivery_d1",
       "role": "training provenance",
-      "status": "copied_and_hash_verified"
+      "status": "copied_and_hash_verified",
+      "public_provenance_path": "notebooks/delivery/Welcome_To_Colab (2).ipynb",
+      "public_provenance_sha256": "ebb4ee144ef0c6da1f5576dee256a047b1211f0a58d6f1ad268b6456556813e2",
+      "public_provenance_sanitized": true,
+      "publication_note": "Original registered bytes retained privately; published notebook contains source cells without captured outputs."
     },
     {
       "id": "demand_d2/AccessLogs_Final_Advanced_Forecast.csv",
@@ -306,13 +310,17 @@
     },
     {
       "id": "demand_d2/Welcome_To_Colab (1).ipynb",
-      "path": "notebooks/demand/Welcome_To_Colab (1).ipynb",
+      "path": "backups/private_provenance/notebooks/demand/Welcome_To_Colab (1).ipynb",
       "source_path": "D:\\IBM Prac\\d2\\Welcome_To_Colab (1).ipynb",
       "sha256": "380ad19bd06d388fb688260fc515fd40ee627396d9df2aa811f3a9e3a509f245",
       "bytes": 1179386,
       "family": "demand_d2",
       "role": "training provenance",
-      "status": "copied_and_hash_verified"
+      "status": "copied_and_hash_verified",
+      "public_provenance_path": "notebooks/demand/Welcome_To_Colab (1).ipynb",
+      "public_provenance_sha256": "82ba928f5a93ff82fd2e626d38b3546e3a2a0589bbee9dce29f78a19fad78ad7",
+      "public_provenance_sanitized": true,
+      "publication_note": "Original registered bytes retained privately; published notebook contains source cells without captured outputs."
     },
     {
       "id": "delivery_d3/Best_Threshold.txt",
@@ -490,13 +498,17 @@
     },
     {
       "id": "delivery_d3/Welcome_To_Colab.ipynb",
-      "path": "notebooks/delivery/d3/Welcome_To_Colab.ipynb",
+      "path": "backups/private_provenance/notebooks/delivery/d3/Welcome_To_Colab.ipynb",
       "source_path": "D:\\IBM Prac\\d3\\Welcome_To_Colab.ipynb",
       "sha256": "ba6295a88b85dd197eca82068761d4f5875a7c388d5ef70f65555537d16735d2",
       "bytes": 1633988,
       "family": "delivery_d3",
       "role": "training provenance",
-      "status": "copied_and_hash_verified"
+      "status": "copied_and_hash_verified",
+      "public_provenance_path": "notebooks/delivery/d3/Welcome_To_Colab.ipynb",
+      "public_provenance_sha256": "e59391c6c14699e581319efecb6f0a493ddaa21dd7284d3bff9c64ad92c60ed6",
+      "public_provenance_sanitized": true,
+      "publication_note": "Original registered bytes retained privately; published notebook contains source cells without captured outputs."
     },
     {
       "id": "demand_d3/AccessLogs_Final_Advanced_Forecast.csv",

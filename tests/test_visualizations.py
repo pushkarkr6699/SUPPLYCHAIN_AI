@@ -121,6 +121,16 @@ def test_demand_units_use_registered_artifact_and_bounds():
     assert all(viz.units(c,data)=='web visits' for c in data)
 
 
+def test_kpi_values_preserve_exact_totals_in_separate_full_width_rows():
+    data=pd.DataFrame({'Sales':[10.,20.], 'Profit':[2.,None], 'Units':[1,3]})
+    result=viz.build(data,'KPI indicators',[],['Sales','Profit','Units'],'Sum')
+    figure=result['figure']
+    assert [trace.value for trace in figure.data]==[30.,2.,4.]
+    assert all(tuple(trace.domain.x)==(0,1) for trace in figure.data)
+    for upper,lower in zip(figure.data,figure.data[1:]):
+        assert upper.domain.y[0]>lower.domain.y[1]
+
+
 def test_studio_axes_and_bounded_legend_leave_source_note_its_own_space(monkeypatch):
     from components import charts
     import plotly.express as px

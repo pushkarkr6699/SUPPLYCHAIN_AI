@@ -1,0 +1,2695 @@
+{
+  "passed": true,
+  "checked_at": "2026-10-13T17:12:30.390124+00:00",
+  "scope": "Actual shared chart runtime; isolated synthetic test fixture only",
+  "full_chart_set": true,
+  "charts": [
+    {
+      "type": "Vertical bars",
+      "passed": true,
+      "desktop": {
+        "width": 1364.8125,
+        "plot_width": 1364.8125,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "dark_320": {
+        "width": 288,
+        "plot_width": 288,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "actions": [
+        "Pan",
+        "Zoom",
+        "Zoom in",
+        "Zoom out",
+        "Autoscale",
+        "Reset axes",
+        "Fullscreen entry/exit",
+        "Valid PNG export"
+      ]
+    },
+    {
+      "type": "Horizontal bars",
+      "passed": true,
+      "desktop": {
+        "width": 1364.8125,
+        "plot_width": 1364.8125,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "dark_320": {
+        "width": 288,
+        "plot_width": 288,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "actions": [
+        "Pan",
+        "Zoom",
+        "Zoom in",
+        "Zoom out",
+        "Autoscale",
+        "Reset axes",
+        "Fullscreen entry/exit",
+        "Valid PNG export"
+      ]
+    },
+    {
+      "type": "Line",
+      "passed": true,
+      "desktop": {
+        "width": 1364.8125,
+        "plot_width": 1364.8125,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "dark_320": {
+        "width": 288,
+        "plot_width": 288,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "actions": [
+        "Pan",
+        "Zoom",
+        "Zoom in",
+        "Zoom out",
+        "Autoscale",
+        "Reset axes",
+        "Fullscreen entry/exit",
+        "Valid PNG export"
+      ]
+    },
+    {
+      "type": "Area",
+      "passed": true,
+      "desktop": {
+        "width": 1364.8125,
+        "plot_width": 1364.8125,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "dark_320": {
+        "width": 288,
+        "plot_width": 288,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "actions": [
+        "Pan",
+        "Zoom",
+        "Zoom in",
+        "Zoom out",
+        "Autoscale",
+        "Reset axes",
+        "Fullscreen entry/exit",
+        "Valid PNG export"
+      ]
+    },
+    {
+      "type": "Scatter",
+      "passed": true,
+      "desktop": {
+        "width": 1364.8125,
+        "plot_width": 1364.8125,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "dark_320": {
+        "width": 288,
+        "plot_width": 288,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "actions": [
+        "Pan",
+        "Zoom",
+        "Zoom in",
+        "Zoom out",
+        "Autoscale",
+        "Reset axes",
+        "Fullscreen entry/exit",
+        "Valid PNG export"
+      ]
+    },
+    {
+      "type": "Bubble",
+      "passed": true,
+      "desktop": {
+        "width": 1364.8125,
+        "plot_width": 1364.8125,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "dark_320": {
+        "width": 288,
+        "plot_width": 288,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "actions": [
+        "Pan",
+        "Zoom",
+        "Zoom in",
+        "Zoom out",
+        "Autoscale",
+        "Reset axes",
+        "Fullscreen entry/exit",
+        "Valid PNG export"
+      ]
+    },
+    {
+      "type": "Histogram",
+      "passed": true,
+      "desktop": {
+        "width": 1364.8125,
+        "plot_width": 1364.8125,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "dark_320": {
+        "width": 288,
+        "plot_width": 288,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "actions": [
+        "Pan",
+        "Zoom",
+        "Zoom in",
+        "Zoom out",
+        "Autoscale",
+        "Reset axes",
+        "Fullscreen entry/exit",
+        "Valid PNG export"
+      ]
+    },
+    {
+      "type": "Box plot",
+      "passed": true,
+      "desktop": {
+        "width": 1364.8125,
+        "plot_width": 1364.8125,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "dark_320": {
+        "width": 288,
+        "plot_width": 288,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "actions": [
+        "Pan",
+        "Zoom",
+        "Zoom in",
+        "Zoom out",
+        "Autoscale",
+        "Reset axes",
+        "Fullscreen entry/exit",
+        "Valid PNG export"
+      ]
+    },
+    {
+      "type": "Violin plot",
+      "passed": true,
+      "desktop": {
+        "width": 1364.8125,
+        "plot_width": 1364.8125,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "dark_320": {
+        "width": 288,
+        "plot_width": 288,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "actions": [
+        "Pan",
+        "Zoom",
+        "Zoom in",
+        "Zoom out",
+        "Autoscale",
+        "Reset axes",
+        "Fullscreen entry/exit",
+        "Valid PNG export"
+      ]
+    },
+    {
+      "type": "ECDF",
+      "passed": true,
+      "desktop": {
+        "width": 1364.8125,
+        "plot_width": 1364.8125,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "dark_320": {
+        "width": 288,
+        "plot_width": 288,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "actions": [
+        "Pan",
+        "Zoom",
+        "Zoom in",
+        "Zoom out",
+        "Autoscale",
+        "Reset axes",
+        "Fullscreen entry/exit",
+        "Valid PNG export"
+      ]
+    },
+    {
+      "type": "Correlation heatmap",
+      "passed": true,
+      "desktop": {
+        "width": 1364.8125,
+        "plot_width": 1364.8125,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "dark_320": {
+        "width": 288,
+        "plot_width": 288,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "actions": [
+        "Pan",
+        "Zoom",
+        "Zoom in",
+        "Zoom out",
+        "Autoscale",
+        "Reset axes",
+        "Fullscreen entry/exit",
+        "Valid PNG export"
+      ]
+    },
+    {
+      "type": "Density heatmap",
+      "passed": true,
+      "desktop": {
+        "width": 1364.8125,
+        "plot_width": 1364.8125,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "dark_320": {
+        "width": 288,
+        "plot_width": 288,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "actions": [
+        "Pan",
+        "Zoom",
+        "Zoom in",
+        "Zoom out",
+        "Autoscale",
+        "Reset axes",
+        "Fullscreen entry/exit",
+        "Valid PNG export"
+      ]
+    },
+    {
+      "type": "Grouped heatmap",
+      "passed": true,
+      "desktop": {
+        "width": 1364.8125,
+        "plot_width": 1364.8125,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "dark_320": {
+        "width": 288,
+        "plot_width": 288,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "actions": [
+        "Pan",
+        "Zoom",
+        "Zoom in",
+        "Zoom out",
+        "Autoscale",
+        "Reset axes",
+        "Fullscreen entry/exit",
+        "Valid PNG export"
+      ]
+    },
+    {
+      "type": "Treemap",
+      "passed": true,
+      "desktop": {
+        "width": 1364.8125,
+        "plot_width": 1364.8125,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "dark_320": {
+        "width": 288,
+        "plot_width": 288,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "actions": [
+        "Fullscreen entry/exit",
+        "Valid PNG export"
+      ]
+    },
+    {
+      "type": "Sunburst",
+      "passed": true,
+      "desktop": {
+        "width": 1364.8125,
+        "plot_width": 1364.8125,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "dark_320": {
+        "width": 288,
+        "plot_width": 288,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "actions": [
+        "Fullscreen entry/exit",
+        "Valid PNG export"
+      ]
+    },
+    {
+      "type": "Pie",
+      "passed": true,
+      "desktop": {
+        "width": 1364.8125,
+        "plot_width": 1364.8125,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "dark_320": {
+        "width": 288,
+        "plot_width": 288,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "actions": [
+        "Fullscreen entry/exit",
+        "Valid PNG export"
+      ]
+    },
+    {
+      "type": "Donut",
+      "passed": true,
+      "desktop": {
+        "width": 1364.8125,
+        "plot_width": 1364.8125,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "dark_320": {
+        "width": 288,
+        "plot_width": 288,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "actions": [
+        "Fullscreen entry/exit",
+        "Valid PNG export"
+      ]
+    },
+    {
+      "type": "Scatter matrix",
+      "passed": true,
+      "desktop": {
+        "width": 1364.8125,
+        "plot_width": 1364.8125,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "dark_320": {
+        "width": 288,
+        "plot_width": 288,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "actions": [
+        "Pan",
+        "Zoom",
+        "Zoom in",
+        "Zoom out",
+        "Autoscale",
+        "Reset axes",
+        "Fullscreen entry/exit",
+        "Valid PNG export"
+      ]
+    },
+    {
+      "type": "Grouped bars",
+      "passed": true,
+      "desktop": {
+        "width": 1364.8125,
+        "plot_width": 1364.8125,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "dark_320": {
+        "width": 288,
+        "plot_width": 288,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "actions": [
+        "Pan",
+        "Zoom",
+        "Zoom in",
+        "Zoom out",
+        "Autoscale",
+        "Reset axes",
+        "Fullscreen entry/exit",
+        "Valid PNG export"
+      ]
+    },
+    {
+      "type": "Stacked bars",
+      "passed": true,
+      "desktop": {
+        "width": 1364.8125,
+        "plot_width": 1364.8125,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "dark_320": {
+        "width": 288,
+        "plot_width": 288,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "actions": [
+        "Pan",
+        "Zoom",
+        "Zoom in",
+        "Zoom out",
+        "Autoscale",
+        "Reset axes",
+        "Fullscreen entry/exit",
+        "Valid PNG export"
+      ]
+    },
+    {
+      "type": "Pareto",
+      "passed": true,
+      "desktop": {
+        "width": 1364.8125,
+        "plot_width": 1364.8125,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "dark_320": {
+        "width": 288,
+        "plot_width": 288,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "actions": [
+        "Pan",
+        "Zoom",
+        "Zoom in",
+        "Zoom out",
+        "Autoscale",
+        "Reset axes",
+        "Fullscreen entry/exit",
+        "Valid PNG export"
+      ]
+    },
+    {
+      "type": "Moving average",
+      "passed": true,
+      "desktop": {
+        "width": 1364.8125,
+        "plot_width": 1364.8125,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "dark_320": {
+        "width": 288,
+        "plot_width": 288,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "actions": [
+        "Pan",
+        "Zoom",
+        "Zoom in",
+        "Zoom out",
+        "Autoscale",
+        "Reset axes",
+        "Fullscreen entry/exit",
+        "Valid PNG export"
+      ]
+    },
+    {
+      "type": "Coordinate map",
+      "passed": true,
+      "desktop": {
+        "width": 1364.8125,
+        "plot_width": 1364.8125,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "dark_320": {
+        "width": 288,
+        "plot_width": 288,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "actions": [
+        "Pan",
+        "Zoom in",
+        "Zoom out",
+        "Fullscreen entry/exit",
+        "Valid PNG export"
+      ]
+    },
+    {
+      "type": "KPI indicators",
+      "passed": true,
+      "desktop": {
+        "width": 1364.8125,
+        "plot_width": 1364.8125,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "dark_320": {
+        "width": 288,
+        "plot_width": 288,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ],
+        "kpi_values_separated": true
+      },
+      "actions": [
+        "Fullscreen entry/exit",
+        "Valid PNG export"
+      ]
+    },
+    {
+      "type": "Ordered funnel",
+      "passed": true,
+      "desktop": {
+        "width": 1364.8125,
+        "plot_width": 1364.8125,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "dark_320": {
+        "width": 288,
+        "plot_width": 288,
+        "overflow": false,
+        "controls": [
+          {
+            "name": "Download plot as a PNG",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Pan",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom in",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Zoom out",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Autoscale",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Reset axes",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          },
+          {
+            "name": "Fullscreen",
+            "width": 44,
+            "height": 44,
+            "inside": true
+          }
+        ]
+      },
+      "actions": [
+        "Pan",
+        "Zoom",
+        "Zoom in",
+        "Zoom out",
+        "Autoscale",
+        "Reset axes",
+        "Fullscreen entry/exit",
+        "Valid PNG export"
+      ]
+    }
+  ],
+  "browser_errors": [],
+  "external_ai_requests": 0,
+  "finished_at": "2026-10-13T17:15:08.426165+00:00"
+}

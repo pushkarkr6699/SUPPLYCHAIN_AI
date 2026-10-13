@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-10-06T00:45:04.589242+00:00",
+  "checked_at": "2026-10-13T17:07:01.993137+00:00",
   "passed": true,
   "checks": [
     "Landing -> login validation/recovery -> session sign-in -> dashboard; shared brand and entry motion",
@@ -243,6 +243,5 @@
         }
       }
     }
-  },
-  "completion_checked_at": "2026-10-06T00:48:13.395762+00:00"
+  }
 }

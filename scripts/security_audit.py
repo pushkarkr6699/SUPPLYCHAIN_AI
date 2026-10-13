@@ -36,6 +36,13 @@ for name in tracked:
     if not path.is_file(): continue
     text=path.read_text(encoding="utf-8",errors="replace")
     scanned+=1
+    if path.suffix.lower()=='.ipynb':
+        try:
+            notebook=json.loads(text)
+            if any(cell.get('outputs') for cell in notebook.get('cells',[])):
+                findings.append({"check":"captured notebook outputs in published source","path":name})
+        except json.JSONDecodeError:
+            findings.append({"check":"invalid published notebook","path":name})
     if any(re.search(pattern,text) for pattern in secret_patterns):
         findings.append({"check":"credential-shaped value","path":name,"value":"redacted"})
 ignored=subprocess.run(["git","-c","safe.directory=D:/SUPPLYCHAIN_AI","check-ignore",".env",".streamlit/secrets.toml",".streamlit/accounts.json"],cwd=ROOT,capture_output=True,text=True).stdout.splitlines()
@@ -66,7 +73,7 @@ report={"status":"passed" if not findings else "failed","executed_at_utc":dateti
         "runtime_python_files_checked":len(source),"tracked_files_secret_scanned":scanned,"findings":findings,
         "trusted_internal_deserializers":deserializers,"secret_stores_ignored":True,"loopback_binding":True,
         "model_path_traversal":"rejected","duckdb_external_access":"blocked","unsafe_copilot_requests":"refused",
-        "limitations":["Current preview uses explicitly labelled session-only demo access; optional private hashed accounts and server-side roles are implemented separately","No enterprise identity provider, durable audit log or production deployment review","Private source data/model assets require controlled local access","Regex secret scan cannot prove absence of every possible credential"]}
+        "limitations":["Current preview uses explicitly labelled session-only demo access; optional private hashed accounts and server-side roles are implemented separately","No enterprise identity provider, durable audit log or production deployment review","Private source data/model assets require controlled local access","Regex secret scan cannot prove absence of every possible credential","Current source scan does not remove earlier notebook outputs from Git history"]}
 (ROOT/"metadata/security_audit.json").write_text(json.dumps(report,indent=2)+"\n",encoding="utf-8")
 print(json.dumps({key:value for key,value in report.items() if key!="trusted_internal_deserializers"},indent=2))
 raise SystemExit(1 if findings else 0)

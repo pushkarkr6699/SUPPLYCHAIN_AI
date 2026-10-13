@@ -1,5 +1,15 @@
 # SupplyChain AI current QA
 
+<!-- master-release-2026-10-13 -->
+
+Latest executed release (2026-10-13): **352 passed**, zero failures/errors, 18 warnings. All 25 chart types, 41 registered artifacts and 28 CSV tables checked. Actual data/model reconciliation, uploaded-data browser workflows, native chart controls, safe exports, security and dependency checks passed. Live AI is blocked by exhausted Hugging Face credits; local assistance passed. The hosted preview shows labelled demo data. Current notebook copies are output-free; earlier Git history retains original outputs. This is a local demonstration release with explicit remaining scope, not blanket master-specification completion.
+
+See [FINAL_IMPLEMENTATION_REPORT.md](FINAL_IMPLEMENTATION_REPORT.md) and the [199-section matrix](metadata/master_requirement_matrix.md) for current evidence and limitations. Earlier entries below are historical and retain their original dates/test counts.
+
+---
+
+# SupplyChain AI current QA
+
 <!-- master-release-2026-10-07 -->
 
 Latest executed release: **348 passed**, zero failures/errors, 18 warnings. Actual data/model reconciliation, uploaded-data browser workflows, native chart controls, safe exports, security and dependency checks passed. This is a local demonstration release with explicit remaining scope, not blanket master-specification completion.
