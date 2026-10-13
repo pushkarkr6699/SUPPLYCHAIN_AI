@@ -1,0 +1,9 @@
+{
+  "checked_at": "2026-10-13T17:18:22.407725+00:00",
+  "release_commit": "adbd5b8b31b14da1be7a6e29b28bb3cdb3df491a",
+  "remote_main_matches_release": true,
+  "local_health_http_status": 200,
+  "hosted_post_push_status": "30-second HTTP request timed out",
+  "hosted_new_release_verified": false,
+  "note": "Earlier hosted browser QA passed with labelled demo data. Post-push deployment availability is not confirmed."
+}

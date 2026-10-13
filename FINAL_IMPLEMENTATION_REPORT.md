@@ -136,3 +136,7 @@ The actual approved live request was rejected for exhausted inference credits: *
 Hosted preview: https://supplychain-ai-er9a.onrender.com/ responded HTTP 200; landing and dashboard rendered 4 charts. It currently shows **labelled demo data**, not the local registered connected datasets. The Render build now includes requirements-inference.txt. Registered assets and private AI configuration still require controlled hosting provisioning; a Git push does not publish them. Hosted UI checks are not connected-model or production deployment certification.
 
 Additional evidence: metadata/registered_sources_qa.json, metadata/all_chart_types_browser_qa.json, metadata/hosted_preview_qa.json, metadata/hf_live_dataset_qa.json.
+
+## 21. Release push verification
+
+Release adbd5b8 was pushed to main and its remote hash matched the local commit. Local Streamlit health returned HTTP 200. The post-push hosted HTTP request timed out after 30 seconds; availability of the newly deployed hosted release is not confirmed. Earlier hosted browser evidence applies to the labelled demo preview before this push. See metadata/release_push_qa.json.
